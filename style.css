@@ -43,7 +43,7 @@ body {
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--accent);
@@ -52,8 +52,8 @@ body {
 }
 
 .logo-icon {
-  width: 22px;
-  height: 22px;
+  width: 1em;
+  height: 1em;
   flex-shrink: 0;
 }
 
@@ -110,88 +110,65 @@ body {
 }
 
 .sidebar-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--text-secondary);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0 16px 12px;
+  padding: 0 14px 0 16px;
+  height: 36px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+}
+
+.sidebar-title:hover {
+  color: var(--text-primary);
+}
+
+.toggle-arrow {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+}
+
+.sidebar-title.open .toggle-arrow {
+  transform: rotate(90deg);
 }
 
 .industry-list {
   list-style: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease;
 }
 
-/* 드롭다운 아이템 */
-.industry-item {
-  border-left: 3px solid transparent;
+.industry-list.open {
+  max-height: 400px;
 }
 
-.industry-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 14px 9px 16px;
+.industry-list li {
+  padding: 9px 16px;
   font-size: 0.875rem;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: background 0.12s, color 0.12s;
+  border-left: 3px solid transparent;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
 
-.industry-header:hover {
+.industry-list li:hover {
   background: rgba(59, 130, 246, 0.08);
   color: var(--text-primary);
 }
 
-.industry-item.open > .industry-header {
+.industry-list li.selected {
+  background: rgba(59, 130, 246, 0.12);
   color: var(--accent);
-}
-
-.industry-item.open {
   border-left-color: var(--accent);
-  background: rgba(59, 130, 246, 0.04);
-}
-
-.arrow-icon {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  transition: transform 0.22s ease;
-  color: var(--text-secondary);
-}
-
-.industry-item.open .arrow-icon {
-  transform: rotate(90deg);
-  color: var(--accent);
-}
-
-/* 서브 리스트 */
-.sub-list {
-  list-style: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.25s ease;
-}
-
-.industry-item.open .sub-list {
-  max-height: 200px;
-}
-
-.sub-list li {
-  padding: 7px 16px 7px 28px;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: background 0.1s, color 0.1s;
-}
-
-.sub-list li:hover {
-  background: rgba(59, 130, 246, 0.08);
-  color: var(--text-primary);
-}
-
-.sub-list li.selected {
-  color: var(--accent);
   font-weight: 500;
 }
 

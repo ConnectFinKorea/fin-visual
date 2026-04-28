@@ -17,8 +17,7 @@
         <line x1="2" y1="12" x2="22" y2="12" stroke="#3b82f6" stroke-width="1.5"/>
         <path d="M4.5 7.5 Q12 10 19.5 7.5" stroke="#3b82f6" stroke-width="1.2" fill="none"/>
         <path d="M4.5 16.5 Q12 14 19.5 16.5" stroke="#3b82f6" stroke-width="1.2" fill="none"/>
-      </svg>
-      FinVisual
+      </svg>FinVisual
     </div>
     <nav class="top-nav">
       <a href="#" class="nav-item active" data-section="finance">재무현황</a>
@@ -34,7 +33,12 @@
 
     <!-- Left Sidebar -->
     <aside class="sidebar">
-      <div class="sidebar-title">산업 분류</div>
+      <div class="sidebar-title" id="industry-toggle">
+        <span>산업 분류</span>
+        <svg class="toggle-arrow" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
       <ul class="industry-list" id="industry-list"></ul>
     </aside>
 
