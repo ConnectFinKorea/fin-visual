@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinVisual</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="logo">FinVisual</div>
+    <nav class="top-nav">
+      <a href="#" class="nav-item active" data-section="finance">재무현황</a>
+      <a href="#" class="nav-item" data-section="chart">차트</a>
+      <a href="#" class="nav-item" data-section="news">뉴스</a>
+    </nav>
+    <div class="topbar-right">
+      <span class="date-label" id="date-label"></span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">산업 분류</div>
+      <ul class="industry-list" id="industry-list"></ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="placeholder">
+        <div class="placeholder-icon">📊</div>
+        <p class="placeholder-text">산업을 선택하면 데이터가 표시됩니다.</p>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
