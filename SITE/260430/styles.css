@@ -1,0 +1,616 @@
+/* ============ Reset & Base ============ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #3b82f6;                       /* fin-visual.com blue accent */
+  --primary-light: rgba(59,130,246,0.15);
+  --primary-bg: #1a1d27;                    /* dark header surface */
+  --bg: #0f1117;                            /* main dark bg */
+  --card: #1a1d27;                          /* card surface */
+  --card-2: #232633;                        /* slightly lighter surface */
+  --text: #e2e8f0;
+  --text-2: #b4bcca;
+  --text-3: #8b92a5;
+  --border: #2a2d3a;
+  --border-soft: #232633;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --green: #10b981;
+  --burgundy: #800020;
+  --header-h: 52px;
+  --sidebar-w: 100px;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+               'Pretendard', 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+button { font-family: inherit; cursor: pointer; }
+a { text-decoration: none; color: inherit; }
+
+/* ============ GNB (Header + Mega Dropdown) ============ */
+:root { --logo-w: 110px; }
+
+.gnb {
+  position: relative;          /* mega-dd가 absolute로 배치되어도 hover 검출 가능 */
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+/* 헤더: 5컬럼 그리드 (logo + 4개 버튼) — 드롭다운과 동일한 그리드를 공유해 컬럼 정렬 */
+.gnb-header {
+  display: grid;
+  grid-template-columns: var(--logo-w) repeat(4, 1fr);
+  align-items: center;
+  height: var(--header-h);
+  background: var(--primary-bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.logo-icon { width: 22px; height: 22px; }
+
+.logo-text {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--primary);
+  letter-spacing: -0.3px;
+}
+
+/* Pill-shape nav buttons */
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 0;
+  border-radius: 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+  justify-self: center;
+  width: 86%;
+  max-width: 110px;
+}
+
+.nav-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.nav-btn.active {
+  color: var(--primary);
+}
+
+.nav-btn.active:hover {
+  color: #ffffff;
+}
+
+/* ============ Mega Dropdown ============ */
+/* 헤더와 동일한 grid-template-columns로 컬럼이 버튼 바로 아래에 정렬됨.
+   .gnb:hover로 펼침 — 헤더/드롭다운 어느 쪽이든 마우스가 있으면 유지. */
+.mega-dd {
+  display: none;
+  position: absolute;
+  top: 100%;            /* 헤더 바로 밑 */
+  left: 0;
+  right: 0;
+  background: var(--card-2);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  padding: 14px 12px 16px;
+  grid-template-columns: var(--logo-w) repeat(4, 1fr);
+  gap: 0;
+  z-index: 99;
+  animation: ddFade 0.14s ease-out;
+}
+
+.gnb:hover .mega-dd { display: grid; }
+
+@keyframes ddFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mega-spacer { /* 첫 컬럼은 logo 폭만큼 비움 */ }
+
+.mega-col {
+  padding: 0 8px;
+  border-left: 1px solid var(--border);
+}
+.mega-col:first-of-type { border-left: none; }
+
+.mega-col h4 {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mega-col h4:not(:first-child) { margin-top: 10px; }
+
+.mega-col a {
+  display: block;
+  font-size: 12px;
+  color: var(--text-3);
+  padding: 5px 6px;
+  font-weight: 500;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color 0.12s, background 0.12s;
+}
+
+.mega-col a:hover {
+  color: var(--text);
+  background: rgba(59,130,246,0.12);
+}
+
+/* ============ Layout ============ */
+.layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ============ Sidebar ============ */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 12px 6px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.sb-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  padding: 0 4px 8px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 8px;
+}
+
+.sb-group { margin-bottom: 10px; }
+
+.sb-group-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 4px 4px;
+  margin-bottom: 2px;
+}
+
+.sb-link {
+  display: block;
+  padding: 5px 8px;
+  margin-left: 4px;
+  font-size: 11px;
+  color: var(--text-2);
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.sb-link:hover { background: var(--primary-light); color: var(--primary); }
+
+.sb-link.active {
+  color: var(--primary);
+  background: var(--primary-light);
+  font-weight: 700;
+}
+
+/* ============ Main ============ */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  min-width: 0;
+}
+
+.page-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-title .crumb {
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+/* ============ Home (Page 1) ============ */
+.home {
+  text-align: center;
+  padding: 40px 16px 20px;
+}
+
+.home h1 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 22px;
+  color: var(--text);
+}
+
+.home h1 .accent { color: var(--primary); }
+
+.home p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-2);
+  margin-bottom: 14px;
+}
+
+.home .footnote {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 28px;
+}
+
+/* ============ Industry Card (Market) ============ */
+.industry-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.industry-card .ic-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.ic-head .name {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.ic-head .total {
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.delta-up   { color: var(--red); font-weight: 600; }
+.delta-down { color: var(--blue); font-weight: 600; }
+
+.company-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.co-tile {
+  border: 1.5px solid;
+  border-radius: 6px;
+  padding: 7px 6px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.co-tile.up   { border-color: var(--red); background: rgba(239,68,68,0.10); }
+.co-tile.down { border-color: var(--blue); background: rgba(59,130,246,0.10); }
+
+.co-tile .co-name { font-weight: 700; margin-bottom: 3px; font-size: 11px; }
+.co-tile .co-cap  { color: var(--text-2); font-size: 10px; }
+.co-tile .co-pct  { font-size: 10px; margin-top: 1px; }
+
+.short-rise {
+  background: var(--card-2);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 6px;
+}
+
+.short-rise-title {
+  font-size: 10px;
+  color: var(--text-3);
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+/* ============ Valuation Trading ============ */
+.industry-select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--card);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M3 4l3 3 3-3' stroke='%23b4bcca' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.industry-select option {
+  background: var(--card);
+  color: var(--text);
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.metric-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+}
+
+.metric-card .label {
+  font-size: 10px;
+  color: var(--text-3);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.metric-card .value {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.metric-card .sub {
+  font-size: 10px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+.compare-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.compare-card h4 {
+  font-size: 12px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.compare-card .row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 4px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border-soft);
+  font-size: 11px;
+}
+
+.compare-card .row.head {
+  font-weight: 700;
+  color: var(--text-3);
+  border-top: none;
+  font-size: 10px;
+}
+
+.compare-card .row .num { text-align: right; }
+
+/* ============ Income Approach ============ */
+.income-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.income-block h3 {
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.assumption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.assumption label {
+  color: var(--text-2);
+  font-weight: 500;
+  flex: 1;
+}
+
+.assumption input[type="range"] {
+  flex: 1.4;
+  margin: 0 8px;
+}
+
+.assumption .val {
+  width: 48px;
+  text-align: right;
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 12px;
+}
+
+.result-card {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid rgba(59,130,246,0.4);
+}
+
+.result-card .label {
+  font-size: 11px;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.result-card .value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.result-card .sub {
+  font-size: 11px;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+
+/* ============ Mezzanine ============ */
+.mezz-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.mezz-card .top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.mezz-card .corp { font-weight: 700; font-size: 13px; }
+
+.badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.badge.green { background: rgba(16,185,129,0.18); color: #34d399; }
+.badge.gray  { background: rgba(139,146,165,0.18); color: var(--text-2); }
+.badge.red   { background: rgba(239,68,68,0.18); color: #f87171; }
+
+.mezz-card .meta {
+  font-size: 11px;
+  color: var(--text-2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  margin-top: 6px;
+}
+
+/* ============ Macro Eco ============ */
+.country-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.country-card h3 {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.country-card .sub {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.chart-box {
+  height: 130px;
+  background: linear-gradient(180deg, #14171f 0%, #0f1117 100%);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+}
+
+.chart-box svg { width: 100%; height: 100%; }
+
+.macro-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-top: 1px solid var(--border-soft);
+  font-size: 11px;
+}
+.macro-stat:first-of-type { border-top: none; }
+.macro-stat .lbl { color: var(--text-3); }
+.macro-stat .val { font-weight: 700; }
+
+/* ============ News ============ */
+.news-source {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.news-source h2 {
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.news-item {
+  display: block;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.5;
+  transition: background 0.12s;
+}
+
+.news-item:last-child { border-bottom: none; }
+.news-item:hover { background: var(--primary-light); }
+
+.news-item .num { color: var(--text-3); margin-right: 6px; }
+
+/* ============ Scrollbar ============ */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }

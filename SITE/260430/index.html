@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>FinVisual</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== GNB Wrapper (Header + Mega Dropdown) ===== -->
+  <div class="gnb" id="gnb">
+    <header class="gnb-header">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1"    y="18" width="4" height="5"  fill="#800020" rx="0.5"/>
+          <rect x="6.5"  y="14" width="4" height="9"  fill="#800020" rx="0.5"/>
+          <rect x="12"   y="9"  width="4" height="14" fill="#800020" rx="0.5"/>
+          <rect x="17.5" y="3"  width="4" height="20" fill="#800020" rx="0.5"/>
+          <path d="M2 19 Q9 11 17 4" stroke="#800020" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M14 2 L18 3 L17 7" stroke="#800020" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="logo-text">FinVisual</span>
+      </div>
+      <button class="nav-btn" data-tab="market">Market</button>
+      <button class="nav-btn" data-tab="valuation">Valuation</button>
+      <button class="nav-btn" data-tab="macro">Macro Eco</button>
+      <button class="nav-btn" data-tab="news">News</button>
+    </header>
+    <div class="mega-dd" id="dropdown"></div>
+  </div>
+
+  <!-- ===== LAYOUT ===== -->
+  <div class="layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main" id="main"></main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
