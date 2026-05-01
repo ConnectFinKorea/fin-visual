@@ -2,21 +2,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary: #3b82f6;                       /* fin-visual.com blue accent */
-  --primary-light: rgba(59,130,246,0.15);
-  --primary-bg: #1a1d27;                    /* dark header surface */
-  --bg: #0f1117;                            /* main dark bg */
-  --card: #1a1d27;                          /* card surface */
-  --card-2: #232633;                        /* slightly lighter surface */
-  --text: #e2e8f0;
-  --text-2: #b4bcca;
-  --text-3: #8b92a5;
-  --border: #2a2d3a;
-  --border-soft: #232633;
-  --red: #ef4444;
-  --blue: #3b82f6;
-  --green: #10b981;
-  --burgundy: #800020;
+  --primary: #1B65B6;                        /* DART 스타일 메인 블루 */
+  --primary-dark: #0E4F94;                   /* hover/강조 짙은 블루 */
+  --primary-light: #E6F0FA;                  /* 연한 블루 배경 */
+  --primary-bg: #F4F8FC;                     /* 헤더 배경 (거의 흰색) */
+  --bg: #FFFFFF;                             /* 메인 배경 */
+  --card: #FFFFFF;                           /* 카드 흰색 */
+  --card-2: #F8FAFD;                         /* 약간 톤다운된 표면 */
+  --text: #1A2E48;                           /* 본문 (짙은 네이비) */
+  --text-2: #5A6B82;                         /* 보조 텍스트 */
+  --text-3: #8A9AAE;                         /* 약한 텍스트 */
+  --border: #DEE5EE;                         /* 일반 테두리 */
+  --border-soft: #ECF0F5;                    /* 연한 구분선 */
+  --red: #E53E3E;
+  --blue: #1B65B6;
+  --green: #22A06B;
+  --burgundy: #800020;                       /* 로고 차트 SVG 그대로 유지 */
   --header-h: 52px;
   --sidebar-w: 100px;
 }
@@ -51,8 +52,8 @@ a { text-decoration: none; color: inherit; }
   grid-template-columns: var(--logo-w) repeat(4, 1fr);
   align-items: center;
   height: var(--header-h);
-  background: var(--primary-bg);
-  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  border-bottom: 2px solid var(--primary);
   padding: 0 12px;
 }
 
@@ -111,9 +112,9 @@ a { text-decoration: none; color: inherit; }
   top: 100%;            /* 헤더 바로 밑 */
   left: 0;
   right: 0;
-  background: var(--card-2);
+  background: var(--card);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  box-shadow: 0 6px 14px rgba(27,101,182,0.12);
   padding: 14px 12px 16px;
   grid-template-columns: var(--logo-w) repeat(4, 1fr);
   gap: 0;
@@ -164,8 +165,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 .mega-col a:hover {
-  color: var(--text);
-  background: rgba(59,130,246,0.12);
+  color: var(--primary);
+  background: var(--primary-light);
 }
 
 /* ============ Layout ============ */
@@ -322,8 +323,8 @@ a { text-decoration: none; color: inherit; }
   text-align: center;
 }
 
-.co-tile.up   { border-color: var(--red); background: rgba(239,68,68,0.10); }
-.co-tile.down { border-color: var(--blue); background: rgba(59,130,246,0.10); }
+.co-tile.up   { border-color: var(--red); background: rgba(229,62,62,0.06); }
+.co-tile.down { border-color: var(--blue); background: rgba(27,101,182,0.06); }
 
 .co-tile .co-name { font-weight: 700; margin-bottom: 3px; font-size: 11px; }
 .co-tile .co-cap  { color: var(--text-2); font-size: 10px; }
@@ -356,7 +357,7 @@ a { text-decoration: none; color: inherit; }
   color: var(--text);
   margin-bottom: 12px;
   appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M3 4l3 3 3-3' stroke='%23b4bcca' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M3 4l3 3 3-3' stroke='%235A6B82' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
 }
@@ -474,12 +475,11 @@ a { text-decoration: none; color: inherit; }
 }
 
 .result-card {
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  background: linear-gradient(135deg, #1B65B6, #2C7BC9);
   color: white;
   border-radius: 10px;
   padding: 16px;
   text-align: center;
-  border: 1px solid rgba(59,130,246,0.4);
 }
 
 .result-card .label {
@@ -524,9 +524,9 @@ a { text-decoration: none; color: inherit; }
   font-weight: 600;
 }
 
-.badge.green { background: rgba(16,185,129,0.18); color: #34d399; }
-.badge.gray  { background: rgba(139,146,165,0.18); color: var(--text-2); }
-.badge.red   { background: rgba(239,68,68,0.18); color: #f87171; }
+.badge.green { background: #DEF7EC; color: #1F8A5C; }
+.badge.gray  { background: #ECF0F5; color: var(--text-2); }
+.badge.red   { background: #FED7D7; color: #C53030; }
 
 .mezz-card .meta {
   font-size: 11px;
@@ -560,7 +560,7 @@ a { text-decoration: none; color: inherit; }
 
 .chart-box {
   height: 130px;
-  background: linear-gradient(180deg, #14171f 0%, #0f1117 100%);
+  background: linear-gradient(180deg, #FBFCFE 0%, #F4F8FC 100%);
   border-radius: 6px;
   position: relative;
   overflow: hidden;
