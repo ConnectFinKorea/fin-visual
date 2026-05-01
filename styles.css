@@ -123,6 +123,9 @@ a { text-decoration: none; color: inherit; }
 
 .gnb:hover .mega-dd { display: grid; }
 
+/* 클릭 후 강제 닫기 — gnb 영역을 한 번 벗어나기 전까지 유지 */
+.gnb.force-close .mega-dd { display: none !important; }
+
 @keyframes ddFade {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }

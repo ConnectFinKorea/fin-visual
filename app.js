@@ -442,6 +442,20 @@ function renderNews(source) {
 }
 
 // ============== Router ==============
+const $gnb = document.getElementById("gnb");
+
+function closeDropdown() {
+  // CSS hover와 충돌하지 않게 강제 닫기 클래스 사용
+  // 마우스가 gnb 영역을 벗어나면 자동 해제
+  if ($gnb) $gnb.classList.add("force-close");
+}
+
+if ($gnb) {
+  $gnb.addEventListener("mouseleave", () => {
+    $gnb.classList.remove("force-close");
+  });
+}
+
 function navigate(pageId) {
   currentPage = pageId;
   closeDropdown();
