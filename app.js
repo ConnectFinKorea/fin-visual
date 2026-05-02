@@ -98,6 +98,82 @@ const TOP_INDUSTRIES = [
   ], rise: []},
 ];
 
+// ============== Routing Map ==============
+// URL 경로 → pageId 매핑 (트리 구조)
+const ROUTES = {
+  "/":                                       "home",
+  "/market":                                 "market-cap",       // 그룹 진입 시 첫 항목
+  "/market/equity":                          "market-cap",
+  "/market/equity/market-cap":               "market-cap",
+  "/market/equity/change":                   "market-change",
+  "/market/financial":                       "market-revenue",
+  "/market/financial/revenue":               "market-revenue",
+  "/market/financial/operating-income":      "market-opincome",
+  "/valuation":                              "val-trading",
+  "/valuation/equity":                       "val-trading",
+  "/valuation/equity/trading":               "val-trading",
+  "/valuation/equity/income":                "val-income",
+  "/valuation/mezzanine":                    "val-rcps",
+  "/valuation/mezzanine/rcps":               "val-rcps",
+  "/valuation/mezzanine/bw":                 "val-bw",
+  "/valuation/mezzanine/cb":                 "val-cb",
+  "/macro":                                  "macro-prime",
+  "/macro/prime-rate":                       "macro-prime",
+  "/macro/bond":                             "macro-bond",
+  "/macro/inflation":                        "macro-inflation",
+  "/macro/unemployment":                     "macro-unemp",
+  "/news":                                   "news-thebell",
+  "/news/thebell":                           "news-thebell",
+  "/news/naver-financial":                   "news-naver",
+};
+
+// pageId → URL 정규형 (가장 구체적인 경로)
+const PAGE_TO_URL = {
+  "home":            "/",
+  "market-cap":      "/market/equity/market-cap",
+  "market-change":   "/market/equity/change",
+  "market-revenue":  "/market/financial/revenue",
+  "market-opincome": "/market/financial/operating-income",
+  "val-trading":     "/valuation/equity/trading",
+  "val-income":      "/valuation/equity/income",
+  "val-rcps":        "/valuation/mezzanine/rcps",
+  "val-bw":          "/valuation/mezzanine/bw",
+  "val-cb":          "/valuation/mezzanine/cb",
+  "macro-prime":     "/macro/prime-rate",
+  "macro-bond":      "/macro/bond",
+  "macro-inflation": "/macro/inflation",
+  "macro-unemp":     "/macro/unemployment",
+  "news-thebell":    "/news/thebell",
+  "news-naver":      "/news/naver-financial",
+};
+
+// pageId → 브라우저 탭 타이틀
+const PAGE_TITLES = {
+  "home":            "FinVisual",
+  "market-cap":      "시가총액 · FinVisual",
+  "market-change":   "변동률 · FinVisual",
+  "market-revenue":  "매출액 · FinVisual",
+  "market-opincome": "영업이익 · FinVisual",
+  "val-trading":     "Trading Multiple · FinVisual",
+  "val-income":      "Income Approach · FinVisual",
+  "val-rcps":        "RCPS · FinVisual",
+  "val-bw":          "BW · FinVisual",
+  "val-cb":          "CB · FinVisual",
+  "macro-prime":     "Prime Rate · FinVisual",
+  "macro-bond":      "10Y Bond · FinVisual",
+  "macro-inflation": "Inflation · FinVisual",
+  "macro-unemp":     "Unemployment · FinVisual",
+  "news-thebell":    "TheBell · FinVisual",
+  "news-naver":      "네이버파이넨셜 · FinVisual",
+};
+
+function urlForPage(pageId) { return PAGE_TO_URL[pageId] || "/"; }
+function pageForUrl(path) {
+  // 끝의 / 제거 (단, 루트 / 는 유지)
+  const clean = path.length > 1 ? path.replace(/\/$/, "") : path;
+  return ROUTES[clean] || "home";
+}
+
 // ============== State ==============
 let currentPage = "home";
 
@@ -456,7 +532,9 @@ if ($gnb) {
   });
 }
 
-function navigate(pageId) {
+function navigate(pageId, opts = {}) {
+  // opts.replace = true → pushState 대신 replaceState (히스토리 누적 안 함)
+  // opts.fromPopState = true → popstate 이벤트로 호출됨 (URL 갱신 스킵)
   currentPage = pageId;
   closeDropdown();
 
@@ -491,7 +569,25 @@ function navigate(pageId) {
   };
   (renderers[pageId] || renderHome)();
   $main.scrollTop = 0;
+
+  // URL 갱신 (popstate에서 호출된 경우 제외)
+  if (!opts.fromPopState) {
+    const url = urlForPage(pageId);
+    if (location.pathname !== url) {
+      if (opts.replace) history.replaceState({ pageId }, "", url);
+      else              history.pushState({ pageId }, "", url);
+    }
+  }
+
+  // 브라우저 탭 타이틀
+  document.title = PAGE_TITLES[pageId] || "FinVisual";
 }
+
+// 브라우저 뒤로/앞으로 버튼
+window.addEventListener("popstate", e => {
+  const pageId = (e.state && e.state.pageId) || pageForUrl(location.pathname);
+  navigate(pageId, { fromPopState: true });
+});
 
 // ============== Mega Dropdown (CSS-driven) ==============
 // 열림/닫힘은 CSS .gnb:hover가 처리. JS는 컨텐츠 빌드 + 클릭 네비게이션만 담당.
@@ -535,5 +631,6 @@ buildMegaDropdown();
 document.querySelector(".logo").addEventListener("click", () => navigate("home"));
 document.querySelector(".logo").style.cursor = "pointer";
 
-// ============== Init ==============
-navigate("home");
+// ============== Init: URL 기반 진입 ==============
+const initialPage = pageForUrl(location.pathname);
+navigate(initialPage, { replace: true });   // 초기 진입은 히스토리 누적 안 함
