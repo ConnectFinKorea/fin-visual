@@ -1,0 +1,20 @@
+name = "finvisual-market"
+main = "worker.js"
+compatibility_date = "2026-04-01"
+
+# 5분마다 자동 실행 (Cron Trigger)
+[triggers]
+crons = ["*/5 * * * *"]
+
+# Cloudflare KV 바인딩 — 배포 전 KV namespace 생성 후 id 채우기
+# wrangler kv:namespace create MARKET_KV
+[[kv_namespaces]]
+binding = "MARKET_KV"
+id = "5b6e44cc72174e3c89041b92b7bab71c"
+preview_id = "c390ce83b4834d73ae3a861806bb2025"
+
+# (선택) 개발 환경 별도 분리하고 싶을 경우
+# [env.dev]
+# [[env.dev.kv_namespaces]]
+# binding = "MARKET_KV"
+# id = "..."

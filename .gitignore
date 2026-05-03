@@ -1,0 +1,13 @@
+# 임시·대용량 데이터 (재생성 가능)
+data/CORPCODE.xml
+data/_dart_progress.json
+
+# 워커 로컬 환경
+worker/.dev.vars
+worker/.wrangler/
+worker/node_modules/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/

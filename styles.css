@@ -290,6 +290,76 @@ a { text-decoration: none; color: inherit; }
   margin-top: 28px;
 }
 
+/* ============ Treemap (Market Cap) ============ */
+.treemap-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: var(--text-3);
+}
+
+.treemap-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--text-2);
+}
+
+.treemap-legend .lg-up,
+.treemap-legend .lg-down {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.treemap-legend .lg-up   { background: rgb(200, 70, 70); }
+.treemap-legend .lg-down { background: rgb(70, 70, 200); }
+
+.treemap-container {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.treemap-container svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.treemap-fallback {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-2);
+}
+
+.treemap-footnote {
+  font-size: 10px;
+  color: var(--text-3);
+  text-align: center;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.tm-leaf rect { transition: opacity 0.12s; }
+.tm-leaf:hover rect { opacity: 0.85; }
+
+@media (max-width: 600px) {
+  .treemap-meta { font-size: 10px; }
+  .treemap-footnote { font-size: 9.5px; }
+}
+
 /* ============ Industry Card (Market) ============ */
 .industry-card {
   background: var(--card);

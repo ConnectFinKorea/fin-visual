@@ -234,34 +234,303 @@ function fmtPct(v) {
   return `<span class="${cls}">${tri}${Math.abs(v).toFixed(1)}%</span>`;
 }
 
-function renderMarketCap() {
-  let html = `<div class="page-title">시가총액 <span class="crumb">/ Market · Equity</span></div>`;
-  for (const ind of TOP_INDUSTRIES) {
-    html += `<div class="industry-card">
-      <div class="ic-head">
-        <span class="name">${ind.name}</span>
-        <span class="total">${ind.total}원 ${fmtPct(ind.delta)}</span>
-      </div>
-      <div class="company-grid">`;
-    for (const c of ind.companies) {
-      const cls = c.pct >= 0 ? "up" : "down";
-      html += `<div class="co-tile ${cls}">
-        <div class="co-name">${c.name}</div>
-        <div class="co-cap">${c.cap}원</div>
-        <div class="co-pct">${fmtPct(c.pct)}</div>
+// ============== Market Cap Treemap (finviz 스타일) ==============
+// 정적: /data/industry_mapping.json (DART → KSIC)
+// 실시간: Cloudflare Worker /api/snapshot (네이버 금융, 5분 갱신)
+const WORKER_API = "https://finvisual-market.gmyhs.workers.dev/api/snapshot";
+
+async function renderMarketCap() {
+  $main.innerHTML = `
+    <div class="page-title">시가총액 트리맵 <span class="crumb">/ Market · Equity</span></div>
+    <div class="treemap-meta">
+      <span id="tm-status">데이터 로딩 중...</span>
+      <span class="treemap-legend">
+        <span class="lg-up"></span>상승
+        <span class="lg-down"></span>하락
+      </span>
+    </div>
+    <div id="treemap-container" class="treemap-container"></div>
+    <div class="treemap-footnote">
+      박스 크기 = 시가총액 · 색상 = 일별 등락률 ·
+      대분류는 한국표준산업분류 11차 기준 ·
+      대분류별 시총 상위 5개 + 기타로 합산
+    </div>
+  `;
+
+  const $status = document.getElementById("tm-status");
+  try {
+    const [mapping, snapshot] = await Promise.all([
+      fetch("/data/industry_mapping.json").then(r => {
+        if (!r.ok) throw new Error("매핑 파일 없음");
+        return r.json();
+      }),
+      fetch(WORKER_API).then(r => {
+        if (!r.ok) throw new Error("Worker 응답 실패");
+        return r.json();
+      }),
+    ]);
+    drawTreemap(mapping, snapshot);
+    const ts = new Date(snapshot.timestamp || Date.now()).toLocaleString("ko-KR");
+    $status.textContent = `${snapshot.count?.toLocaleString() || 0}개 종목 · 업데이트 ${ts}`;
+  } catch (err) {
+    $status.innerHTML = `<span style="color:var(--red)">로드 실패: ${err.message}</span>`;
+    document.getElementById("treemap-container").innerHTML =
+      `<div class="treemap-fallback">
+        <p>실시간 데이터를 불러올 수 없습니다.</p>
+        <p style="font-size:11px; color: var(--text-3);">
+          확인할 항목:<br>
+          · /data/industry_mapping.json 파일 배포 여부<br>
+          · Cloudflare Worker (${WORKER_API}) 동작 여부
+        </p>
       </div>`;
-    }
-    html += `</div>`;
-    if (ind.rise.length) {
-      html += `<div class="short-rise">
-        <div class="short-rise-title">단기상승 주식</div>
-        <div style="font-size:10px; color: var(--text-2);">${ind.rise.join(" · ")}</div>
-      </div>`;
-    }
-    html += `</div>`;
   }
-  $main.innerHTML = html;
 }
+
+function drawTreemap(mapping, snapshot) {
+  const container = document.getElementById("treemap-container");
+  if (typeof d3 === "undefined") {
+    container.innerHTML = `<p style="color:var(--red)">D3.js 로드 실패</p>`;
+    return;
+  }
+
+  // 1) stock_code → 분류 정보 매핑
+  const codeToInfo = {};
+  for (const c of mapping.companies) {
+    codeToInfo[c.stock_code] = c;
+  }
+
+  // 2) 시세 + 분류 결합
+  const enriched = [];
+  for (const it of snapshot.items || []) {
+    const info = codeToInfo[it.code];
+    if (!info || !info.major_code || it.mcap <= 0) continue;
+    enriched.push({
+      code: it.code,
+      name: it.name || info.name,
+      mcap: it.mcap,
+      change: isFinite(it.change) ? it.change : 0,
+      major_code: info.major_code,
+      major_name: info.major_name,
+      market: it.market || info.market,
+    });
+  }
+
+  // 3) 대분류로 그룹화
+  const groups = {};
+  for (const e of enriched) {
+    if (!groups[e.major_code]) {
+      groups[e.major_code] = {
+        code: e.major_code,
+        name: e.major_name,
+        companies: [],
+      };
+    }
+    groups[e.major_code].companies.push(e);
+  }
+
+  // 4) 각 분류 내 시총 정렬, 상위 5 + 기타로 압축, 시총 합계·가중평균 등락률 계산
+  const groupArr = Object.values(groups);
+  for (const g of groupArr) {
+    g.companies.sort((a, b) => b.mcap - a.mcap);
+    if (g.companies.length > 5) {
+      const tail = g.companies.slice(5);
+      const tailSum = tail.reduce((s, c) => s + c.mcap, 0);
+      const tailChg = tailSum > 0
+        ? tail.reduce((s, c) => s + c.change * c.mcap, 0) / tailSum
+        : 0;
+      g.companies = g.companies.slice(0, 5);
+      g.companies.push({
+        code: "_OTHER_" + g.code,
+        name: "기타",
+        mcap: tailSum,
+        change: tailChg,
+        isOther: true,
+      });
+    }
+    g.totalMcap = g.companies.reduce((s, c) => s + c.mcap, 0);
+    g.weightedChange = g.totalMcap > 0
+      ? g.companies.reduce((s, c) => s + c.change * c.mcap, 0) / g.totalMcap
+      : 0;
+  }
+  groupArr.sort((a, b) => b.totalMcap - a.totalMcap);
+
+  // 5) D3 hierarchy 구성
+  const root_data = {
+    name: "root",
+    children: groupArr.map(g => ({
+      name: g.name,
+      code: g.code,
+      change: g.weightedChange,
+      mcap: g.totalMcap,
+      children: g.companies.map(c => ({
+        name: c.name,
+        code: c.code,
+        change: c.change,
+        mcap: c.mcap,
+        value: c.mcap,
+        isOther: c.isOther || false,
+      })),
+    })),
+  };
+
+  // 6) 컨테이너 사이즈 + 미디어 응답
+  const W = container.clientWidth || 800;
+  const H = Math.max(420, Math.min(window.innerHeight - 220, W * 0.72));
+  const isMobile = W < 600;
+
+  // 7) D3 treemap 레이아웃
+  const root = d3.hierarchy(root_data)
+    .sum(d => d.value)
+    .sort((a, b) => b.value - a.value);
+
+  d3.treemap()
+    .tile(d3.treemapSquarify.ratio(1.5))
+    .size([W, H])
+    .paddingOuter(2)
+    .paddingTop(isMobile ? 16 : 20)
+    .paddingInner(1)
+    .round(true)(root);
+
+  // 8) 색상 함수: 등락률 → R/G/B (red↑ blue↓)
+  const colorFor = (chg) => {
+    if (!isFinite(chg)) return "#888";
+    const t = Math.min(1, Math.abs(chg) / 4);   // ±4%면 풀 농도
+    if (chg >= 0) {
+      // red: 초기 옅은 핑크 → 진한 빨강
+      const base = 200, dark = 70;
+      return `rgb(${base}, ${Math.round(140 - t*70)}, ${Math.round(140 - t*70)})`;
+    } else {
+      const base = 200, dark = 70;
+      return `rgb(${Math.round(140 - t*70)}, ${Math.round(140 - t*70)}, ${base})`;
+    }
+  };
+
+  // 9) SVG 렌더링
+  d3.select(container).selectAll("*").remove();
+  const svg = d3.select(container)
+    .append("svg")
+    .attr("viewBox", `0 0 ${W} ${H}`)
+    .attr("width", "100%")
+    .style("height", H + "px")
+    .style("font-family", "inherit");
+
+  // 9-a) 카테고리 박스 (대분류)
+  const catG = svg.selectAll("g.cat")
+    .data(root.children || [])
+    .join("g")
+    .attr("class", "tm-cat")
+    .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+  catG.append("rect")
+    .attr("width",  d => Math.max(0, d.x1 - d.x0))
+    .attr("height", d => Math.max(0, d.y1 - d.y0))
+    .attr("fill", "transparent")
+    .attr("stroke", "var(--text-2)")
+    .attr("stroke-width", 0.5);
+
+  catG.append("text")
+    .attr("x", 4)
+    .attr("y", isMobile ? 11 : 13)
+    .style("font-size", isMobile ? "9px" : "10.5px")
+    .style("font-weight", 700)
+    .style("fill", "var(--text)")
+    .text(d => {
+      const w = d.x1 - d.x0;
+      if (w < 60) return "";
+      const sign = d.data.change >= 0 ? "+" : "";
+      const pct = `${sign}${d.data.change.toFixed(1)}%`;
+      const txt = d.data.name + ` (${pct})`;
+      return w < 200 ? truncate(txt, Math.floor(w / (isMobile ? 6.2 : 7))) : txt;
+    });
+
+  // 9-b) 단말 박스 (회사)
+  const leafG = svg.selectAll("g.leaf")
+    .data(root.leaves())
+    .join("g")
+    .attr("class", "tm-leaf")
+    .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+  leafG.append("rect")
+    .attr("width",  d => Math.max(0, d.x1 - d.x0))
+    .attr("height", d => Math.max(0, d.y1 - d.y0))
+    .attr("fill", d => colorFor(d.data.change))
+    .attr("stroke", "var(--card)")
+    .attr("stroke-width", 0.5)
+    .style("cursor", d => d.data.isOther ? "default" : "pointer");
+
+  // 회사명 (큰 박스에만)
+  leafG.append("text")
+    .attr("class", "leaf-name")
+    .attr("x", 4)
+    .attr("y", 12)
+    .style("font-size", "10.5px")
+    .style("font-weight", 700)
+    .style("fill", "#ffffff")
+    .style("pointer-events", "none")
+    .text(d => {
+      const w = d.x1 - d.x0;
+      const h = d.y1 - d.y0;
+      if (w < 38 || h < 18) return "";
+      return truncate(d.data.name, Math.floor(w / 6.5));
+    });
+
+  // 등락률 (충분히 큰 박스에만)
+  leafG.append("text")
+    .attr("class", "leaf-pct")
+    .attr("x", 4)
+    .attr("y", 24)
+    .style("font-size", "9.5px")
+    .style("fill", "rgba(255,255,255,0.92)")
+    .style("pointer-events", "none")
+    .text(d => {
+      const w = d.x1 - d.x0;
+      const h = d.y1 - d.y0;
+      if (w < 50 || h < 30) return "";
+      const sign = d.data.change >= 0 ? "+" : "";
+      return `${sign}${d.data.change.toFixed(2)}%`;
+    });
+
+  // 시총 (아주 큰 박스에만)
+  leafG.append("text")
+    .attr("x", 4)
+    .attr("y", 36)
+    .style("font-size", "9px")
+    .style("fill", "rgba(255,255,255,0.78)")
+    .style("pointer-events", "none")
+    .text(d => {
+      const w = d.x1 - d.x0;
+      const h = d.y1 - d.y0;
+      if (w < 70 || h < 44) return "";
+      return formatMcap(d.data.mcap);
+    });
+
+  // 호버 툴팁 (제목)
+  leafG.append("title")
+    .text(d => {
+      const sign = d.data.change >= 0 ? "+" : "";
+      return `${d.data.name}\n시총: ${formatMcap(d.data.mcap)}원\n등락률: ${sign}${d.data.change.toFixed(2)}%`;
+    });
+}
+
+function truncate(s, n) {
+  if (!s) return "";
+  return s.length > n ? s.slice(0, Math.max(1, n - 1)) + "…" : s;
+}
+
+function formatMcap(billionsKR) {
+  // 입력 단위: 억원
+  if (billionsKR >= 10000) return (billionsKR / 10000).toFixed(1) + "조";
+  if (billionsKR >= 1000)  return (billionsKR / 1000).toFixed(0) * 1000 + "억";
+  return Math.round(billionsKR) + "억";
+}
+
+// 윈도우 리사이즈 시 트리맵 재렌더 (현재 페이지가 트리맵인 경우)
+let _resizeTimer;
+window.addEventListener("resize", () => {
+  if (currentPage !== "market-cap") return;
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => renderMarketCap(), 200);
+});
 
 function renderMarketChange() {
   let html = `<div class="page-title">변동률 <span class="crumb">/ Market · Equity</span></div>`;
