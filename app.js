@@ -354,58 +354,99 @@ function drawTreemap(mapping, snapshot) {
   }
   groupArr.sort((a, b) => b.totalMcap - a.totalMcap);
 
-  // 5) D3 hierarchy 구성
-  const root_data = {
-    name: "root",
-    children: groupArr.map(g => ({
-      name: g.name,
-      code: g.code,
-      change: g.weightedChange,
-      mcap: g.totalMcap,
-      children: g.companies.map(c => ({
-        name: c.name,
-        code: c.code,
-        change: c.change,
-        mcap: c.mcap,
-        value: c.mcap,
-        isOther: c.isOther || false,
-      })),
-    })),
-  };
-
-  // 6) 컨테이너 사이즈 + 미디어 응답
+  // 5) 컨테이너 사이즈 + 모바일 판정
   const W = container.clientWidth || 800;
   const H = Math.max(420, Math.min(window.innerHeight - 220, W * 0.72));
   const isMobile = W < 600;
 
-  // 7) D3 treemap 레이아웃
-  const root = d3.hierarchy(root_data)
-    .sum(d => d.value)
+  // 색상 함수: 등락률 → R/G/B (red↑ blue↓)
+  const colorFor = (chg) => {
+    if (!isFinite(chg)) return "#888";
+    const t = Math.min(1, Math.abs(chg) / 4);
+    if (chg >= 0) {
+      return `rgb(200, ${Math.round(140 - t*70)}, ${Math.round(140 - t*70)})`;
+    } else {
+      return `rgb(${Math.round(140 - t*70)}, ${Math.round(140 - t*70)}, 200)`;
+    }
+  };
+
+  // 6) Pass 1 — 카테고리(대분류) 위치 계산
+  // 카테고리 크기는 totalMcap (top5 + 기타 합산) 기준
+  const catRoot = d3.hierarchy({
+    children: groupArr.map(g => ({ ...g, value: g.totalMcap }))
+  })
+    .sum(d => d.value || 0)
     .sort((a, b) => b.value - a.value);
 
   d3.treemap()
     .tile(d3.treemapSquarify.ratio(1.5))
     .size([W, H])
     .paddingOuter(2)
-    .paddingTop(isMobile ? 16 : 20)
-    .paddingInner(1)
-    .round(true)(root);
+    .paddingInner(2)
+    .round(true)(catRoot);
 
-  // 8) 색상 함수: 등락률 → R/G/B (red↑ blue↓)
-  const colorFor = (chg) => {
-    if (!isFinite(chg)) return "#888";
-    const t = Math.min(1, Math.abs(chg) / 4);   // ±4%면 풀 농도
-    if (chg >= 0) {
-      // red: 초기 옅은 핑크 → 진한 빨강
-      const base = 200, dark = 70;
-      return `rgb(${base}, ${Math.round(140 - t*70)}, ${Math.round(140 - t*70)})`;
-    } else {
-      const base = 200, dark = 70;
-      return `rgb(${Math.round(140 - t*70)}, ${Math.round(140 - t*70)}, ${base})`;
+  // 7) Pass 2 — 각 카테고리 내부에서 top5 회사들 + 기타 strip 배치
+  const TITLE_H = isMobile ? 16 : 20;   // 카테고리 제목용 상단 패딩
+  const OTHER_H = isMobile ? 16 : 18;   // 기타 strip 고정 높이
+  const cells = [];                     // 회사 셀 (시각화 대상)
+  const otherStrips = [];               // 기타 strip (시각화 대상)
+
+  for (const cat of catRoot.children || []) {
+    const catW = cat.x1 - cat.x0;
+    const catH = cat.y1 - cat.y0;
+    const g = cat.data;
+    const top5 = g.companies.filter(c => !c.isOther);
+    const otherCo = g.companies.find(c => c.isOther);
+
+    // 너무 작으면 회사 셀 생략
+    if (catW < 24 || catH < TITLE_H + 12) continue;
+
+    // 기타 strip을 둘 공간이 있으면 예약, 아니면 회사가 전 공간 사용
+    const hasOtherSpace = otherCo && (catH >= TITLE_H + OTHER_H + 8);
+    const innerH = hasOtherSpace ? catH - TITLE_H - OTHER_H : catH - TITLE_H;
+    const innerY0 = cat.y0 + TITLE_H;
+
+    // top5에 대해 별도 treemap 실행
+    if (top5.length > 0 && innerH > 6 && catW > 6) {
+      const subRoot = d3.hierarchy({
+        children: top5.map(c => ({ ...c, value: c.mcap }))
+      })
+        .sum(d => d.value || 0)
+        .sort((a, b) => b.value - a.value);
+
+      d3.treemap()
+        .tile(d3.treemapSquarify.ratio(1.5))
+        .size([catW - 2, innerH])
+        .paddingInner(1)
+        .round(true)(subRoot);
+
+      for (const leaf of subRoot.leaves()) {
+        cells.push({
+          x0: cat.x0 + 1 + leaf.x0,
+          y0: innerY0 + leaf.y0,
+          x1: cat.x0 + 1 + leaf.x1,
+          y1: innerY0 + leaf.y1,
+          name: leaf.data.name,
+          change: leaf.data.change,
+          mcap: leaf.data.mcap,
+        });
+      }
     }
-  };
 
-  // 9) SVG 렌더링
+    // 기타 strip
+    if (hasOtherSpace) {
+      otherStrips.push({
+        x0: cat.x0 + 1,
+        y0: cat.y1 - OTHER_H - 1,
+        x1: cat.x1 - 1,
+        y1: cat.y1 - 1,
+        mcap: otherCo.mcap,
+        change: otherCo.change,
+      });
+    }
+  }
+
+  // 8) SVG 렌더링
   d3.select(container).selectAll("*").remove();
   const svg = d3.select(container)
     .append("svg")
@@ -414,9 +455,9 @@ function drawTreemap(mapping, snapshot) {
     .style("height", H + "px")
     .style("font-family", "inherit");
 
-  // 9-a) 카테고리 박스 (대분류)
+  // 8-a) 카테고리 외곽 + 제목
   const catG = svg.selectAll("g.cat")
-    .data(root.children || [])
+    .data(catRoot.children || [])
     .join("g")
     .attr("class", "tm-cat")
     .attr("transform", d => `translate(${d.x0},${d.y0})`);
@@ -437,15 +478,16 @@ function drawTreemap(mapping, snapshot) {
     .text(d => {
       const w = d.x1 - d.x0;
       if (w < 60) return "";
-      const sign = d.data.change >= 0 ? "+" : "";
-      const pct = `${sign}${d.data.change.toFixed(1)}%`;
-      const txt = d.data.name + ` (${pct})`;
+      const g = d.data;
+      const sign = g.weightedChange >= 0 ? "+" : "";
+      const pct = `${sign}${g.weightedChange.toFixed(1)}%`;
+      const txt = g.name + ` (${pct})`;
       return w < 200 ? truncate(txt, Math.floor(w / (isMobile ? 6.2 : 7))) : txt;
     });
 
-  // 9-b) 단말 박스 (회사)
+  // 8-b) 회사 셀 (top5)
   const leafG = svg.selectAll("g.leaf")
-    .data(root.leaves())
+    .data(cells)
     .join("g")
     .attr("class", "tm-leaf")
     .attr("transform", d => `translate(${d.x0},${d.y0})`);
@@ -453,62 +495,98 @@ function drawTreemap(mapping, snapshot) {
   leafG.append("rect")
     .attr("width",  d => Math.max(0, d.x1 - d.x0))
     .attr("height", d => Math.max(0, d.y1 - d.y0))
-    .attr("fill", d => colorFor(d.data.change))
+    .attr("fill", d => colorFor(d.change))
     .attr("stroke", "var(--card)")
-    .attr("stroke-width", 0.5)
-    .style("cursor", d => d.data.isOther ? "default" : "pointer");
+    .attr("stroke-width", 0.5);
 
-  // 회사명 (큰 박스에만)
   leafG.append("text")
-    .attr("class", "leaf-name")
-    .attr("x", 4)
-    .attr("y", 12)
+    .attr("x", 4).attr("y", 12)
     .style("font-size", "10.5px")
     .style("font-weight", 700)
     .style("fill", "#ffffff")
     .style("pointer-events", "none")
     .text(d => {
-      const w = d.x1 - d.x0;
-      const h = d.y1 - d.y0;
+      const w = d.x1 - d.x0, h = d.y1 - d.y0;
       if (w < 38 || h < 18) return "";
-      return truncate(d.data.name, Math.floor(w / 6.5));
+      return truncate(d.name, Math.floor(w / 6.5));
     });
 
-  // 등락률 (충분히 큰 박스에만)
   leafG.append("text")
-    .attr("class", "leaf-pct")
-    .attr("x", 4)
-    .attr("y", 24)
+    .attr("x", 4).attr("y", 24)
     .style("font-size", "9.5px")
     .style("fill", "rgba(255,255,255,0.92)")
     .style("pointer-events", "none")
     .text(d => {
-      const w = d.x1 - d.x0;
-      const h = d.y1 - d.y0;
+      const w = d.x1 - d.x0, h = d.y1 - d.y0;
       if (w < 50 || h < 30) return "";
-      const sign = d.data.change >= 0 ? "+" : "";
-      return `${sign}${d.data.change.toFixed(2)}%`;
+      const sign = d.change >= 0 ? "+" : "";
+      return `${sign}${d.change.toFixed(2)}%`;
     });
 
-  // 시총 (아주 큰 박스에만)
   leafG.append("text")
-    .attr("x", 4)
-    .attr("y", 36)
+    .attr("x", 4).attr("y", 36)
     .style("font-size", "9px")
     .style("fill", "rgba(255,255,255,0.78)")
     .style("pointer-events", "none")
     .text(d => {
-      const w = d.x1 - d.x0;
-      const h = d.y1 - d.y0;
+      const w = d.x1 - d.x0, h = d.y1 - d.y0;
       if (w < 70 || h < 44) return "";
-      return formatMcap(d.data.mcap);
+      return formatMcap(d.mcap);
     });
 
-  // 호버 툴팁 (제목)
   leafG.append("title")
     .text(d => {
-      const sign = d.data.change >= 0 ? "+" : "";
-      return `${d.data.name}\n시총: ${formatMcap(d.data.mcap)}원\n등락률: ${sign}${d.data.change.toFixed(2)}%`;
+      const sign = d.change >= 0 ? "+" : "";
+      return `${d.name}\n시총: ${formatMcap(d.mcap)}원\n등락률: ${sign}${d.change.toFixed(2)}%`;
+    });
+
+  // 8-c) 기타 strip (카테고리 하단 고정 높이)
+  const otherG = svg.selectAll("g.tm-other")
+    .data(otherStrips)
+    .join("g")
+    .attr("class", "tm-other")
+    .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+  otherG.append("rect")
+    .attr("width",  d => Math.max(0, d.x1 - d.x0))
+    .attr("height", d => Math.max(0, d.y1 - d.y0))
+    .attr("fill", d => colorFor(d.change))
+    .attr("fill-opacity", 0.55)
+    .attr("stroke", "var(--card)")
+    .attr("stroke-width", 0.5);
+
+  // 기타 strip 텍스트: 좌측 "기타", 우측 "시총 · 등락률"
+  otherG.append("text")
+    .attr("x", 5)
+    .attr("y", d => (d.y1 - d.y0) / 2 + 3.5)
+    .style("font-size", isMobile ? "9px" : "10px")
+    .style("font-weight", 700)
+    .style("fill", "#ffffff")
+    .style("pointer-events", "none")
+    .text(d => {
+      const w = d.x1 - d.x0;
+      if (w < 36) return "";
+      return "기타";
+    });
+
+  otherG.append("text")
+    .attr("x", d => (d.x1 - d.x0) - 5)
+    .attr("y", d => (d.y1 - d.y0) / 2 + 3.5)
+    .attr("text-anchor", "end")
+    .style("font-size", isMobile ? "9px" : "10px")
+    .style("fill", "#ffffff")
+    .style("pointer-events", "none")
+    .text(d => {
+      const w = d.x1 - d.x0;
+      if (w < 80) return "";
+      const sign = d.change >= 0 ? "+" : "";
+      return `${formatMcap(d.mcap)} · ${sign}${d.change.toFixed(2)}%`;
+    });
+
+  otherG.append("title")
+    .text(d => {
+      const sign = d.change >= 0 ? "+" : "";
+      return `기타 종목 합산\n시총: ${formatMcap(d.mcap)}원\n가중평균 등락률: ${sign}${d.change.toFixed(2)}%`;
     });
 }
 
