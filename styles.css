@@ -233,6 +233,19 @@ a { text-decoration: none; color: inherit; }
   min-width: 0;
 }
 
+/* 데스크톱(>=1024px): 메인 콘텐츠 폭을 화면의 약 2/3로 제한, 가운데 정렬.
+   모바일/태블릿: 기존처럼 전체 너비 사용. */
+@media (min-width: 1024px) {
+  .main {
+    padding: 24px 12px;
+  }
+  .main > * {
+    max-width: min(66vw, 1100px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 .page-title {
   font-size: 15px;
   font-weight: 700;
