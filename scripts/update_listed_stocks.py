@@ -34,7 +34,8 @@ OUT_PATH = os.path.join(OUT_DIR, "listed_stocks.json")
 XML_PATH = os.path.join(OUT_DIR, "CORPCODE.xml")
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-MARKET_MAP = {"Y": "KOSPI", "K": "KOSDAQ", "N": "KONEX", "E": "기타"}
+# 주의: corpCode.xml 에는 시장구분(corp_cls) 필드가 없음.
+# 시장구분은 industry_mapping.json (월 1회 company.json API 로 수집)에서 join.
 
 
 def download_corp_code():
@@ -66,13 +67,10 @@ def parse_listed():
             continue
         corp = (item.findtext("corp_code", "") or "").strip()
         name = (item.findtext("corp_name", "") or "").strip()
-        market_raw = (item.findtext("corp_cls", "") or "").strip()
         listed.append({
             "stock_code": stock.zfill(6),
             "corp_code": corp,
             "name": name,
-            "market": MARKET_MAP.get(market_raw, "기타"),
-            "market_raw": market_raw,
         })
     return listed
 
@@ -82,16 +80,12 @@ def main():
     download_corp_code()
     listed = parse_listed()
 
-    by_market = {}
-    for c in listed:
-        by_market[c["market"]] = by_market.get(c["market"], 0) + 1
-
     output = {
-        "version": "1.0",
+        "version": "1.1",
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S%z") or time.strftime("%Y-%m-%d %H:%M:%S KST"),
         "source": "DART OpenAPI corpCode.xml",
+        "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
         "count": len(listed),
-        "by_market": by_market,
         "companies": listed,
     }
 
@@ -106,7 +100,6 @@ def main():
 
     print(f"\n저장 완료: {OUT_PATH}")
     print(f"  - 상장사 총: {len(listed):,}개")
-    print(f"  - 시장별: {by_market}")
 
 
 if __name__ == "__main__":

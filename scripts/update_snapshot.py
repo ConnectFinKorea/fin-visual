@@ -88,39 +88,70 @@ def check_holiday(today_kst):
 
 def load_universe():
     """
-    종목 목록 로드.
-    우선순위: listed_stocks.json > industry_mapping.json
-    제외: market='기타' (비상장/폐지 등)
+    종목 universe 로드.
+    - listed_stocks.json: 종목코드 목록 (일일 DART 갱신)
+    - industry_mapping.json: 시장구분 포함 (월 1회 갱신, "기타" 필터에 사용)
+
+    동작:
+    1) listed_stocks가 있으면 universe 기준, 없으면 industry_mapping 사용
+    2) industry_mapping이 있으면 그것의 market 필드로 "기타" 필터 적용
+       (industry_mapping이 없으면 필터 없이 전부 시도)
     """
+    # 1) industry_mapping 으로부터 stock_code -> market dict 구축 (있을 경우)
+    market_by_code = {}
+    if os.path.exists(INDUSTRY_PATH):
+        with open(INDUSTRY_PATH, "r", encoding="utf-8") as f:
+            mapping = json.load(f)
+        for c in mapping.get("companies", []):
+            sc = (c.get("stock_code", "") or "").strip().zfill(6)
+            mkt = c.get("market", "")
+            if sc and mkt:
+                market_by_code[sc] = mkt
+        print(f"  industry_mapping 로드: {len(market_by_code):,}개 시장구분")
+
+    # 2) universe source 결정
     if os.path.exists(LISTED_PATH):
-        path = LISTED_PATH
+        with open(LISTED_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        source = "listed_stocks.json"
     elif os.path.exists(INDUSTRY_PATH):
-        path = INDUSTRY_PATH
-        print(f"  주의: listed_stocks.json 없음 -> industry_mapping.json fallback")
+        with open(INDUSTRY_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        source = "industry_mapping.json (fallback)"
     else:
         print(f"ERROR: {LISTED_PATH} 또는 {INDUSTRY_PATH} 둘 다 없습니다.")
         sys.exit(1)
 
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
     companies = data.get("companies", [])
     universe = []
-    skipped_market = 0
+    skipped_invalid = 0
+    skipped_etc = 0
+    skipped_unknown = 0  # industry_mapping 없을 때만 발생
+
     for c in companies:
-        market = c.get("market", "")
-        if market == "기타" or not market:
-            skipped_market += 1
+        stock = (c.get("stock_code", "") or "").strip().zfill(6)
+        if not stock or len(stock) != 6 or not stock.isdigit():
+            skipped_invalid += 1
             continue
-        stock = c.get("stock_code", "").strip()
-        if not stock or len(stock) != 6:
+
+        # 시장구분: industry_mapping 우선, 없으면 c["market"], 그것도 없으면 unknown
+        market = market_by_code.get(stock) or c.get("market", "") or ""
+
+        # "기타" 분류는 비상장/특수목적 등이라 Naver에 없을 가능성 높음 -> 스킵
+        if market == "기타":
+            skipped_etc += 1
             continue
+
         universe.append({
             "code": stock,
             "name": c.get("name", ""),
-            "market": market,
+            "market": market,  # "" 가능 (신규 상장으로 매핑 미반영). 프론트가 보충.
         })
-    print(f"  Universe 로드: {len(universe):,}개 (제외 '기타'/무효: {skipped_market:,}개)")
+
+    print(f"  Universe 소스: {source}")
+    print(f"  Universe 로드: {len(universe):,}개")
+    print(f"    제외 - 무효 코드: {skipped_invalid:,}개")
+    print(f"    제외 - 기타 분류: {skipped_etc:,}개")
     return universe
 
 

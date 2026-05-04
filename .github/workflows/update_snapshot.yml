@@ -36,15 +36,32 @@ jobs:
           mkdir -p data
           git fetch origin data-snapshot 2>/dev/null || true
           if git show-ref --quiet refs/remotes/origin/data-snapshot; then
-            git show origin/data-snapshot:listed_stocks.json > data/listed_stocks.json 2>/dev/null \
-              && echo "  listed_stocks.json fetched ($(stat -c%s data/listed_stocks.json) bytes)" \
-              || (rm -f data/listed_stocks.json; echo "  listed_stocks.json not on data-snapshot")
-            git show origin/data-snapshot:industry_mapping.json > data/industry_mapping.json 2>/dev/null \
-              && echo "  industry_mapping.json fetched ($(stat -c%s data/industry_mapping.json) bytes)" \
-              || (rm -f data/industry_mapping.json; echo "  industry_mapping.json not on data-snapshot (will use main if present)")
+            # listed_stocks.json (main에 없음 -> 가져오기 실패해도 그대로)
+            TMP=$(mktemp)
+            if git show origin/data-snapshot:listed_stocks.json > "$TMP" 2>/dev/null && [ -s "$TMP" ]; then
+              mv "$TMP" data/listed_stocks.json
+              echo "  listed_stocks.json from data-snapshot ($(stat -c%s data/listed_stocks.json) bytes)"
+            else
+              rm -f "$TMP"
+              echo "  listed_stocks.json: data-snapshot에 없음 (industry_mapping fallback 사용 예정)"
+            fi
+            # industry_mapping.json (main에 시드 있음 -> 가져오기 실패 시 main 시드 보존)
+            TMP=$(mktemp)
+            if git show origin/data-snapshot:industry_mapping.json > "$TMP" 2>/dev/null && [ -s "$TMP" ]; then
+              mv "$TMP" data/industry_mapping.json
+              echo "  industry_mapping.json from data-snapshot ($(stat -c%s data/industry_mapping.json) bytes)"
+            else
+              rm -f "$TMP"
+              if [ -f data/industry_mapping.json ]; then
+                echo "  industry_mapping.json: main 시드 사용 ($(stat -c%s data/industry_mapping.json) bytes)"
+              else
+                echo "  industry_mapping.json: 어디에도 없음 (snapshot 작성 실패 가능)"
+              fi
+            fi
           else
             echo "data-snapshot branch가 아직 없음 - main의 industry_mapping.json fallback 사용"
           fi
+          ls -la data/
 
       - name: Run update_snapshot.py
         run: python scripts/update_snapshot.py
