@@ -51,6 +51,15 @@ TIMEOUT = 10
 MAX_RETRY = 3
 MIN_SUCCESS_RATIO = 0.80  # 성공률이 이보다 낮으면 의심 -> 저장 안 함
 
+# Naver 시세 엔드포인트 후보 (작동하는 것을 자동 탐색)
+NAVER_ENDPOINTS = [
+    "https://m.stock.naver.com/api/stock/{code}/integration",
+    "https://m.stock.naver.com/api/stocks/{code}/integration",
+    "https://api.stock.naver.com/stock/{code}/integration",
+    "https://m.stock.naver.com/api/stock/{code}/basic",
+    "https://m.stock.naver.com/api/stocks/{code}/basic",
+]
+
 # 추가 KRX 임시 휴장일 (holidays 라이브러리가 못 잡는 경우)
 # 형식: "YYYY-MM-DD": "사유"
 EXTRA_KRX_HOLIDAYS = {
@@ -172,36 +181,90 @@ def parse_number(s):
     return None
 
 
-def fetch_stock(code):
-    """
-    Naver mobile integration API 호출.
-    응답 구조 (확인된 것):
-      stockName, closePrice, compareToPreviousClosePrice,
-      fluctuationsRatio, marketValue (단위: 억원)
-    """
-    url = f"https://m.stock.naver.com/api/stock/{code}/integration"
+def _http_get(url):
+    """저수준 HTTP GET. (status, body_text) 반환. status=-1 은 네트워크 에러."""
     req = urllib.request.Request(url, headers={
         "User-Agent": UA,
         "Referer": "https://m.stock.naver.com/",
-        "Accept": "application/json",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.8",
     })
-    delay = 0.5
-    last_err = None
-    for attempt in range(MAX_RETRY):
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+            body = resp.read().decode("utf-8", errors="replace")
+            return resp.code, body
+    except urllib.error.HTTPError as e:
         try:
-            with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
-                raw = resp.read().decode("utf-8", errors="replace")
-            data = json.loads(raw)
-            return parse_response(code, data)
-        except urllib.error.HTTPError as e:
-            last_err = f"HTTP {e.code}"
-            if e.code == 404:
-                return None  # 폐지 종목 등
-            if e.code == 429:
-                time.sleep(delay * 3)  # rate limit 시 더 길게 대기
-        except Exception as e:
-            last_err = str(e)
-        if attempt < MAX_RETRY - 1:
+            body = e.read().decode("utf-8", errors="replace")
+        except Exception:
+            body = ""
+        return e.code, body
+    except Exception as e:
+        return -1, str(e)
+
+
+def discover_endpoint():
+    """
+    작동하는 Naver 엔드포인트 자동 탐색.
+    삼성전자(005930)로 모든 후보 테스트 후 첫 번째로 mcap 파싱 성공하는 URL 반환.
+    """
+    print("\n[Naver 엔드포인트 진단]")
+    test_code = "005930"
+    chosen = None
+    for tpl in NAVER_ENDPOINTS:
+        url = tpl.format(code=test_code)
+        status, body = _http_get(url)
+        if status != 200:
+            print(f"  [HTTP {status}] {tpl}")
+            if body and status >= 400:
+                print(f"    err body: {body[:120]}")
+            continue
+        try:
+            data = json.loads(body)
+        except json.JSONDecodeError:
+            print(f"  [200 그러나 JSON 아님] {tpl}")
+            print(f"    body[:120]: {body[:120]}")
+            continue
+        parsed = parse_response(test_code, data)
+        if parsed and parsed.get("mcap"):
+            print(f"  [OK] {tpl}")
+            print(f"    삼성전자: {parsed['name']} | 시총={parsed['mcap']:.3e} KRW | 등락률={parsed['change']}%")
+            if chosen is None:
+                chosen = tpl
+        else:
+            # 응답은 받았지만 우리가 원하는 필드가 없음 - JSON 구조 일부 출력
+            keys = list(data.keys()) if isinstance(data, dict) else []
+            print(f"  [200, 그러나 mcap 파싱 실패] {tpl}")
+            print(f"    top-level keys: {keys[:15]}")
+            if isinstance(data, dict):
+                # 시총 관련 필드명을 찾기 위한 단서
+                sample = json.dumps({k: data[k] for k in keys[:5]}, ensure_ascii=False)[:400]
+                print(f"    sample: {sample}")
+
+    if chosen is None:
+        print("\n  ERROR: 모든 후보 엔드포인트 실패. 위 진단 로그 확인 필요.")
+        sys.exit(1)
+    print(f"\n  -> 선택: {chosen}")
+    return chosen
+
+
+def fetch_stock(code, endpoint_template):
+    """단일 종목 시세 조회. 재시도 포함."""
+    url = endpoint_template.format(code=code)
+    delay = 0.5
+    for attempt in range(MAX_RETRY):
+        status, body = _http_get(url)
+        if status == 200:
+            try:
+                data = json.loads(body)
+                return parse_response(code, data)
+            except json.JSONDecodeError:
+                return None
+        if status == 404:
+            return None
+        if status == 429 and attempt < MAX_RETRY - 1:
+            time.sleep(delay * 3)
+        elif attempt < MAX_RETRY - 1:
             time.sleep(delay + random.random() * 0.2)
             delay *= 1.6
     return None
@@ -280,7 +343,10 @@ def main():
         print("ERROR: 빈 universe")
         sys.exit(1)
 
-    # 3. 병렬 fetch
+    # 3. Naver 엔드포인트 진단 (작동하는 URL 자동 선택)
+    endpoint = discover_endpoint()
+
+    # 4. 병렬 fetch
     print(f"\n[Naver 시세 조회] workers={WORKERS}, 종목수={len(universe):,}")
     t0 = time.monotonic()
 
@@ -289,7 +355,7 @@ def main():
     code_to_meta = {u["code"]: u for u in universe}
 
     def task(u):
-        return u["code"], fetch_stock(u["code"])
+        return u["code"], fetch_stock(u["code"], endpoint)
 
     with ThreadPoolExecutor(max_workers=WORKERS) as ex:
         futures = [ex.submit(task, u) for u in universe]
