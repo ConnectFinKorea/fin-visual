@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-04T07:06:07+0000",
+  "generated_at": "2026-05-04T20:10:05+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3963,
@@ -4361,11 +4361,6 @@
       "name": "제일테크노스"
     },
     {
-      "stock_code": "106190",
-      "corp_code": "00409964",
-      "name": "하이텍팜"
-    },
-    {
       "stock_code": "035900",
       "corp_code": "00258689",
       "name": "JYP Ent."
@@ -4684,11 +4679,6 @@
       "stock_code": "044960",
       "corp_code": "00145473",
       "name": "이글벳"
-    },
-    {
-      "stock_code": "054410",
-      "corp_code": "00357607",
-      "name": "케이피티유"
     },
     {
       "stock_code": "417310",
@@ -7056,19 +7046,9 @@
       "name": "엠씨넥스"
     },
     {
-      "stock_code": "432320",
-      "corp_code": "01622720",
-      "name": "KB스타리츠"
-    },
-    {
       "stock_code": "377400",
       "corp_code": "01526949",
       "name": "하이제6호기업인수목적"
-    },
-    {
-      "stock_code": "152550",
-      "corp_code": "00907013",
-      "name": "한국ANKOR유전"
     },
     {
       "stock_code": "012340",
@@ -7246,11 +7226,6 @@
       "name": "KC그린홀딩스"
     },
     {
-      "stock_code": "388870",
-      "corp_code": "01495180",
-      "name": "파로스아이바이오"
-    },
-    {
       "stock_code": "370090",
       "corp_code": "01357446",
       "name": "퓨런티어"
@@ -7314,11 +7289,6 @@
       "stock_code": "263810",
       "corp_code": "00760999",
       "name": "상신전자"
-    },
-    {
-      "stock_code": "045970",
-      "corp_code": "00271501",
-      "name": "코아시아"
     },
     {
       "stock_code": "007640",
@@ -8376,11 +8346,6 @@
       "name": "하나33호스팩"
     },
     {
-      "stock_code": "104200",
-      "corp_code": "00645089",
-      "name": "NHN벅스"
-    },
-    {
       "stock_code": "002270",
       "corp_code": "00120508",
       "name": "롯데푸드"
@@ -8736,11 +8701,6 @@
       "name": "동국생명과학"
     },
     {
-      "stock_code": "098070",
-      "corp_code": "00404941",
-      "name": "한텍"
-    },
-    {
       "stock_code": "035760",
       "corp_code": "00265324",
       "name": "CJ ENM"
@@ -8984,11 +8944,6 @@
       "stock_code": "000520",
       "corp_code": "00128032",
       "name": "삼일제약"
-    },
-    {
-      "stock_code": "005690",
-      "corp_code": "00145163",
-      "name": "파미셀"
     },
     {
       "stock_code": "093240",
@@ -9811,11 +9766,6 @@
       "name": "피에스텍"
     },
     {
-      "stock_code": "291230",
-      "corp_code": "01276901",
-      "name": "엔피"
-    },
-    {
       "stock_code": "368600",
       "corp_code": "01302853",
       "name": "아이씨에이치"
@@ -9981,11 +9931,6 @@
       "name": "웨이비스"
     },
     {
-      "stock_code": "002820",
-      "corp_code": "00132211",
-      "name": "SUN&L"
-    },
-    {
       "stock_code": "348370",
       "corp_code": "01011526",
       "name": "엔켐"
@@ -9994,11 +9939,6 @@
       "stock_code": "010090",
       "corp_code": "00164308",
       "name": "이마트에브리데이"
-    },
-    {
-      "stock_code": "007460",
-      "corp_code": "00152385",
-      "name": "에이프로젠"
     },
     {
       "stock_code": "240600",
@@ -10161,11 +10101,6 @@
       "name": "케이엠"
     },
     {
-      "stock_code": "000150",
-      "corp_code": "00117212",
-      "name": "두산"
-    },
-    {
       "stock_code": "263750",
       "corp_code": "01152470",
       "name": "펄어비스"
@@ -10316,11 +10251,6 @@
       "name": "EDGC"
     },
     {
-      "stock_code": "126720",
-      "corp_code": "00193328",
-      "name": "수산인더스트리"
-    },
-    {
       "stock_code": "229000",
       "corp_code": "01051472",
       "name": "젠큐릭스"
@@ -10344,11 +10274,6 @@
       "stock_code": "464080",
       "corp_code": "01686427",
       "name": "에스오에스랩"
-    },
-    {
-      "stock_code": "175250",
-      "corp_code": "00554352",
-      "name": "아이큐어"
     },
     {
       "stock_code": "019570",
@@ -10664,11 +10589,6 @@
       "stock_code": "001630",
       "corp_code": "00149354",
       "name": "종근당홀딩스"
-    },
-    {
-      "stock_code": "024840",
-      "corp_code": "00158024",
-      "name": "KBI메탈"
     },
     {
       "stock_code": "002020",
@@ -12066,11 +11986,6 @@
       "name": "시디즈"
     },
     {
-      "stock_code": "480370",
-      "corp_code": "01210677",
-      "name": "씨케이솔루션"
-    },
-    {
       "stock_code": "088390",
       "corp_code": "00494476",
       "name": "이녹스"
@@ -12609,11 +12524,6 @@
       "stock_code": "005380",
       "corp_code": "00164742",
       "name": "현대자동차"
-    },
-    {
-      "stock_code": "141080",
-      "corp_code": "00842619",
-      "name": "리가켐바이오"
     },
     {
       "stock_code": "031860",
@@ -13771,11 +13681,6 @@
       "name": "헬스커넥트"
     },
     {
-      "stock_code": "066670",
-      "corp_code": "00371740",
-      "name": "디티씨"
-    },
-    {
       "stock_code": "322510",
       "corp_code": "01153293",
       "name": "제이엘케이"
@@ -14401,6 +14306,11 @@
       "name": "롯데하이마트"
     },
     {
+      "stock_code": "126720",
+      "corp_code": "00193328",
+      "name": "수산인더스트리"
+    },
+    {
       "stock_code": "001440",
       "corp_code": "00113207",
       "name": "대한전선"
@@ -14449,6 +14359,11 @@
       "stock_code": "007570",
       "corp_code": "00146454",
       "name": "일양약품"
+    },
+    {
+      "stock_code": "064350",
+      "corp_code": "00302926",
+      "name": "현대로템"
     },
     {
       "stock_code": "001890",
@@ -14701,6 +14616,96 @@
       "name": "비츠로넥스텍"
     },
     {
+      "stock_code": "024840",
+      "corp_code": "00158024",
+      "name": "KBI메탈"
+    },
+    {
+      "stock_code": "017040",
+      "corp_code": "00103662",
+      "name": "광명전기"
+    },
+    {
+      "stock_code": "000150",
+      "corp_code": "00117212",
+      "name": "두산"
+    },
+    {
+      "stock_code": "044480",
+      "corp_code": "00173449",
+      "name": "빌리언스"
+    },
+    {
+      "stock_code": "045660",
+      "corp_code": "00256502",
+      "name": "에이텍"
+    },
+    {
+      "stock_code": "011330",
+      "corp_code": "00137207",
+      "name": "유니켐"
+    },
+    {
+      "stock_code": "045970",
+      "corp_code": "00271501",
+      "name": "코아시아"
+    },
+    {
+      "stock_code": "005690",
+      "corp_code": "00145163",
+      "name": "파미셀"
+    },
+    {
+      "stock_code": "033790",
+      "corp_code": "00276083",
+      "name": "피노"
+    },
+    {
+      "stock_code": "007460",
+      "corp_code": "00152385",
+      "name": "에이프로젠"
+    },
+    {
+      "stock_code": "043710",
+      "corp_code": "00305570",
+      "name": "코스리거글로벌"
+    },
+    {
+      "stock_code": "054410",
+      "corp_code": "00357607",
+      "name": "케이피티유"
+    },
+    {
+      "stock_code": "036570",
+      "corp_code": "00261443",
+      "name": "NC"
+    },
+    {
+      "stock_code": "066670",
+      "corp_code": "00371740",
+      "name": "디티씨"
+    },
+    {
+      "stock_code": "098070",
+      "corp_code": "00404941",
+      "name": "한텍"
+    },
+    {
+      "stock_code": "106190",
+      "corp_code": "00409964",
+      "name": "하이텍팜"
+    },
+    {
+      "stock_code": "308170",
+      "corp_code": "00450010",
+      "name": "씨티알모빌리티"
+    },
+    {
+      "stock_code": "224060",
+      "corp_code": "00530413",
+      "name": "더코디"
+    },
+    {
       "stock_code": "950170",
       "corp_code": "01041828",
       "name": "JTC"
@@ -14809,6 +14814,91 @@
       "stock_code": "004960",
       "corp_code": "00162063",
       "name": "한신공영"
+    },
+    {
+      "stock_code": "480370",
+      "corp_code": "01210677",
+      "name": "씨케이솔루션"
+    },
+    {
+      "stock_code": "175250",
+      "corp_code": "00554352",
+      "name": "아이큐어"
+    },
+    {
+      "stock_code": "432320",
+      "corp_code": "01622720",
+      "name": "KB스타리츠"
+    },
+    {
+      "stock_code": "101360",
+      "corp_code": "00619640",
+      "name": "에코앤드림"
+    },
+    {
+      "stock_code": "152550",
+      "corp_code": "00907013",
+      "name": "한국투자ANKOR유전해외자원개발특별자산투자회사1호(지분증권)"
+    },
+    {
+      "stock_code": "104200",
+      "corp_code": "00645089",
+      "name": "NHN벅스"
+    },
+    {
+      "stock_code": "112190",
+      "corp_code": "00366517",
+      "name": "KC산업"
+    },
+    {
+      "stock_code": "115160",
+      "corp_code": "00787057",
+      "name": "휴맥스"
+    },
+    {
+      "stock_code": "177350",
+      "corp_code": "00813389",
+      "name": "베셀"
+    },
+    {
+      "stock_code": "141080",
+      "corp_code": "00842619",
+      "name": "리가켐바이오"
+    },
+    {
+      "stock_code": "321820",
+      "corp_code": "01116502",
+      "name": "아티스트컴퍼니"
+    },
+    {
+      "stock_code": "261780",
+      "corp_code": "01141599",
+      "name": "차백신연구소"
+    },
+    {
+      "stock_code": "348030",
+      "corp_code": "01210190",
+      "name": "모비릭스"
+    },
+    {
+      "stock_code": "291230",
+      "corp_code": "01276901",
+      "name": "엔피"
+    },
+    {
+      "stock_code": "443670",
+      "corp_code": "01381391",
+      "name": "에스피소프트"
+    },
+    {
+      "stock_code": "408470",
+      "corp_code": "01445024",
+      "name": "한패스"
+    },
+    {
+      "stock_code": "388870",
+      "corp_code": "01495180",
+      "name": "파로스아이바이오"
     },
     {
       "stock_code": "016610",
@@ -14956,6 +15046,16 @@
       "name": "KD"
     },
     {
+      "stock_code": "312610",
+      "corp_code": "01223219",
+      "name": "에이에프더블류"
+    },
+    {
+      "stock_code": "288330",
+      "corp_code": "01227039",
+      "name": "파라택시스코리아"
+    },
+    {
       "stock_code": "079190",
       "corp_code": "00479705",
       "name": "케스피온"
@@ -15051,11 +15151,6 @@
       "name": "우리이앤엘하루틴"
     },
     {
-      "stock_code": "298060",
-      "corp_code": "01110474",
-      "name": "풍전약품"
-    },
-    {
       "stock_code": "238490",
       "corp_code": "00556712",
       "name": "힘스"
@@ -15064,6 +15159,16 @@
       "stock_code": "377030",
       "corp_code": "01409095",
       "name": "비트맥스"
+    },
+    {
+      "stock_code": "221800",
+      "corp_code": "01026616",
+      "name": "지구홀딩스"
+    },
+    {
+      "stock_code": "002820",
+      "corp_code": "00132211",
+      "name": "SUN&L"
     },
     {
       "stock_code": "373200",
@@ -15099,11 +15204,6 @@
       "stock_code": "115530",
       "corp_code": "00660033",
       "name": "씨엔플러스"
-    },
-    {
-      "stock_code": "115160",
-      "corp_code": "00787057",
-      "name": "휴맥스"
     },
     {
       "stock_code": "028080",
@@ -15214,6 +15314,11 @@
       "stock_code": "364950",
       "corp_code": "01307593",
       "name": "에이아이코리아"
+    },
+    {
+      "stock_code": "298060",
+      "corp_code": "01110474",
+      "name": "풍전약품"
     },
     {
       "stock_code": "069730",
@@ -15501,11 +15606,6 @@
       "name": "컴퍼니케이"
     },
     {
-      "stock_code": "064350",
-      "corp_code": "00302926",
-      "name": "현대로템"
-    },
-    {
       "stock_code": "176750",
       "corp_code": "00867034",
       "name": "듀켐바이오"
@@ -15524,11 +15624,6 @@
       "stock_code": "150900",
       "corp_code": "00638487",
       "name": "파수에이아이"
-    },
-    {
-      "stock_code": "221800",
-      "corp_code": "01026616",
-      "name": "지구홀딩스"
     },
     {
       "stock_code": "251120",
@@ -15831,11 +15926,6 @@
       "name": "DRB동일"
     },
     {
-      "stock_code": "045660",
-      "corp_code": "00256502",
-      "name": "에이텍"
-    },
-    {
       "stock_code": "001120",
       "corp_code": "00120076",
       "name": "LX인터내셔널"
@@ -15951,11 +16041,6 @@
       "name": "코스텍시스템"
     },
     {
-      "stock_code": "017040",
-      "corp_code": "00103662",
-      "name": "광명전기"
-    },
-    {
       "stock_code": "106080",
       "corp_code": "00542898",
       "name": "케이이엠텍"
@@ -16051,11 +16136,6 @@
       "name": "신한"
     },
     {
-      "stock_code": "288330",
-      "corp_code": "01227039",
-      "name": "파라택시스코리아"
-    },
-    {
       "stock_code": "215100",
       "corp_code": "01063990",
       "name": "로보로보"
@@ -16144,11 +16224,6 @@
       "stock_code": "005320",
       "corp_code": "00168331",
       "name": "온타이드"
-    },
-    {
-      "stock_code": "033790",
-      "corp_code": "00276083",
-      "name": "피노"
     },
     {
       "stock_code": "030200",
@@ -16396,16 +16471,6 @@
       "name": "코오롱머티리얼"
     },
     {
-      "stock_code": "101360",
-      "corp_code": "00619640",
-      "name": "에코앤드림"
-    },
-    {
-      "stock_code": "043710",
-      "corp_code": "00305570",
-      "name": "서울리거"
-    },
-    {
       "stock_code": "474650",
       "corp_code": "01764099",
       "name": "링크솔루션"
@@ -16619,11 +16684,6 @@
       "stock_code": "377450",
       "corp_code": "01210066",
       "name": "리파인"
-    },
-    {
-      "stock_code": "348030",
-      "corp_code": "01210190",
-      "name": "모비릭스"
     },
     {
       "stock_code": "216080",
@@ -16921,11 +16981,6 @@
       "name": "애니메디솔루션"
     },
     {
-      "stock_code": "224060",
-      "corp_code": "00530413",
-      "name": "더코디"
-    },
-    {
       "stock_code": "031820",
       "corp_code": "00186559",
       "name": "아이티센씨티에스"
@@ -16976,11 +17031,6 @@
       "name": "AJ네트웍스"
     },
     {
-      "stock_code": "312610",
-      "corp_code": "01223219",
-      "name": "에이에프더블류"
-    },
-    {
       "stock_code": "047400",
       "corp_code": "00369833",
       "name": "유니온머티리얼"
@@ -16989,11 +17039,6 @@
       "stock_code": "289220",
       "corp_code": "01264438",
       "name": "자이언트스텝"
-    },
-    {
-      "stock_code": "308170",
-      "corp_code": "00450010",
-      "name": "씨티알모빌리티"
     },
     {
       "stock_code": "327260",
@@ -17384,11 +17429,6 @@
       "stock_code": "143210",
       "corp_code": "00119140",
       "name": "핸즈코퍼레이션"
-    },
-    {
-      "stock_code": "044480",
-      "corp_code": "00173449",
-      "name": "빌리언스"
     },
     {
       "stock_code": "005360",
@@ -18026,11 +18066,6 @@
       "name": "옵트론텍"
     },
     {
-      "stock_code": "261780",
-      "corp_code": "01141599",
-      "name": "차백신연구소"
-    },
-    {
       "stock_code": "014950",
       "corp_code": "00127875",
       "name": "삼익제약"
@@ -18044,11 +18079,6 @@
       "stock_code": "225570",
       "corp_code": "01096341",
       "name": "넥슨게임즈"
-    },
-    {
-      "stock_code": "321820",
-      "corp_code": "01116502",
-      "name": "아티스트컴퍼니"
     },
     {
       "stock_code": "448710",
@@ -18311,11 +18341,6 @@
       "name": "대양제지공업"
     },
     {
-      "stock_code": "443670",
-      "corp_code": "01381391",
-      "name": "에스피소프트"
-    },
-    {
       "stock_code": "025950",
       "corp_code": "00116408",
       "name": "동신건설"
@@ -18354,11 +18379,6 @@
       "stock_code": "064090",
       "corp_code": "00390408",
       "name": "인크레더블버즈"
-    },
-    {
-      "stock_code": "112190",
-      "corp_code": "00366517",
-      "name": "KC산업"
     },
     {
       "stock_code": "252990",
@@ -18584,11 +18604,6 @@
       "stock_code": "0041J0",
       "corp_code": "01906552",
       "name": "엘에스스팩1호"
-    },
-    {
-      "stock_code": "011330",
-      "corp_code": "00137207",
-      "name": "유니켐"
     },
     {
       "stock_code": "028670",
@@ -18844,11 +18859,6 @@
       "stock_code": "200130",
       "corp_code": "01032404",
       "name": "콜마비앤에이치"
-    },
-    {
-      "stock_code": "036570",
-      "corp_code": "00261443",
-      "name": "NC"
     },
     {
       "stock_code": "323350",
@@ -19134,11 +19144,6 @@
       "stock_code": "032680",
       "corp_code": "00204226",
       "name": "소프트센"
-    },
-    {
-      "stock_code": "177350",
-      "corp_code": "00813389",
-      "name": "베셀"
     },
     {
       "stock_code": "468510",
@@ -19754,11 +19759,6 @@
       "stock_code": "258830",
       "corp_code": "00959229",
       "name": "세종메디칼"
-    },
-    {
-      "stock_code": "408470",
-      "corp_code": "01445024",
-      "name": "한패스"
     },
     {
       "stock_code": "012650",
