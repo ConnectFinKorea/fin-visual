@@ -1,0 +1,68 @@
+name: Update Listed Stocks (DART)
+
+on:
+  schedule:
+    # 매일 23:59 KST = 14:59 UTC
+    - cron: '59 14 * * *'
+  workflow_dispatch:    # 수동 실행 버튼
+
+permissions:
+  contents: write       # data-snapshot 브랜치에 push 권한
+
+concurrency:
+  group: data-snapshot-write
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run update_listed_stocks.py
+        env:
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
+        run: python scripts/update_listed_stocks.py
+
+      - name: Push listed_stocks.json to data-snapshot branch
+        shell: bash
+        run: |
+          set -e
+          DATA_FILE="data/listed_stocks.json"
+          OUTPUT_NAME="listed_stocks.json"
+
+          if [ ! -f "$DATA_FILE" ]; then
+            echo "ERROR: $DATA_FILE 가 생성되지 않았습니다"
+            exit 1
+          fi
+          cp "$DATA_FILE" "/tmp/$OUTPUT_NAME"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin data-snapshot 2>/dev/null || true
+          if git show-ref --quiet refs/remotes/origin/data-snapshot; then
+            git checkout -B data-snapshot origin/data-snapshot
+          else
+            git checkout --orphan data-snapshot
+            git rm -rf --cached . 2>/dev/null || true
+          fi
+
+          git clean -fdx
+
+          cp "/tmp/$OUTPUT_NAME" "./$OUTPUT_NAME"
+
+          git add "$OUTPUT_NAME"
+          if git diff --staged --quiet; then
+            echo "변경사항 없음"
+          else
+            git commit -m "data: update listed_stocks ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
+            git push origin data-snapshot
+          fi

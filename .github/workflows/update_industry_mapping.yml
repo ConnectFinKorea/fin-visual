@@ -1,0 +1,68 @@
+name: Update Industry Mapping (DART, monthly)
+
+on:
+  schedule:
+    # 매월 1일 23:00 KST = 14:00 UTC (1일 1회)
+    - cron: '0 14 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-snapshot-write
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90      # DART 전수조사는 30-60분 소요
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run fetch_dart_industry.py
+        env:
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
+        run: python scripts/fetch_dart_industry.py
+
+      - name: Push industry_mapping.json to data-snapshot branch
+        shell: bash
+        run: |
+          set -e
+          DATA_FILE="data/industry_mapping.json"
+          OUTPUT_NAME="industry_mapping.json"
+
+          if [ ! -f "$DATA_FILE" ]; then
+            echo "ERROR: $DATA_FILE 가 생성되지 않았습니다"
+            exit 1
+          fi
+          cp "$DATA_FILE" "/tmp/$OUTPUT_NAME"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin data-snapshot 2>/dev/null || true
+          if git show-ref --quiet refs/remotes/origin/data-snapshot; then
+            git checkout -B data-snapshot origin/data-snapshot
+          else
+            git checkout --orphan data-snapshot
+            git rm -rf --cached . 2>/dev/null || true
+          fi
+
+          git clean -fdx
+
+          cp "/tmp/$OUTPUT_NAME" "./$OUTPUT_NAME"
+
+          git add "$OUTPUT_NAME"
+          if git diff --staged --quiet; then
+            echo "변경사항 없음"
+          else
+            git commit -m "data: update industry_mapping ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
+            git push origin data-snapshot
+          fi

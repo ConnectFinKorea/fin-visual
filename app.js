@@ -235,9 +235,19 @@ function fmtPct(v) {
 }
 
 // ============== Market Cap Treemap (finviz 스타일) ==============
-// 정적: /data/industry_mapping.json (DART → KSIC)
-// 실시간: Cloudflare Worker /api/snapshot (네이버 금융, 5분 갱신)
-const WORKER_API = "https://finvisual-market.gmyhs.workers.dev/api/snapshot";
+// 데이터 소스: GitHub Actions가 data-snapshot 브랜치에 갱신
+//   - industry_mapping.json: 월 1회 (DART → KSIC 11차)
+//   - listed_stocks.json:    매일 23:59 KST (DART CORPCODE)
+//   - snapshot.json:         평일 09-16 KST 정시 (네이버 금융)
+const GH_USER = "ConnectFinKorea";
+const GH_REPO = "fin-visual";
+const DATA_BRANCH = "data-snapshot";
+const RAW_BASE = `https://raw.githubusercontent.com/${GH_USER}/${GH_REPO}/${DATA_BRANCH}`;
+// 1분 단위 캐시버스팅 (raw.githubusercontent CDN max-age=300 회피)
+const CACHE_BUST = () => `?t=${Math.floor(Date.now() / 60000)}`;
+const SNAPSHOT_URL = () => `${RAW_BASE}/snapshot.json${CACHE_BUST()}`;
+const MAPPING_URL = () => `${RAW_BASE}/industry_mapping.json${CACHE_BUST()}`;
+const MAPPING_URL_FALLBACK = "/data/industry_mapping.json";
 
 async function renderMarketCap() {
   $main.innerHTML = `
@@ -260,12 +270,9 @@ async function renderMarketCap() {
   const $status = document.getElementById("tm-status");
   try {
     const [mapping, snapshot] = await Promise.all([
-      fetch("/data/industry_mapping.json").then(r => {
-        if (!r.ok) throw new Error("매핑 파일 없음");
-        return r.json();
-      }),
-      fetch(WORKER_API).then(r => {
-        if (!r.ok) throw new Error("Worker 응답 실패");
+      fetchMapping(),
+      fetch(SNAPSHOT_URL()).then(r => {
+        if (!r.ok) throw new Error("snapshot.json 로드 실패 (data-snapshot 브랜치 확인)");
         return r.json();
       }),
     ]);
@@ -279,11 +286,23 @@ async function renderMarketCap() {
         <p>실시간 데이터를 불러올 수 없습니다.</p>
         <p style="font-size:11px; color: var(--text-3);">
           확인할 항목:<br>
-          · /data/industry_mapping.json 파일 배포 여부<br>
-          · Cloudflare Worker (${WORKER_API}) 동작 여부
+          · GitHub Actions data-snapshot 브랜치에 snapshot.json 존재 여부<br>
+          · GitHub Actions 워크플로 실행 상태 (Actions 탭)
         </p>
       </div>`;
   }
+}
+
+async function fetchMapping() {
+  // 1순위: data-snapshot 브랜치 (월 1회 갱신, 가장 최신)
+  try {
+    const r = await fetch(MAPPING_URL());
+    if (r.ok) return r.json();
+  } catch (_) { /* fallback */ }
+  // 2순위: main 브랜치의 시드 파일 (CF Pages 정적 서빙)
+  const r = await fetch(MAPPING_URL_FALLBACK);
+  if (!r.ok) throw new Error("industry_mapping.json 로드 실패");
+  return r.json();
 }
 
 function drawTreemap(mapping, snapshot) {

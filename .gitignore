@@ -2,6 +2,10 @@
 data/CORPCODE.xml
 data/_dart_progress.json
 
+# GitHub Actions가 data-snapshot 브랜치에 push하는 파일들 (main에는 포함 안 함)
+data/listed_stocks.json
+data/snapshot.json
+
 # 워커 로컬 환경
 worker/.dev.vars
 worker/.wrangler/

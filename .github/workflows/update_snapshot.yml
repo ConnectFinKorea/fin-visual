@@ -1,0 +1,86 @@
+name: Update Snapshot (Naver, hourly)
+
+on:
+  schedule:
+    # 평일 09-16 KST 정시 = 0-7 UTC, Mon-Fri
+    # 실제 실행은 GitHub 부하에 따라 5-15분 지연 가능
+    - cron: '0 0-7 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-snapshot-write
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install holidays
+
+      - name: Fetch latest data files from data-snapshot branch
+        shell: bash
+        run: |
+          mkdir -p data
+          git fetch origin data-snapshot 2>/dev/null || true
+          if git show-ref --quiet refs/remotes/origin/data-snapshot; then
+            git show origin/data-snapshot:listed_stocks.json > data/listed_stocks.json 2>/dev/null \
+              && echo "  listed_stocks.json fetched ($(stat -c%s data/listed_stocks.json) bytes)" \
+              || (rm -f data/listed_stocks.json; echo "  listed_stocks.json not on data-snapshot")
+            git show origin/data-snapshot:industry_mapping.json > data/industry_mapping.json 2>/dev/null \
+              && echo "  industry_mapping.json fetched ($(stat -c%s data/industry_mapping.json) bytes)" \
+              || (rm -f data/industry_mapping.json; echo "  industry_mapping.json not on data-snapshot (will use main if present)")
+          else
+            echo "data-snapshot branch가 아직 없음 - main의 industry_mapping.json fallback 사용"
+          fi
+
+      - name: Run update_snapshot.py
+        run: python scripts/update_snapshot.py
+
+      - name: Push snapshot.json to data-snapshot branch
+        shell: bash
+        run: |
+          set -e
+          DATA_FILE="data/snapshot.json"
+          OUTPUT_NAME="snapshot.json"
+
+          if [ ! -f "$DATA_FILE" ]; then
+            echo "snapshot.json이 생성되지 않음 (휴장 또는 비정상). push 건너뜀."
+            exit 0
+          fi
+          cp "$DATA_FILE" "/tmp/$OUTPUT_NAME"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin data-snapshot 2>/dev/null || true
+          if git show-ref --quiet refs/remotes/origin/data-snapshot; then
+            git checkout -B data-snapshot origin/data-snapshot
+          else
+            git checkout --orphan data-snapshot
+            git rm -rf --cached . 2>/dev/null || true
+          fi
+
+          git clean -fdx
+
+          cp "/tmp/$OUTPUT_NAME" "./$OUTPUT_NAME"
+
+          git add "$OUTPUT_NAME"
+          if git diff --staged --quiet; then
+            echo "변경사항 없음"
+          else
+            git commit -m "data: update snapshot ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
+            git push origin data-snapshot
+          fi
