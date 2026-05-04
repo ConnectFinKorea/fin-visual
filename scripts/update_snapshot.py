@@ -272,49 +272,71 @@ def fetch_stock(code, endpoint_template):
 
 def parse_response(code, data):
     """
-    Naver 응답 -> 표준 형식.
-    필드는 응답 변형에 대응하기 위해 다중 후보 검색.
+    Naver /api/stock/{code}/integration 응답 파싱.
+    실제 구조:
+      {
+        "stockName": "삼성전자",
+        "closePrice": "...",       (있을 수도)
+        "fluctuationsRatio": "...", (있을 수도)
+        "totalInfos": [
+          {"code": "lastClosePrice", "key": "전일", "value": "220,500"},
+          {"code": "marketValue",    "key": "시가총액", "value": "4,553,879"},  # 단위: 억원
+          ...
+        ]
+      }
     """
     if not isinstance(data, dict):
         return None
 
-    # nested 가능: stockInfo, dealTrendInfo, ...
-    candidates = [data]
-    for key in ("stockInfo", "stock", "data"):
-        v = data.get(key)
-        if isinstance(v, dict):
-            candidates.append(v)
+    # 1) 종목명 (최상위)
+    name = data.get("stockName") or data.get("itemName") or ""
 
-    def pick(*names):
-        for src in candidates:
-            for n in names:
-                if n in src and src[n] is not None and src[n] != "":
-                    return src[n]
+    # 2) totalInfos 배열을 code 기준 dict 로 변환
+    by_code = {}
+    for item in data.get("totalInfos", []) or []:
+        if isinstance(item, dict):
+            c = item.get("code")
+            v = item.get("value")
+            if c and v is not None and v != "":
+                by_code[c] = v
+
+    # 3) 시가총액 (억원 단위)
+    mcap_raw = parse_number(by_code.get("marketValue"))
+
+    # 4) 현재가/종가
+    close_raw = None
+    for k in ("closePrice", "currentPrice", "lastTradedPrice"):
+        if k in by_code:
+            close_raw = parse_number(by_code[k])
+            if close_raw is not None:
+                break
+    if close_raw is None:
+        # 최상위에도 있을 수 있음 (basic endpoint 등)
+        close_raw = parse_number(data.get("closePrice"))
+
+    # 5) 등락률 (%)
+    chg = parse_number(by_code.get("fluctuationsRatio")) \
+        or parse_number(by_code.get("changeRate")) \
+        or parse_number(data.get("fluctuationsRatio"))
+
+    # 등락률이 없으면 전일종가 대비 계산
+    if chg is None and close_raw is not None:
+        last_close = parse_number(by_code.get("lastClosePrice"))
+        if last_close and last_close > 0:
+            chg = (close_raw - last_close) / last_close * 100
+
+    if mcap_raw is None or mcap_raw < 1:
         return None
 
-    name = pick("stockName", "itemName", "name", "korName")
-    close = parse_number(pick("closePrice", "now", "price", "currentPrice"))
-    chg = parse_number(pick("fluctuationsRatio", "fluctuationRatio", "changeRate"))
-    mcap_raw = parse_number(pick("marketValue", "marketCap", "marketCapacity"))
-
-    if mcap_raw is None:
-        return None
-
-    # marketValue 단위 추론: 1조 미만 종목도 있으니 휴리스틱
-    # Naver 모바일은 보통 억 단위 (예: 삼성전자 = 4,553,879)
-    # 4,553,879 억 = 455조 -> 억 단위 맞음
-    # 매우 작은 회사여도 억 단위로 100단위 (=100억) 정도는 됨
-    # 따라서 mcap_raw 가 너무 작으면 (< 1) 무시, 그 외엔 *1e8
-    if mcap_raw < 1:
-        return None
+    # 시가총액 단위는 억원 (Naver 표준): 삼성전자 약 4,553,879억 = 4.55e14 KRW = 455조원
     mcap_krw = mcap_raw * 1e8
 
     return {
         "code": code,
-        "name": name or "",
+        "name": name,
         "mcap": mcap_krw,
         "change": chg if chg is not None else 0.0,
-        "close": close,
+        "close": close_raw,
     }
 
 
