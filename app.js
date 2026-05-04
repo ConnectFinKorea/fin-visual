@@ -389,6 +389,12 @@ function drawTreemap(mapping, snapshot) {
     }
   };
 
+  // 5-b) 전체 시장 시총 합 (산업별 비중 표시용)
+  const totalMarketMcap = groupArr.reduce((s, g) => s + g.totalMcap, 0);
+
+  // 작은 종목 텍스트 표시 임계값 (5,000억원 = 5e11 KRW)
+  const SMALL_MCAP_THRESHOLD_KRW = 5000 * 1e8;
+
   // 6) Pass 1 — 카테고리(대분류) 위치 계산
   // 카테고리 크기는 totalMcap (top5 + 기타 합산) 기준
   const catRoot = d3.hierarchy({
@@ -500,11 +506,26 @@ function drawTreemap(mapping, snapshot) {
       const g = d.data;
       const sign = g.weightedChange >= 0 ? "+" : "";
       const pct = `${sign}${g.weightedChange.toFixed(1)}%`;
-      const txt = g.name + ` (${pct})`;
-      return w < 200 ? truncate(txt, Math.floor(w / (isMobile ? 6.2 : 7))) : txt;
+      const share = totalMarketMcap > 0
+        ? (g.totalMcap / totalMarketMcap * 100).toFixed(1) + "%"
+        : "";
+      const txt = `${g.name} (${share} · ${pct})`;
+      return w < 220 ? truncate(txt, Math.floor(w / (isMobile ? 6.2 : 7))) : txt;
     });
 
   // 8-b) 회사 셀 (top5)
+  // 셀별 표시 속성 사전 계산 (이름 자동 폰트 + 임계값)
+  for (const c of cells) {
+    const w = c.x1 - c.x0, h = c.y1 - c.y0;
+    c._aboveThresh = c.mcap >= SMALL_MCAP_THRESHOLD_KRW;
+    c._showText = c._aboveThresh && w >= 38 && h >= 18;
+    if (c._showText) {
+      const fit = fitNameText(c.name, w - 8, 10.5, 7.5);
+      c._nameSize = fit.size;
+      c._nameText = fit.text;
+    }
+  }
+
   const leafG = svg.selectAll("g.leaf")
     .data(cells)
     .join("g")
@@ -518,18 +539,16 @@ function drawTreemap(mapping, snapshot) {
     .attr("stroke", "var(--card)")
     .attr("stroke-width", 0.5);
 
+  // 회사명 - 박스 폭에 맞춰 폰트 자동 조정
   leafG.append("text")
     .attr("x", 4).attr("y", 12)
-    .style("font-size", "10.5px")
+    .style("font-size", d => d._showText ? d._nameSize.toFixed(1) + "px" : "0")
     .style("font-weight", 700)
     .style("fill", "#ffffff")
     .style("pointer-events", "none")
-    .text(d => {
-      const w = d.x1 - d.x0, h = d.y1 - d.y0;
-      if (w < 38 || h < 18) return "";
-      return truncate(d.name, Math.floor(w / 6.5));
-    });
+    .text(d => d._showText ? d._nameText : "");
 
+  // 등락률
   leafG.append("text")
     .attr("x", 4).attr("y", 24)
     .style("font-size", "9.5px")
@@ -537,11 +556,12 @@ function drawTreemap(mapping, snapshot) {
     .style("pointer-events", "none")
     .text(d => {
       const w = d.x1 - d.x0, h = d.y1 - d.y0;
-      if (w < 50 || h < 30) return "";
+      if (!d._aboveThresh || w < 50 || h < 30) return "";
       const sign = d.change >= 0 ? "+" : "";
       return `${sign}${d.change.toFixed(2)}%`;
     });
 
+  // 시총
   leafG.append("text")
     .attr("x", 4).attr("y", 36)
     .style("font-size", "9px")
@@ -549,14 +569,14 @@ function drawTreemap(mapping, snapshot) {
     .style("pointer-events", "none")
     .text(d => {
       const w = d.x1 - d.x0, h = d.y1 - d.y0;
-      if (w < 70 || h < 44) return "";
+      if (!d._aboveThresh || w < 70 || h < 44) return "";
       return formatMcap(d.mcap);
     });
 
   leafG.append("title")
     .text(d => {
       const sign = d.change >= 0 ? "+" : "";
-      return `${d.name}\n시총: ${formatMcap(d.mcap)}원\n등락률: ${sign}${d.change.toFixed(2)}%`;
+      return `${d.name}\n시총: ${formatMcap(d.mcap)}\n등락률: ${sign}${d.change.toFixed(2)}%`;
     });
 
   // 8-c) 기타 strip (카테고리 하단 고정 높이)
@@ -605,7 +625,7 @@ function drawTreemap(mapping, snapshot) {
   otherG.append("title")
     .text(d => {
       const sign = d.change >= 0 ? "+" : "";
-      return `기타 종목 합산\n시총: ${formatMcap(d.mcap)}원\n가중평균 등락률: ${sign}${d.change.toFixed(2)}%`;
+      return `기타 종목 합산\n시총: ${formatMcap(d.mcap)}\n가중평균 등락률: ${sign}${d.change.toFixed(2)}%`;
     });
 }
 
@@ -614,11 +634,31 @@ function truncate(s, n) {
   return s.length > n ? s.slice(0, Math.max(1, n - 1)) + "…" : s;
 }
 
-function formatMcap(billionsKR) {
-  // 입력 단위: 억원
-  if (billionsKR >= 10000) return (billionsKR / 10000).toFixed(1) + "조";
-  if (billionsKR >= 1000)  return (billionsKR / 1000).toFixed(0) * 1000 + "억";
-  return Math.round(billionsKR) + "억";
+// snapshot.json 의 mcap 단위는 KRW (원). 표시용으로 억원/조원 변환.
+// 1만억(=1조) 미만이면 억원 단위, 그 이상이면 조원 단위. 천단위 콤마.
+function formatMcap(krw) {
+  if (!isFinite(krw) || krw < 0) return "";
+  const eok = krw / 1e8;          // 억원 환산
+  if (eok >= 10000) {
+    const jo = eok / 10000;       // 조원
+    return jo.toLocaleString("ko-KR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "조원";
+  }
+  return Math.round(eok).toLocaleString("ko-KR") + "억원";
+}
+
+// 회사명 글씨 크기를 박스에 맞춰 자동 축소. 최소 폰트로도 부족하면 말줄임.
+function fitNameText(name, availWidth, baseSize, minSize) {
+  const charW = (sz) => sz * 0.62;            // 한/영 혼합 평균 폭
+  const needBase = name.length * charW(baseSize);
+  if (needBase <= availWidth) return { size: baseSize, text: name };
+  const scaled = baseSize * availWidth / needBase;
+  if (scaled >= minSize) return { size: scaled, text: name };
+  // 최소 폰트로도 못 담을 만큼 긴 이름 → 말줄임
+  const maxChars = Math.max(1, Math.floor(availWidth / charW(minSize)));
+  const trunc = name.length > maxChars
+    ? name.slice(0, Math.max(1, maxChars - 1)) + "…"
+    : name;
+  return { size: minSize, text: trunc };
 }
 
 // 윈도우 리사이즈 시 트리맵 재렌더 (현재 페이지가 트리맵인 경우)
