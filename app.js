@@ -674,20 +674,7 @@ window.addEventListener("resize", () => {
 // 시가총액 트리맵과 동일 데이터 (snapshot.json + industry_mapping.json) 사용.
 // 좌: 산업별 변동, 우: 회사별 변동 (산업 선택 시).
 async function renderMarketAmount() {
-  $main.innerHTML = `
-    <div class="amount-header">
-      <div class="page-title">변동액 <span class="crumb">/ Market · Equity</span></div>
-      <div class="amount-meta"><span id="amt-status">데이터 로딩 중...</span></div>
-    </div>
-    <div class="amount-split" id="amount-split"></div>
-    <div class="amount-footnote">
-      변동액 = 현재 시가총액 − 전일 종가 기준 시가총액 (등락률에서 역산) ·
-      산업 분류: 한국표준산업분류 11차 대분류 ·
-      각 표 상위 20개 + 기타로 합산
-    </div>
-  `;
-
-  const $status = document.getElementById("amt-status");
+  $main.innerHTML = `<div class="amt-loading" id="amt-loading">데이터 로딩 중...</div>`;
   try {
     const [mapping, snapshot] = await Promise.all([
       fetchMapping(),
@@ -698,14 +685,12 @@ async function renderMarketAmount() {
     ]);
     const data = computeAmountData(mapping, snapshot);
     if (!data.industries.length) {
-      $status.innerHTML = `<span style="color:var(--red)">데이터 없음</span>`;
+      $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">데이터 없음</div>`;
       return;
     }
-    const ts = new Date(snapshot.timestamp || Date.now()).toLocaleString("ko-KR");
-    $status.textContent = `${data.totalCount.toLocaleString()}개 종목 · 업데이트 ${ts}`;
-    drawAmountTables(data);
+    drawAmountTables(data, snapshot);
   } catch (err) {
-    $status.innerHTML = `<span style="color:var(--red)">로드 실패: ${err.message}</span>`;
+    $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">로드 실패: ${escapeHtml(err.message)}</div>`;
   }
 }
 
@@ -758,9 +743,7 @@ function computeAmountData(mapping, snapshot) {
 
 const AMOUNT_TOP_N = 20;
 
-function drawAmountTables(data) {
-  const split = document.getElementById("amount-split");
-
+function drawAmountTables(data, snapshot) {
   // ===== 산업별: 상위 N + 기타 =====
   let indRows;
   if (data.industries.length <= AMOUNT_TOP_N) {
@@ -787,9 +770,15 @@ function drawAmountTables(data) {
   const allDelta = allMcap - allPrev;
   const allPct   = allPrev > 0 ? (allDelta / allPrev * 100) : 0;
 
-  // 좌측 카드 위에는 빈 툴바 슬롯 (우측 검색바와 같은 높이)
+  // 좌측 툴바: 변동액 타이틀 + 업데이트 시각 (우측 검색바와 같은 높이)
+  const ts = new Date(snapshot.timestamp || Date.now()).toLocaleString("ko-KR");
+  const statusText = `${data.totalCount.toLocaleString()}개 종목 · 업데이트 ${ts}`;
+
   let leftHtml = `
-    <div class="amount-toolbar"></div>
+    <div class="amount-toolbar amount-title-bar">
+      <div class="page-title">변동액 <span class="crumb">/ Market · Equity</span></div>
+      <div class="amount-meta">${escapeHtml(statusText)}</div>
+    </div>
     <div class="amount-card">
       <h4>산업별 변동 <span class="amt-sub">(시총 상위 ${AMOUNT_TOP_N})</span></h4>
       <div class="amount-row head">
@@ -818,28 +807,43 @@ function drawAmountTables(data) {
   </div>`;
   leftHtml += `</div>`;
 
-  // ===== 회사별: 검색바(카드 위 툴바) + 카드(표) (초기엔 1위 산업) =====
+  // ===== 회사별: 검색바(2등분) + 카드(표) (초기엔 1위 산업) =====
   const initialIndustry = data.industries[0]?.name || "";
 
-  // 검색바는 카드 밖, 카드 위 툴바에 위치. 단순 keyin 입력 (datalist 없음).
+  // 검색바는 카드 밖, 좌측 절반 = 회사명 입력, 우측 절반 = 검색 결과 산업명 표시
   const rightHtml = `
     <div class="amount-toolbar amount-search">
-      <label for="amt-company">회사명</label>
-      <span class="sep">:</span>
-      <input type="text" id="amt-company"
-             placeholder="회사명을 입력하세요"
-             autocomplete="off" />
+      <div class="search-block">
+        <label for="amt-company">회사명</label>
+        <span class="sep">:</span>
+        <input type="text" id="amt-company"
+               placeholder="회사명을 입력하세요"
+               autocomplete="off" />
+      </div>
+      <div class="search-block search-result">
+        <label>산업</label>
+        <span class="sep">:</span>
+        <span id="amt-industry-display">${escapeHtml(initialIndustry)}</span>
+      </div>
     </div>
     <div class="amount-card">
-      <h4 id="amt-co-title">회사별 변동 <span class="amt-sub">(${escapeHtml(initialIndustry)} 내 시총 상위 ${AMOUNT_TOP_N})</span></h4>
+      <h4>회사별 변동 <span class="amt-sub">(시총 상위 ${AMOUNT_TOP_N})</span></h4>
       <div id="amt-companies-table"></div>
     </div>
   `;
 
-  split.innerHTML = `
-    <div class="amount-left">${leftHtml}</div>
-    <div class="amount-right">${rightHtml}</div>
+  $main.innerHTML = `
+    <div class="amount-split" id="amount-split">
+      <div class="amount-left">${leftHtml}</div>
+      <div class="amount-right">${rightHtml}</div>
+    </div>
+    <div class="amount-footnote">
+      변동액 = 현재 시가총액 − 전일 종가 기준 시가총액 (등락률에서 역산) ·
+      산업 분류: 한국표준산업분류 11차 대분류 ·
+      각 표 상위 20개 + 기타로 합산
+    </div>
   `;
+  const split = document.getElementById("amount-split");
 
   // 회사 표 렌더 (초기)
   drawCompanyTable(initialIndustry, data);
@@ -883,11 +887,8 @@ function drawAmountTables(data) {
     split.querySelectorAll(".amount-row[data-industry]").forEach(r => {
       r.classList.toggle("active", r.dataset.industry === name);
     });
-    // 우측 부제 업데이트
-    const $coTitle = document.getElementById("amt-co-title");
-    if ($coTitle) {
-      $coTitle.innerHTML = `회사별 변동 <span class="amt-sub">(${escapeHtml(name)} 내 시총 상위 ${AMOUNT_TOP_N})</span>`;
-    }
+    const $disp = document.getElementById("amt-industry-display");
+    if ($disp) $disp.textContent = name;
   }
 }
 

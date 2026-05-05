@@ -517,17 +517,17 @@ a { text-decoration: none; color: inherit; }
 
 /* ============ 변동액 페이지 (Market · Equity · Amount) ============ */
 
-/* 페이지 타이틀 + 업데이트 시각을 한 묶음으로 (변동액 바로 밑에 시각) */
-.amount-header {
-  margin-bottom: 14px;
+.amt-loading {
+  padding: 40px 12px;
+  text-align: center;
+  color: var(--text-3);
+  font-size: 12px;
 }
-.amount-header .page-title { margin-bottom: 2px; }
-.amount-header .amount-meta { margin: 0; }
 
 .amount-meta {
-  display: block;
   font-size: 11px;
   color: var(--text-3);
+  margin: 0;
 }
 
 .amount-split {
@@ -552,42 +552,81 @@ a { text-decoration: none; color: inherit; }
   flex: 1;                     /* 컬럼 높이 채움 → 좌/우 카드 동일 높이 */
 }
 
-/* 좌·우 컬럼 상단 툴바 슬롯 (좌: 비움, 우: 회사명 검색바)
-   양쪽 동일 높이를 강제해 카드 상단 정렬 → 결과적으로 카드 높이 동일 */
+/* 좌·우 컬럼 상단 툴바 슬롯 — 좌: 변동액 타이틀+날짜, 우: 회사명/산업 표시
+   양쪽 동일 높이(50px)를 강제해 카드 상단 정렬 → 카드 높이 동일 */
 .amount-toolbar {
-  height: 40px;
-  margin-bottom: 8px;
+  height: 50px;
+  margin-bottom: 10px;
   box-sizing: border-box;
 }
+
+/* 좌측 툴바: 페이지 타이틀 + 업데이트 시각 세로 정렬 */
+.amount-toolbar.amount-title-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+}
+.amount-toolbar.amount-title-bar .page-title {
+  margin: 0;
+  /* page-title 자체의 display:flex(row)는 유지 (제목 + crumb 인라인) */
+}
+.amount-toolbar.amount-title-bar .amount-meta {
+  margin: 0;
+  font-size: 11px;
+}
+
+/* 우측 툴바: 좌우 2등분 — [회사명 input] | [산업 표시] */
 .amount-toolbar.amount-search {
+  display: flex;
+  gap: 8px;
+}
+.amount-toolbar.amount-search .search-block {
+  flex: 1;                     /* 정확히 반반 */
   display: flex;
   align-items: center;
   gap: 6px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--card);
+  box-sizing: border-box;
+  overflow: hidden;
 }
-.amount-toolbar.amount-search label {
+.amount-toolbar.amount-search .search-block label {
   font-size: 12.5px;
   font-weight: 700;
   color: var(--text);
   white-space: nowrap;
 }
-.amount-toolbar.amount-search .sep {
+.amount-toolbar.amount-search .search-block .sep {
   color: var(--text-3);
 }
-.amount-toolbar.amount-search input {
+.amount-toolbar.amount-search .search-block input {
   flex: 1;
+  min-width: 0;
   height: 100%;
-  padding: 0 10px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background-color: var(--card);
+  border: none;
+  outline: none;
+  background: transparent;
   font-size: 12.5px;
   color: var(--text);
-  outline: none;
-  box-sizing: border-box;
+  padding: 0;
 }
-.amount-toolbar.amount-search input:focus {
+.amount-toolbar.amount-search .search-block:focus-within {
   border-color: var(--primary);
   box-shadow: 0 0 0 2px var(--primary-light);
+}
+.amount-toolbar.amount-search .search-result #amt-industry-display {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .amount-card h4 {
