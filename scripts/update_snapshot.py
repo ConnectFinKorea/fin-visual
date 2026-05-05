@@ -225,6 +225,17 @@ def main():
         sys.exit(0)
     print(f"  -> 영업일")
 
+    # ============ 시각 검증 (cron 지연 대비 안전장치) ============
+    # 사용자 요구사항: 평일 09:00-16:00 KST 만 갱신.
+    # GitHub Actions cron 은 best-effort 라 부하 시 수 시간 지연 가능 -> 스크립트 자체 cutoff.
+    # 16:59 까지 허용 (16:00 cron 의 정상 지연 5-15분 흡수).
+    hour = now_kst.hour
+    if hour < 9 or hour >= 17:
+        print(f"\n[시각 외] KST {now_kst.strftime('%H:%M')} -> 장중(09-16) 외 -> 스냅샷 갱신 건너뜀")
+        print(f"  (GitHub Actions cron 지연으로 늦게 실행된 경우 자동 무시)")
+        sys.exit(0)
+    print(f"  -> 장중 시각 ({now_kst.strftime('%H:%M')} KST)")
+
     # ============ 외부 메타데이터 ============
     print(f"\n[외부 메타데이터 로드]")
     listed = load_listed_codes()
