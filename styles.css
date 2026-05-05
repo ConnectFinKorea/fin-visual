@@ -666,6 +666,22 @@ a { text-decoration: none; color: inherit; }
   font-weight: 700;
   margin-top: 2px;
 }
+/* 선택 row: 검색한 회사/그 회사가 속한 산업의 정보를 상단에 강조 */
+.amount-row.selected {
+  background: var(--primary-light);
+  font-weight: 600;
+  border-top: 2px solid var(--primary);
+  border-bottom: 1px solid var(--primary);
+}
+.amount-row.selected .rank {
+  color: var(--primary);
+  font-weight: 700;
+}
+.amount-row.selected .ent-name.placeholder {
+  color: var(--text-3);
+  font-style: italic;
+  font-weight: 400;
+}
 .amount-row.other {
   color: var(--text-3);
   font-style: italic;

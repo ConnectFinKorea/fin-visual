@@ -788,6 +788,13 @@ function drawAmountTables(data, snapshot) {
         <span class="num">변동액</span>
         <span class="num">변동률</span>
       </div>
+      <div class="amount-row selected" id="amt-ind-selected">
+        <span class="rank">선택</span>
+        <span class="ent-name placeholder">회사명 입력 시 해당 산업 표시</span>
+        <span class="num"></span>
+        <span class="num"></span>
+        <span class="num"></span>
+      </div>
   `;
   indRows.forEach((g, i) => {
     leftHtml += `<div class="amount-row${g.isOther ? ' other' : ''}" data-industry="${escapeAttr(g.name)}">
@@ -845,23 +852,20 @@ function drawAmountTables(data, snapshot) {
   `;
   const split = document.getElementById("amount-split");
 
-  // 회사 표 렌더 (초기)
-  drawCompanyTable(initialIndustry, data);
-  highlightActiveIndustry(initialIndustry);
+  // 초기: 1위 산업 회사 표 표시 (선택된 회사 없음)
+  setSelection(initialIndustry, null);
 
-  // 좌측 산업 행 클릭 → 우측 회사 표 + 부제 갱신
+  // 좌측 산업 행 클릭 → 해당 산업 선택 (회사 선택은 해제)
   split.querySelectorAll(".amount-row[data-industry]").forEach(row => {
-    if (row.classList.contains("other") || row.classList.contains("head") || row.classList.contains("total")) return;
+    if (row.classList.contains("other") || row.classList.contains("head") || row.classList.contains("total") || row.classList.contains("selected")) return;
     row.addEventListener("click", () => {
-      const name = row.dataset.industry;
-      drawCompanyTable(name, data);
-      highlightActiveIndustry(name);
+      setSelection(row.dataset.industry, null);
     });
   });
 
-  // 우측 입력 — 회사명 전용. 입력된 회사가 속한 산업의 표를 보여줌.
+  // 우측 입력 — 회사명 검색. 매칭 시 그 회사 + 회사가 속한 산업을 선택.
   const $input = document.getElementById("amt-company");
-  const handle = () => {
+  const handleSearch = () => {
     const v = $input.value.trim();
     if (!v) return;
     const lower = v.toLowerCase();
@@ -869,30 +873,46 @@ function drawAmountTables(data, snapshot) {
     for (const ind of data.industries) {
       for (const c of ind.companies) {
         if (!c.name) continue;
-        if (c.name === v) { exact = ind.name; break; }
-        if (!partial && c.name.toLowerCase().includes(lower)) partial = ind.name;
+        if (c.name === v) { exact = { ind, c }; break; }
+        if (!partial && c.name.toLowerCase().includes(lower)) partial = { ind, c };
       }
       if (exact) break;
     }
-    const found = exact || partial;
-    if (found) {
-      drawCompanyTable(found, data);
-      highlightActiveIndustry(found);
+    const result = exact || partial;
+    if (result) {
+      setSelection(result.ind.name, result.c);
     }
   };
-  $input.addEventListener("change", handle);
-  $input.addEventListener("keydown", e => { if (e.key === "Enter") handle(); });
+  $input.addEventListener("change", handleSearch);
+  $input.addEventListener("keydown", e => { if (e.key === "Enter") handleSearch(); });
 
-  function highlightActiveIndustry(name) {
+  function setSelection(industryName, company) {
+    // 1) 좌측 행 active 표시 + 우측 산업명 디스플레이 갱신
     split.querySelectorAll(".amount-row[data-industry]").forEach(r => {
-      r.classList.toggle("active", r.dataset.industry === name);
+      r.classList.toggle("active", r.dataset.industry === industryName);
     });
     const $disp = document.getElementById("amt-industry-display");
-    if ($disp) $disp.textContent = name;
+    if ($disp) $disp.textContent = industryName;
+
+    // 2) 좌측 선택 row 갱신 (선택된 산업의 합산 정보)
+    const ind = data.industries.find(g => g.name === industryName);
+    const $leftSel = document.getElementById("amt-ind-selected");
+    if ($leftSel && ind) {
+      $leftSel.innerHTML = `
+        <span class="rank">선택</span>
+        <span class="ent-name">${escapeHtml(ind.name)}</span>
+        <span class="num">${formatMcap(ind.totalMcap)}</span>
+        <span class="num ${deltaClass(ind.delta)}">${formatDelta(ind.delta)}</span>
+        <span class="num ${deltaClass(ind.delta)}">${formatPct(ind.changePct)}</span>
+      `;
+    }
+
+    // 3) 우측 회사 표 렌더 (선택 회사 정보 포함)
+    drawCompanyTable(industryName, data, company);
   }
 }
 
-function drawCompanyTable(industryName, data) {
+function drawCompanyTable(industryName, data, selectedCompany) {
   const $tbl = document.getElementById("amt-companies-table");
   if (!$tbl) return;
   const ind = data.industries.find(g => g.name === industryName);
@@ -929,6 +949,26 @@ function drawCompanyTable(industryName, data) {
       <span class="num">변동률</span>
     </div>
   `;
+
+  // 선택 row: 검색한 회사 정보 (없으면 placeholder)
+  if (selectedCompany) {
+    html += `<div class="amount-row selected">
+      <span class="rank">선택</span>
+      <span class="ent-name">${escapeHtml(selectedCompany.name)}</span>
+      <span class="num">${formatMcap(selectedCompany.mcap)}</span>
+      <span class="num ${deltaClass(selectedCompany.delta)}">${formatDelta(selectedCompany.delta)}</span>
+      <span class="num ${deltaClass(selectedCompany.change)}">${formatPct(selectedCompany.change)}</span>
+    </div>`;
+  } else {
+    html += `<div class="amount-row selected">
+      <span class="rank">선택</span>
+      <span class="ent-name placeholder">회사명을 입력하세요</span>
+      <span class="num"></span>
+      <span class="num"></span>
+      <span class="num"></span>
+    </div>`;
+  }
+
   rows.forEach((c, i) => {
     html += `<div class="amount-row${c.isOther ? " other" : ""}">
       <span class="rank">${c.isOther ? "·" : (i + 1)}</span>
