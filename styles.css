@@ -515,6 +515,136 @@ a { text-decoration: none; color: inherit; }
 
 .compare-card .row .num { text-align: right; }
 
+/* ============ 변동액 페이지 (Market · Equity · Amount) ============ */
+.amount-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-3);
+  margin: 4px 0 10px;
+}
+
+.amount-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.amount-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.amount-card h4 {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.amount-card .amt-sub {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-3);
+}
+
+.industry-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--card);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  outline: none;
+  box-sizing: border-box;
+}
+.industry-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.amount-row {
+  display: grid;
+  grid-template-columns: 38px 1.4fr 1fr 1fr 0.8fr;
+  gap: 4px;
+  padding: 6px 4px;
+  border-top: 1px solid var(--border-soft);
+  font-size: 11.5px;
+  align-items: center;
+}
+.amount-row.head {
+  font-weight: 700;
+  color: var(--text-3);
+  border-top: none;
+  font-size: 10.5px;
+}
+.amount-row.total {
+  border-top: 2px solid var(--primary);
+  background: var(--primary-bg);
+  font-weight: 700;
+  margin-top: 2px;
+}
+.amount-row.other {
+  color: var(--text-3);
+  font-style: italic;
+}
+.amount-row .num { text-align: right; }
+.amount-row .rank {
+  text-align: center;
+  color: var(--text-3);
+  font-size: 10.5px;
+}
+.amount-row .ent-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 좌측 산업 행 클릭 가능 */
+.amount-left .amount-row[data-industry]:not(.head):not(.total):not(.other) {
+  cursor: pointer;
+}
+.amount-left .amount-row[data-industry]:not(.head):not(.total):not(.other):hover {
+  background: var(--primary-bg);
+}
+.amount-left .amount-row.active {
+  background: var(--primary-light);
+}
+
+.amt-empty {
+  padding: 24px 12px;
+  text-align: center;
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.amount-footnote {
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: var(--text-3);
+  text-align: center;
+}
+
+/* 모바일: 좌우 분할 → 상하 스택 */
+@media (max-width: 900px) {
+  .amount-split {
+    grid-template-columns: 1fr;
+  }
+  .amount-row {
+    grid-template-columns: 32px 1.3fr 1fr 1fr 0.8fr;
+    font-size: 11px;
+  }
+}
+
 /* ============ Income Approach ============ */
 .income-block {
   background: var(--card);
