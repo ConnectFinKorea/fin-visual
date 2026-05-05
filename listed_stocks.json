@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-04T20:10:05+0000",
+  "generated_at": "2026-05-05T20:00:22+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3963,
