@@ -789,7 +789,7 @@ function drawAmountTables(data, snapshot) {
         <span class="num">변동률</span>
       </div>
       <div class="amount-row selected" id="amt-ind-selected">
-        <span class="rank">선택</span>
+        <span class="rank">·</span>
         <span class="ent-name placeholder">회사명 입력 시 해당 산업 표시</span>
         <span class="num"></span>
         <span class="num"></span>
@@ -894,12 +894,13 @@ function drawAmountTables(data, snapshot) {
     const $disp = document.getElementById("amt-industry-display");
     if ($disp) $disp.textContent = industryName;
 
-    // 2) 좌측 선택 row 갱신 (선택된 산업의 합산 정보)
-    const ind = data.industries.find(g => g.name === industryName);
+    // 2) 좌측 선택 row 갱신 (선택된 산업의 합산 정보, 시총 기준 실제 순위)
+    const indIdx = data.industries.findIndex(g => g.name === industryName);
+    const ind = indIdx >= 0 ? data.industries[indIdx] : null;
     const $leftSel = document.getElementById("amt-ind-selected");
     if ($leftSel && ind) {
       $leftSel.innerHTML = `
-        <span class="rank">선택</span>
+        <span class="rank">${indIdx + 1}</span>
         <span class="ent-name">${escapeHtml(ind.name)}</span>
         <span class="num">${formatMcap(ind.totalMcap)}</span>
         <span class="num ${deltaClass(ind.delta)}">${formatDelta(ind.delta)}</span>
@@ -950,10 +951,13 @@ function drawCompanyTable(industryName, data, selectedCompany) {
     </div>
   `;
 
-  // 선택 row: 검색한 회사 정보 (없으면 placeholder)
+  // 선택 row: 검색한 회사 정보 (없으면 placeholder).
+  // 순위 = 해당 산업 내 시총 정렬 기준 실제 순위.
   if (selectedCompany) {
+    const coIdx = ind.companies.findIndex(c => c.code === selectedCompany.code);
+    const coRank = coIdx >= 0 ? (coIdx + 1) : "·";
     html += `<div class="amount-row selected">
-      <span class="rank">선택</span>
+      <span class="rank">${coRank}</span>
       <span class="ent-name">${escapeHtml(selectedCompany.name)}</span>
       <span class="num">${formatMcap(selectedCompany.mcap)}</span>
       <span class="num ${deltaClass(selectedCompany.delta)}">${formatDelta(selectedCompany.delta)}</span>
@@ -961,7 +965,7 @@ function drawCompanyTable(industryName, data, selectedCompany) {
     </div>`;
   } else {
     html += `<div class="amount-row selected">
-      <span class="rank">선택</span>
+      <span class="rank">·</span>
       <span class="ent-name placeholder">회사명을 입력하세요</span>
       <span class="num"></span>
       <span class="num"></span>
