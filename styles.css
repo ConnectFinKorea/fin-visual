@@ -516,19 +516,32 @@ a { text-decoration: none; color: inherit; }
 .compare-card .row .num { text-align: right; }
 
 /* ============ 변동액 페이지 (Market · Equity · Amount) ============ */
+
+/* 페이지 타이틀 + 업데이트 시각을 한 묶음으로 (변동액 바로 밑에 시각) */
+.amount-header {
+  margin-bottom: 14px;
+}
+.amount-header .page-title { margin-bottom: 2px; }
+.amount-header .amount-meta { margin: 0; }
+
 .amount-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
   font-size: 11px;
   color: var(--text-3);
-  margin: 4px 0 10px;
 }
 
 .amount-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+  align-items: stretch;        /* 좌/우 컬럼 같은 높이 */
+}
+
+/* 좌/우 컬럼은 flex column → 카드가 컬럼 높이를 채우도록 */
+.amount-left,
+.amount-right {
+  display: flex;
+  flex-direction: column;
 }
 
 .amount-card {
@@ -536,6 +549,39 @@ a { text-decoration: none; color: inherit; }
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px 12px;
+  flex: 1;                     /* 컬럼 높이 채움 → 좌/우 카드 동일 높이 */
+}
+
+/* 우측 카드 상단의 회사명 검색바 */
+.company-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.company-search label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+.company-search .sep {
+  color: var(--text-3);
+}
+.company-search input {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--card);
+  font-size: 12.5px;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+}
+.company-search input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
 }
 
 .amount-card h4 {
@@ -552,24 +598,6 @@ a { text-decoration: none; color: inherit; }
   font-size: 10.5px;
   font-weight: 500;
   color: var(--text-3);
-}
-
-.industry-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background-color: var(--card);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 10px;
-  outline: none;
-  box-sizing: border-box;
-}
-.industry-input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px var(--primary-light);
 }
 
 .amount-row {

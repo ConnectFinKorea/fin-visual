@@ -675,9 +675,9 @@ window.addEventListener("resize", () => {
 // 좌: 산업별 변동, 우: 회사별 변동 (산업 선택 시).
 async function renderMarketAmount() {
   $main.innerHTML = `
-    <div class="page-title">변동액 <span class="crumb">/ Market · Equity</span></div>
-    <div class="amount-meta">
-      <span id="amt-status">데이터 로딩 중...</span>
+    <div class="amount-header">
+      <div class="page-title">변동액 <span class="crumb">/ Market · Equity</span></div>
+      <div class="amount-meta"><span id="amt-status">데이터 로딩 중...</span></div>
     </div>
     <div class="amount-split" id="amount-split"></div>
     <div class="amount-footnote">
@@ -816,20 +816,24 @@ function drawAmountTables(data) {
   </div>`;
   leftHtml += `</div>`;
 
-  // ===== 회사별: 드롭다운 + 표 (초기엔 1위 산업) =====
-  const allIndNames = data.industries.map(g => g.name);
+  // ===== 회사별: 검색바 + 표 (초기엔 1위 산업) =====
   const initialIndustry = data.industries[0]?.name || "";
+  const allCompanies = data.industries.flatMap(g => g.companies);
 
   const rightHtml = `
     <div class="amount-card">
-      <h4>회사별 변동 <span class="amt-sub">(선택 산업 내 시총 상위 ${AMOUNT_TOP_N})</span></h4>
-      <input type="text" class="industry-input" id="amt-industry"
-             list="amt-ind-list" value="${escapeAttr(initialIndustry)}"
-             placeholder="산업명 또는 회사명으로 검색"
-             autocomplete="off" />
-      <datalist id="amt-ind-list">
-        ${allIndNames.map(n => `<option value="${escapeAttr(n)}"></option>`).join("")}
-      </datalist>
+      <div class="company-search">
+        <label for="amt-company">회사명</label>
+        <span class="sep">:</span>
+        <input type="text" id="amt-company"
+               list="amt-co-list"
+               placeholder="회사명을 입력하세요"
+               autocomplete="off" />
+        <datalist id="amt-co-list">
+          ${allCompanies.map(c => `<option value="${escapeAttr(c.name)}"></option>`).join("")}
+        </datalist>
+      </div>
+      <h4 id="amt-co-title">회사별 변동 <span class="amt-sub">(${escapeHtml(initialIndustry)} 내 시총 상위 ${AMOUNT_TOP_N})</span></h4>
       <div id="amt-companies-table"></div>
     </div>
   `;
@@ -843,28 +847,21 @@ function drawAmountTables(data) {
   drawCompanyTable(initialIndustry, data);
   highlightActiveIndustry(initialIndustry);
 
-  // 좌측 산업 행 클릭 → 우측 드롭다운 + 회사 표 갱신
+  // 좌측 산업 행 클릭 → 우측 회사 표 + 부제 갱신
   split.querySelectorAll(".amount-row[data-industry]").forEach(row => {
     if (row.classList.contains("other") || row.classList.contains("head") || row.classList.contains("total")) return;
     row.addEventListener("click", () => {
       const name = row.dataset.industry;
-      document.getElementById("amt-industry").value = name;
       drawCompanyTable(name, data);
       highlightActiveIndustry(name);
     });
   });
 
-  // 우측 입력 (산업명 직접 또는 회사명 검색)
-  const $input = document.getElementById("amt-industry");
+  // 우측 입력 — 회사명 전용. 입력된 회사가 속한 산업의 표를 보여줌.
+  const $input = document.getElementById("amt-company");
   const handle = () => {
     const v = $input.value.trim();
     if (!v) return;
-    if (allIndNames.includes(v)) {
-      drawCompanyTable(v, data);
-      highlightActiveIndustry(v);
-      return;
-    }
-    // 회사명으로 검색 (정확 일치 우선, 부분 일치 차순위)
     const lower = v.toLowerCase();
     let exact = null, partial = null;
     for (const ind of data.industries) {
@@ -877,18 +874,22 @@ function drawAmountTables(data) {
     }
     const found = exact || partial;
     if (found) {
-      $input.value = found;
       drawCompanyTable(found, data);
       highlightActiveIndustry(found);
     }
   };
   $input.addEventListener("change", handle);
-  $input.addEventListener("blur", handle);
+  $input.addEventListener("keydown", e => { if (e.key === "Enter") handle(); });
 
   function highlightActiveIndustry(name) {
     split.querySelectorAll(".amount-row[data-industry]").forEach(r => {
       r.classList.toggle("active", r.dataset.industry === name);
     });
+    // 우측 부제 업데이트
+    const $coTitle = document.getElementById("amt-co-title");
+    if ($coTitle) {
+      $coTitle.innerHTML = `회사별 변동 <span class="amt-sub">(${escapeHtml(name)} 내 시총 상위 ${AMOUNT_TOP_N})</span>`;
+    }
   }
 }
 
