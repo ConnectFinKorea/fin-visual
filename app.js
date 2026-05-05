@@ -787,7 +787,9 @@ function drawAmountTables(data) {
   const allDelta = allMcap - allPrev;
   const allPct   = allPrev > 0 ? (allDelta / allPrev * 100) : 0;
 
+  // 좌측 카드 위에는 빈 툴바 슬롯 (우측 검색바와 같은 높이)
   let leftHtml = `
+    <div class="amount-toolbar"></div>
     <div class="amount-card">
       <h4>산업별 변동 <span class="amt-sub">(시총 상위 ${AMOUNT_TOP_N})</span></h4>
       <div class="amount-row head">
@@ -816,23 +818,19 @@ function drawAmountTables(data) {
   </div>`;
   leftHtml += `</div>`;
 
-  // ===== 회사별: 검색바 + 표 (초기엔 1위 산업) =====
+  // ===== 회사별: 검색바(카드 위 툴바) + 카드(표) (초기엔 1위 산업) =====
   const initialIndustry = data.industries[0]?.name || "";
-  const allCompanies = data.industries.flatMap(g => g.companies);
 
+  // 검색바는 카드 밖, 카드 위 툴바에 위치. 단순 keyin 입력 (datalist 없음).
   const rightHtml = `
+    <div class="amount-toolbar amount-search">
+      <label for="amt-company">회사명</label>
+      <span class="sep">:</span>
+      <input type="text" id="amt-company"
+             placeholder="회사명을 입력하세요"
+             autocomplete="off" />
+    </div>
     <div class="amount-card">
-      <div class="company-search">
-        <label for="amt-company">회사명</label>
-        <span class="sep">:</span>
-        <input type="text" id="amt-company"
-               list="amt-co-list"
-               placeholder="회사명을 입력하세요"
-               autocomplete="off" />
-        <datalist id="amt-co-list">
-          ${allCompanies.map(c => `<option value="${escapeAttr(c.name)}"></option>`).join("")}
-        </datalist>
-      </div>
       <h4 id="amt-co-title">회사별 변동 <span class="amt-sub">(${escapeHtml(initialIndustry)} 내 시총 상위 ${AMOUNT_TOP_N})</span></h4>
       <div id="amt-companies-table"></div>
     </div>

@@ -552,25 +552,31 @@ a { text-decoration: none; color: inherit; }
   flex: 1;                     /* 컬럼 높이 채움 → 좌/우 카드 동일 높이 */
 }
 
-/* 우측 카드 상단의 회사명 검색바 */
-.company-search {
+/* 좌·우 컬럼 상단 툴바 슬롯 (좌: 비움, 우: 회사명 검색바)
+   양쪽 동일 높이를 강제해 카드 상단 정렬 → 결과적으로 카드 높이 동일 */
+.amount-toolbar {
+  height: 40px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+.amount-toolbar.amount-search {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 10px;
 }
-.company-search label {
+.amount-toolbar.amount-search label {
   font-size: 12.5px;
   font-weight: 700;
   color: var(--text);
   white-space: nowrap;
 }
-.company-search .sep {
+.amount-toolbar.amount-search .sep {
   color: var(--text-3);
 }
-.company-search input {
+.amount-toolbar.amount-search input {
   flex: 1;
-  padding: 7px 10px;
+  height: 100%;
+  padding: 0 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background-color: var(--card);
@@ -579,7 +585,7 @@ a { text-decoration: none; color: inherit; }
   outline: none;
   box-sizing: border-box;
 }
-.company-search input:focus {
+.amount-toolbar.amount-search input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 2px var(--primary-light);
 }
