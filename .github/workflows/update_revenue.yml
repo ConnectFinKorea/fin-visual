@@ -1,0 +1,85 @@
+name: Update Revenue (DART, monthly)
+
+on:
+  schedule:
+    # 매월 1일 23:00 KST = 14:00 UTC (전월 말 시점 데이터 수집)
+    - cron: '0 14 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-snapshot-write
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240   # DART 3000+ 종목 × 보고서 후보 fallback → 최대 1-3시간
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch listed_stocks.json from data-snapshot
+        shell: bash
+        run: |
+          mkdir -p data
+          git fetch origin data-snapshot 2>/dev/null || true
+          if git show-ref --quiet refs/remotes/origin/data-snapshot; then
+            TMP=$(mktemp)
+            if git show origin/data-snapshot:listed_stocks.json > "$TMP" 2>/dev/null && [ -s "$TMP" ]; then
+              mv "$TMP" data/listed_stocks.json
+              echo "  listed_stocks.json fetched ($(stat -c%s data/listed_stocks.json) bytes)"
+            else
+              rm -f "$TMP"
+              echo "  listed_stocks.json: data-snapshot에 없음 (industry_mapping fallback)"
+            fi
+          fi
+          ls -la data/
+
+      - name: Run update_revenue.py
+        env:
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
+        run: python scripts/update_revenue.py
+
+      - name: Push revenue.json to data-snapshot branch
+        shell: bash
+        run: |
+          set -e
+          DATA_FILE="data/revenue.json"
+          OUTPUT_NAME="revenue.json"
+
+          if [ ! -f "$DATA_FILE" ]; then
+            echo "revenue.json이 생성되지 않음. push 건너뜀."
+            exit 0
+          fi
+          cp "$DATA_FILE" "/tmp/$OUTPUT_NAME"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin data-snapshot 2>/dev/null || true
+          if git show-ref --quiet refs/remotes/origin/data-snapshot; then
+            git checkout -B data-snapshot origin/data-snapshot
+          else
+            git checkout --orphan data-snapshot
+            git rm -rf --cached . 2>/dev/null || true
+          fi
+
+          git clean -fdx
+
+          cp "/tmp/$OUTPUT_NAME" "./$OUTPUT_NAME"
+
+          git add "$OUTPUT_NAME"
+          if git diff --staged --quiet; then
+            echo "변경사항 없음"
+          else
+            git commit -m "data: update revenue ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
+            git push origin data-snapshot
+          fi

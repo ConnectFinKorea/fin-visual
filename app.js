@@ -249,6 +249,7 @@ const CACHE_BUST = () => `?t=${Math.floor(Date.now() / 60000)}`;
 const SNAPSHOT_URL = () => `${RAW_BASE}/snapshot.json${CACHE_BUST()}`;
 const MAPPING_URL = () => `${RAW_BASE}/industry_mapping.json${CACHE_BUST()}`;
 const MAPPING_URL_FALLBACK = "/data/industry_mapping.json";
+const REVENUE_URL = () => `${RAW_BASE}/revenue.json${CACHE_BUST()}`;
 
 async function renderMarketCap() {
   $main.innerHTML = `
@@ -1016,6 +1017,309 @@ function escapeHtml(s) {
 }
 function escapeAttr(s) { return escapeHtml(s); }
 
+// ============== 매출액 페이지 (Market · Financial · 매출액) ==============
+// 데이터: industry_mapping.json + snapshot.json (시총 정렬용) + revenue.json (DART 매출)
+// 좌: 산업별 매출액, 우: 회사별 매출액 (산업 선택 시).
+async function renderMarketRevenue() {
+  $main.innerHTML = `<div class="amt-loading" id="amt-loading">매출액 데이터 로딩 중...</div>`;
+  try {
+    const [mapping, snapshot, revenue] = await Promise.all([
+      fetchMapping(),
+      fetch(SNAPSHOT_URL()).then(r => {
+        if (!r.ok) throw new Error("snapshot.json 로드 실패");
+        return r.json();
+      }),
+      fetch(REVENUE_URL()).then(r => {
+        if (!r.ok) throw new Error("revenue.json 로드 실패 — 매출액 워크플로 1회 실행 필요");
+        return r.json();
+      }),
+    ]);
+    const data = computeRevenueData(mapping, snapshot, revenue);
+    if (!data.industries.length) {
+      $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">매출액 데이터 없음</div>`;
+      return;
+    }
+    drawRevenueTables(data, revenue);
+  } catch (err) {
+    $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">로드 실패: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+function computeRevenueData(mapping, snapshot, revenue) {
+  const codeToInfo = {};
+  for (const c of mapping.companies) codeToInfo[c.stock_code] = c;
+  const codeToSnap = {};
+  for (const it of snapshot.items || []) codeToSnap[it.code] = it;
+
+  const companies = [];
+  for (const r of revenue.companies || []) {
+    const sc = (r.stock_code || "").trim().padStart(6, "0");
+    const info = codeToInfo[sc];
+    if (!info || !info.major_code) continue;
+    const cur = r.current?.revenue;
+    const prev = r.previous?.revenue;
+    if (cur == null || cur <= 0) continue;
+    const change = (prev != null && prev > 0) ? ((cur - prev) / prev) * 100 : null;
+    const snap = codeToSnap[sc];
+    companies.push({
+      code: sc,
+      name: info.name || r.name || "",
+      mcap: snap?.mcap || 0,
+      revenue: cur,
+      revenue_date: r.current?.report_date || "",
+      revenue_type: r.current?.report_type || "",
+      prev_revenue: prev,
+      prev_date: r.previous?.report_date || "",
+      change_pct: change,
+      major_code: info.major_code,
+      major_name: info.major_name,
+    });
+  }
+
+  // 대분류 그룹화 (시총 기준 정렬용 + 회사 정렬용)
+  const groups = {};
+  for (const c of companies) {
+    if (!groups[c.major_code]) {
+      groups[c.major_code] = { code: c.major_code, name: c.major_name, companies: [] };
+    }
+    groups[c.major_code].companies.push(c);
+  }
+  for (const g of Object.values(groups)) {
+    g.companies.sort((a, b) => b.mcap - a.mcap);
+    g.totalMcap = g.companies.reduce((s, c) => s + (c.mcap || 0), 0);
+    g.totalRevenue = g.companies.reduce((s, c) => s + (c.revenue || 0), 0);
+    g.totalPrevRevenue = g.companies.reduce((s, c) => s + (c.prev_revenue || 0), 0);
+    g.changePct = (g.totalPrevRevenue > 0)
+      ? ((g.totalRevenue - g.totalPrevRevenue) / g.totalPrevRevenue) * 100
+      : null;
+  }
+  const industries = Object.values(groups).sort((a, b) => b.totalMcap - a.totalMcap);
+  return { industries, totalCount: companies.length };
+}
+
+const REVENUE_TOP_N = 20;
+
+function drawRevenueTables(data, revenue) {
+  // 산업별: 시총 기준 상위 20 + 기타
+  let indRows;
+  if (data.industries.length <= REVENUE_TOP_N) {
+    indRows = data.industries.slice();
+  } else {
+    indRows = data.industries.slice(0, REVENUE_TOP_N);
+    const tail = data.industries.slice(REVENUE_TOP_N);
+    const tailRev = tail.reduce((s, g) => s + g.totalRevenue, 0);
+    const tailPrev = tail.reduce((s, g) => s + g.totalPrevRevenue, 0);
+    indRows.push({
+      code: "_OTHER",
+      name: "기타",
+      companies: tail.flatMap(g => g.companies),
+      totalRevenue: tailRev,
+      totalPrevRevenue: tailPrev,
+      changePct: tailPrev > 0 ? ((tailRev - tailPrev) / tailPrev * 100) : null,
+      isOther: true,
+    });
+  }
+
+  const allRev  = data.industries.reduce((s, g) => s + g.totalRevenue, 0);
+  const allPrev = data.industries.reduce((s, g) => s + g.totalPrevRevenue, 0);
+  const allPct  = allPrev > 0 ? ((allRev - allPrev) / allPrev * 100) : null;
+
+  const ts = revenue.generated_at
+    ? new Date(revenue.generated_at).toLocaleString("ko-KR")
+    : "-";
+  const statusText = `${data.totalCount.toLocaleString()}개 종목 · 갱신 ${ts}`;
+  const initialIndustry = data.industries[0]?.name || "";
+
+  // 좌측 HTML
+  let leftHtml = `
+    <div class="amount-toolbar amount-title-bar">
+      <div class="page-title">매출액 <span class="crumb">/ Market · Financial</span></div>
+      <div class="amount-meta">${escapeHtml(statusText)}</div>
+    </div>
+    <div class="amount-card">
+      <h4>산업별 매출액 <span class="amt-sub">(시총 상위 ${REVENUE_TOP_N})</span></h4>
+      <div class="rev-row head">
+        <span>산업</span>
+        <span class="num">매출액</span>
+        <span class="date">일자</span>
+        <span class="num">전기 매출액</span>
+        <span class="date">일자</span>
+        <span class="num">Change(%)</span>
+      </div>
+  `;
+  indRows.forEach(g => {
+    leftHtml += `<div class="rev-row${g.isOther ? ' other' : ''}" data-industry="${escapeAttr(g.name)}">
+      <span class="ent-name">${escapeHtml(g.name)}</span>
+      <span class="num">${formatRevenue(g.totalRevenue)}</span>
+      <span class="date">—</span>
+      <span class="num">${g.totalPrevRevenue ? formatRevenue(g.totalPrevRevenue) : "-"}</span>
+      <span class="date">—</span>
+      <span class="num ${revChangeClass(g.changePct)}">${formatRevPct(g.changePct)}</span>
+    </div>`;
+  });
+  leftHtml += `<div class="rev-row total">
+    <span class="ent-name">합계</span>
+    <span class="num">${formatRevenue(allRev)}</span>
+    <span class="date">—</span>
+    <span class="num">${allPrev ? formatRevenue(allPrev) : "-"}</span>
+    <span class="date">—</span>
+    <span class="num ${revChangeClass(allPct)}">${formatRevPct(allPct)}</span>
+  </div></div>`;
+
+  // 우측 HTML
+  const rightHtml = `
+    <div class="amount-toolbar amount-search">
+      <div class="search-block">
+        <label for="rev-company">회사명</label>
+        <span class="sep">:</span>
+        <input type="text" id="rev-company" placeholder="회사명을 입력하세요" autocomplete="off" />
+      </div>
+      <div class="search-block search-result">
+        <label>산업</label>
+        <span class="sep">:</span>
+        <span id="rev-industry-display">${escapeHtml(initialIndustry)}</span>
+      </div>
+    </div>
+    <div class="amount-card">
+      <h4>회사별 매출액 <span class="amt-sub">(선택 산업 내 시총 상위 ${REVENUE_TOP_N})</span></h4>
+      <div id="rev-companies-table"></div>
+    </div>
+  `;
+
+  $main.innerHTML = `
+    <div class="amount-split rev-split" id="revenue-split">
+      <div class="amount-left">${leftHtml}</div>
+      <div class="amount-right">${rightHtml}</div>
+    </div>
+    <div class="amount-footnote">
+      매출액 = DART 단일회사 주요계정(fnlttSinglAcntAll) 당기/전기 누적 매출 ·
+      산업 분류: 한국표준산업분류 11차 대분류 ·
+      각 표 시총 기준 상위 20개 + 기타로 합산
+    </div>
+  `;
+  const split = document.getElementById("revenue-split");
+
+  setSelection(initialIndustry);
+
+  split.querySelectorAll(".rev-row[data-industry]").forEach(row => {
+    if (row.classList.contains("other") || row.classList.contains("head") || row.classList.contains("total")) return;
+    row.addEventListener("click", () => setSelection(row.dataset.industry));
+  });
+
+  const $input = document.getElementById("rev-company");
+  const handleSearch = () => {
+    const v = $input.value.trim();
+    if (!v) return;
+    const lower = v.toLowerCase();
+    let exact = null, partial = null;
+    for (const ind of data.industries) {
+      for (const c of ind.companies) {
+        if (!c.name) continue;
+        if (c.name === v) { exact = ind.name; break; }
+        if (!partial && c.name.toLowerCase().includes(lower)) partial = ind.name;
+      }
+      if (exact) break;
+    }
+    const found = exact || partial;
+    if (found) setSelection(found);
+  };
+  $input.addEventListener("change", handleSearch);
+  $input.addEventListener("keydown", e => { if (e.key === "Enter") handleSearch(); });
+
+  function setSelection(industryName) {
+    split.querySelectorAll(".rev-row[data-industry]").forEach(r => {
+      r.classList.toggle("active", r.dataset.industry === industryName);
+    });
+    const $disp = document.getElementById("rev-industry-display");
+    if ($disp) $disp.textContent = industryName;
+    drawRevenueCompanyTable(industryName, data);
+  }
+}
+
+function drawRevenueCompanyTable(industryName, data) {
+  const $tbl = document.getElementById("rev-companies-table");
+  if (!$tbl) return;
+  const ind = data.industries.find(g => g.name === industryName);
+  if (!ind) {
+    $tbl.innerHTML = `<div class="amt-empty">해당 산업을 찾을 수 없습니다.</div>`;
+    return;
+  }
+
+  let rows;
+  if (ind.companies.length <= REVENUE_TOP_N) {
+    rows = ind.companies.slice();
+  } else {
+    rows = ind.companies.slice(0, REVENUE_TOP_N);
+    const tail = ind.companies.slice(REVENUE_TOP_N);
+    const tailRev = tail.reduce((s, c) => s + (c.revenue || 0), 0);
+    const tailPrev = tail.reduce((s, c) => s + (c.prev_revenue || 0), 0);
+    rows.push({
+      code: "_OTHER_CO",
+      name: "기타",
+      revenue: tailRev,
+      prev_revenue: tailPrev,
+      revenue_date: "",
+      prev_date: "",
+      change_pct: tailPrev > 0 ? ((tailRev - tailPrev) / tailPrev * 100) : null,
+      isOther: true,
+    });
+  }
+
+  let html = `
+    <div class="rev-row head">
+      <span>회사명</span>
+      <span class="num">매출액</span>
+      <span class="date">일자</span>
+      <span class="num">전기 매출액</span>
+      <span class="date">일자</span>
+      <span class="num">Change(%)</span>
+    </div>
+  `;
+  rows.forEach(c => {
+    html += `<div class="rev-row${c.isOther ? ' other' : ''}">
+      <span class="ent-name">${escapeHtml(c.name)}</span>
+      <span class="num">${formatRevenue(c.revenue)}</span>
+      <span class="date">${c.isOther ? "—" : formatYYMMDD(c.revenue_date)}</span>
+      <span class="num">${c.prev_revenue ? formatRevenue(c.prev_revenue) : "-"}</span>
+      <span class="date">${c.isOther ? "—" : formatYYMMDD(c.prev_date)}</span>
+      <span class="num ${revChangeClass(c.change_pct)}">${formatRevPct(c.change_pct)}</span>
+    </div>`;
+  });
+  html += `<div class="rev-row total">
+    <span class="ent-name">합계</span>
+    <span class="num">${formatRevenue(ind.totalRevenue)}</span>
+    <span class="date">—</span>
+    <span class="num">${ind.totalPrevRevenue ? formatRevenue(ind.totalPrevRevenue) : "-"}</span>
+    <span class="date">—</span>
+    <span class="num ${revChangeClass(ind.changePct)}">${formatRevPct(ind.changePct)}</span>
+  </div>`;
+  $tbl.innerHTML = html;
+}
+
+function formatRevenue(krw) {
+  if (!isFinite(krw) || krw == null) return "-";
+  return formatMcap(krw);  // 동일 포맷 (억원/조원)
+}
+
+function formatRevPct(pct) {
+  if (pct == null || !isFinite(pct)) return "-";
+  const sign = pct > 0 ? "+" : "";
+  return `${sign}${pct.toFixed(2)}%`;
+}
+
+function revChangeClass(pct) {
+  if (pct == null || !isFinite(pct) || pct === 0) return "";
+  return pct > 0 ? "delta-up" : "delta-down";
+}
+
+// "2026-03-31" → "26.03.31"
+function formatYYMMDD(s) {
+  if (!s) return "—";
+  const m = String(s).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return s;
+  return `${m[1].slice(2)}.${m[2]}.${m[3]}`;
+}
+
 function renderFinancial(kind) {
   const label = kind === "revenue" ? "매출액" : "영업이익";
   const yoy_data = TOP_INDUSTRIES.slice(0, 8).map((ind, i) => {
@@ -1288,7 +1592,7 @@ function navigate(pageId, opts = {}) {
     "home": renderHome,
     "market-cap": renderMarketCap,
     "market-amount": renderMarketAmount,
-    "market-revenue":  () => renderFinancial("revenue"),
+    "market-revenue":  renderMarketRevenue,
     "market-opincome": () => renderFinancial("opincome"),
     "val-trading": renderValTrading,
     "val-income":  renderValIncome,

@@ -723,6 +723,64 @@ a { text-decoration: none; color: inherit; }
   text-align: center;
 }
 
+/* ============ 매출액 페이지 행 (6컬럼 그리드) ============ */
+.rev-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 0.7fr 1fr 0.7fr 0.8fr;
+  gap: 4px;
+  padding: 6px 4px;
+  border-top: 1px solid var(--border-soft);
+  font-size: 11.5px;
+  align-items: center;
+}
+.rev-row.head {
+  font-weight: 700;
+  color: var(--text-3);
+  border-top: none;
+  font-size: 10.5px;
+}
+.rev-row.total {
+  border-top: 2px solid var(--primary);
+  background: var(--primary-bg);
+  font-weight: 700;
+  margin-top: 2px;
+}
+.rev-row.other {
+  color: var(--text-3);
+  font-style: italic;
+}
+.rev-row .num { text-align: right; }
+.rev-row .date {
+  text-align: center;
+  color: var(--text-3);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+.rev-row .ent-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 좌측 매출액 표 행 클릭 가능 */
+.amount-left .rev-row[data-industry]:not(.head):not(.total):not(.other) {
+  cursor: pointer;
+}
+.amount-left .rev-row[data-industry]:not(.head):not(.total):not(.other):hover {
+  background: var(--primary-bg);
+}
+.amount-left .rev-row.active {
+  background: var(--primary-light);
+}
+
+@media (max-width: 900px) {
+  .rev-row {
+    grid-template-columns: 1.4fr 1fr 0.7fr 1fr 0.7fr 0.8fr;
+    font-size: 10.5px;
+  }
+  .rev-row .date { font-size: 9.5px; }
+}
+
 /* 모바일: 좌우 분할 → 상하 스택 */
 @media (max-width: 900px) {
   .amount-split {
