@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-05T20:00:22+0000",
+  "generated_at": "2026-05-06T20:17:52+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3963,
@@ -13756,6 +13756,16 @@
       "name": "에스앤에스텍"
     },
     {
+      "stock_code": "011000",
+      "corp_code": "00118521",
+      "name": "진원생명과학"
+    },
+    {
+      "stock_code": "900100",
+      "corp_code": "00781202",
+      "name": "애머릿지"
+    },
+    {
       "stock_code": "030000",
       "corp_code": "00148276",
       "name": "제일기획"
@@ -14624,11 +14634,6 @@
       "stock_code": "017040",
       "corp_code": "00103662",
       "name": "광명전기"
-    },
-    {
-      "stock_code": "000150",
-      "corp_code": "00117212",
-      "name": "두산"
     },
     {
       "stock_code": "044480",
@@ -18156,11 +18161,6 @@
       "name": "삼미금속"
     },
     {
-      "stock_code": "011000",
-      "corp_code": "00118521",
-      "name": "진원생명과학"
-    },
-    {
       "stock_code": "005900",
       "corp_code": "00117072",
       "name": "동양건설산업"
@@ -18244,6 +18244,11 @@
       "stock_code": "300720",
       "corp_code": "01319808",
       "name": "한일시멘트"
+    },
+    {
+      "stock_code": "0129K0",
+      "corp_code": "01963140",
+      "name": "신한제18호스팩"
     },
     {
       "stock_code": "123010",
@@ -18489,6 +18494,11 @@
       "stock_code": "0015N0",
       "corp_code": "01381805",
       "name": "아로마티카"
+    },
+    {
+      "stock_code": "000150",
+      "corp_code": "00117212",
+      "name": "두산"
     },
     {
       "stock_code": "192520",
@@ -19291,11 +19301,6 @@
       "name": "이아이디"
     },
     {
-      "stock_code": "900100",
-      "corp_code": "00781202",
-      "name": "애머릿지"
-    },
-    {
       "stock_code": "051630",
       "corp_code": "00347734",
       "name": "진양화학"
@@ -19584,11 +19589,6 @@
       "stock_code": "288620",
       "corp_code": "01257872",
       "name": "에스프리즘"
-    },
-    {
-      "stock_code": "0129K0",
-      "corp_code": "01963140",
-      "name": "신한제18호스팩"
     },
     {
       "stock_code": "159580",
