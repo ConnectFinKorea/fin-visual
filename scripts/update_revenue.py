@@ -43,7 +43,7 @@ WORKERS = 4              # DART 일일 한도 20,000회 → 보수적
 TIMEOUT = 15
 MAX_RETRY = 3
 SLEEP_SEC = 0.05         # 호출 간격 (워커별)
-MIN_SUCCESS_RATIO = 0.70 # 정상 수집률 기대치. 미달 시 비정상 (DART 차단/장애)
+MIN_SUCCESS_RATIO = 0.50 # 정상 수집률 기대치. 신규상장/특수목적법인 등 누락 감안
 
 # 보고서 코드:
 #   11013 = 1분기 (1Q)   결산 03-31
@@ -51,8 +51,12 @@ MIN_SUCCESS_RATIO = 0.70 # 정상 수집률 기대치. 미달 시 비정상 (DAR
 #   11014 = 3분기 (3Q)   결산 09-30
 #   11011 = 사업보고서   결산 12-31
 
-# 매출액 항목 후보 (DART account_nm)
-REVENUE_ACCOUNT_NAMES = ["매출액", "수익(매출액)", "영업수익"]
+# 매출액 항목 후보 (DART account_nm). 우선순위 순서대로:
+#   1) 매출액         — 일반 제조/유통업
+#   2) 수익(매출액)   — IFRS 표시 변형
+#   3) 영업수익       — 지주사 / 금융권 / 리츠
+#   4) 매출           — 단순 표기 회사
+REVENUE_ACCOUNT_NAMES = ["매출액", "수익(매출액)", "영업수익", "매출"]
 
 
 def get_target_reports(now_kst):
@@ -143,6 +147,7 @@ def parse_amount(s):
 def extract_cumulative(items):
     """
     DART 응답의 list 에서 매출액 항목을 찾아 누적 매출 반환.
+    REVENUE_ACCOUNT_NAMES 우선순위 순서대로 첫 매치 사용.
     누적 우선(thstrm_add_amount) → 없으면 thstrm_amount.
       - 1Q 보고서: 누적 = 1Q 단독
       - 반기 보고서: 누적 = H1 (Q1+Q2)
@@ -152,13 +157,20 @@ def extract_cumulative(items):
     """
     if not items:
         return None
-    target = None
+    # account_nm → item 매핑 (먼저 등장하는 것 채택)
+    by_name = {}
     for it in items:
         nm = (it.get("account_nm") or "").strip()
-        if nm in REVENUE_ACCOUNT_NAMES:
-            target = it
-            if nm == "매출액":  # 가장 명확한 항목 우선
-                break
+        if nm in REVENUE_ACCOUNT_NAMES and nm not in by_name:
+            by_name[nm] = it
+    if not by_name:
+        return None
+    # 우선순위대로 선택
+    target = None
+    for name in REVENUE_ACCOUNT_NAMES:
+        if name in by_name:
+            target = by_name[name]
+            break
     if not target:
         return None
     val = parse_amount(target.get("thstrm_add_amount"))
