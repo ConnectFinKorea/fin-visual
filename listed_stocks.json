@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-06T20:17:52+0000",
+  "generated_at": "2026-05-07T20:06:25+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3963,
@@ -11706,11 +11706,6 @@
       "name": "제룡산업"
     },
     {
-      "stock_code": "452980",
-      "corp_code": "01719105",
-      "name": "신한제11호스팩"
-    },
-    {
       "stock_code": "474930",
       "corp_code": "01807747",
       "name": "신한제13호스팩"
@@ -13841,6 +13836,11 @@
       "name": "NICE인프라"
     },
     {
+      "stock_code": "480370",
+      "corp_code": "01210677",
+      "name": "씨케이솔루션"
+    },
+    {
       "stock_code": "484120",
       "corp_code": "01380578",
       "name": "도우인시스"
@@ -14094,11 +14094,6 @@
       "stock_code": "071950",
       "corp_code": "00210856",
       "name": "코아스"
-    },
-    {
-      "stock_code": "067160",
-      "corp_code": "00399694",
-      "name": "SOOP"
     },
     {
       "stock_code": "036530",
@@ -14626,6 +14621,26 @@
       "name": "비츠로넥스텍"
     },
     {
+      "stock_code": "065420",
+      "corp_code": "00120906",
+      "name": "에스아이리소스"
+    },
+    {
+      "stock_code": "018700",
+      "corp_code": "00122205",
+      "name": "바른손"
+    },
+    {
+      "stock_code": "067160",
+      "corp_code": "00399694",
+      "name": "SOOP"
+    },
+    {
+      "stock_code": "452980",
+      "corp_code": "01719105",
+      "name": "신한제11호기업인수목적"
+    },
+    {
       "stock_code": "024840",
       "corp_code": "00158024",
       "name": "KBI메탈"
@@ -14761,11 +14776,6 @@
       "name": "라메디텍"
     },
     {
-      "stock_code": "065420",
-      "corp_code": "00120906",
-      "name": "에스아이리소스"
-    },
-    {
       "stock_code": "005250",
       "corp_code": "00108135",
       "name": "녹십자홀딩스"
@@ -14819,11 +14829,6 @@
       "stock_code": "004960",
       "corp_code": "00162063",
       "name": "한신공영"
-    },
-    {
-      "stock_code": "480370",
-      "corp_code": "01210677",
-      "name": "씨케이솔루션"
     },
     {
       "stock_code": "175250",
@@ -14899,11 +14904,6 @@
       "stock_code": "408470",
       "corp_code": "01445024",
       "name": "한패스"
-    },
-    {
-      "stock_code": "388870",
-      "corp_code": "01495180",
-      "name": "파로스아이바이오"
     },
     {
       "stock_code": "016610",
@@ -18366,6 +18366,11 @@
       "name": "아이스크림미디어"
     },
     {
+      "stock_code": "388870",
+      "corp_code": "01495180",
+      "name": "파로스아이바이오"
+    },
+    {
       "stock_code": "274400",
       "corp_code": "00965318",
       "name": "이노시뮬레이션"
@@ -18529,11 +18534,6 @@
       "stock_code": "000040",
       "corp_code": "00112378",
       "name": "KR모터스"
-    },
-    {
-      "stock_code": "018700",
-      "corp_code": "00122205",
-      "name": "바른손"
     },
     {
       "stock_code": "001520",
