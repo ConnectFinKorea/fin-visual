@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-08T20:00:09+0000",
+  "generated_at": "2026-05-09T17:42:17+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3963,
@@ -5831,11 +5831,6 @@
       "name": "바이오프로테크"
     },
     {
-      "stock_code": "040910",
-      "corp_code": "00298377",
-      "name": "아이씨디"
-    },
-    {
       "stock_code": "307280",
       "corp_code": "01326224",
       "name": "원바이오젠"
@@ -6979,11 +6974,6 @@
       "stock_code": "091700",
       "corp_code": "00490151",
       "name": "파트론"
-    },
-    {
-      "stock_code": "452280",
-      "corp_code": "00958451",
-      "name": "한선엔지니어링"
     },
     {
       "stock_code": "050860",
@@ -12261,6 +12251,16 @@
       "name": "넥써쓰"
     },
     {
+      "stock_code": "217620",
+      "corp_code": "01068658",
+      "name": "선샤인푸드"
+    },
+    {
+      "stock_code": "139050",
+      "corp_code": "00656021",
+      "name": "비에프랩스"
+    },
+    {
       "stock_code": "336680",
       "corp_code": "00814582",
       "name": "탑런토탈솔루션"
@@ -12804,6 +12804,46 @@
       "stock_code": "013360",
       "corp_code": "00146232",
       "name": "일성건설"
+    },
+    {
+      "stock_code": "015590",
+      "corp_code": "00108746",
+      "name": "DKME"
+    },
+    {
+      "stock_code": "058450",
+      "corp_code": "00146427",
+      "name": "한주에이알티"
+    },
+    {
+      "stock_code": "040910",
+      "corp_code": "00298377",
+      "name": "아이씨디"
+    },
+    {
+      "stock_code": "150900",
+      "corp_code": "00638487",
+      "name": "파수AI"
+    },
+    {
+      "stock_code": "123840",
+      "corp_code": "00809429",
+      "name": "뉴온"
+    },
+    {
+      "stock_code": "452280",
+      "corp_code": "00958451",
+      "name": "한선엔지니어링"
+    },
+    {
+      "stock_code": "258790",
+      "corp_code": "01182408",
+      "name": "소프트캠프"
+    },
+    {
+      "stock_code": "388870",
+      "corp_code": "01495180",
+      "name": "파로스아이바이오"
     },
     {
       "stock_code": "011280",
@@ -13854,11 +13894,6 @@
       "stock_code": "009830",
       "corp_code": "00162461",
       "name": "한화솔루션"
-    },
-    {
-      "stock_code": "139050",
-      "corp_code": "00656021",
-      "name": "BF랩스"
     },
     {
       "stock_code": "234340",
@@ -15624,11 +15659,6 @@
       "stock_code": "041930",
       "corp_code": "00199988",
       "name": "SY동아"
-    },
-    {
-      "stock_code": "150900",
-      "corp_code": "00638487",
-      "name": "파수에이아이"
     },
     {
       "stock_code": "251120",
@@ -17711,11 +17741,6 @@
       "name": "아이에스동서"
     },
     {
-      "stock_code": "058450",
-      "corp_code": "00146427",
-      "name": "한주에이알티"
-    },
-    {
       "stock_code": "002710",
       "corp_code": "00117300",
       "name": "TCC스틸"
@@ -18196,11 +18221,6 @@
       "name": "에스에프에이"
     },
     {
-      "stock_code": "217620",
-      "corp_code": "01068658",
-      "name": "선샤인푸드"
-    },
-    {
       "stock_code": "054630",
       "corp_code": "00356927",
       "name": "에이디칩스"
@@ -18364,11 +18384,6 @@
       "stock_code": "461300",
       "corp_code": "00657224",
       "name": "아이스크림미디어"
-    },
-    {
-      "stock_code": "388870",
-      "corp_code": "01495180",
-      "name": "파로스아이바이오"
     },
     {
       "stock_code": "274400",
@@ -18701,11 +18716,6 @@
       "name": "GH신소재"
     },
     {
-      "stock_code": "123840",
-      "corp_code": "00809429",
-      "name": "뉴온"
-    },
-    {
       "stock_code": "279600",
       "corp_code": "01190124",
       "name": "미디어젠"
@@ -18879,11 +18889,6 @@
       "stock_code": "138490",
       "corp_code": "00241005",
       "name": "코오롱이앤피"
-    },
-    {
-      "stock_code": "015590",
-      "corp_code": "00108746",
-      "name": "DKME"
     },
     {
       "stock_code": "251630",
@@ -19804,11 +19809,6 @@
       "stock_code": "070300",
       "corp_code": "00683007",
       "name": "엑스큐어"
-    },
-    {
-      "stock_code": "258790",
-      "corp_code": "01182408",
-      "name": "소프트캠프"
     },
     {
       "stock_code": "094800",
