@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-10T18:06:32+0000",
+  "generated_at": "2026-05-11T20:59:43+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3963,
+  "count": 3964,
   "companies": [
     {
       "stock_code": "036720",
@@ -13041,11 +13041,6 @@
       "name": "사조산업"
     },
     {
-      "stock_code": "054050",
-      "corp_code": "00176835",
-      "name": "농우바이오"
-    },
-    {
       "stock_code": "036220",
       "corp_code": "00260657",
       "name": "오상헬스케어"
@@ -14884,11 +14879,6 @@
       "stock_code": "152550",
       "corp_code": "00907013",
       "name": "한국투자ANKOR유전해외자원개발특별자산투자회사1호(지분증권)"
-    },
-    {
-      "stock_code": "104200",
-      "corp_code": "00645089",
-      "name": "NHN벅스"
     },
     {
       "stock_code": "112190",
@@ -18301,6 +18291,26 @@
       "name": "로아앤코"
     },
     {
+      "stock_code": "054050",
+      "corp_code": "00176835",
+      "name": "NH농우바이오"
+    },
+    {
+      "stock_code": "142280",
+      "corp_code": "00513948",
+      "name": "녹십자엠에스"
+    },
+    {
+      "stock_code": "104200",
+      "corp_code": "00645089",
+      "name": "NHN벅스"
+    },
+    {
+      "stock_code": "439960",
+      "corp_code": "01802928",
+      "name": "코스모로보틱스"
+    },
+    {
       "stock_code": "053580",
       "corp_code": "00323868",
       "name": "웹케시"
@@ -19049,11 +19059,6 @@
       "stock_code": "222420",
       "corp_code": "01091054",
       "name": "쎄노텍"
-    },
-    {
-      "stock_code": "142280",
-      "corp_code": "00513948",
-      "name": "녹십자엠에스"
     },
     {
       "stock_code": "166480",
