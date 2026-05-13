@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-12T20:55:58+0000",
+  "generated_at": "2026-05-13T21:12:34+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3964,
@@ -4409,11 +4409,6 @@
       "stock_code": "194370",
       "corp_code": "00332927",
       "name": "제이에스코퍼레이션"
-    },
-    {
-      "stock_code": "051160",
-      "corp_code": "00389110",
-      "name": "지어소프트"
     },
     {
       "stock_code": "042420",
@@ -10051,11 +10046,6 @@
       "name": "수젠텍"
     },
     {
-      "stock_code": "304840",
-      "corp_code": "01118281",
-      "name": "피플바이오"
-    },
-    {
       "stock_code": "053980",
       "corp_code": "00226547",
       "name": "오상자이엘"
@@ -12531,11 +12521,6 @@
       "name": "테스"
     },
     {
-      "stock_code": "078860",
-      "corp_code": "00543204",
-      "name": "스테이지원엔터"
-    },
-    {
       "stock_code": "102950",
       "corp_code": "00677334",
       "name": "아하"
@@ -13574,11 +13559,6 @@
       "stock_code": "090470",
       "corp_code": "00493185",
       "name": "제이스로보틱스"
-    },
-    {
-      "stock_code": "238500",
-      "corp_code": "01118643",
-      "name": "솔루믹스"
     },
     {
       "stock_code": "0070X0",
@@ -16256,11 +16236,6 @@
       "name": "대원전선"
     },
     {
-      "stock_code": "005320",
-      "corp_code": "00168331",
-      "name": "온타이드"
-    },
-    {
       "stock_code": "030200",
       "corp_code": "00190321",
       "name": "케이티"
@@ -16529,11 +16504,6 @@
       "stock_code": "029960",
       "corp_code": "00197476",
       "name": "코엔텍"
-    },
-    {
-      "stock_code": "341170",
-      "corp_code": "01185867",
-      "name": "퓨쳐메디신"
     },
     {
       "stock_code": "131970",
@@ -18681,6 +18651,11 @@
       "name": "올리패스"
     },
     {
+      "stock_code": "238500",
+      "corp_code": "01118643",
+      "name": "솔루믹스"
+    },
+    {
       "stock_code": "046140",
       "corp_code": "00280688",
       "name": "스튜디오에스"
@@ -18791,6 +18766,26 @@
       "name": "지더블유바이텍"
     },
     {
+      "stock_code": "005320",
+      "corp_code": "00168331",
+      "name": "온타이드"
+    },
+    {
+      "stock_code": "078860",
+      "corp_code": "00543204",
+      "name": "아이오케이이엔엠"
+    },
+    {
+      "stock_code": "304840",
+      "corp_code": "01118281",
+      "name": "피플바이오"
+    },
+    {
+      "stock_code": "341170",
+      "corp_code": "01185867",
+      "name": "퓨쳐메디신"
+    },
+    {
       "stock_code": "339950",
       "corp_code": "01414422",
       "name": "아이비김영"
@@ -18889,6 +18884,11 @@
       "stock_code": "046400",
       "corp_code": "00263140",
       "name": "휴스토리"
+    },
+    {
+      "stock_code": "051160",
+      "corp_code": "00389110",
+      "name": "지어소프트"
     },
     {
       "stock_code": "002210",
