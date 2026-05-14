@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-13T21:12:34+0000",
+  "generated_at": "2026-05-14T20:31:45+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3964,
+  "count": 3965,
   "companies": [
     {
       "stock_code": "036720",
@@ -8936,11 +8936,6 @@
       "name": "에피바이오텍"
     },
     {
-      "stock_code": "368030",
-      "corp_code": "01467336",
-      "name": "창대정밀"
-    },
-    {
       "stock_code": "477760",
       "corp_code": "01814589",
       "name": "디비금융스팩12호"
@@ -13294,6 +13289,21 @@
       "stock_code": "049080",
       "corp_code": "00377018",
       "name": "기가레인"
+    },
+    {
+      "stock_code": "091810",
+      "corp_code": "00671376",
+      "name": "트리니티항공"
+    },
+    {
+      "stock_code": "487580",
+      "corp_code": "01565364",
+      "name": "폴레드"
+    },
+    {
+      "stock_code": "368030",
+      "corp_code": "01467336",
+      "name": "창대정밀"
     },
     {
       "stock_code": "464490",
@@ -19594,11 +19604,6 @@
       "stock_code": "256840",
       "corp_code": "01179617",
       "name": "한국비엔씨"
-    },
-    {
-      "stock_code": "091810",
-      "corp_code": "00671376",
-      "name": "트리니티항공"
     },
     {
       "stock_code": "288620",
