@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-14T20:31:45+0000",
+  "generated_at": "2026-05-15T20:10:58+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3965,
@@ -3621,11 +3621,6 @@
       "name": "성광벤드"
     },
     {
-      "stock_code": "900110",
-      "corp_code": "00799070",
-      "name": "이스트아시아홀딩스"
-    },
-    {
       "stock_code": "313750",
       "corp_code": "01343920",
       "name": "유안타제4호기업인수목적"
@@ -4044,11 +4039,6 @@
       "stock_code": "329560",
       "corp_code": "01390876",
       "name": "상상인이안제2호기업인수목적"
-    },
-    {
-      "stock_code": "100840",
-      "corp_code": "00648721",
-      "name": "SNT에너지"
     },
     {
       "stock_code": "041140",
@@ -4569,11 +4559,6 @@
       "stock_code": "100030",
       "corp_code": "00641171",
       "name": "인지소프트"
-    },
-    {
-      "stock_code": "085670",
-      "corp_code": "00493510",
-      "name": "뉴프렉스"
     },
     {
       "stock_code": "036810",
@@ -5979,11 +5964,6 @@
       "stock_code": "054940",
       "corp_code": "00360577",
       "name": "엑사이엔씨"
-    },
-    {
-      "stock_code": "005070",
-      "corp_code": "00129989",
-      "name": "코스모신소재"
     },
     {
       "stock_code": "030520",
@@ -8454,11 +8434,6 @@
       "stock_code": "004150",
       "corp_code": "00171636",
       "name": "한솔홀딩스"
-    },
-    {
-      "stock_code": "053300",
-      "corp_code": "00306454",
-      "name": "한국정보인증"
     },
     {
       "stock_code": "034730",
@@ -13471,11 +13446,6 @@
       "name": "기아"
     },
     {
-      "stock_code": "015590",
-      "corp_code": "00108746",
-      "name": "DKME"
-    },
-    {
       "stock_code": "438700",
       "corp_code": "01605529",
       "name": "버넥트"
@@ -13731,6 +13701,31 @@
       "name": "장원테크"
     },
     {
+      "stock_code": "015590",
+      "corp_code": "00108746",
+      "name": "DKME"
+    },
+    {
+      "stock_code": "053300",
+      "corp_code": "00306454",
+      "name": "한국정보인증"
+    },
+    {
+      "stock_code": "100840",
+      "corp_code": "00648721",
+      "name": "SNT에너지"
+    },
+    {
+      "stock_code": "085670",
+      "corp_code": "00493510",
+      "name": "뉴프렉스"
+    },
+    {
+      "stock_code": "900110",
+      "corp_code": "00799070",
+      "name": "딥커머스"
+    },
+    {
       "stock_code": "178780",
       "corp_code": "00923826",
       "name": "일월지엠엘"
@@ -13769,6 +13764,11 @@
       "stock_code": "900140",
       "corp_code": "00838500",
       "name": "엘브이엠씨"
+    },
+    {
+      "stock_code": "005070",
+      "corp_code": "00129989",
+      "name": "코스모신소재"
     },
     {
       "stock_code": "246710",
