@@ -781,6 +781,90 @@ a { text-decoration: none; color: inherit; }
   .rev-row .date { font-size: 9.5px; }
 }
 
+/* ============ 재무현황 페이지 (Market · Financial · Status) ============ */
+
+/* BS/IS 공용 4컬럼 그리드 */
+.fin-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
+  gap: 4px;
+  padding: 6px 4px;
+  border-top: 1px solid var(--border-soft);
+  font-size: 11.5px;
+  align-items: center;
+}
+.fin-row.head {
+  font-weight: 700;
+  color: var(--text-3);
+  border-top: none;
+  font-size: 10.5px;
+}
+.fin-row .num { text-align: right; }
+.fin-row .acct-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* search-block 음영(비활성) 상태 — 옅은 회색 + 입력 잠금 */
+.amount-toolbar.amount-search .search-block.disabled {
+  background-color: rgba(0,0,0,0.04);
+  opacity: 0.85;
+}
+.amount-toolbar.amount-search .search-block.disabled label,
+.amount-toolbar.amount-search .search-block.disabled .sep {
+  color: var(--text-3);
+}
+.amount-toolbar.amount-search .search-block.disabled input {
+  color: var(--text-2);
+  cursor: not-allowed;
+  background: transparent;
+}
+
+/* autocomplete 드롭다운이 search-block 밖으로 나올 수 있도록 클립 해제.
+   기존 변동액/매출액 페이지의 검색바도 동일 셀렉터 — autocomplete 없는 곳에선 영향 없음. */
+.amount-toolbar.amount-search .search-block {
+  overflow: visible;
+  position: relative;
+}
+.ac-dropdown {
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: 100%;
+  margin-top: 2px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0 0 8px 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 50;
+  box-shadow: 0 6px 14px rgba(27,101,182,0.12);
+}
+.ac-item {
+  padding: 7px 12px;
+  font-size: 12px;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ac-item:last-child { border-bottom: none; }
+.ac-item:hover,
+.ac-item.active {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+@media (max-width: 900px) {
+  .fin-row {
+    grid-template-columns: 1.2fr 1fr 1fr 0.8fr;
+    font-size: 10.5px;
+  }
+}
+
 /* 모바일: 좌우 분할 → 상하 스택 */
 @media (max-width: 900px) {
   .amount-split {

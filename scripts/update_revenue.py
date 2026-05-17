@@ -37,12 +37,14 @@ DATA_DIR = os.path.join(REPO_ROOT, "data")
 LISTED_PATH = os.path.join(DATA_DIR, "listed_stocks.json")
 INDUSTRY_PATH = os.path.join(DATA_DIR, "industry_mapping.json")
 OUT_PATH = os.path.join(DATA_DIR, "revenue.json")
+PROGRESS_PATH = os.path.join(DATA_DIR, "_revenue_progress.json")  # 체크포인트 (gitignore)
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-WORKERS = 4              # DART 일일 한도 20,000회 → 보수적
+WORKERS = 8              # 4 → 8 (속도 2배). DART 일일 한도 20,000회 내.
 TIMEOUT = 15
 MAX_RETRY = 3
 SLEEP_SEC = 0.05         # 호출 간격 (워커별)
+SAVE_EVERY = 200         # N개 처리할 때마다 진행 상황 저장
 MIN_SUCCESS_RATIO = 0.50 # 정상 수집률 기대치. 신규상장/특수목적법인 등 누락 감안
 
 # 보고서 코드:
@@ -324,7 +326,38 @@ def load_universe():
     return out
 
 
+def load_progress():
+    """이전 실행에서 저장된 부분 결과 복원. {corp_code: result_dict | None}"""
+    if not os.path.exists(PROGRESS_PATH):
+        return {}
+    try:
+        with open(PROGRESS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            return data
+    except Exception as e:
+        print(f"  주의: 진행 파일 손상 ({e}), 무시하고 새로 시작")
+    return {}
+
+
+def save_progress(progress):
+    """원자적 저장 (임시 파일 → rename)"""
+    tmp = PROGRESS_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(progress, f, ensure_ascii=False, separators=(",", ":"))
+    os.replace(tmp, PROGRESS_PATH)
+
+
+def clear_progress():
+    if os.path.exists(PROGRESS_PATH):
+        try:
+            os.remove(PROGRESS_PATH)
+        except OSError:
+            pass
+
+
 def main():
+    import threading
     now_kst = datetime.now(timezone.utc).astimezone(KST)
     print(f"[현재 시각] {now_kst.isoformat()}")
 
@@ -334,56 +367,77 @@ def main():
     candidates = get_target_reports(now_kst)
     print(f"  보고서 후보 (우선순위): {candidates}")
 
+    # ============ 진행 상태 복원 ============
+    progress = load_progress()  # {corp_code: result_dict | None}
+    if progress:
+        prior_success = sum(1 for v in progress.values() if v)
+        print(f"  체크포인트 복원: 시도 {len(progress):,}개 / 성공 {prior_success:,}개")
+    else:
+        print(f"  체크포인트 없음 → 처음부터 시작")
+
+    pending = [c for c in universe if c["corp_code"] not in progress]
+    print(f"  이번 실행 처리 대상: {len(pending):,}개")
+
     t0 = time.monotonic()
-    results = []
-    failed = []
 
     def task(c):
         cc, sc, nm = c["corp_code"], c["stock_code"], c["name"]
         cache = {}
-        # 후보 보고서 순회. 가장 최근 가용 보고서 발견 시 그 기준으로 QoQ/HoH/YoY 계산.
         for year, rcode in candidates:
             result = compute_periods(cc, year, rcode, cache)
             time.sleep(SLEEP_SEC)
             if result and result["current"]["revenue"] is not None:
-                return {
+                return cc, {
                     "stock_code": sc,
                     "name": nm,
-                    "kind": result["kind"],   # 분기/반기/연간
+                    "kind": result["kind"],
                     "current": result["current"],
                     "previous": result["previous"],
                 }
-        return None
+        return cc, None
 
-    with ThreadPoolExecutor(max_workers=WORKERS) as ex:
-        futures = {ex.submit(task, c): c for c in universe}
-        done = 0
-        for fut in as_completed(futures):
-            c = futures[fut]
-            done += 1
-            try:
-                r = fut.result()
-            except Exception as e:
-                r = None
-                print(f"  예외 {c['stock_code']}: {e}")
-            if r:
-                results.append(r)
-            else:
-                failed.append(c["stock_code"])
-            if done % 200 == 0:
-                pct = done / len(universe) * 100
-                print(f"  진행 {done:,}/{len(universe):,} ({pct:.1f}%) 성공 {len(results):,}")
+    save_lock = threading.Lock()
+
+    if pending:
+        with ThreadPoolExecutor(max_workers=WORKERS) as ex:
+            futures = {ex.submit(task, c): c for c in pending}
+            done = 0
+            for fut in as_completed(futures):
+                c = futures[fut]
+                done += 1
+                try:
+                    cc, r = fut.result()
+                except Exception as e:
+                    cc, r = c["corp_code"], None
+                    print(f"  예외 {c['stock_code']}: {e}")
+                progress[cc] = r   # 성공이면 dict, 실패면 None — 모두 기록 (재시도 안 함)
+
+                if done % SAVE_EVERY == 0:
+                    with save_lock:
+                        save_progress(progress)
+                    pct_total = (len(progress)) / len(universe) * 100
+                    cur_success = sum(1 for v in progress.values() if v)
+                    print(f"  진행 (이번 {done:,}/{len(pending):,}) "
+                          f"전체 {len(progress):,}/{len(universe):,} ({pct_total:.1f}%) 누적성공 {cur_success:,} [저장]")
+
+        # 마지막 저장
+        with save_lock:
+            save_progress(progress)
 
     elapsed = time.monotonic() - t0
+
+    # ============ 최종 결과 집계 ============
+    results = [v for v in progress.values() if v is not None]
     success_ratio = len(results) / len(universe) if universe else 0
-    print(f"\n  완료: 성공 {len(results):,} / 실패 {len(failed):,} "
-          f"(성공률 {success_ratio*100:.1f}%, 소요 {elapsed/60:.1f}분)")
+    print(f"\n  최종: 성공 {len(results):,} / 전체 {len(universe):,} "
+          f"(성공률 {success_ratio*100:.1f}%, 이번 실행 소요 {elapsed/60:.1f}분)")
 
     if success_ratio < MIN_SUCCESS_RATIO:
         print(f"\n[비정상 감지] 성공률 {success_ratio*100:.1f}% < {MIN_SUCCESS_RATIO*100:.0f}%")
-        print(f"  DART 차단/장애 의심 → revenue.json 갱신 건너뜀")
-        if failed[:5]:
-            print(f"  실패 샘플: {failed[:5]}")
+        print(f"  revenue.json 갱신 건너뜀. 진행 파일은 유지 (다음 실행 시 누적 활용)")
+        failed_sample = [k for k, v in list(progress.items())[:5] if v is None][:5]
+        if failed_sample:
+            print(f"  실패 샘플: {failed_sample}")
         sys.exit(1)
 
     out = {
@@ -400,8 +454,12 @@ def main():
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
 
+    # 성공 시 체크포인트 정리 (다음 월간 실행은 처음부터)
+    clear_progress()
+
     size_kb = os.path.getsize(OUT_PATH) // 1024
     print(f"\n저장 완료: {OUT_PATH} ({size_kb:,} KB)")
+    print(f"  체크포인트 파일 삭제 — 다음 월간 실행은 fresh start")
 
 
 if __name__ == "__main__":

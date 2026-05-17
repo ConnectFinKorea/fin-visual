@@ -8,8 +8,8 @@ const NAV = {
         { id: "market-amount",  label: "변동액" },
       ]},
       { name: "Financial", items: [
-        { id: "market-revenue", label: "매출액" },
-        { id: "market-opincome",label: "영업이익" },
+        { id: "market-revenue",   label: "매출액" },
+        { id: "market-fin-status",label: "재무현황" },
       ]},
     ],
   },
@@ -109,7 +109,8 @@ const ROUTES = {
   "/market/equity/change":                   "market-amount",  // 구 URL 호환
   "/market/financial":                       "market-revenue",
   "/market/financial/revenue":               "market-revenue",
-  "/market/financial/operating-income":      "market-opincome",
+  "/market/financial/financial-status":      "market-fin-status",
+  "/market/financial/operating-income":      "market-fin-status",  // 구 URL 호환
   "/valuation":                              "val-trading",
   "/valuation/equity":                       "val-trading",
   "/valuation/equity/trading":               "val-trading",
@@ -133,8 +134,8 @@ const PAGE_TO_URL = {
   "home":            "/",
   "market-cap":      "/market/equity/market-cap",
   "market-amount":   "/market/equity/amount",
-  "market-revenue":  "/market/financial/revenue",
-  "market-opincome": "/market/financial/operating-income",
+  "market-revenue":    "/market/financial/revenue",
+  "market-fin-status": "/market/financial/financial-status",
   "val-trading":     "/valuation/equity/trading",
   "val-income":      "/valuation/equity/income",
   "val-rcps":        "/valuation/mezzanine/rcps",
@@ -153,8 +154,8 @@ const PAGE_TITLES = {
   "home":            "FinVisual",
   "market-cap":      "시가총액 · FinVisual",
   "market-amount":   "변동액 · FinVisual",
-  "market-revenue":  "매출액 · FinVisual",
-  "market-opincome": "영업이익 · FinVisual",
+  "market-revenue":    "매출액 · FinVisual",
+  "market-fin-status": "재무현황 · FinVisual",
   "val-trading":     "Trading Multiple · FinVisual",
   "val-income":      "Income Approach · FinVisual",
   "val-rcps":        "RCPS · FinVisual",
@@ -250,6 +251,7 @@ const SNAPSHOT_URL = () => `${RAW_BASE}/snapshot.json${CACHE_BUST()}`;
 const MAPPING_URL = () => `${RAW_BASE}/industry_mapping.json${CACHE_BUST()}`;
 const MAPPING_URL_FALLBACK = "/data/industry_mapping.json";
 const REVENUE_URL = () => `${RAW_BASE}/revenue.json${CACHE_BUST()}`;
+const FIN_STATUS_URL = () => `${RAW_BASE}/financial_status.json${CACHE_BUST()}`;
 
 async function renderMarketCap() {
   $main.innerHTML = `
@@ -1320,29 +1322,354 @@ function formatYYMMDD(s) {
   return `${m[1].slice(2)}.${m[2]}.${m[3]}`;
 }
 
-function renderFinancial(kind) {
-  const label = kind === "revenue" ? "매출액" : "영업이익";
-  const yoy_data = TOP_INDUSTRIES.slice(0, 8).map((ind, i) => {
-    const base = kind === "revenue" ? 50 + i * 7 : 8 + i * 1.4;
-    return {
-      name: ind.name,
-      val: base.toFixed(0) + "조",
-      yoy: ((Math.sin(i*1.3) * 12)).toFixed(1),
+// ============== 재무현황 페이지 (Market · Financial · 재무현황) ==============
+// 좌: 재무상태표 (자산/부채/자본 총계), 우: 손익계산서 (10계정)
+// 산업명 OR 회사명 검색 (autocomplete) — 한쪽 입력 시 다른쪽 입력 disabled
+const BS_LABELS = ["자산총계", "부채총계", "자본총계"];
+const IS_LABELS = [
+  "매출액", "매출원가", "판매관리비", "영업이익",
+  "영업외수익", "영업외비용", "영업외손익",
+  "법인세차감전손익", "법인세", "당기순이익",
+];
+
+async function renderFinancialStatus() {
+  $main.innerHTML = `<div class="amt-loading">재무현황 데이터 로딩 중...</div>`;
+  try {
+    const [mapping, finStatus] = await Promise.all([
+      fetchMapping(),
+      fetch(FIN_STATUS_URL()).then(r => {
+        if (!r.ok) throw new Error("financial_status.json 로드 실패 — 워크플로 1회 실행 필요");
+        return r.json();
+      }),
+    ]);
+    const data = computeFinStatusData(mapping, finStatus);
+    if (!data.companies.length) {
+      $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">재무현황 데이터 없음</div>`;
+      return;
+    }
+    drawFinStatusPage(data, finStatus);
+  } catch (err) {
+    $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">로드 실패: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+function computeFinStatusData(mapping, finStatus) {
+  const codeToInfo = {};
+  for (const c of mapping.companies) codeToInfo[c.stock_code] = c;
+
+  const companies = [];
+  for (const r of finStatus.companies || []) {
+    const sc = (r.stock_code || "").trim().padStart(6, "0");
+    const info = codeToInfo[sc];
+    if (!info || !info.major_code) continue;
+    companies.push({
+      code: sc,
+      name: info.name || r.name || "",
+      industry: info.major_name,
+      industry_code: info.major_code,
+      bs: r.bs || {},
+      is: r.is || {},
+      report_year: r.report_year,
+    });
+  }
+
+  const groups = {};
+  for (const c of companies) {
+    if (!groups[c.industry_code]) {
+      groups[c.industry_code] = {
+        code: c.industry_code, name: c.industry, companies: [],
+      };
+    }
+    groups[c.industry_code].companies.push(c);
+  }
+  for (const g of Object.values(groups)) {
+    g.bs = aggregateAccounts(g.companies.map(c => c.bs), BS_LABELS);
+    g.is = aggregateAccounts(g.companies.map(c => c.is), IS_LABELS);
+  }
+  // 자산총계(직전) 기준으로 산업 정렬
+  const industries = Object.values(groups).sort((a, b) =>
+    (b.bs["자산총계"]?.y0 || 0) - (a.bs["자산총계"]?.y0 || 0)
+  );
+  return { industries, companies };
+}
+
+function aggregateAccounts(accountDicts, labels) {
+  const out = {};
+  for (const label of labels) {
+    let sum0 = 0, sum1 = 0, n0 = 0, n1 = 0;
+    for (const d of accountDicts) {
+      const v = d[label];
+      if (!v) continue;
+      if (v.y0 != null) { sum0 += v.y0; n0 += 1; }
+      if (v.y1 != null) { sum1 += v.y1; n1 += 1; }
+    }
+    out[label] = {
+      y0: n0 > 0 ? sum0 : null,
+      y1: n1 > 0 ? sum1 : null,
     };
+  }
+  return out;
+}
+
+function drawFinStatusPage(data, finStatus) {
+  const ts = finStatus.generated_at
+    ? new Date(finStatus.generated_at).toLocaleString("ko-KR")
+    : "-";
+  const reportYear = finStatus.target_year || "-";
+  const statusText = `${data.companies.length.toLocaleString()}개 종목 · ${reportYear} 사업보고서 기준 · 갱신 ${ts}`;
+
+  $main.innerHTML = `
+    <div class="amount-toolbar amount-title-bar">
+      <div class="page-title">재무현황 <span class="crumb">/ Market · Financial</span></div>
+      <div class="amount-meta">${escapeHtml(statusText)}</div>
+    </div>
+
+    <div class="amount-toolbar amount-search fin-search">
+      <div class="search-block" id="fin-industry-block">
+        <label for="fin-industry">산업</label>
+        <span class="sep">:</span>
+        <input type="text" id="fin-industry" placeholder="산업명을 입력하세요" autocomplete="off" />
+      </div>
+      <div class="search-block" id="fin-company-block">
+        <label for="fin-company">회사명</label>
+        <span class="sep">:</span>
+        <input type="text" id="fin-company" placeholder="회사명을 입력하세요" autocomplete="off" />
+      </div>
+    </div>
+
+    <div class="amount-split">
+      <div class="amount-left">
+        <div class="amount-card">
+          <h4>재무상태표 <span class="amt-sub" id="fin-bs-sub">선택 없음</span></h4>
+          <div id="fin-bs-table"></div>
+        </div>
+      </div>
+      <div class="amount-right">
+        <div class="amount-card">
+          <h4>손익계산서 <span class="amt-sub" id="fin-is-sub">선택 없음</span></h4>
+          <div id="fin-is-table"></div>
+        </div>
+      </div>
+    </div>
+    <div class="amount-footnote">
+      재무상태표·손익계산서 = DART 단일회사 주요계정(fnlttSinglAcntAll) 사업보고서 기준 ·
+      산업 분류: 한국표준산업분류 11차 대분류 ·
+      산업명 입력 시 해당 산업 전체 합산 / 회사명 입력 시 개별 표시 ·
+      한쪽 입력 시 다른쪽은 자동 비활성
+    </div>
+  `;
+
+  // 초기 — 둘 다 빈 상태, 빈 테이블만 표시
+  drawFinTable("fin-bs-table", null, BS_LABELS);
+  drawFinTable("fin-is-table", null, IS_LABELS);
+
+  setupFinSearch(data);
+}
+
+function setupFinSearch(data) {
+  const $ind = document.getElementById("fin-industry");
+  const $co  = document.getElementById("fin-company");
+  const $indBlock = document.getElementById("fin-industry-block");
+  const $coBlock  = document.getElementById("fin-company-block");
+
+  const industryNames = data.industries.map(g => g.name);
+  const companyNames  = data.companies.map(c => c.name);
+
+  const setDisabled = (block, on) => {
+    block.classList.toggle("disabled", on);
+    const inp = block.querySelector("input");
+    if (inp) inp.disabled = on;
+  };
+
+  // 산업 입력 → 데이터 표시 + 회사 비활성화
+  const applyIndustry = (name) => {
+    const ind = data.industries.find(g => g.name === name);
+    if (!ind) return;
+    $ind.value = name;
+    $co.value = "";
+    setDisabled($coBlock, true);
+    setDisabled($indBlock, false);
+    document.getElementById("fin-bs-sub").textContent = `(산업 합산: ${ind.name})`;
+    document.getElementById("fin-is-sub").textContent = `(산업 합산: ${ind.name})`;
+    drawFinTable("fin-bs-table", ind.bs, BS_LABELS);
+    drawFinTable("fin-is-table", ind.is, IS_LABELS);
+  };
+
+  // 회사 입력 → 데이터 표시 + 산업 비활성화 (산업 input에는 회사가 속한 산업 자동 표시)
+  const applyCompany = (name) => {
+    const co = data.companies.find(c => c.name === name);
+    if (!co) return;
+    $co.value = co.name;
+    $ind.value = co.industry;
+    setDisabled($indBlock, true);
+    setDisabled($coBlock, false);
+    document.getElementById("fin-bs-sub").textContent = `(${co.name} · ${co.industry})`;
+    document.getElementById("fin-is-sub").textContent = `(${co.name} · ${co.industry})`;
+    drawFinTable("fin-bs-table", co.bs, BS_LABELS);
+    drawFinTable("fin-is-table", co.is, IS_LABELS);
+  };
+
+  // 입력값을 사용자가 직접 지운 경우 — 둘 다 비면 음영 해제 + 빈 표 복원
+  $ind.addEventListener("input", () => {
+    if (!$ind.value.trim()) {
+      setDisabled($coBlock, false);
+      if (!$co.value.trim()) {
+        document.getElementById("fin-bs-sub").textContent = "선택 없음";
+        document.getElementById("fin-is-sub").textContent = "선택 없음";
+        drawFinTable("fin-bs-table", null, BS_LABELS);
+        drawFinTable("fin-is-table", null, IS_LABELS);
+      }
+    }
   });
-  let html = `<div class="page-title">${label} <span class="crumb">/ Market · Financial</span></div>
-    <div class="compare-card"><h4>업종별 ${label} (2025년 연간 / YoY)</h4>
-    <div class="row head"><span>산업</span><span class="num">${label}</span><span class="num">YoY</span><span class="num">기준</span></div>`;
-  for (const r of yoy_data) {
-    html += `<div class="row">
-      <span>${r.name}</span>
-      <span class="num">${r.val}</span>
-      <span class="num">${fmtPct(parseFloat(r.yoy))}</span>
-      <span class="num" style="color:var(--text-3); font-size:10px;">FY25</span>
+  $co.addEventListener("input", () => {
+    if (!$co.value.trim()) {
+      setDisabled($indBlock, false);
+      $ind.value = "";  // 회사 검색을 지웠으면 자동 채워졌던 산업명도 제거
+      document.getElementById("fin-bs-sub").textContent = "선택 없음";
+      document.getElementById("fin-is-sub").textContent = "선택 없음";
+      drawFinTable("fin-bs-table", null, BS_LABELS);
+      drawFinTable("fin-is-table", null, IS_LABELS);
+    }
+  });
+
+  attachAutocomplete($ind, industryNames, applyIndustry);
+  attachAutocomplete($co,  companyNames,  applyCompany);
+}
+
+function drawFinTable(elemId, accounts, labels) {
+  const $tbl = document.getElementById(elemId);
+  if (!$tbl) return;
+  let html = `
+    <div class="fin-row head">
+      <span>계정명</span>
+      <span class="num">직직전연도말</span>
+      <span class="num">직전연도말</span>
+      <span class="num">YoY(%)</span>
+    </div>
+  `;
+  for (const label of labels) {
+    const v = accounts?.[label];
+    const y0 = v?.y0, y1 = v?.y1;
+    const yoy = (y0 != null && y1 != null && y1 !== 0)
+      ? ((y0 - y1) / Math.abs(y1)) * 100
+      : null;
+    html += `<div class="fin-row">
+      <span class="acct-name">${escapeHtml(label)}</span>
+      <span class="num">${formatFinAmount(y1)}</span>
+      <span class="num">${formatFinAmount(y0)}</span>
+      <span class="num ${revChangeClass(yoy)}">${formatRevPct(yoy)}</span>
     </div>`;
   }
-  html += `</div>`;
-  $main.innerHTML = html;
+  $tbl.innerHTML = html;
+}
+
+// 음수까지 처리하는 금액 포매터 (IS의 손실/적자 대응). 빈값 → "" .
+function formatFinAmount(krw) {
+  if (krw == null || !isFinite(krw)) return "";
+  if (krw === 0) return "0";
+  const abs = Math.abs(krw);
+  const eok = abs / 1e8;
+  let s;
+  if (eok >= 10000) {
+    s = (eok / 10000).toLocaleString("ko-KR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "조원";
+  } else {
+    s = Math.round(eok).toLocaleString("ko-KR") + "억원";
+  }
+  return (krw < 0 ? "−" : "") + s;
+}
+
+// 재사용 가능한 autocomplete (검색 input 하단에 dropdown 표시).
+// items: 후보 문자열 배열, onSelect(selectedString) 콜백.
+function attachAutocomplete(input, items, onSelect) {
+  const wrap = input.closest(".search-block");
+  if (!wrap) return;
+  let dropdown = null;
+  let activeIdx = -1;
+  let curMatches = [];
+
+  const close = () => {
+    if (dropdown) { dropdown.remove(); dropdown = null; }
+    activeIdx = -1; curMatches = [];
+  };
+  const open = () => {
+    if (dropdown) return;
+    dropdown = document.createElement("div");
+    dropdown.className = "ac-dropdown";
+    wrap.appendChild(dropdown);
+  };
+  const filter = (q) => {
+    const t = q.trim().toLowerCase();
+    if (!t) return [];
+    const prefix = [], partial = [];
+    for (const x of items) {
+      const lx = x.toLowerCase();
+      if (lx.startsWith(t)) prefix.push(x);
+      else if (lx.includes(t)) partial.push(x);
+      if (prefix.length + partial.length >= 50) break;
+    }
+    const seen = new Set();
+    const merged = [];
+    for (const x of [...prefix, ...partial]) {
+      if (!seen.has(x)) { seen.add(x); merged.push(x); }
+      if (merged.length >= 10) break;
+    }
+    return merged;
+  };
+  const render = () => {
+    if (!dropdown) return;
+    dropdown.innerHTML = curMatches.map((m, i) =>
+      `<div class="ac-item${i === activeIdx ? ' active' : ''}" data-idx="${i}">${escapeHtml(m)}</div>`
+    ).join("");
+    dropdown.querySelectorAll(".ac-item").forEach(el => {
+      // mousedown — input의 blur 이벤트보다 먼저 처리되어 close()가 안 일어남
+      el.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        const idx = parseInt(el.dataset.idx, 10);
+        const sel = curMatches[idx];
+        close();
+        onSelect(sel);
+      });
+    });
+  };
+
+  input.addEventListener("input", () => {
+    curMatches = filter(input.value);
+    if (curMatches.length === 0) { close(); return; }
+    open();
+    activeIdx = -1;
+    render();
+  });
+
+  input.addEventListener("blur", () => setTimeout(close, 150));
+
+  input.addEventListener("keydown", (e) => {
+    if (!dropdown || curMatches.length === 0) {
+      if (e.key === "Enter" && input.value.trim()) {
+        const t = input.value.trim().toLowerCase();
+        const hit = items.find(x => x.toLowerCase() === t)
+                 || items.find(x => x.toLowerCase().includes(t));
+        if (hit) onSelect(hit);
+      }
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      activeIdx = Math.min(curMatches.length - 1, activeIdx + 1);
+      render();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      activeIdx = Math.max(0, activeIdx - 1);
+      render();
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const idx = activeIdx >= 0 ? activeIdx : 0;
+      const sel = curMatches[idx];
+      close();
+      onSelect(sel);
+    } else if (e.key === "Escape") {
+      close();
+    }
+  });
 }
 
 function renderValTrading() {
@@ -1592,8 +1919,8 @@ function navigate(pageId, opts = {}) {
     "home": renderHome,
     "market-cap": renderMarketCap,
     "market-amount": renderMarketAmount,
-    "market-revenue":  renderMarketRevenue,
-    "market-opincome": () => renderFinancial("opincome"),
+    "market-revenue":    renderMarketRevenue,
+    "market-fin-status": renderFinancialStatus,
     "val-trading": renderValTrading,
     "val-income":  renderValIncome,
     "val-rcps": () => renderMezzanine("rcps"),

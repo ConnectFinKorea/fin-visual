@@ -1,9 +1,9 @@
-name: Update Revenue (DART, monthly)
+name: Update Financial Status (DART, monthly)
 
 on:
   schedule:
-    # 매월 1일 23:00 KST = 14:00 UTC (전월 말 시점 데이터 수집)
-    - cron: '0 14 1 * *'
+    # 매월 1일 23:30 KST = 14:30 UTC (revenue 워크플로보다 30분 늦게 시작)
+    - cron: '30 14 1 * *'
   workflow_dispatch:
 
 permissions:
@@ -16,7 +16,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 350   # GitHub free 한도 6시간 직전 (5h50m). 체크포인트로 다음 실행에 이어감.
+    timeout-minutes: 350   # GitHub free 한도 6시간 직전. 체크포인트로 다음 실행에 이어감.
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -43,39 +43,39 @@ jobs:
           fi
           ls -la data/
 
-      # 이전 실행의 부분 결과(_revenue_progress.json)를 캐시에서 복원.
+      # 이전 실행의 부분 결과(_financial_progress.json)를 캐시에서 복원.
       # restore-keys로 prefix 매칭 → 가장 최근 실행 캐시 자동 사용.
-      - name: Restore revenue progress cache
+      - name: Restore financial progress cache
         id: restore-progress
         uses: actions/cache/restore@v4
         with:
-          path: data/_revenue_progress.json
-          key: revenue-progress-${{ github.run_id }}
+          path: data/_financial_progress.json
+          key: financial-progress-${{ github.run_id }}
           restore-keys: |
-            revenue-progress-
+            financial-progress-
 
-      - name: Run update_revenue.py
+      - name: Run update_financial_status.py
         env:
           DART_API_KEY: ${{ secrets.DART_API_KEY }}
-        run: python scripts/update_revenue.py
+        run: python scripts/update_financial_status.py
 
       # 진행 파일이 있으면 캐시에 저장 (성공 시 스크립트가 삭제하므로 캐시 안 됨 → fresh next run)
-      - name: Save revenue progress cache
-        if: always() && hashFiles('data/_revenue_progress.json') != ''
+      - name: Save financial progress cache
+        if: always() && hashFiles('data/_financial_progress.json') != ''
         uses: actions/cache/save@v4
         with:
-          path: data/_revenue_progress.json
-          key: revenue-progress-${{ github.run_id }}
+          path: data/_financial_progress.json
+          key: financial-progress-${{ github.run_id }}
 
-      - name: Push revenue.json to data-snapshot branch
+      - name: Push financial_status.json to data-snapshot branch
         shell: bash
         run: |
           set -e
-          DATA_FILE="data/revenue.json"
-          OUTPUT_NAME="revenue.json"
+          DATA_FILE="data/financial_status.json"
+          OUTPUT_NAME="financial_status.json"
 
           if [ ! -f "$DATA_FILE" ]; then
-            echo "revenue.json이 생성되지 않음. push 건너뜀."
+            echo "financial_status.json이 생성되지 않음. push 건너뜀."
             exit 0
           fi
           cp "$DATA_FILE" "/tmp/$OUTPUT_NAME"
@@ -99,6 +99,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "변경사항 없음"
           else
-            git commit -m "data: update revenue ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
+            git commit -m "data: update financial_status ($(date -u +%Y-%m-%dT%H:%M:%SZ)) [skip ci]"
             git push origin data-snapshot
           fi

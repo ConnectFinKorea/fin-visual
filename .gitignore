@@ -1,10 +1,14 @@
 # 임시·대용량 데이터 (재생성 가능)
 data/CORPCODE.xml
 data/_dart_progress.json
+data/_revenue_progress.json
+data/_financial_progress.json
 
 # GitHub Actions가 data-snapshot 브랜치에 push하는 파일들 (main에는 포함 안 함)
 data/listed_stocks.json
 data/snapshot.json
+data/revenue.json
+data/financial_status.json
 
 # 워커 로컬 환경
 worker/.dev.vars
