@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-17T18:16:21+0000",
+  "generated_at": "2026-05-18T20:25:37+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3965,
@@ -9451,11 +9451,6 @@
       "name": "국도화학"
     },
     {
-      "stock_code": "210120",
-      "corp_code": "00550082",
-      "name": "캔버스엔"
-    },
-    {
       "stock_code": "065570",
       "corp_code": "00288343",
       "name": "삼영이엔씨"
@@ -13701,11 +13696,6 @@
       "name": "장원테크"
     },
     {
-      "stock_code": "015590",
-      "corp_code": "00108746",
-      "name": "DKME"
-    },
-    {
       "stock_code": "053300",
       "corp_code": "00306454",
       "name": "한국정보인증"
@@ -13789,11 +13779,6 @@
       "stock_code": "011000",
       "corp_code": "00118521",
       "name": "진원생명과학"
-    },
-    {
-      "stock_code": "900100",
-      "corp_code": "00781202",
-      "name": "애머릿지"
     },
     {
       "stock_code": "030000",
@@ -14479,11 +14464,6 @@
       "stock_code": "424870",
       "corp_code": "01203659",
       "name": "이뮨온시아"
-    },
-    {
-      "stock_code": "235980",
-      "corp_code": "01336373",
-      "name": "메드팩토"
     },
     {
       "stock_code": "450050",
@@ -15259,11 +15239,6 @@
       "stock_code": "007310",
       "corp_code": "00141529",
       "name": "오뚜기"
-    },
-    {
-      "stock_code": "067170",
-      "corp_code": "00397289",
-      "name": "오텍"
     },
     {
       "stock_code": "129260",
@@ -19819,6 +19794,31 @@
       "stock_code": "070300",
       "corp_code": "00683007",
       "name": "엑스큐어"
+    },
+    {
+      "stock_code": "015590",
+      "corp_code": "00108746",
+      "name": "DKME"
+    },
+    {
+      "stock_code": "067170",
+      "corp_code": "00397289",
+      "name": "오텍"
+    },
+    {
+      "stock_code": "210120",
+      "corp_code": "00550082",
+      "name": "캔버스엔"
+    },
+    {
+      "stock_code": "900100",
+      "corp_code": "00781202",
+      "name": "파이온엑스"
+    },
+    {
+      "stock_code": "235980",
+      "corp_code": "01336373",
+      "name": "메드팩토"
     },
     {
       "stock_code": "094800",
