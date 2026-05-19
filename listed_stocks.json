@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-18T20:25:37+0000",
+  "generated_at": "2026-05-19T20:57:32+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3965,
+  "count": 3966,
   "companies": [
     {
       "stock_code": "036720",
@@ -13801,6 +13801,26 @@
       "name": "성우"
     },
     {
+      "stock_code": "204210",
+      "corp_code": "01035289",
+      "name": "JK리버스톤리츠"
+    },
+    {
+      "stock_code": "462020",
+      "corp_code": "01767494",
+      "name": "에이치엠씨아이비제6호기업인수목적"
+    },
+    {
+      "stock_code": "466910",
+      "corp_code": "01785056",
+      "name": "엔에이치기업인수목적30호"
+    },
+    {
+      "stock_code": "288180",
+      "corp_code": "01101254",
+      "name": "케이피항공산업"
+    },
+    {
       "stock_code": "347700",
       "corp_code": "01336762",
       "name": "스피어"
@@ -16571,11 +16591,6 @@
       "name": "윈팩"
     },
     {
-      "stock_code": "466910",
-      "corp_code": "01785056",
-      "name": "엔에이치스팩30호"
-    },
-    {
       "stock_code": "0054V0",
       "corp_code": "01931585",
       "name": "엔에이치스팩32호"
@@ -18591,11 +18606,6 @@
       "name": "에코프로비엠"
     },
     {
-      "stock_code": "462020",
-      "corp_code": "01767494",
-      "name": "에이치엠씨제6호스팩"
-    },
-    {
       "stock_code": "0004Y0",
       "corp_code": "01884065",
       "name": "디비금융제14호스팩"
@@ -18779,11 +18789,6 @@
       "stock_code": "003230",
       "corp_code": "00126955",
       "name": "삼양식품"
-    },
-    {
-      "stock_code": "204210",
-      "corp_code": "01035289",
-      "name": "스타에스엠리츠"
     },
     {
       "stock_code": "439410",
