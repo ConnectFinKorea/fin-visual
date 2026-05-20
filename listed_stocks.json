@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-19T20:57:32+0000",
+  "generated_at": "2026-05-20T21:23:43+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3966,
+  "count": 3967,
   "companies": [
     {
       "stock_code": "036720",
@@ -7041,11 +7041,6 @@
       "name": "포스뱅크"
     },
     {
-      "stock_code": "149300",
-      "corp_code": "00578130",
-      "name": "아퓨어스"
-    },
-    {
       "stock_code": "035200",
       "corp_code": "00356389",
       "name": "프럼파스트"
@@ -11276,11 +11271,6 @@
       "name": "한창제지"
     },
     {
-      "stock_code": "011200",
-      "corp_code": "00164645",
-      "name": "HMM"
-    },
-    {
       "stock_code": "092440",
       "corp_code": "00106614",
       "name": "기신정기"
@@ -12119,6 +12109,31 @@
       "stock_code": "036010",
       "corp_code": "00138598",
       "name": "아비코전자"
+    },
+    {
+      "stock_code": "041590",
+      "corp_code": "00297448",
+      "name": "플래스크"
+    },
+    {
+      "stock_code": "149300",
+      "corp_code": "00578130",
+      "name": "아퓨어스"
+    },
+    {
+      "stock_code": "087260",
+      "corp_code": "00556615",
+      "name": "모바일어플라이언스"
+    },
+    {
+      "stock_code": "304840",
+      "corp_code": "01118281",
+      "name": "피플바이오"
+    },
+    {
+      "stock_code": "477850",
+      "corp_code": "01709065",
+      "name": "마키나락스"
     },
     {
       "stock_code": "198080",
@@ -13321,11 +13336,6 @@
       "name": "동양이엔피"
     },
     {
-      "stock_code": "041590",
-      "corp_code": "00297448",
-      "name": "플래스크"
-    },
-    {
       "stock_code": "063170",
       "corp_code": "00410915",
       "name": "서울옥션"
@@ -13934,6 +13944,11 @@
       "stock_code": "0011T0",
       "corp_code": "01279698",
       "name": "채비"
+    },
+    {
+      "stock_code": "011200",
+      "corp_code": "00164645",
+      "name": "HMM"
     },
     {
       "stock_code": "483650",
@@ -16456,11 +16471,6 @@
       "name": "바이오인프라생명과학"
     },
     {
-      "stock_code": "087260",
-      "corp_code": "00556615",
-      "name": "모바일어플라이언스"
-    },
-    {
       "stock_code": "296160",
       "corp_code": "01156795",
       "name": "프로젠"
@@ -18769,11 +18779,6 @@
       "stock_code": "078860",
       "corp_code": "00543204",
       "name": "아이오케이이엔엠"
-    },
-    {
-      "stock_code": "304840",
-      "corp_code": "01118281",
-      "name": "피플바이오"
     },
     {
       "stock_code": "341170",
