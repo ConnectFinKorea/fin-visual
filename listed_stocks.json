@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-20T21:23:43+0000",
+  "generated_at": "2026-05-21T21:19:38+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -7681,11 +7681,6 @@
       "name": "티엘비"
     },
     {
-      "stock_code": "023760",
-      "corp_code": "00149594",
-      "name": "한국캐피탈"
-    },
-    {
       "stock_code": "224810",
       "corp_code": "00607797",
       "name": "엄지하우스"
@@ -12611,6 +12606,11 @@
       "name": "세이브존I&C"
     },
     {
+      "stock_code": "018700",
+      "corp_code": "00122205",
+      "name": "졸스"
+    },
+    {
       "stock_code": "138080",
       "corp_code": "00571483",
       "name": "오이솔루션"
@@ -13439,11 +13439,6 @@
       "stock_code": "475400",
       "corp_code": "01588189",
       "name": "씨메스로보틱스"
-    },
-    {
-      "stock_code": "018700",
-      "corp_code": "00122205",
-      "name": "졸스"
     },
     {
       "stock_code": "000270",
@@ -18624,6 +18619,11 @@
       "stock_code": "0041J0",
       "corp_code": "01906552",
       "name": "엘에스스팩1호"
+    },
+    {
+      "stock_code": "023760",
+      "corp_code": "00149594",
+      "name": "한국캐피탈"
     },
     {
       "stock_code": "028670",
