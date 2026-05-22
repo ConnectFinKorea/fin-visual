@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-21T21:19:38+0000",
+  "generated_at": "2026-05-22T20:51:49+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -13491,6 +13491,16 @@
       "name": "보령"
     },
     {
+      "stock_code": "290720",
+      "corp_code": "01259311",
+      "name": "푸드나무"
+    },
+    {
+      "stock_code": "019490",
+      "corp_code": "00156150",
+      "name": "엑시큐어하이트론"
+    },
+    {
       "stock_code": "000910",
       "corp_code": "00144252",
       "name": "유니온"
@@ -14524,11 +14534,6 @@
       "stock_code": "059090",
       "corp_code": "00366942",
       "name": "미코"
-    },
-    {
-      "stock_code": "019490",
-      "corp_code": "00156150",
-      "name": "엑시큐어하이트론"
     },
     {
       "stock_code": "050090",
@@ -17336,11 +17341,6 @@
       "name": "SG"
     },
     {
-      "stock_code": "290720",
-      "corp_code": "01259311",
-      "name": "푸드나무"
-    },
-    {
       "stock_code": "444920",
       "corp_code": "01688346",
       "name": "유안타제11호기업인수목적"
@@ -17394,11 +17394,6 @@
       "stock_code": "049630",
       "corp_code": "00147082",
       "name": "재영솔루텍"
-    },
-    {
-      "stock_code": "033560",
-      "corp_code": "00238001",
-      "name": "블루콤"
     },
     {
       "stock_code": "317330",
@@ -18784,6 +18779,11 @@
       "stock_code": "341170",
       "corp_code": "01185867",
       "name": "퓨쳐메디신"
+    },
+    {
+      "stock_code": "033560",
+      "corp_code": "00238001",
+      "name": "블루콤"
     },
     {
       "stock_code": "339950",
