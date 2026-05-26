@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-25T20:19:43+0000",
+  "generated_at": "2026-05-26T21:18:03+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -13951,11 +13951,6 @@
       "name": "채비"
     },
     {
-      "stock_code": "011200",
-      "corp_code": "00164645",
-      "name": "HMM"
-    },
-    {
       "stock_code": "483650",
       "corp_code": "01649204",
       "name": "달바글로벌"
@@ -15704,11 +15699,6 @@
       "stock_code": "456160",
       "corp_code": "01577952",
       "name": "지투지바이오"
-    },
-    {
-      "stock_code": "208860",
-      "corp_code": "01084364",
-      "name": "다산디엠씨"
     },
     {
       "stock_code": "052020",
@@ -17636,19 +17626,9 @@
       "name": "테라뷰"
     },
     {
-      "stock_code": "208340",
-      "corp_code": "00972293",
-      "name": "파멥신"
-    },
-    {
       "stock_code": "006060",
       "corp_code": "00166227",
       "name": "화승인더스트리"
-    },
-    {
-      "stock_code": "418470",
-      "corp_code": "01467451",
-      "name": "KT밀리의서재"
     },
     {
       "stock_code": "105630",
@@ -18786,6 +18766,26 @@
       "name": "블루콤"
     },
     {
+      "stock_code": "011200",
+      "corp_code": "00164645",
+      "name": "HMM"
+    },
+    {
+      "stock_code": "317870",
+      "corp_code": "00964595",
+      "name": "엔바이오니아"
+    },
+    {
+      "stock_code": "208860",
+      "corp_code": "01084364",
+      "name": "다산디엠씨"
+    },
+    {
+      "stock_code": "418470",
+      "corp_code": "01467451",
+      "name": "KT밀리의서재"
+    },
+    {
       "stock_code": "339950",
       "corp_code": "01414422",
       "name": "아이비김영"
@@ -18984,11 +18984,6 @@
       "stock_code": "234070",
       "corp_code": "00614089",
       "name": "에이원큐브텍"
-    },
-    {
-      "stock_code": "317870",
-      "corp_code": "00964595",
-      "name": "엔바이오니아"
     },
     {
       "stock_code": "257720",
@@ -19379,6 +19374,11 @@
       "stock_code": "084440",
       "corp_code": "00531078",
       "name": "유비온"
+    },
+    {
+      "stock_code": "208340",
+      "corp_code": "00972293",
+      "name": "파멥신"
     },
     {
       "stock_code": "000390",
