@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-27T21:31:48+0000",
+  "generated_at": "2026-05-28T22:12:56+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -6096,11 +6096,6 @@
       "name": "에넥스"
     },
     {
-      "stock_code": "094940",
-      "corp_code": "00537832",
-      "name": "푸른기술"
-    },
-    {
       "stock_code": "038160",
       "corp_code": "00334624",
       "name": "팍스넷"
@@ -6474,11 +6469,6 @@
       "stock_code": "033020",
       "corp_code": "00206084",
       "name": "세아메탈"
-    },
-    {
-      "stock_code": "419530",
-      "corp_code": "01082418",
-      "name": "SAMG엔터"
     },
     {
       "stock_code": "052960",
@@ -9251,11 +9241,6 @@
       "name": "삼표시멘트"
     },
     {
-      "stock_code": "058860",
-      "corp_code": "00372873",
-      "name": "KTis"
-    },
-    {
       "stock_code": "114450",
       "corp_code": "00532059",
       "name": "그린생명과학"
@@ -9354,11 +9339,6 @@
       "stock_code": "104460",
       "corp_code": "00602136",
       "name": "디와이피엔에프"
-    },
-    {
-      "stock_code": "140430",
-      "corp_code": "01116265",
-      "name": "카티스"
     },
     {
       "stock_code": "005300",
@@ -12601,6 +12581,11 @@
       "name": "티케이케미칼"
     },
     {
+      "stock_code": "053210",
+      "corp_code": "00349097",
+      "name": "케이티스카이라이프"
+    },
+    {
       "stock_code": "067830",
       "corp_code": "00422895",
       "name": "세이브존I&C"
@@ -12609,6 +12594,26 @@
       "stock_code": "018700",
       "corp_code": "00122205",
       "name": "졸스"
+    },
+    {
+      "stock_code": "058860",
+      "corp_code": "00372873",
+      "name": "KTis"
+    },
+    {
+      "stock_code": "094940",
+      "corp_code": "00537832",
+      "name": "푸른로보틱스"
+    },
+    {
+      "stock_code": "058850",
+      "corp_code": "00372882",
+      "name": "KTcs"
+    },
+    {
+      "stock_code": "140430",
+      "corp_code": "01116265",
+      "name": "카티스"
     },
     {
       "stock_code": "138080",
@@ -13951,6 +13956,11 @@
       "name": "채비"
     },
     {
+      "stock_code": "419530",
+      "corp_code": "01082418",
+      "name": "SAMG엔터"
+    },
+    {
       "stock_code": "483650",
       "corp_code": "01649204",
       "name": "달바글로벌"
@@ -14539,11 +14549,6 @@
       "stock_code": "004080",
       "corp_code": "00173795",
       "name": "신흥"
-    },
-    {
-      "stock_code": "053210",
-      "corp_code": "00349097",
-      "name": "케이티스카이라이프"
     },
     {
       "stock_code": "103660",
@@ -17316,11 +17321,6 @@
       "name": "원익"
     },
     {
-      "stock_code": "058850",
-      "corp_code": "00372882",
-      "name": "KTcs"
-    },
-    {
       "stock_code": "095270",
       "corp_code": "00526696",
       "name": "웨이브일렉트로"
@@ -18366,11 +18366,6 @@
       "name": "에스넷"
     },
     {
-      "stock_code": "064090",
-      "corp_code": "00390408",
-      "name": "인크레더블버즈"
-    },
-    {
       "stock_code": "252990",
       "corp_code": "01199727",
       "name": "샘씨엔에스"
@@ -18844,6 +18839,11 @@
       "stock_code": "0132G0",
       "corp_code": "01985203",
       "name": "교보20호스팩"
+    },
+    {
+      "stock_code": "064090",
+      "corp_code": "00390408",
+      "name": "인크레더블버즈"
     },
     {
       "stock_code": "095500",
