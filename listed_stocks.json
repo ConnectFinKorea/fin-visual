@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-29T18:16:55+0000",
+  "generated_at": "2026-05-30T16:09:34+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -8106,11 +8106,6 @@
       "name": "원포유"
     },
     {
-      "stock_code": "088290",
-      "corp_code": "00409140",
-      "name": "이원컴포텍"
-    },
-    {
       "stock_code": "317850",
       "corp_code": "00450995",
       "name": "대모"
@@ -8519,11 +8514,6 @@
       "stock_code": "142760",
       "corp_code": "00587925",
       "name": "모아라이프플러스"
-    },
-    {
-      "stock_code": "060260",
-      "corp_code": "00351375",
-      "name": "뉴보텍"
     },
     {
       "stock_code": "037600",
@@ -10636,11 +10626,6 @@
       "name": "동일기연"
     },
     {
-      "stock_code": "334970",
-      "corp_code": "01258428",
-      "name": "프레스티지바이오로직스"
-    },
-    {
       "stock_code": "382150",
       "corp_code": "01423916",
       "name": "온코크로스"
@@ -12706,6 +12691,16 @@
       "name": "삼성에피스홀딩스"
     },
     {
+      "stock_code": "064090",
+      "corp_code": "00390408",
+      "name": "인크레더블버즈"
+    },
+    {
+      "stock_code": "261780",
+      "corp_code": "01141599",
+      "name": "아리바이오LAB"
+    },
+    {
       "stock_code": "047920",
       "corp_code": "00336817",
       "name": "HLB제약"
@@ -13504,6 +13499,11 @@
       "stock_code": "019490",
       "corp_code": "00156150",
       "name": "엑시큐어하이트론"
+    },
+    {
+      "stock_code": "060260",
+      "corp_code": "00351375",
+      "name": "뉴보텍"
     },
     {
       "stock_code": "000910",
@@ -14921,11 +14921,6 @@
       "name": "아티스트컴퍼니"
     },
     {
-      "stock_code": "261780",
-      "corp_code": "01141599",
-      "name": "차백신연구소"
-    },
-    {
       "stock_code": "348030",
       "corp_code": "01210190",
       "name": "모비릭스"
@@ -15779,11 +15774,6 @@
       "stock_code": "026890",
       "corp_code": "00117498",
       "name": "스틱인베스트먼트"
-    },
-    {
-      "stock_code": "221980",
-      "corp_code": "00370918",
-      "name": "케이디켐"
     },
     {
       "stock_code": "024910",
@@ -18841,9 +18831,9 @@
       "name": "교보20호스팩"
     },
     {
-      "stock_code": "064090",
-      "corp_code": "00390408",
-      "name": "인크레더블버즈"
+      "stock_code": "088290",
+      "corp_code": "00409140",
+      "name": "이원컴포텍"
     },
     {
       "stock_code": "095500",
@@ -18984,6 +18974,11 @@
       "stock_code": "234070",
       "corp_code": "00614089",
       "name": "에이원큐브텍"
+    },
+    {
+      "stock_code": "334970",
+      "corp_code": "01258428",
+      "name": "프레스티지바이오로직스"
     },
     {
       "stock_code": "257720",
@@ -19439,6 +19434,11 @@
       "stock_code": "099410",
       "corp_code": "00526678",
       "name": "동방선기"
+    },
+    {
+      "stock_code": "221980",
+      "corp_code": "00370918",
+      "name": "케이디켐"
     },
     {
       "stock_code": "041920",
