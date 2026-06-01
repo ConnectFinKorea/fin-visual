@@ -1148,6 +1148,14 @@ function drawRevenueTables(data, revenue) {
         <span class="date">일자</span>
         <span class="num">Change(%)</span>
       </div>
+      <div class="rev-row selected" id="rev-ind-selected">
+        <span class="ent-name placeholder">회사명 입력 시 해당 산업 표시</span>
+        <span class="num"></span>
+        <span class="date"></span>
+        <span class="num"></span>
+        <span class="date"></span>
+        <span class="num"></span>
+      </div>
   `;
   indRows.forEach(g => {
     leftHtml += `<div class="rev-row${g.isOther ? ' other' : ''}" data-industry="${escapeAttr(g.name)}">
@@ -1201,13 +1209,14 @@ function drawRevenueTables(data, revenue) {
   `;
   const split = document.getElementById("revenue-split");
 
-  setSelection(initialIndustry);
+  setSelection(initialIndustry, null);
 
   split.querySelectorAll(".rev-row[data-industry]").forEach(row => {
-    if (row.classList.contains("other") || row.classList.contains("head") || row.classList.contains("total")) return;
-    row.addEventListener("click", () => setSelection(row.dataset.industry));
+    if (row.classList.contains("other") || row.classList.contains("head") || row.classList.contains("total") || row.classList.contains("selected")) return;
+    row.addEventListener("click", () => setSelection(row.dataset.industry, null));
   });
 
+  // 우측 입력 — 회사명 검색. 매칭 시 그 회사 + 회사가 속한 산업을 선택.
   const $input = document.getElementById("rev-company");
   const handleSearch = () => {
     const v = $input.value.trim();
@@ -1217,28 +1226,43 @@ function drawRevenueTables(data, revenue) {
     for (const ind of data.industries) {
       for (const c of ind.companies) {
         if (!c.name) continue;
-        if (c.name === v) { exact = ind.name; break; }
-        if (!partial && c.name.toLowerCase().includes(lower)) partial = ind.name;
+        if (c.name === v) { exact = { ind, c }; break; }
+        if (!partial && c.name.toLowerCase().includes(lower)) partial = { ind, c };
       }
       if (exact) break;
     }
-    const found = exact || partial;
-    if (found) setSelection(found);
+    const result = exact || partial;
+    if (result) setSelection(result.ind.name, result.c);
   };
   $input.addEventListener("change", handleSearch);
   $input.addEventListener("keydown", e => { if (e.key === "Enter") handleSearch(); });
 
-  function setSelection(industryName) {
+  function setSelection(industryName, company) {
     split.querySelectorAll(".rev-row[data-industry]").forEach(r => {
       r.classList.toggle("active", r.dataset.industry === industryName);
     });
     const $disp = document.getElementById("rev-industry-display");
     if ($disp) $disp.textContent = industryName;
-    drawRevenueCompanyTable(industryName, data);
+
+    // 좌측 선택 row 갱신 (선택된 산업의 매출액 합산 정보)
+    const ind = data.industries.find(g => g.name === industryName);
+    const $leftSel = document.getElementById("rev-ind-selected");
+    if ($leftSel && ind) {
+      $leftSel.innerHTML = `
+        <span class="ent-name">${escapeHtml(ind.name)}</span>
+        <span class="num">${formatRevenue(ind.totalRevenue)}</span>
+        <span class="date">—</span>
+        <span class="num">${ind.totalPrevRevenue ? formatRevenue(ind.totalPrevRevenue) : "-"}</span>
+        <span class="date">—</span>
+        <span class="num ${revChangeClass(ind.changePct)}">${formatRevPct(ind.changePct)}</span>
+      `;
+    }
+
+    drawRevenueCompanyTable(industryName, data, company);
   }
 }
 
-function drawRevenueCompanyTable(industryName, data) {
+function drawRevenueCompanyTable(industryName, data, selectedCompany) {
   const $tbl = document.getElementById("rev-companies-table");
   if (!$tbl) return;
   const ind = data.industries.find(g => g.name === industryName);
@@ -1277,6 +1301,29 @@ function drawRevenueCompanyTable(industryName, data) {
       <span class="num">Change(%)</span>
     </div>
   `;
+
+  // 선택 row: 검색한 회사의 매출액을 상단에 강조 (없으면 placeholder).
+  // 해당 산업 내 시총 상위 20에 들지 않아도 항상 표시.
+  if (selectedCompany) {
+    html += `<div class="rev-row selected">
+      <span class="ent-name">${escapeHtml(selectedCompany.name)}</span>
+      <span class="num">${formatRevenue(selectedCompany.revenue)}</span>
+      <span class="date">${formatYYMMDD(selectedCompany.revenue_date)}</span>
+      <span class="num">${selectedCompany.prev_revenue ? formatRevenue(selectedCompany.prev_revenue) : "-"}</span>
+      <span class="date">${formatYYMMDD(selectedCompany.prev_date)}</span>
+      <span class="num ${revChangeClass(selectedCompany.change_pct)}">${formatRevPct(selectedCompany.change_pct)}</span>
+    </div>`;
+  } else {
+    html += `<div class="rev-row selected">
+      <span class="ent-name placeholder">회사명을 입력하세요</span>
+      <span class="num"></span>
+      <span class="date"></span>
+      <span class="num"></span>
+      <span class="date"></span>
+      <span class="num"></span>
+    </div>`;
+  }
+
   rows.forEach(c => {
     html += `<div class="rev-row${c.isOther ? ' other' : ''}">
       <span class="ent-name">${escapeHtml(c.name)}</span>
