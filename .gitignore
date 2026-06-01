@@ -9,6 +9,7 @@ data/listed_stocks.json
 data/snapshot.json
 data/revenue.json
 data/financial_status.json
+data/news_thebell.json
 
 # 워커 로컬 환경
 worker/.dev.vars

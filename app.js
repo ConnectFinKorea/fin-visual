@@ -252,6 +252,7 @@ const MAPPING_URL = () => `${RAW_BASE}/industry_mapping.json${CACHE_BUST()}`;
 const MAPPING_URL_FALLBACK = "/data/industry_mapping.json";
 const REVENUE_URL = () => `${RAW_BASE}/revenue.json${CACHE_BUST()}`;
 const FIN_STATUS_URL = () => `${RAW_BASE}/financial_status.json${CACHE_BUST()}`;
+const NEWS_THEBELL_URL = () => `${RAW_BASE}/news_thebell.json${CACHE_BUST()}`;
 
 async function renderMarketCap() {
   $main.innerHTML = `
@@ -1886,46 +1887,85 @@ function renderMacro(kind) {
 }
 
 function renderNews(source) {
-  const sources = {
-    thebell: {
-      title: "TheBell",
-      url: "https://www.thebell.co.kr",
-      items: [
-        "측근 요직 배치…수평적 조직구조에 컨트롤 타워 부족",
-        "한화에어로, 美 방산수출 확대 본격화",
-        "삼성SDI, 차세대 4680 배터리 양산 일정 공개",
-        "현대차 미국 공장, 트럼프 관세에 대비 가속",
-        "SK하이닉스, HBM4 공급 계약 5건 추가 체결",
-        "셀트리온, 美 FDA 신청 4종 동시 진행",
-        "두산로보틱스, 유럽 자회사 추가 인수 검토",
-      ],
-    },
-    naver: {
-      title: "네이버파이넨셜",
-      url: "https://finance.naver.com",
-      items: [
-        "코스피 2,750p 회복…외국인 8거래일 연속 순매수",
-        "원/달러 환율 1,350원대 안착…수출주 주목",
-        "건설주 약세 지속…부동산 PF 우려 재부각",
-        "이차전지 대장주 일제히 반등…리튬 가격 상승",
-        "반도체 장비주 강세…AI 인프라 투자 확대",
-        "방산주 사상 최고가 행진…수주 모멘텀 지속",
-        "조선주 호실적 발표…2분기 흑자 전환 가시화",
-      ],
-    },
-  };
-  const s = sources[source];
-  let html = `<div class="page-title">${s.title} <span class="crumb">/ News</span></div>
+  if (source === "thebell") return renderNewsThebell();
+  return renderNewsNaverDummy();
+}
+
+async function renderNewsThebell() {
+  $main.innerHTML = `
+    <div class="page-title">TheBell <span class="crumb">/ News · Deal · M&amp;A</span></div>
+    <div class="amt-loading">기사 로딩 중...</div>`;
+  try {
+    const data = await fetch(NEWS_THEBELL_URL()).then(r => {
+      if (!r.ok) throw new Error("news_thebell.json 로드 실패 — 워크플로 1회 실행 필요");
+      return r.json();
+    });
+    drawThebellNews(data);
+  } catch (err) {
+    $main.innerHTML = `
+      <div class="page-title">TheBell <span class="crumb">/ News · Deal · M&amp;A</span></div>
+      <div class="amt-loading" style="color:var(--red)">로드 실패: ${escapeHtml(err.message)}</div>`;
+  }
+}
+
+function drawThebellNews(data) {
+  const ts = data.generated_at
+    ? new Date(data.generated_at).toLocaleString("ko-KR")
+    : "-";
+  const listUrl = data.list_url || "https://www.thebell.co.kr/front/free/Contents/NewsList.asp?Code=0103";
+
+  let html = `
+    <div class="page-title">TheBell <span class="crumb">/ News · Deal · M&amp;A</span></div>
+    <div class="news-meta">M&amp;A 상위 ${data.count}개 · 갱신 ${escapeHtml(ts)}</div>
+    <div class="news-list">
+      <div class="news-row head">
+        <span class="num">#</span>
+        <span class="news-title-col">제목</span>
+        <span class="news-access">접근</span>
+      </div>
+  `;
+  (data.items || []).forEach((it, i) => {
+    const badge = it.is_paid
+      ? `<span class="access-badge paid">유료</span>`
+      : `<span class="access-badge free">무료</span>`;
+    html += `<a class="news-row" href="${escapeAttr(it.url)}" target="_blank" rel="noopener">
+      <span class="num">${String(i + 1).padStart(2, "0")}</span>
+      <span class="news-title-col">
+        <span class="news-title-text">${escapeHtml(it.title)}</span>
+        ${it.meta ? `<span class="news-meta-line">${escapeHtml(it.meta)}</span>` : ""}
+      </span>
+      <span class="news-access">${badge}</span>
+    </a>`;
+  });
+  html += `</div>
+    <div class="amount-footnote">
+      출처: <a href="${escapeAttr(listUrl)}" target="_blank" rel="noopener">TheBell Deal · M&amp;A</a> ·
+      기사를 클릭하면 TheBell 사이트로 이동합니다.
+    </div>`;
+  $main.innerHTML = html;
+}
+
+function renderNewsNaverDummy() {
+  const items = [
+    "코스피 2,750p 회복…외국인 8거래일 연속 순매수",
+    "원/달러 환율 1,350원대 안착…수출주 주목",
+    "건설주 약세 지속…부동산 PF 우려 재부각",
+    "이차전지 대장주 일제히 반등…리튬 가격 상승",
+    "반도체 장비주 강세…AI 인프라 투자 확대",
+    "방산주 사상 최고가 행진…수주 모멘텀 지속",
+    "조선주 호실적 발표…2분기 흑자 전환 가시화",
+  ];
+  let html = `<div class="page-title">네이버파이넨셜 <span class="crumb">/ News</span></div>
     <div class="news-source">
-      <h2>${s.title}</h2>`;
-  s.items.forEach((it, i) => {
-    html += `<a class="news-item" href="${s.url}" target="_blank">
+      <h2>네이버파이넨셜</h2>`;
+  items.forEach((it, i) => {
+    html += `<a class="news-item" href="https://finance.naver.com" target="_blank">
       <span class="num">${(i+1).toString().padStart(2,"0")}.</span>${it}
     </a>`;
   });
   html += `</div>
     <div style="font-size:10px; color: var(--text-3); text-align:center;">
-      각 기사를 클릭하면 ${s.title} 사이트로 이동합니다.
+      각 기사를 클릭하면 네이버파이넨셜 사이트로 이동합니다.
     </div>`;
   $main.innerHTML = html;
 }

@@ -1,1 +1,2 @@
 holidays>=0.45
+beautifulsoup4>=4.12
