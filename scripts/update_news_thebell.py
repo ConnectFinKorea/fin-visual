@@ -62,103 +62,80 @@ def _text(el):
     return el.get_text(" ", strip=True) if el else ""
 
 
-def detect_paid(art_el, href):
-    """카드/URL을 종합해 유료 여부 추정. 휴리스틱 — 잘못 잡히면 후속 패스 가능."""
-    # 1) thebell은 무료 기사를 /free/ 경로로, 유료를 /Content/ 경로로 서빙
-    h = (href or "").lower()
-    if "/free/" in h:
-        return False
-    if "/content/" in h and "/free/" not in h:
-        return True
-
-    # 2) class 키워드 (자기 + 자식)
-    own_cls = " ".join(art_el.get("class", []) or [])
-    inner_cls = " ".join(
-        " ".join(t.get("class", []) or []) for t in art_el.find_all(True)
-    )
-    blob = (own_cls + " " + inner_cls).lower()
-    if any(k in blob for k in ("lock", "paid", "premium", "subscriber", "member-only")):
-        return True
-
-    # 3) 이미지 alt / src
-    for img in art_el.find_all("img"):
-        src = (img.get("src") or "").lower()
-        alt = (img.get("alt") or "").lower()
-        if any(k in src for k in ("lock", "paid", "premium")):
-            return True
-        if any(k in alt for k in ("유료", "잠금", "구독", "프리미엄", "lock", "paid")):
-            return True
-
-    return False
-
-
 def parse_listing(html_str):
+    """
+    TheBell M&A 리스트 파싱.
+    실제 구조 (2026-06 기준):
+      <li>
+        <a href="/front/newsview.asp?code=0103&key=...">
+          <p>제목</p>
+          <p>요약</p>
+        </a>
+        <a href="/search/search.asp?keyword=...">기자명</a>
+        2026-06-01 15:39:57
+      </li>
+    무료 표시: <li> 안에 <img src=".../time_icon.png"> 존재.
+    유료 = 기본값 (time_icon 없음).
+    """
     soup = BeautifulSoup(html_str, "html.parser")
 
-    # thebell의 일반적 컨테이너 후보 — 사이트 리뉴얼 대비 다중 시도.
-    selectors = [
-        ".newsList li", ".article_list li", ".list_news li",
-        "ul.news li", ".bd_list li", "div.article-item",
-        "table.bd_list tbody tr", "li.news",
-    ]
-    arts = []
-    matched_sel = None
-    for sel in selectors:
-        arts = soup.select(sel)
-        if arts:
-            matched_sel = sel
-            break
-
-    # Fallback — Article 링크에서 거꾸로 부모 추적
-    if not arts:
-        for a in soup.find_all("a", href=re.compile(r"(/free/Content/ArticleView|/Content/ArticleView)", re.I)):
-            parent = a.find_parent(["li", "tr", "div", "article"]) or a
-            if parent not in arts:
-                arts.append(parent)
-        if arts:
-            matched_sel = "fallback:anchor"
-
-    print(f"  컨테이너 선택자: {matched_sel} → 후보 {len(arts)}개")
+    # 기사 본문 anchor — href에 'newsview.asp?code=0103' 포함.
+    # 거기서 부모 <li>를 거꾸로 잡는 게 가장 안전 (class 의존 없음).
+    anchors = soup.find_all("a", href=re.compile(r"newsview\.asp\?code=0103", re.I))
+    print(f"  newsview anchor 매치: {len(anchors)}개")
 
     items = []
     seen_urls = set()
-    for art in arts:
-        a = art.find("a", href=True)
-        if not a:
+    for a in anchors:
+        href = a.get("href", "").strip()
+        if not href:
             continue
-        href = a["href"].strip()
         if href.startswith("/"):
             href = BASE_URL + href
         elif not href.lower().startswith("http"):
             continue
-        # 기사 본문 anchor만 채택 (다른 anchor 제외)
-        if "ArticleView" not in href and "newsView" not in href.lower():
-            continue
         if href in seen_urls:
             continue
 
-        # 제목 — class에 title/tit/subject가 있거나, anchor 자체 텍스트
-        title_el = art.find(class_=re.compile(r"(?i)title|tit|subject|head"))
-        title = _text(title_el) or _text(a)
+        # 제목 — anchor 안의 첫 번째 <p>
+        ps = a.find_all("p")
+        if not ps:
+            continue
+        title = _text(ps[0])
         if not title or len(title) < 3:
             continue
 
-        # 요약
-        summary_el = art.find(class_=re.compile(r"(?i)summary|desc|cont(?!ainer)|excerpt|lead"))
-        summary = _text(summary_el)[:300] if summary_el else ""
+        # 요약 — anchor 안의 두 번째 <p>
+        summary = _text(ps[1])[:300] if len(ps) >= 2 else ""
 
-        # 기자 / 일시
-        meta_el = art.find(class_=re.compile(r"(?i)meta|info|date|reporter|byline|writer"))
-        meta = _text(meta_el)[:120] if meta_el else ""
+        # 메타 (기자 + 일시) — 부모 <li>에서 reporter anchor + 다음 text node
+        li = a.find_parent("li")
+        meta = ""
+        is_paid = True  # 기본값 = 유료
+        if li:
+            reporter_a = li.find("a", href=re.compile(r"search\.asp", re.I))
+            reporter = _text(reporter_a) if reporter_a else ""
+            datetime_text = ""
+            if reporter_a:
+                # reporter anchor 다음 sibling이 일시 text node
+                sib = reporter_a.next_sibling
+                if sib:
+                    datetime_text = str(sib).strip()[:30]
+            meta = f"{reporter} · {datetime_text}".strip(" ·") if (reporter or datetime_text) else ""
 
-        paid = detect_paid(art, href)
+            # 무료 표시 = time_icon.png 이미지 존재
+            for img in li.find_all("img"):
+                src = (img.get("src") or "").lower()
+                if "time_icon" in src:
+                    is_paid = False
+                    break
 
         items.append({
             "title": title,
             "url": href,
             "summary": summary,
             "meta": meta,
-            "is_paid": paid,
+            "is_paid": is_paid,
         })
         seen_urls.add(href)
         if len(items) >= TOP_N:
