@@ -64,29 +64,44 @@ def _text(el):
 
 def parse_listing(html_str):
     """
-    TheBell M&A 리스트 파싱.
-    실제 구조 (2026-06 기준):
-      <li>
+    TheBell M&A 리스트 파싱 (실측 HTML 기반, 2026-06):
+      <dl>
         <a href="/front/newsview.asp?code=0103&key=...">
-          <p>제목</p>
-          <p>요약</p>
+          <dt>제목</dt>
+          <dd>요약</dd>
         </a>
-        <a href="/search/search.asp?keyword=...">기자명</a>
-        2026-06-01 15:39:57
-      </li>
-    무료 표시: <li> 안에 <img src=".../time_icon.png"> 존재.
-    유료 = 기본값 (time_icon 없음).
+        <dd class="userBox">
+          <a href="/search/search.asp?...&part=REPORTER">
+            <span class="user">기자명</span>
+          </a>
+          <span class="date">2026-06-01 15:39:57</span>
+        </dd>
+        <!-- 무료 기사일 때만 추가: -->
+        <div class="freeTimeText">
+          <img src=".../time_icon.png" alt="무료시간표시">Jun 01, 2026
+        </div>
+      </dl>
+
+    사이드바 '인기뉴스'도 같은 newsview.asp URL을 쓰지만 anchor 안에 <dt>가 없어
+    구분 가능. <dt>가 있는 anchor만 메인 리스트 entry로 채택.
+
+    유료/무료:
+      무료 = <dl> 안에 'freeTimeText' 클래스 또는 img alt="무료시간표시" 존재
+      유료 = 기본값 (위 marker 없음)
     """
     soup = BeautifulSoup(html_str, "html.parser")
 
-    # 기사 본문 anchor — href에 'newsview.asp?code=0103' 포함.
-    # 거기서 부모 <li>를 거꾸로 잡는 게 가장 안전 (class 의존 없음).
     anchors = soup.find_all("a", href=re.compile(r"newsview\.asp\?code=0103", re.I))
-    print(f"  newsview anchor 매치: {len(anchors)}개")
+    print(f"  newsview anchor 매치: {len(anchors)}개 (사이드바 인기뉴스 포함)")
 
     items = []
     seen_urls = set()
     for a in anchors:
+        # 메인 리스트 entry 판별: anchor 안에 <dt> 존재
+        dt = a.find("dt")
+        if not dt:
+            continue
+
         href = a.get("href", "").strip()
         if not href:
             continue
@@ -97,38 +112,36 @@ def parse_listing(html_str):
         if href in seen_urls:
             continue
 
-        # 제목 — anchor 안의 첫 번째 <p>
-        ps = a.find_all("p")
-        if not ps:
-            continue
-        title = _text(ps[0])
+        title = _text(dt)
         if not title or len(title) < 3:
             continue
 
-        # 요약 — anchor 안의 두 번째 <p>
-        summary = _text(ps[1])[:300] if len(ps) >= 2 else ""
+        # 요약 — anchor 안의 <dd>
+        dd = a.find("dd")
+        summary = _text(dd)[:300] if dd else ""
 
-        # 메타 (기자 + 일시) — 부모 <li>에서 reporter anchor + 다음 text node
-        li = a.find_parent("li")
+        # 부모 <dl>에서 기자/일시/무료표시 찾기
+        dl = a.find_parent("dl")
         meta = ""
         is_paid = True  # 기본값 = 유료
-        if li:
-            reporter_a = li.find("a", href=re.compile(r"search\.asp", re.I))
-            reporter = _text(reporter_a) if reporter_a else ""
-            datetime_text = ""
-            if reporter_a:
-                # reporter anchor 다음 sibling이 일시 text node
-                sib = reporter_a.next_sibling
-                if sib:
-                    datetime_text = str(sib).strip()[:30]
-            meta = f"{reporter} · {datetime_text}".strip(" ·") if (reporter or datetime_text) else ""
+        if dl:
+            reporter_span = dl.find("span", class_="user")
+            date_span = dl.find("span", class_="date")
+            reporter = _text(reporter_span)
+            datetime_text = _text(date_span)
+            if reporter or datetime_text:
+                meta = f"{reporter} · {datetime_text}".strip(" ·")
 
-            # 무료 표시 = time_icon.png 이미지 존재
-            for img in li.find_all("img"):
-                src = (img.get("src") or "").lower()
-                if "time_icon" in src:
-                    is_paid = False
-                    break
+            # 무료 marker: freeTimeText 클래스
+            if dl.find(class_="freeTimeText"):
+                is_paid = False
+            else:
+                for img in dl.find_all("img"):
+                    src = (img.get("src") or "").lower()
+                    alt = (img.get("alt") or "")
+                    if "time_icon" in src or "무료시간" in alt:
+                        is_paid = False
+                        break
 
         items.append({
             "title": title,
@@ -141,6 +154,7 @@ def parse_listing(html_str):
         if len(items) >= TOP_N:
             break
 
+    print(f"  메인 entry 추출: {len(items)}개")
     return items
 
 
