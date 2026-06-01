@@ -1430,6 +1430,8 @@ function computeFinStatusData(mapping, finStatus) {
       bs: r.bs || {},
       is: r.is || {},
       report_year: r.report_year,
+      y0_date: r.y0_date || null,   // 당기 기준일 (DART 기말일)
+      y1_date: r.y1_date || null,   // 전기 기준일
     });
   }
 
@@ -1445,12 +1447,39 @@ function computeFinStatusData(mapping, finStatus) {
   for (const g of Object.values(groups)) {
     g.bs = aggregateAccounts(g.companies.map(c => c.bs), BS_LABELS);
     g.is = aggregateAccounts(g.companies.map(c => c.is), IS_LABELS);
+    // 산업 합산은 구성사 결산일이 섞일 수 있어 최빈 기준일을 대표값으로 사용
+    g.y0_date = modeOf(g.companies.map(c => c.y0_date));
+    g.y1_date = modeOf(g.companies.map(c => c.y1_date));
   }
   // 자산총계(직전) 기준으로 산업 정렬
   const industries = Object.values(groups).sort((a, b) =>
     (b.bs["자산총계"]?.y0 || 0) - (a.bs["자산총계"]?.y0 || 0)
   );
-  return { industries, companies };
+  return { industries, companies, target_year: finStatus.target_year };
+}
+
+// 최빈값(가장 자주 나오는 비어있지 않은 값) — 산업 합산 대표 기준일 산출용
+function modeOf(arr) {
+  const counts = {};
+  let best = null, bestN = 0;
+  for (const v of arr) {
+    if (!v) continue;
+    counts[v] = (counts[v] || 0) + 1;
+    if (counts[v] > bestN) { bestN = counts[v]; best = v; }
+  }
+  return best;
+}
+
+// 결산일 폴백: 데이터에 실제 기준일이 없을 때 사업보고서 연도로 'YYYY.12.31' 유추
+function finDateOr(actual, year) {
+  if (actual) return actual;
+  return (year != null && isFinite(year)) ? `${year}.12.31` : "";
+}
+
+// 표시용 단축: 'YYYY.MM.DD' → 'YY.MM.DD' (저장값은 그대로 유지, 화면에서만 축약)
+function fmtFinDateShort(s) {
+  if (!s) return "";
+  return String(s).replace(/^\d{2}(\d{2})\./, "$1.");
 }
 
 function aggregateAccounts(accountDicts, labels) {
@@ -1520,8 +1549,8 @@ function drawFinStatusPage(data, finStatus) {
   `;
 
   // 초기 — 둘 다 빈 상태, 빈 테이블만 표시
-  drawFinTable("fin-bs-table", null, BS_LABELS);
-  drawFinTable("fin-is-table", null, IS_LABELS);
+  drawFinTable("fin-bs-table", null, BS_LABELS, null);
+  drawFinTable("fin-is-table", null, IS_LABELS, null);
 
   setupFinSearch(data);
 }
@@ -1534,6 +1563,7 @@ function setupFinSearch(data) {
 
   const industryNames = data.industries.map(g => g.name);
   const companyNames  = data.companies.map(c => c.name);
+  const targetYear    = data.target_year;
 
   const setDisabled = (block, on) => {
     block.classList.toggle("disabled", on);
@@ -1551,8 +1581,12 @@ function setupFinSearch(data) {
     setDisabled($indBlock, false);
     document.getElementById("fin-bs-sub").textContent = `(산업 합산: ${ind.name})`;
     document.getElementById("fin-is-sub").textContent = `(산업 합산: ${ind.name})`;
-    drawFinTable("fin-bs-table", ind.bs, BS_LABELS);
-    drawFinTable("fin-is-table", ind.is, IS_LABELS);
+    const dates = {
+      y0: finDateOr(ind.y0_date, targetYear),
+      y1: finDateOr(ind.y1_date, targetYear != null ? targetYear - 1 : null),
+    };
+    drawFinTable("fin-bs-table", ind.bs, BS_LABELS, dates);
+    drawFinTable("fin-is-table", ind.is, IS_LABELS, dates);
   };
 
   // 회사 입력 → 데이터 표시 + 산업 비활성화 (산업 input에는 회사가 속한 산업 자동 표시)
@@ -1565,8 +1599,12 @@ function setupFinSearch(data) {
     setDisabled($coBlock, false);
     document.getElementById("fin-bs-sub").textContent = `(${co.name} · ${co.industry})`;
     document.getElementById("fin-is-sub").textContent = `(${co.name} · ${co.industry})`;
-    drawFinTable("fin-bs-table", co.bs, BS_LABELS);
-    drawFinTable("fin-is-table", co.is, IS_LABELS);
+    const dates = {
+      y0: finDateOr(co.y0_date, co.report_year),
+      y1: finDateOr(co.y1_date, co.report_year != null ? co.report_year - 1 : null),
+    };
+    drawFinTable("fin-bs-table", co.bs, BS_LABELS, dates);
+    drawFinTable("fin-is-table", co.is, IS_LABELS, dates);
   };
 
   // 입력값을 사용자가 직접 지운 경우 — 둘 다 비면 음영 해제 + 빈 표 복원
@@ -1576,8 +1614,8 @@ function setupFinSearch(data) {
       if (!$co.value.trim()) {
         document.getElementById("fin-bs-sub").textContent = "선택 없음";
         document.getElementById("fin-is-sub").textContent = "선택 없음";
-        drawFinTable("fin-bs-table", null, BS_LABELS);
-        drawFinTable("fin-is-table", null, IS_LABELS);
+        drawFinTable("fin-bs-table", null, BS_LABELS, null);
+        drawFinTable("fin-is-table", null, IS_LABELS, null);
       }
     }
   });
@@ -1587,8 +1625,8 @@ function setupFinSearch(data) {
       $ind.value = "";  // 회사 검색을 지웠으면 자동 채워졌던 산업명도 제거
       document.getElementById("fin-bs-sub").textContent = "선택 없음";
       document.getElementById("fin-is-sub").textContent = "선택 없음";
-      drawFinTable("fin-bs-table", null, BS_LABELS);
-      drawFinTable("fin-is-table", null, IS_LABELS);
+      drawFinTable("fin-bs-table", null, BS_LABELS, null);
+      drawFinTable("fin-is-table", null, IS_LABELS, null);
     }
   });
 
@@ -1596,14 +1634,18 @@ function setupFinSearch(data) {
   attachAutocomplete($co,  companyNames,  applyCompany);
 }
 
-function drawFinTable(elemId, accounts, labels) {
+function drawFinTable(elemId, accounts, labels, dates) {
   const $tbl = document.getElementById(elemId);
   if (!$tbl) return;
+  const dY0 = fmtFinDateShort(dates?.y0);   // 당기 일자
+  const dY1 = fmtFinDateShort(dates?.y1);   // 전기 일자
   let html = `
     <div class="fin-row head">
       <span>계정명</span>
-      <span class="num">직직전연도말</span>
-      <span class="num">직전연도말</span>
+      <span class="num">전기</span>
+      <span class="num fin-date">일자</span>
+      <span class="num">당기</span>
+      <span class="num fin-date">일자</span>
       <span class="num">YoY(%)</span>
     </div>
   `;
@@ -1613,10 +1655,15 @@ function drawFinTable(elemId, accounts, labels) {
     const yoy = (y0 != null && y1 != null && y1 !== 0)
       ? ((y0 - y1) / Math.abs(y1)) * 100
       : null;
+    // 기준일은 해당 칸에 값이 있을 때만 표기
+    const dispY1 = (y1 != null) ? dY1 : "";
+    const dispY0 = (y0 != null) ? dY0 : "";
     html += `<div class="fin-row">
       <span class="acct-name">${escapeHtml(label)}</span>
       <span class="num">${formatFinAmount(y1)}</span>
+      <span class="num fin-date">${escapeHtml(dispY1)}</span>
       <span class="num">${formatFinAmount(y0)}</span>
+      <span class="num fin-date">${escapeHtml(dispY0)}</span>
       <span class="num ${revChangeClass(yoy)}">${formatRevPct(yoy)}</span>
     </div>`;
   }

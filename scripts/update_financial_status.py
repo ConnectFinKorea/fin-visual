@@ -11,6 +11,7 @@ DART 단일회사 주요계정(fnlttSinglAcntAll) → data/financial_status.json
 
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -125,6 +126,41 @@ def parse_amount(s):
         return None
 
 
+def _end_date(s):
+    """DART 기간 문자열 → 기말일 'YYYY.MM.DD'.
+    예) '2024.12.31 현재' → '2024.12.31',
+        '2024.01.01 ~ 2024.12.31' → '2024.12.31'."""
+    if not s:
+        return None
+    s = str(s)
+    if "~" in s:                       # 손익계산서 등 기간형 → 종료일만
+        s = s.split("~")[-1]
+    m = re.search(r"(\d{4})[.\-/]\s*(\d{1,2})[.\-/]\s*(\d{1,2})", s)
+    if not m:
+        return None
+    y, mo, d = m.groups()
+    return f"{y}.{int(mo):02d}.{int(d):02d}"
+
+
+def extract_period_dates(items):
+    """리포트의 당기(y0)/전기(y1) 기준일(기말일) 추출.
+    BS 시점값을 우선, 없으면 IS 기간 종료일 사용. 반환: (y0_date, y1_date)."""
+    y0 = y1 = None
+    for sj_target in (("BS",), ("IS", "CIS")):
+        for it in items or []:
+            if (it.get("sj_div") or "").strip() not in sj_target:
+                continue
+            if y0 is None:
+                y0 = _end_date(it.get("thstrm_dt"))
+            if y1 is None:
+                y1 = _end_date(it.get("frmtrm_dt"))
+            if y0 and y1:
+                return y0, y1
+        if y0 and y1:
+            break
+    return y0, y1
+
+
 def extract_accounts(items, accounts_map, sj_div_set):
     """
     items: DART list 응답.
@@ -184,7 +220,11 @@ def fetch_one(corp_code, year):
         is_ = compute_nonop_net(is_)
         # 영업이익은 모든 회사 필수 — 둘 다 None이면 IS 파싱 실패로 간주
         if is_["영업이익"]["y0"] is not None or is_["영업이익"]["y1"] is not None:
-            return {"report_year": y, "bs": bs, "is": is_}
+            y0_date, y1_date = extract_period_dates(items)
+            return {
+                "report_year": y, "bs": bs, "is": is_,
+                "y0_date": y0_date, "y1_date": y1_date,
+            }
     return None
 
 
@@ -275,6 +315,8 @@ def main():
             "report_year": r["report_year"],
             "bs": r["bs"],
             "is": r["is"],
+            "y0_date": r.get("y0_date"),
+            "y1_date": r.get("y1_date"),
         }
 
     save_lock = threading.Lock()
