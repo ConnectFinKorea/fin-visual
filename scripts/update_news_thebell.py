@@ -30,8 +30,8 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(REPO_ROOT, "data")
 OUT_PATH = os.path.join(DATA_DIR, "news_thebell.json")
 
-# Deal(01) > M&A(03) 리스트 페이지. 무료/유료 진입 페이지 모두 NewsList.asp 공용.
-LIST_URL = "https://www.thebell.co.kr/front/free/Contents/NewsList.asp?Code=0103"
+# Deal(01) > M&A(03) 리스트 페이지. NewsList.asp가 무료/유료 기사 공용 진입점.
+LIST_URL = "https://www.thebell.co.kr/front/NewsList.asp?Code=0103"
 BASE_URL = "https://www.thebell.co.kr"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")

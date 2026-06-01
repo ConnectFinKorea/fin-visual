@@ -1912,7 +1912,7 @@ function drawThebellNews(data) {
   const ts = data.generated_at
     ? new Date(data.generated_at).toLocaleString("ko-KR")
     : "-";
-  const listUrl = data.list_url || "https://www.thebell.co.kr/front/free/Contents/NewsList.asp?Code=0103";
+  const listUrl = data.list_url || "https://www.thebell.co.kr/front/NewsList.asp?Code=0103";
 
   let html = `
     <div class="page-title">TheBell <span class="crumb">/ News · Deal · M&amp;A</span></div>
