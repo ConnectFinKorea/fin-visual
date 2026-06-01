@@ -1,15 +1,24 @@
 """
 TheBell Deal > M&A 섹션 상위 10개 기사 스크래핑 → data/news_thebell.json
-- URL: https://www.thebell.co.kr/front/free/Contents/NewsList.asp?Code=0103
-- 무료/유료 구분 자동 감지 (자물쇠 아이콘/CSS class/URL 패턴 휴리스틱)
-- 주기적 GitHub Actions 실행
+- URL: https://www.thebell.co.kr/front/NewsList.asp?Code=0103
+- 메인 entry 구조: <dl><a><dt>제목</dt><dd>요약</dd></a></dl>
+- 무료 표시: <div class="freeTimeText"> 또는 alt="무료시간표시" img (없으면 기본=유료)
+- 직전 push본과 URL 비교 → 신규 기사만 Telegram으로 전송 (선택)
+- Railway cron 서비스로 운영
+
+환경변수 (선택):
+  TELEGRAM_BOT_TOKEN  봇 토큰 (없으면 Telegram 전송 skip)
+  TELEGRAM_CHAT_ID    수신 chat id
+  GH_REPO             ConnectFinKorea/fin-visual (직전 결과 fetch용)
 """
 
 import json
 import os
 import re
 import sys
+import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
@@ -37,6 +46,11 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 TOP_N = 10
 TIMEOUT = 25
+
+# Telegram (선택). 두 변수 모두 set되어야 활성.
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+GH_REPO = os.environ.get("GH_REPO", "").strip()
 
 
 def fetch_html(url):
@@ -158,6 +172,84 @@ def parse_listing(html_str):
     return items
 
 
+def fetch_previous_urls():
+    """직전 push된 news_thebell.json에서 URL set 가져오기.
+    None 반환: 비교 불가 (GH_REPO 미설정) → Telegram 전송 skip.
+    set() 반환: 첫 실행/이전 파일 없음 → 모든 기사를 신규로 처리.
+    {...} 반환: 기존 URL 집합.
+    """
+    if not GH_REPO:
+        print("  GH_REPO 미설정 — 신규 판별 불가 (Telegram 전송 skip)")
+        return None
+    url = (f"https://raw.githubusercontent.com/{GH_REPO}/data-snapshot/news_thebell.json"
+           f"?t={int(time.time() // 60)}")  # 분 단위 캐시버스팅
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Cache-Control": "no-cache"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        urls = {it["url"] for it in data.get("items", []) if it.get("url")}
+        print(f"  직전 push: {len(urls)}개 URL")
+        return urls
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            print("  직전 push 없음 (첫 실행) — 모든 기사를 신규로 처리")
+            return set()
+        print(f"  주의: 직전 결과 fetch 실패 (HTTP {e.code}) — 모든 기사를 신규로 처리")
+        return set()
+    except Exception as e:
+        print(f"  주의: 직전 결과 fetch 실패 ({e}) — 모든 기사를 신규로 처리")
+        return set()
+
+
+def send_telegram(items):
+    """신규 기사 리스트를 Telegram으로 전송. 봇 미설정 시 silent skip."""
+    if not (TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID):
+        print("  Telegram 미설정 (TELEGRAM_BOT_TOKEN/CHAT_ID) — 알림 skip")
+        return
+    if not items:
+        print("  Telegram 전송할 신규 기사 없음")
+        return
+
+    api = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    sent = 0
+    for it in items:
+        badge = "[유료]" if it.get("is_paid") else "[무료]"
+        title = it.get("title", "")
+        meta = it.get("meta", "")
+        url = it.get("url", "")
+
+        lines = [f"{badge} {title}"]
+        if meta:
+            lines.append(meta)
+        if url:
+            lines.append(url)
+        text = "\n".join(lines)
+
+        payload = urllib.parse.urlencode({
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": text,
+            "disable_web_page_preview": "false",
+        }).encode("utf-8")
+        try:
+            with urllib.request.urlopen(api, data=payload, timeout=10) as resp:
+                if resp.status == 200:
+                    sent += 1
+                else:
+                    print(f"  Telegram 전송 실패 (HTTP {resp.status}): {title[:40]}")
+        except urllib.error.HTTPError as e:
+            body = ""
+            try:
+                body = e.read().decode("utf-8", errors="replace")[:200]
+            except Exception:
+                pass
+            print(f"  Telegram 전송 HTTP 오류 {e.code}: {title[:40]} ({body})")
+        except Exception as e:
+            print(f"  Telegram 전송 예외: {e}")
+        time.sleep(0.1)   # rate-limit 보수
+
+    print(f"  Telegram 전송: {sent}/{len(items)}건 완료")
+
+
 def main():
     now_kst = datetime.now(timezone.utc).astimezone(KST)
     print(f"[현재 시각] {now_kst.isoformat()}")
@@ -200,6 +292,16 @@ def main():
 
     size_kb = max(1, os.path.getsize(OUT_PATH) // 1024)
     print(f"\n저장 완료: {OUT_PATH} ({size_kb} KB)")
+
+    # ============ Telegram 신규 기사 알림 ============
+    print(f"\n[Telegram 알림]")
+    previous_urls = fetch_previous_urls()
+    if previous_urls is None:
+        new_items = []
+    else:
+        new_items = [it for it in items if it["url"] not in previous_urls]
+    print(f"  신규 기사: {len(new_items)}건")
+    send_telegram(new_items)
 
 
 if __name__ == "__main__":
