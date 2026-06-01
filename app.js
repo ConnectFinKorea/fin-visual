@@ -47,6 +47,14 @@ const NAV = {
       ]},
     ],
   },
+  memo: {
+    label: "Memo",
+    groups: [
+      { name: "Board", items: [
+        { id: "memo-board", label: "아이디어" },
+      ]},
+    ],
+  },
 };
 
 // ============== Dummy Data ==============
@@ -127,6 +135,8 @@ const ROUTES = {
   "/news":                                   "news-thebell",
   "/news/thebell":                           "news-thebell",
   "/news/naver-financial":                   "news-naver",
+  "/memo":                                   "memo-board",
+  "/memo/board":                             "memo-board",
 };
 
 // pageId → URL 정규형 (가장 구체적인 경로)
@@ -147,6 +157,7 @@ const PAGE_TO_URL = {
   "macro-unemp":     "/macro/unemployment",
   "news-thebell":    "/news/thebell",
   "news-naver":      "/news/naver-financial",
+  "memo-board":      "/memo/board",
 };
 
 // pageId → 브라우저 탭 타이틀
@@ -167,6 +178,7 @@ const PAGE_TITLES = {
   "macro-unemp":     "Unemployment · FinVisual",
   "news-thebell":    "TheBell · FinVisual",
   "news-naver":      "네이버파이넨셜 · FinVisual",
+  "memo-board":      "Memo · FinVisual",
 };
 
 function urlForPage(pageId) { return PAGE_TO_URL[pageId] || "/"; }
@@ -1970,6 +1982,277 @@ function renderNewsNaverDummy() {
   $main.innerHTML = html;
 }
 
+// ============== Memo (개발 아이디어 보드) ==============
+// 저장: Cloudflare Worker + KV (모든 기기 공유). 폰에서 쓴 글을 PC에서도 봄.
+//   - API: GET/POST /api/memos · PUT/DELETE /api/memos/{id}
+//   - 레코드: { id, date(ISO), title, body, status: "open" | "done" }
+//   - localStorage 는 오프라인 캐시 + 내보내기 백업용으로만 사용
+//   ⚠ 배포 후 본인 Worker 주소로 MEMO_API 를 맞춰야 함 (아래 주석 참고).
+//     - 커스텀 도메인 연결 시: "https://api.fin-visual.com/api/memos"
+//     - 미연결 시 workers.dev: "https://finvisual-market.<account>.workers.dev/api/memos"
+const MEMO_API = "https://api.fin-visual.com/api/memos";
+const MEMO_CACHE_KEY = "finvisual_memos_cache";
+
+let memoCache = [];
+
+function readMemoCache() {
+  try {
+    const a = JSON.parse(localStorage.getItem(MEMO_CACHE_KEY) || "[]");
+    return Array.isArray(a) ? a : [];
+  } catch { return []; }
+}
+function writeMemoCache(arr) {
+  memoCache = arr;
+  try { localStorage.setItem(MEMO_CACHE_KEY, JSON.stringify(arr)); } catch {}
+}
+function fmtMemoDate(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return "-";
+  const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, "0"),
+        day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+// ===== API 호출 =====
+async function apiGetMemos() {
+  const r = await fetch(MEMO_API, { cache: "no-store" });
+  if (!r.ok) throw new Error(`목록 로드 실패 (${r.status})`);
+  const data = await r.json();
+  return Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
+}
+async function apiCreateMemo(title, body) {
+  const r = await fetch(MEMO_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title, body }),
+  });
+  if (!r.ok) throw new Error(`저장 실패 (${r.status})`);
+  return r.json();
+}
+async function apiUpdateMemo(id, patch) {
+  const r = await fetch(`${MEMO_API}/${encodeURIComponent(id)}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(patch),
+  });
+  if (!r.ok) throw new Error(`수정 실패 (${r.status})`);
+  return r.json();
+}
+async function apiDeleteMemo(id) {
+  const r = await fetch(`${MEMO_API}/${encodeURIComponent(id)}`, { method: "DELETE" });
+  if (!r.ok) throw new Error(`삭제 실패 (${r.status})`);
+  return r.json();
+}
+
+async function renderMemo() {
+  $main.innerHTML = `
+    <div class="memo-toolbar">
+      <div class="page-title">Memo <span class="crumb">/ 개발 아이디어 보드</span></div>
+    </div>
+    <div class="amt-loading">메모 로딩 중...</div>`;
+  try {
+    const items = await apiGetMemos();
+    if (currentPage !== "memo-board") return;   // 로딩 중 다른 페이지로 이동 시 무시
+    writeMemoCache(items);
+    drawMemoBoard(items, null);
+  } catch (err) {
+    if (currentPage !== "memo-board") return;
+    // 서버 접속 실패 → 캐시로 폴백 (읽기 전용 안내)
+    drawMemoBoard(readMemoCache(), err.message);
+  }
+}
+
+function drawMemoBoard(memos, errMsg) {
+  // 최신순 정렬, 표시 순번은 오래된 것이 1번
+  const ordered = [...memos].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const openCount = memos.filter(m => m.status !== "done").length;
+
+  let rows = "";
+  if (ordered.length === 0) {
+    rows = `<div class="memo-empty">아직 작성한 메모가 없습니다. “글쓰기”로 첫 아이디어를 남겨보세요.</div>`;
+  } else {
+    ordered.forEach((m, i) => {
+      const done = m.status === "done";
+      const badge = done
+        ? `<span class="memo-status done" data-act="toggle" data-id="${escapeAttr(m.id)}">해결</span>`
+        : `<span class="memo-status open" data-act="toggle" data-id="${escapeAttr(m.id)}">미해결</span>`;
+      rows += `<div class="memo-row${done ? " is-done" : ""}">
+        <span class="num">${String(ordered.length - i).padStart(2, "0")}</span>
+        <span class="memo-date">${fmtMemoDate(m.date)}</span>
+        <span class="memo-title-col" data-act="open" data-id="${escapeAttr(m.id)}">
+          <span class="memo-title-text">${escapeHtml(m.title || "(제목 없음)")}</span>
+        </span>
+        <span class="memo-status-col">${badge}</span>
+      </div>`;
+    });
+  }
+
+  const warn = errMsg
+    ? `<div class="memo-warn">⚠ 서버 연결 실패 — 마지막으로 본 내용(캐시)을 표시합니다. 새 글·수정은 저장되지 않습니다. (${escapeHtml(errMsg)})</div>`
+    : "";
+
+  $main.innerHTML = `
+    <div class="memo-toolbar">
+      <div class="page-title">Memo <span class="crumb">/ 개발 아이디어 보드</span></div>
+      <div class="memo-actions">
+        <button class="memo-btn" id="memo-new">＋ 글쓰기</button>
+        <button class="memo-btn ghost" id="memo-export">내보내기</button>
+      </div>
+    </div>
+    ${warn}
+    <div class="memo-meta">전체 ${memos.length}건 · 미해결 ${openCount}건</div>
+    <div class="memo-list">
+      <div class="memo-row head">
+        <span class="num">#</span>
+        <span class="memo-date">날짜</span>
+        <span class="memo-title-col">제목</span>
+        <span class="memo-status-col">상태</span>
+      </div>
+      ${rows}
+    </div>
+    <div class="amount-footnote">
+      메모는 Cloudflare KV 서버에 저장되어 모든 기기에서 공유됩니다 · “내보내기”로 JSON 백업 가능.
+    </div>`;
+
+  document.getElementById("memo-new").addEventListener("click", () => openMemoEditor(null));
+  document.getElementById("memo-export").addEventListener("click", exportMemos);
+  $main.querySelectorAll('[data-act="toggle"]').forEach(el => {
+    el.addEventListener("click", () => toggleMemoStatus(el.dataset.id));
+  });
+  $main.querySelectorAll('[data-act="open"]').forEach(el => {
+    el.addEventListener("click", () => openMemoDetail(el.dataset.id));
+  });
+}
+
+async function toggleMemoStatus(id) {
+  const m = memoCache.find(x => x.id === id);
+  if (!m) return;
+  const next = m.status === "done" ? "open" : "done";
+  try {
+    await apiUpdateMemo(id, { status: next });
+    await renderMemo();
+  } catch (err) {
+    alert("상태 변경 실패: " + err.message);
+  }
+}
+
+async function deleteMemo(id) {
+  if (!confirm("이 메모를 삭제할까요? 되돌릴 수 없습니다.")) return;
+  try {
+    await apiDeleteMemo(id);
+    closeMemoModal();
+    await renderMemo();
+  } catch (err) {
+    alert("삭제 실패: " + err.message);
+  }
+}
+
+function exportMemos() {
+  const data = JSON.stringify(memoCache, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const stamp = fmtMemoDate(new Date().toISOString());
+  a.href = url;
+  a.download = `finvisual-memos-${stamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+// ===== 모달 (공용) =====
+function openMemoModal(innerHtml) {
+  closeMemoModal();
+  const overlay = document.createElement("div");
+  overlay.className = "memo-modal-overlay";
+  overlay.id = "memo-modal-overlay";
+  overlay.innerHTML = `<div class="memo-modal" role="dialog" aria-modal="true">${innerHtml}</div>`;
+  document.body.appendChild(overlay);
+  // 바깥 클릭 → 닫기
+  overlay.addEventListener("mousedown", e => { if (e.target === overlay) closeMemoModal(); });
+  // ESC → 닫기
+  document.addEventListener("keydown", memoEscHandler);
+  return overlay;
+}
+function memoEscHandler(e) { if (e.key === "Escape") closeMemoModal(); }
+function closeMemoModal() {
+  const el = document.getElementById("memo-modal-overlay");
+  if (el) el.remove();
+  document.removeEventListener("keydown", memoEscHandler);
+}
+
+// ===== 상세 보기 =====
+function openMemoDetail(id) {
+  const m = memoCache.find(x => x.id === id);
+  if (!m) return;
+  const done = m.status === "done";
+  const overlay = openMemoModal(`
+    <div class="memo-modal-head">
+      <span class="memo-status ${done ? "done" : "open"}">${done ? "해결" : "미해결"}</span>
+      <button class="memo-x" id="memo-close" aria-label="닫기">✕</button>
+    </div>
+    <h3 class="memo-modal-title">${escapeHtml(m.title || "(제목 없음)")}</h3>
+    <div class="memo-modal-date">${fmtMemoDate(m.date)}</div>
+    <div class="memo-modal-body">${escapeHtml(m.body || "").replace(/\n/g, "<br>") || '<span class="memo-muted">(본문 없음)</span>'}</div>
+    <div class="memo-modal-footer">
+      <button class="memo-btn ghost" id="memo-toggle">${done ? "미해결로" : "해결로"}</button>
+      <button class="memo-btn ghost" id="memo-edit">수정</button>
+      <button class="memo-btn danger" id="memo-delete">삭제</button>
+    </div>`);
+  overlay.querySelector("#memo-close").addEventListener("click", closeMemoModal);
+  overlay.querySelector("#memo-toggle").addEventListener("click", () => { toggleMemoStatus(id); closeMemoModal(); });
+  overlay.querySelector("#memo-edit").addEventListener("click", () => openMemoEditor(id));
+  overlay.querySelector("#memo-delete").addEventListener("click", () => deleteMemo(id));
+}
+
+// ===== 글쓰기 / 수정 =====
+function openMemoEditor(id) {
+  const editing = id ? memoCache.find(x => x.id === id) : null;
+  const overlay = openMemoModal(`
+    <div class="memo-modal-head">
+      <span class="memo-modal-kicker">${editing ? "메모 수정" : "새 메모"}</span>
+      <button class="memo-x" id="memo-close" aria-label="닫기">✕</button>
+    </div>
+    <label class="memo-field">
+      <span class="memo-label">제목</span>
+      <input type="text" id="memo-title-input" class="memo-input" maxlength="120"
+             placeholder="아이디어 제목" value="${editing ? escapeAttr(editing.title) : ""}">
+    </label>
+    <label class="memo-field">
+      <span class="memo-label">본문</span>
+      <textarea id="memo-body-input" class="memo-textarea" rows="8"
+                placeholder="자세한 내용, 참고 링크, 구현 메모 등">${editing ? escapeHtml(editing.body) : ""}</textarea>
+    </label>
+    <div class="memo-modal-footer">
+      <button class="memo-btn ghost" id="memo-cancel">취소</button>
+      <button class="memo-btn" id="memo-save">저장</button>
+    </div>`);
+
+  const titleEl = overlay.querySelector("#memo-title-input");
+  titleEl.focus();
+  overlay.querySelector("#memo-close").addEventListener("click", closeMemoModal);
+  overlay.querySelector("#memo-cancel").addEventListener("click", closeMemoModal);
+  const saveBtn = overlay.querySelector("#memo-save");
+  saveBtn.addEventListener("click", async () => {
+    const title = titleEl.value.trim();
+    const body = overlay.querySelector("#memo-body-input").value.trim();
+    if (!title && !body) { closeMemoModal(); return; }
+    saveBtn.disabled = true;
+    saveBtn.textContent = "저장 중...";
+    try {
+      if (editing) await apiUpdateMemo(id, { title, body });
+      else         await apiCreateMemo(title, body);
+      closeMemoModal();
+      await renderMemo();
+    } catch (err) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "저장";
+      alert("저장 실패: " + err.message);
+    }
+  });
+}
+
 // ============== Router ==============
 const $gnb = document.getElementById("gnb");
 
@@ -2019,6 +2302,7 @@ function navigate(pageId, opts = {}) {
     "macro-unemp":     () => renderMacro("unemp"),
     "news-thebell": () => renderNews("thebell"),
     "news-naver":   () => renderNews("naver"),
+    "memo-board":   renderMemo,
   };
   (renderers[pageId] || renderHome)();
   $main.scrollTop = 0;

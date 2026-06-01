@@ -23,7 +23,7 @@ export default {
     const url = new URL(request.url);
     const cors = {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
@@ -45,6 +45,12 @@ export default {
     if (url.pathname === "/api/refresh") {
       ctx.waitUntil(refreshSnapshot(env));
       return jsonResponse({ status: "refresh triggered" }, cors);
+    }
+
+    // ====== Memo board (개발 아이디어 보드, 인증 없음) ======
+    // 저장: KV 키 "memos" 에 JSON 배열. 모든 기기가 같은 데이터를 읽고 씀.
+    if (url.pathname === "/api/memos" || url.pathname.startsWith("/api/memos/")) {
+      return handleMemos(request, url, env, cors);
     }
 
     if (url.pathname === "/api/health") {
@@ -69,6 +75,59 @@ function jsonResponse(obj, headers = {}) {
     status: 200,
     headers: { "content-type": "application/json; charset=utf-8", ...headers },
   });
+}
+
+// ====== Memo board CRUD (KV 키 "memos") ======
+async function handleMemos(request, url, env, cors) {
+  const MEMO_KEY = "memos";
+  const j = (obj, status = 200) => new Response(JSON.stringify(obj), {
+    status,
+    headers: { "content-type": "application/json; charset=utf-8", ...cors },
+  });
+
+  const list = (await env.MARKET_KV.get(MEMO_KEY, "json")) || [];
+
+  // 컬렉션: /api/memos
+  if (url.pathname === "/api/memos") {
+    if (request.method === "GET") return j({ items: list });
+    if (request.method === "POST") {
+      let body = {};
+      try { body = await request.json(); } catch (e) {}
+      const item = {
+        id: crypto.randomUUID(),
+        date: new Date().toISOString(),
+        title: String(body.title || "").slice(0, 200),
+        body: String(body.body || "").slice(0, 20000),
+        status: "open",
+      };
+      list.push(item);
+      await env.MARKET_KV.put(MEMO_KEY, JSON.stringify(list));
+      return j(item, 201);
+    }
+    return j({ error: "method not allowed" }, 405);
+  }
+
+  // 개별 항목: /api/memos/{id}
+  const id = decodeURIComponent(url.pathname.slice("/api/memos/".length));
+  const idx = list.findIndex(m => m.id === id);
+  if (idx === -1) return j({ error: "not found" }, 404);
+
+  if (request.method === "PUT") {
+    let body = {};
+    try { body = await request.json(); } catch (e) {}
+    const m = list[idx];
+    if (typeof body.title === "string") m.title = body.title.slice(0, 200);
+    if (typeof body.body === "string")  m.body  = body.body.slice(0, 20000);
+    if (body.status === "open" || body.status === "done") m.status = body.status;
+    await env.MARKET_KV.put(MEMO_KEY, JSON.stringify(list));
+    return j(m);
+  }
+  if (request.method === "DELETE") {
+    list.splice(idx, 1);
+    await env.MARKET_KV.put(MEMO_KEY, JSON.stringify(list));
+    return j({ ok: true });
+  }
+  return j({ error: "method not allowed" }, 405);
 }
 
 // ====== Naver 금융 모바일 API 호출 ======
