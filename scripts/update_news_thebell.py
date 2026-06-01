@@ -12,6 +12,7 @@ TheBell Deal > M&A 섹션 상위 10개 기사 스크래핑 → data/news_thebell
   GH_REPO             ConnectFinKorea/fin-visual (직전 결과 fetch용)
 """
 
+import html as htmllib
 import json
 import os
 import re
@@ -201,8 +202,22 @@ def fetch_previous_urls():
         return set()
 
 
+def _extract_date_md(meta_text):
+    """meta('남지연 기자 · 2026-06-01 15:39:57')에서 'MM/DD' 추출. 실패 시 '??/??'."""
+    m = re.search(r"\d{4}-(\d{2})-(\d{2})", meta_text or "")
+    return f"{m.group(1)}/{m.group(2)}" if m else "??/??"
+
+
 def send_telegram(items):
-    """신규 기사 리스트를 Telegram으로 전송. 봇 미설정 시 silent skip."""
+    """신규 기사 전체를 한 메시지로 표 형식 전송.
+    제목은 <a href> 링크 → 탭하면 thebell로 이동. 봇 미설정 시 silent skip.
+    포맷:
+      📰 TheBell M&A 신규 N건 (2026-06-01 16:42 KST)
+
+      01. 06/01 [유료] 제목1
+      02. 06/01 [무료] 제목2
+      ...
+    """
     if not (TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID):
         print("  Telegram 미설정 (TELEGRAM_BOT_TOKEN/CHAT_ID) — 알림 skip")
         return
@@ -210,44 +225,41 @@ def send_telegram(items):
         print("  Telegram 전송할 신규 기사 없음")
         return
 
-    api = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    sent = 0
-    for it in items:
+    now_kst = datetime.now(timezone.utc).astimezone(KST)
+    header = (f"📰 <b>TheBell M&amp;A 신규 {len(items)}건</b> "
+              f"({now_kst.strftime('%Y-%m-%d %H:%M')} KST)")
+    lines = [header, ""]
+    for i, it in enumerate(items, 1):
         badge = "[유료]" if it.get("is_paid") else "[무료]"
-        title = it.get("title", "")
-        meta = it.get("meta", "")
-        url = it.get("url", "")
+        title = htmllib.escape(it.get("title", ""))      # 본문 텍스트 이스케이프
+        url   = htmllib.escape(it.get("url", ""), quote=True)  # href 속성 이스케이프 (& → &amp;)
+        date_md = _extract_date_md(it.get("meta", ""))
+        lines.append(f'{i:02d}. {date_md} {badge} <a href="{url}">{title}</a>')
+    text = "\n".join(lines)
 
-        lines = [f"{badge} {title}"]
-        if meta:
-            lines.append(meta)
-        if url:
-            lines.append(url)
-        text = "\n".join(lines)
-
-        payload = urllib.parse.urlencode({
-            "chat_id": TELEGRAM_CHAT_ID,
-            "text": text,
-            "disable_web_page_preview": "false",
-        }).encode("utf-8")
+    # Telegram 메시지 길이 한도 4096자 — 10건 × ~170자 ≈ 1800자라 여유.
+    api = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = urllib.parse.urlencode({
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": text,
+        "parse_mode": "HTML",
+        "disable_web_page_preview": "true",  # 링크 10개 → preview 끄는 게 깔끔
+    }).encode("utf-8")
+    try:
+        with urllib.request.urlopen(api, data=payload, timeout=10) as resp:
+            if resp.status == 200:
+                print(f"  Telegram 전송 완료 ({len(items)}건 1개 메시지)")
+            else:
+                print(f"  Telegram 전송 실패 (HTTP {resp.status})")
+    except urllib.error.HTTPError as e:
+        body = ""
         try:
-            with urllib.request.urlopen(api, data=payload, timeout=10) as resp:
-                if resp.status == 200:
-                    sent += 1
-                else:
-                    print(f"  Telegram 전송 실패 (HTTP {resp.status}): {title[:40]}")
-        except urllib.error.HTTPError as e:
-            body = ""
-            try:
-                body = e.read().decode("utf-8", errors="replace")[:200]
-            except Exception:
-                pass
-            print(f"  Telegram 전송 HTTP 오류 {e.code}: {title[:40]} ({body})")
-        except Exception as e:
-            print(f"  Telegram 전송 예외: {e}")
-        time.sleep(0.1)   # rate-limit 보수
-
-    print(f"  Telegram 전송: {sent}/{len(items)}건 완료")
+            body = e.read().decode("utf-8", errors="replace")[:300]
+        except Exception:
+            pass
+        print(f"  Telegram 전송 HTTP 오류 {e.code}: {body}")
+    except Exception as e:
+        print(f"  Telegram 전송 예외: {e}")
 
 
 def main():
