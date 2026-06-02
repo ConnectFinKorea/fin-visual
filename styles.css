@@ -44,8 +44,6 @@ a { text-decoration: none; color: inherit; }
   position: relative;          /* mega-dd가 absolute로 배치되어도 hover 검출 가능 */
   z-index: 100;
   flex-shrink: 0;
-  background: var(--card);
-  border-bottom: 2px solid var(--primary);   /* 파란 밑줄은 전체 폭 유지 */
 }
 
 /* 헤더: 5컬럼 그리드 (logo + 4개 버튼) — 드롭다운과 동일한 그리드를 공유해 컬럼 정렬 */
@@ -55,21 +53,16 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
   height: var(--header-h);
   background: var(--card);
+  border-bottom: 2px solid var(--primary);
   padding: 0 12px;
 }
 
-/* 데스크톱: nav 영역을 본문과 동일한 2/3 폭으로 중앙 정렬 (밑줄은 .gnb가 전체 폭 담당) */
+/* 데스크톱: nav 버튼을 로고 옆으로 왼쪽 정렬 (고정폭 컬럼 + 우측 빈 1fr 스페이서).
+   드롭다운(.mega-dd)도 동일 그리드라 컬럼이 버튼 아래에 그대로 정렬됨. */
 @media (min-width: 1024px) {
-  .gnb-header {
-    max-width: min(66vw, 1100px);
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .gnb-header,
   .mega-dd {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-    width: min(66vw, 1100px);
+    grid-template-columns: var(--logo-w) repeat(5, 132px) 1fr;
   }
 }
 
@@ -446,6 +439,7 @@ a { text-decoration: none; color: inherit; }
 
 /* ============ Valuation Trading ============ */
 .industry-select {
+  display: block;            /* select 기본 inline → block 으로: .main>* 의 margin:auto 중앙정렬이 적용되어 아래 카드와 정렬 */
   width: 100%;
   padding: 9px 12px;
   border: 1px solid var(--border);
