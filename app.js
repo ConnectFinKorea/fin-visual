@@ -2123,6 +2123,10 @@ function drawMemoBoard(memos, errMsg) {
       const badge = done
         ? `<span class="memo-status done" data-act="toggle" data-id="${escapeAttr(m.id)}">해결</span>`
         : `<span class="memo-status open" data-act="toggle" data-id="${escapeAttr(m.id)}">미해결</span>`;
+      const active = m.progress === "active";
+      const progBtn = active
+        ? `<span class="memo-progress active" data-act="progress" data-id="${escapeAttr(m.id)}">Activate</span>`
+        : `<span class="memo-progress idle" data-act="progress" data-id="${escapeAttr(m.id)}">Idle</span>`;
       rows += `<div class="memo-row${done ? " is-done" : ""}">
         <span class="num">${String(ordered.length - i).padStart(2, "0")}</span>
         <span class="memo-date">${fmtMemoDate(m.date)}</span>
@@ -2130,6 +2134,7 @@ function drawMemoBoard(memos, errMsg) {
           <span class="memo-title-text">${escapeHtml(m.title || "(제목 없음)")}</span>
         </span>
         <span class="memo-status-col">${badge}</span>
+        <span class="memo-progress-col">${progBtn}</span>
       </div>`;
     });
   }
@@ -2154,6 +2159,7 @@ function drawMemoBoard(memos, errMsg) {
         <span class="memo-date">날짜</span>
         <span class="memo-title-col">제목</span>
         <span class="memo-status-col">상태</span>
+        <span class="memo-progress-col">진행여부</span>
       </div>
       ${rows}
     </div>
@@ -2165,6 +2171,9 @@ function drawMemoBoard(memos, errMsg) {
   document.getElementById("memo-export").addEventListener("click", exportMemos);
   $main.querySelectorAll('[data-act="toggle"]').forEach(el => {
     el.addEventListener("click", () => toggleMemoStatus(el.dataset.id));
+  });
+  $main.querySelectorAll('[data-act="progress"]').forEach(el => {
+    el.addEventListener("click", () => toggleMemoProgress(el.dataset.id));
   });
   $main.querySelectorAll('[data-act="open"]').forEach(el => {
     el.addEventListener("click", () => openMemoDetail(el.dataset.id));
@@ -2180,6 +2189,18 @@ async function toggleMemoStatus(id) {
     await renderMemo();
   } catch (err) {
     alert("상태 변경 실패: " + err.message);
+  }
+}
+
+async function toggleMemoProgress(id) {
+  const m = memoCache.find(x => x.id === id);
+  if (!m) return;
+  const next = m.progress === "active" ? "idle" : "active";
+  try {
+    await apiUpdateMemo(id, { progress: next });
+    await renderMemo();
+  } catch (err) {
+    alert("진행여부 변경 실패: " + err.message);
   }
 }
 

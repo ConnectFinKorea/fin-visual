@@ -99,6 +99,7 @@ async function handleMemos(request, url, env, cors) {
         title: String(body.title || "").slice(0, 200),
         body: String(body.body || "").slice(0, 20000),
         status: "open",
+        progress: "idle",
       };
       list.push(item);
       await env.MARKET_KV.put(MEMO_KEY, JSON.stringify(list));
@@ -119,6 +120,7 @@ async function handleMemos(request, url, env, cors) {
     if (typeof body.title === "string") m.title = body.title.slice(0, 200);
     if (typeof body.body === "string")  m.body  = body.body.slice(0, 20000);
     if (body.status === "open" || body.status === "done") m.status = body.status;
+    if (body.progress === "active" || body.progress === "idle") m.progress = body.progress;
     await env.MARKET_KV.put(MEMO_KEY, JSON.stringify(list));
     return j(m);
   }
