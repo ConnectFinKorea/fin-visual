@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-05-31T16:10:20+0000",
+  "generated_at": "2026-06-02T02:05:33+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -7106,11 +7106,6 @@
       "name": "티비에이치글로벌"
     },
     {
-      "stock_code": "257990",
-      "corp_code": "00425254",
-      "name": "나우코스"
-    },
-    {
       "stock_code": "115440",
       "corp_code": "00664048",
       "name": "우리넷"
@@ -12121,11 +12116,6 @@
       "name": "아이엠지티"
     },
     {
-      "stock_code": "003560",
-      "corp_code": "00154426",
-      "name": "아이에이치큐"
-    },
-    {
       "stock_code": "155960",
       "corp_code": "00676122",
       "name": "지디"
@@ -12194,11 +12184,6 @@
       "stock_code": "456040",
       "corp_code": "01760738",
       "name": "OCI"
-    },
-    {
-      "stock_code": "060590",
-      "corp_code": "00362292",
-      "name": "씨티씨바이오"
     },
     {
       "stock_code": "000300",
@@ -12699,6 +12684,11 @@
       "stock_code": "261780",
       "corp_code": "01141599",
       "name": "아리바이오LAB"
+    },
+    {
+      "stock_code": "003560",
+      "corp_code": "00154426",
+      "name": "아이에이치큐"
     },
     {
       "stock_code": "047920",
@@ -15114,11 +15104,6 @@
       "stock_code": "086220",
       "corp_code": "00523176",
       "name": "광동헬스바이오"
-    },
-    {
-      "stock_code": "011390",
-      "corp_code": "00124027",
-      "name": "부산산업"
     },
     {
       "stock_code": "006400",
@@ -18211,11 +18196,6 @@
       "name": "신한제18호스팩"
     },
     {
-      "stock_code": "123010",
-      "corp_code": "00615723",
-      "name": "알엔티엑스"
-    },
-    {
       "stock_code": "338100",
       "corp_code": "01391033",
       "name": "NH프라임리츠"
@@ -18979,6 +18959,26 @@
       "stock_code": "334970",
       "corp_code": "01258428",
       "name": "프레스티지바이오로직스"
+    },
+    {
+      "stock_code": "011390",
+      "corp_code": "00124027",
+      "name": "부산산업"
+    },
+    {
+      "stock_code": "060590",
+      "corp_code": "00362292",
+      "name": "씨티씨바이오"
+    },
+    {
+      "stock_code": "123010",
+      "corp_code": "00615723",
+      "name": "알엔티엑스"
+    },
+    {
+      "stock_code": "257990",
+      "corp_code": "00425254",
+      "name": "나우코스"
     },
     {
       "stock_code": "257720",
