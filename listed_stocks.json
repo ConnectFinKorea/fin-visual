@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-02T15:01:38+0000",
+  "generated_at": "2026-06-03T15:02:06+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -4329,11 +4329,6 @@
       "stock_code": "002760",
       "corp_code": "00123107",
       "name": "보락"
-    },
-    {
-      "stock_code": "228850",
-      "corp_code": "00899459",
-      "name": "레이언스"
     },
     {
       "stock_code": "037710",
@@ -10001,11 +9996,6 @@
       "name": "펄어비스"
     },
     {
-      "stock_code": "065770",
-      "corp_code": "00303703",
-      "name": "CS"
-    },
-    {
       "stock_code": "388800",
       "corp_code": "01569838",
       "name": "유진기업인수목적7호"
@@ -10359,11 +10349,6 @@
       "stock_code": "001230",
       "corp_code": "00114792",
       "name": "동국홀딩스"
-    },
-    {
-      "stock_code": "048470",
-      "corp_code": "00109268",
-      "name": "대동스틸"
     },
     {
       "stock_code": "001000",
@@ -11561,11 +11546,6 @@
       "name": "한화갤러리아"
     },
     {
-      "stock_code": "161000",
-      "corp_code": "00936787",
-      "name": "애경케미칼"
-    },
-    {
       "stock_code": "066700",
       "corp_code": "00249894",
       "name": "테라젠이텍스"
@@ -12691,9 +12671,39 @@
       "name": "아이에이치큐"
     },
     {
+      "stock_code": "011330",
+      "corp_code": "00137207",
+      "name": "유니켐"
+    },
+    {
+      "stock_code": "048470",
+      "corp_code": "00109268",
+      "name": "대동스틸"
+    },
+    {
+      "stock_code": "069260",
+      "corp_code": "00426086",
+      "name": "티케이지휴켐스"
+    },
+    {
+      "stock_code": "065770",
+      "corp_code": "00303703",
+      "name": "CS"
+    },
+    {
+      "stock_code": "161000",
+      "corp_code": "00936787",
+      "name": "애경케미칼"
+    },
+    {
       "stock_code": "047920",
       "corp_code": "00336817",
       "name": "HLB제약"
+    },
+    {
+      "stock_code": "228850",
+      "corp_code": "00899459",
+      "name": "레이언스"
     },
     {
       "stock_code": "110790",
@@ -14696,11 +14706,6 @@
       "name": "에이텍"
     },
     {
-      "stock_code": "011330",
-      "corp_code": "00137207",
-      "name": "유니켐"
-    },
-    {
       "stock_code": "045970",
       "corp_code": "00271501",
       "name": "코아시아"
@@ -15764,11 +15769,6 @@
       "stock_code": "024910",
       "corp_code": "00102353",
       "name": "경창산업"
-    },
-    {
-      "stock_code": "069260",
-      "corp_code": "00426086",
-      "name": "티케이지휴켐스"
     },
     {
       "stock_code": "084680",
