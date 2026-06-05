@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-04T15:01:17+0000",
+  "generated_at": "2026-06-05T15:03:11+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3967,
@@ -9021,11 +9021,6 @@
       "name": "신한카드"
     },
     {
-      "stock_code": "131030",
-      "corp_code": "00831428",
-      "name": "옵투스제약"
-    },
-    {
       "stock_code": "267260",
       "corp_code": "01205851",
       "name": "HD현대일렉트릭"
@@ -9054,11 +9049,6 @@
       "stock_code": "043260",
       "corp_code": "00317210",
       "name": "성호전자"
-    },
-    {
-      "stock_code": "263540",
-      "corp_code": "00971090",
-      "name": "어스앤에어로스페이스"
     },
     {
       "stock_code": "019770",
@@ -10159,11 +10149,6 @@
       "stock_code": "464080",
       "corp_code": "01686427",
       "name": "에스오에스랩"
-    },
-    {
-      "stock_code": "019570",
-      "corp_code": "00110750",
-      "name": "플루토스"
     },
     {
       "stock_code": "322190",
@@ -12846,6 +12831,21 @@
       "name": "NHN벅스"
     },
     {
+      "stock_code": "148250",
+      "corp_code": "00915508",
+      "name": "알엔투테크놀로지"
+    },
+    {
+      "stock_code": "348030",
+      "corp_code": "01210190",
+      "name": "모비릭스"
+    },
+    {
+      "stock_code": "134780",
+      "corp_code": "00238977",
+      "name": "에스엠화진"
+    },
+    {
       "stock_code": "069920",
       "corp_code": "00426068",
       "name": "엑시온그룹"
@@ -13291,6 +13291,11 @@
       "name": "창대정밀"
     },
     {
+      "stock_code": "019570",
+      "corp_code": "00110750",
+      "name": "플루토스"
+    },
+    {
       "stock_code": "464490",
       "corp_code": "01671285",
       "name": "쿼드메디슨"
@@ -13424,11 +13429,6 @@
       "stock_code": "347890",
       "corp_code": "00670766",
       "name": "엠엑스온"
-    },
-    {
-      "stock_code": "148250",
-      "corp_code": "00915508",
-      "name": "알엔투테크놀로지"
     },
     {
       "stock_code": "333050",
@@ -13736,6 +13736,11 @@
       "name": "딥커머스"
     },
     {
+      "stock_code": "263540",
+      "corp_code": "00971090",
+      "name": "어스앤에어로스페이스"
+    },
+    {
       "stock_code": "178780",
       "corp_code": "00923826",
       "name": "일월지엠엘"
@@ -13959,6 +13964,11 @@
       "stock_code": "419530",
       "corp_code": "01082418",
       "name": "SAMG엔터"
+    },
+    {
+      "stock_code": "131030",
+      "corp_code": "00831428",
+      "name": "옵투스제약"
     },
     {
       "stock_code": "483650",
@@ -14914,11 +14924,6 @@
       "stock_code": "321820",
       "corp_code": "01116502",
       "name": "아티스트컴퍼니"
-    },
-    {
-      "stock_code": "348030",
-      "corp_code": "01210190",
-      "name": "모비릭스"
     },
     {
       "stock_code": "291230",
@@ -17236,11 +17241,6 @@
       "name": "동일스틸럭스"
     },
     {
-      "stock_code": "134780",
-      "corp_code": "00238977",
-      "name": "에스엠화진"
-    },
-    {
       "stock_code": "005810",
       "corp_code": "00155531",
       "name": "풍산홀딩스"
@@ -18601,6 +18601,11 @@
       "name": "솔루믹스"
     },
     {
+      "stock_code": "283100",
+      "corp_code": "01332137",
+      "name": "노보믹스"
+    },
+    {
       "stock_code": "046140",
       "corp_code": "00280688",
       "name": "스튜디오에스"
@@ -19099,11 +19104,6 @@
       "stock_code": "337930",
       "corp_code": "01391103",
       "name": "젝시믹스"
-    },
-    {
-      "stock_code": "283100",
-      "corp_code": "01332137",
-      "name": "노보믹스"
     },
     {
       "stock_code": "007590",
