@@ -113,8 +113,8 @@ def parse_listing(html_str):
     seen_urls = set()
     for a in anchors:
         # 메인 리스트 entry 판별: anchor 안에 <dt> 존재
-        dt = a.find("dt")
-        if not dt:
+        dts = a.find_all("dt")
+        if not dts:
             continue
 
         href = a.get("href", "").strip()
@@ -127,8 +127,16 @@ def parse_listing(html_str):
         if href in seen_urls:
             continue
 
-        title = _text(dt)
-        if not title or len(title) < 3:
+        # 제목 = 텍스트가 있는 첫 <dt>.
+        # 대표(lead) 기사는 <dt class='photo'><img></dt> 가 먼저 와서
+        # 단순히 첫 dt 를 쓰면 제목이 빈 문자열이 됨 → 누락됨.
+        title = ""
+        for d in dts:
+            t = _text(d)
+            if t and len(t) >= 3:
+                title = t
+                break
+        if not title:
             continue
 
         # 요약 — anchor 안의 <dd>
