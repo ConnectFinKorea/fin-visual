@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-05T15:03:11+0000",
+  "generated_at": "2026-06-06T14:59:44+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3967,
+  "count": 3968,
   "companies": [
     {
       "stock_code": "036720",
@@ -8631,11 +8631,6 @@
       "name": "오름테라퓨틱"
     },
     {
-      "stock_code": "366030",
-      "corp_code": "01307335",
-      "name": "공구우먼"
-    },
-    {
       "stock_code": "053160",
       "corp_code": "00352064",
       "name": "프리엠스"
@@ -10389,11 +10384,6 @@
       "stock_code": "382800",
       "corp_code": "00958327",
       "name": "지앤비에스 에코"
-    },
-    {
-      "stock_code": "230980",
-      "corp_code": "01110076",
-      "name": "비유테크놀러지"
     },
     {
       "stock_code": "004590",
@@ -12846,6 +12836,11 @@
       "name": "에스엠화진"
     },
     {
+      "stock_code": "289010",
+      "corp_code": "00983934",
+      "name": "아이스크림에듀"
+    },
+    {
       "stock_code": "069920",
       "corp_code": "00426068",
       "name": "엑시온그룹"
@@ -13624,6 +13619,31 @@
       "stock_code": "183490",
       "corp_code": "00606886",
       "name": "엔지켐생명과학"
+    },
+    {
+      "stock_code": "366030",
+      "corp_code": "01307335",
+      "name": "공구우먼"
+    },
+    {
+      "stock_code": "169670",
+      "corp_code": "00610861",
+      "name": "코스텍시스템"
+    },
+    {
+      "stock_code": "230980",
+      "corp_code": "01110076",
+      "name": "비유테크놀러지"
+    },
+    {
+      "stock_code": "266470",
+      "corp_code": "01130885",
+      "name": "바이오인프라생명과학"
+    },
+    {
+      "stock_code": "0134X0",
+      "corp_code": "01976418",
+      "name": "대신밸런스제20호스팩"
     },
     {
       "stock_code": "183350",
@@ -16046,11 +16066,6 @@
       "name": "한국제14호기업인수목적"
     },
     {
-      "stock_code": "169670",
-      "corp_code": "00610861",
-      "name": "코스텍시스템"
-    },
-    {
       "stock_code": "106080",
       "corp_code": "00542898",
       "name": "케이이엠텍"
@@ -16439,11 +16454,6 @@
       "stock_code": "136150",
       "corp_code": "00488244",
       "name": "원일티엔아이"
-    },
-    {
-      "stock_code": "266470",
-      "corp_code": "01130885",
-      "name": "바이오인프라생명과학"
     },
     {
       "stock_code": "296160",
@@ -16914,11 +16924,6 @@
       "stock_code": "446540",
       "corp_code": "00923516",
       "name": "메가터치"
-    },
-    {
-      "stock_code": "289010",
-      "corp_code": "00983934",
-      "name": "아이스크림에듀"
     },
     {
       "stock_code": "317450",
@@ -17889,11 +17894,6 @@
       "stock_code": "012720",
       "corp_code": "00100957",
       "name": "건영"
-    },
-    {
-      "stock_code": "224110",
-      "corp_code": "01099861",
-      "name": "에이텍모빌리티"
     },
     {
       "stock_code": "024110",
@@ -19179,6 +19179,11 @@
       "stock_code": "192080",
       "corp_code": "01010110",
       "name": "더블유게임즈"
+    },
+    {
+      "stock_code": "224110",
+      "corp_code": "01099861",
+      "name": "에이텍모빌리티"
     },
     {
       "stock_code": "452190",
