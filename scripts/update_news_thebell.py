@@ -1,15 +1,22 @@
 """
-TheBell Deal > M&A 섹션 상위 10개 기사 스크래핑 → data/news_thebell.json
-- URL: https://www.thebell.co.kr/front/NewsList.asp?Code=0103
-- 메인 entry 구조: <dl><a><dt>제목</dt><dd>요약</dd></a></dl>
-- 무료 표시: <div class="freeTimeText"> 또는 alt="무료시간표시" img (없으면 기본=유료)
-- 직전 push본과 URL 비교 → 신규 기사만 Telegram으로 전송 (선택)
-- Railway cron 서비스로 운영
+TheBell 다중 카테고리 뉴스 스크래핑 → data/news_thebell.json (롤링 15일 아카이브)
+
+수집 범위 (NewsList.asp?Code=XXXX):
+  deal    : 채권(0101) · 주식(0102) · M&A(0103)
+  finance : 증권(0202)
+  invest  : IB(0301) · 자산운용(0302) · PEF/벤처캐피탈(0303) · 연기금(0304)
+
+특징:
+  - 카테고리별 페이지를 넘기며 최근 RETENTION_DAYS(15일) 기사 수집
+  - 기사 key 로 중복 제거. 여러 카테고리에 동시 노출되면 출처 = "multiple"
+  - 매 실행마다 직전 결과(data-snapshot)에 누적(롤링 보관) → 1회 노출이 짧아도 15일치가 채워짐
+  - 무료 전환 추적: is_paid 가 True→False 로 바뀐(또는 처음 무료로 관측된) 날짜를 free_date 에 기록
+    · 더벨은 실제 전환일을 공개하지 않으므로 free_date = "우리가 무료로 처음 관측한 날"
+  - 신규 기사 Telegram 발송 (첫 실행/스키마 변경 시엔 baseline 으로 발송 생략, 대량은 분할 발송)
 
 환경변수 (선택):
-  TELEGRAM_BOT_TOKEN  봇 토큰 (없으면 Telegram 전송 skip)
-  TELEGRAM_CHAT_ID    수신 chat id
-  GH_REPO             ConnectFinKorea/fin-visual (직전 결과 fetch용)
+  TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID  봇 토큰·수신 chat (없으면 발송 skip)
+  GH_REPO  ConnectFinKorea/fin-visual (직전 결과 fetch용; 없으면 baseline 처리)
 """
 
 import html as htmllib
@@ -21,7 +28,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 
 os.environ["PYTHONIOENCODING"] = "utf-8"
 try:
@@ -32,7 +39,7 @@ except Exception:
 try:
     from bs4 import BeautifulSoup
 except ImportError:
-    print("ERROR: beautifulsoup4 미설치. 워크플로에서 `pip install beautifulsoup4` 필요.")
+    print("ERROR: beautifulsoup4 미설치. `pip install beautifulsoup4` 필요.")
     sys.exit(1)
 
 KST = timezone(timedelta(hours=9))
@@ -40,19 +47,37 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(REPO_ROOT, "data")
 OUT_PATH = os.path.join(DATA_DIR, "news_thebell.json")
 
-# Deal(01) > M&A(03) 리스트 페이지. NewsList.asp가 무료/유료 기사 공용 진입점.
-LIST_URL = "https://www.thebell.co.kr/front/NewsList.asp?Code=0103"
 BASE_URL = "https://www.thebell.co.kr"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-TOP_N = 10
-TIMEOUT = 25
 
-# Telegram (선택). 두 변수 모두 set되어야 활성.
+# 수집 카테고리 (code, 출처 라벨)
+CATEGORIES = [
+    ("0101", "채권"),
+    ("0102", "주식"),
+    ("0103", "M&A"),
+    ("0202", "증권"),
+    ("0301", "IB"),
+    ("0302", "자산운용"),
+    ("0303", "PEF/벤처캐피탈"),
+    ("0304", "연기금"),
+]
+
+SCHEMA = 2                 # 출력 스키마 버전 (변경 시 baseline 재시작)
+RETENTION_DAYS = 15        # 롤링 보관 기간
+MAX_PAGES = 15             # 카테고리당 최대 페이지 (안전 상한)
+PAGE_SLEEP = 0.3           # 페이지 요청 간격 (더벨 부담 완화)
+TIMEOUT = 25
+TELEGRAM_BATCH = 20        # Telegram 한 메시지당 최대 기사 수 (4096자 한도 회피)
+
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 GH_REPO = os.environ.get("GH_REPO", "").strip()
 
+LIST_URL_MA = f"{BASE_URL}/front/NewsList.asp?Code=0103"
+
+
+# ===================== fetch / parse =====================
 
 def fetch_html(url):
     req = urllib.request.Request(url, headers={
@@ -64,7 +89,6 @@ def fetch_html(url):
     })
     with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
         raw = resp.read()
-    # thebell은 최근 UTF-8 사용. 과거 EUC-KR 호환을 위해 폴백.
     for enc in ("utf-8", "euc-kr", "cp949"):
         try:
             return raw.decode(enc)
@@ -77,42 +101,26 @@ def _text(el):
     return el.get_text(" ", strip=True) if el else ""
 
 
-def parse_listing(html_str):
-    """
-    TheBell M&A 리스트 파싱 (실측 HTML 기반, 2026-06):
-      <dl>
-        <a href="/front/newsview.asp?code=0103&key=...">
-          <dt>제목</dt>
-          <dd>요약</dd>
-        </a>
-        <dd class="userBox">
-          <a href="/search/search.asp?...&part=REPORTER">
-            <span class="user">기자명</span>
-          </a>
-          <span class="date">2026-06-01 15:39:57</span>
-        </dd>
-        <!-- 무료 기사일 때만 추가: -->
-        <div class="freeTimeText">
-          <img src=".../time_icon.png" alt="무료시간표시">Jun 01, 2026
-        </div>
-      </dl>
+def parse_date(s):
+    """'2026-06-05 13:52:16' → date(2026,6,5). 실패 시 None."""
+    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", s or "")
+    if not m:
+        return None
+    try:
+        return date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    except ValueError:
+        return None
 
-    사이드바 '인기뉴스'도 같은 newsview.asp URL을 쓰지만 anchor 안에 <dt>가 없어
-    구분 가능. <dt>가 있는 anchor만 메인 리스트 entry로 채택.
 
-    유료/무료:
-      무료 = <dl> 안에 'freeTimeText' 클래스 또는 img alt="무료시간표시" 존재
-      유료 = 기본값 (위 marker 없음)
-    """
+def parse_list_page(html_str):
+    """리스트 페이지에서 기사 추출. 사이드바(인기뉴스)는 <dt> 없어 제외.
+    반환: [{key, url, title, summary, meta, is_paid, date}]"""
     soup = BeautifulSoup(html_str, "html.parser")
-
-    anchors = soup.find_all("a", href=re.compile(r"newsview\.asp\?code=0103", re.I))
-    print(f"  newsview anchor 매치: {len(anchors)}개 (사이드바 인기뉴스 포함)")
+    anchors = soup.find_all("a", href=re.compile(r"newsview\.asp\?code=\d+", re.I))
 
     items = []
-    seen_urls = set()
+    seen = set()
     for a in anchors:
-        # 메인 리스트 entry 판별: anchor 안에 <dt> 존재
         dts = a.find_all("dt")
         if not dts:
             continue
@@ -124,12 +132,15 @@ def parse_listing(html_str):
             href = BASE_URL + href
         elif not href.lower().startswith("http"):
             continue
-        if href in seen_urls:
+
+        km = re.search(r"key=([0-9]+)", href)
+        if not km:
+            continue
+        key = km.group(1)
+        if key in seen:
             continue
 
-        # 제목 = 텍스트가 있는 첫 <dt>.
-        # 대표(lead) 기사는 <dt class='photo'><img></dt> 가 먼저 와서
-        # 단순히 첫 dt 를 쓰면 제목이 빈 문자열이 됨 → 누락됨.
+        # 제목 = 텍스트 있는 첫 <dt> (대표기사는 <dt class='photo'> 가 먼저 옴)
         title = ""
         for d in dts:
             t = _text(d)
@@ -139,23 +150,18 @@ def parse_listing(html_str):
         if not title:
             continue
 
-        # 요약 — anchor 안의 <dd>
         dd = a.find("dd")
         summary = _text(dd)[:300] if dd else ""
 
-        # 부모 <dl>에서 기자/일시/무료표시 찾기
         dl = a.find_parent("dl")
         meta = ""
-        is_paid = True  # 기본값 = 유료
+        is_paid = True
+        date_text = ""
         if dl:
-            reporter_span = dl.find("span", class_="user")
-            date_span = dl.find("span", class_="date")
-            reporter = _text(reporter_span)
-            datetime_text = _text(date_span)
-            if reporter or datetime_text:
-                meta = f"{reporter} · {datetime_text}".strip(" ·")
-
-            # 무료 marker: freeTimeText 클래스
+            reporter = _text(dl.find("span", class_="user"))
+            date_text = _text(dl.find("span", class_="date"))
+            if reporter or date_text:
+                meta = f"{reporter} · {date_text}".strip(" ·")
             if dl.find(class_="freeTimeText"):
                 is_paid = False
             else:
@@ -166,162 +172,226 @@ def parse_listing(html_str):
                         is_paid = False
                         break
 
+        seen.add(key)
         items.append({
-            "title": title,
-            "url": href,
-            "summary": summary,
-            "meta": meta,
-            "is_paid": is_paid,
+            "key": key, "url": href, "title": title, "summary": summary,
+            "meta": meta, "is_paid": is_paid, "date": date_text,
         })
-        seen_urls.add(href)
-        if len(items) >= TOP_N:
-            break
-
-    print(f"  메인 entry 추출: {len(items)}개")
     return items
 
 
-def fetch_previous_urls():
-    """직전 push된 news_thebell.json에서 URL set 가져오기.
-    None 반환: 비교 불가 (GH_REPO 미설정) → Telegram 전송 skip.
-    set() 반환: 첫 실행/이전 파일 없음 → 모든 기사를 신규로 처리.
-    {...} 반환: 기존 URL 집합.
-    """
+def scrape_category(code, label, cutoff):
+    """한 카테고리를 페이지 넘기며 cutoff(날짜) 이후 기사 수집. key→article dict."""
+    arts = {}
+    for page in range(1, MAX_PAGES + 1):
+        url = f"{BASE_URL}/front/NewsList.asp?Code={code}&page={page}"
+        try:
+            html = fetch_html(url)
+        except Exception as e:
+            print(f"    [{label}] page {page} fetch 실패: {e}")
+            break
+        page_arts = parse_list_page(html)
+        if not page_arts:
+            break
+        oldest = None
+        for a in page_arts:
+            arts[a["key"]] = a
+            d = parse_date(a["date"])
+            if d and (oldest is None or d < oldest):
+                oldest = d
+        time.sleep(PAGE_SLEEP)
+        # 이 페이지에서 가장 오래된 기사가 cutoff 이전이면 더 볼 필요 없음
+        if oldest and oldest < cutoff:
+            break
+    return arts
+
+
+def scrape_all(cutoff):
+    """전 카테고리 수집 + 중복 병합. key→{..., sources:set}."""
+    merged = {}
+    for code, label in CATEGORIES:
+        cat = scrape_category(code, label, cutoff)
+        for key, a in cat.items():
+            if key in merged:
+                merged[key]["sources"].add(label)
+            else:
+                a = dict(a)
+                a["sources"] = {label}
+                merged[key] = a
+        print(f"  [{label}] {len(cat)}건 수집")
+    return merged
+
+
+# ===================== 직전 store (롤링 누적) =====================
+
+def load_previous_store():
+    """직전 news_thebell.json(data-snapshot) 로드.
+    반환: (items_list, schema). 구버전/없음/실패 → ([], None) → baseline."""
     if not GH_REPO:
-        print("  GH_REPO 미설정 — 신규 판별 불가 (Telegram 전송 skip)")
-        return None
+        print("  GH_REPO 미설정 — 직전 결과 비교 불가 (baseline 처리)")
+        return [], None
     url = (f"https://raw.githubusercontent.com/{GH_REPO}/data-snapshot/news_thebell.json"
-           f"?t={int(time.time() // 60)}")  # 분 단위 캐시버스팅
+           f"?t={int(time.time() // 60)}")
     try:
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Cache-Control": "no-cache"})
         with urllib.request.urlopen(req, timeout=15) as resp:
             data = json.loads(resp.read().decode("utf-8"))
-        urls = {it["url"] for it in data.get("items", []) if it.get("url")}
-        print(f"  직전 push: {len(urls)}개 URL")
-        return urls
     except urllib.error.HTTPError as e:
         if e.code == 404:
-            print("  직전 push 없음 (첫 실행) — 모든 기사를 신규로 처리")
-            return set()
-        print(f"  주의: 직전 결과 fetch 실패 (HTTP {e.code}) — 모든 기사를 신규로 처리")
-        return set()
+            print("  직전 결과 없음 (첫 실행) → baseline")
+        else:
+            print(f"  직전 결과 fetch 실패 (HTTP {e.code}) → baseline")
+        return [], None
     except Exception as e:
-        print(f"  주의: 직전 결과 fetch 실패 ({e}) — 모든 기사를 신규로 처리")
-        return set()
+        print(f"  직전 결과 fetch 실패 ({e}) → baseline")
+        return [], None
+    if data.get("schema") == SCHEMA and isinstance(data.get("items"), list):
+        return data["items"], SCHEMA
+    print("  직전 결과가 구버전 스키마 → baseline 재시작")
+    return [], None
 
 
-def _extract_date_md(meta_text):
-    """meta('남지연 기자 · 2026-06-01 15:39:57')에서 'MM/DD' 추출. 실패 시 '??/??'."""
-    m = re.search(r"\d{4}-(\d{2})-(\d{2})", meta_text or "")
-    return f"{m.group(1)}/{m.group(2)}" if m else "??/??"
+# ===================== Telegram =====================
+
+def _src_label(sources_list):
+    return sources_list[0] if len(sources_list) == 1 else "multiple"
 
 
-def send_telegram(items):
-    """신규 기사 전체를 한 메시지로 표 형식 전송.
-    제목은 <a href> 링크 → 탭하면 thebell로 이동. 봇 미설정 시 silent skip.
-    포맷:
-      📰 TheBell M&A 신규 N건 (2026-06-01 16:42 KST)
+def _date_md(s):
+    m = re.search(r"\d{4}-(\d{2})-(\d{2})", s or "")
+    return f"{m.group(1)}/{m.group(2)}" if m else "--/--"
 
-      01. 06/01 [유료] 제목1
-      02. 06/01 [무료] 제목2
-      ...
-    """
+
+def send_telegram(new_arts, now_kst):
+    """신규 기사 분할 발송. 봇/대상 미설정 시 skip."""
     if not (TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID):
-        print("  Telegram 미설정 (TELEGRAM_BOT_TOKEN/CHAT_ID) — 알림 skip")
+        print("  Telegram 미설정 — 발송 skip")
         return
-    if not items:
-        print("  Telegram 전송할 신규 기사 없음")
+    if not new_arts:
+        print("  신규 기사 없음 — 발송 skip")
         return
 
-    now_kst = datetime.now(timezone.utc).astimezone(KST)
-    header = (f"📰 <b>TheBell M&amp;A 신규 {len(items)}건</b> "
-              f"({now_kst.strftime('%Y-%m-%d %H:%M')} KST)")
-    lines = [header, ""]
-    for i, it in enumerate(items, 1):
-        badge = "[유료]" if it.get("is_paid") else "[무료]"
-        title = htmllib.escape(it.get("title", ""))      # 본문 텍스트 이스케이프
-        url   = htmllib.escape(it.get("url", ""), quote=True)  # href 속성 이스케이프 (& → &amp;)
-        date_md = _extract_date_md(it.get("meta", ""))
-        lines.append(f'{i:02d}. {date_md} {badge} <a href="{url}">{title}</a>')
-    text = "\n".join(lines)
-
-    # Telegram 메시지 길이 한도 4096자 — 10건 × ~170자 ≈ 1800자라 여유.
+    total_parts = (len(new_arts) + TELEGRAM_BATCH - 1) // TELEGRAM_BATCH
     api = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = urllib.parse.urlencode({
-        "chat_id": TELEGRAM_CHAT_ID,
-        "text": text,
-        "parse_mode": "HTML",
-        "disable_web_page_preview": "true",  # 링크 10개 → preview 끄는 게 깔끔
-    }).encode("utf-8")
-    try:
-        with urllib.request.urlopen(api, data=payload, timeout=10) as resp:
-            if resp.status == 200:
-                print(f"  Telegram 전송 완료 ({len(items)}건 1개 메시지)")
-            else:
-                print(f"  Telegram 전송 실패 (HTTP {resp.status})")
-    except urllib.error.HTTPError as e:
-        body = ""
-        try:
-            body = e.read().decode("utf-8", errors="replace")[:300]
-        except Exception:
-            pass
-        print(f"  Telegram 전송 HTTP 오류 {e.code}: {body}")
-    except Exception as e:
-        print(f"  Telegram 전송 예외: {e}")
+    stamp = now_kst.strftime("%Y-%m-%d %H:%M")
 
+    for pi in range(total_parts):
+        chunk = new_arts[pi * TELEGRAM_BATCH:(pi + 1) * TELEGRAM_BATCH]
+        part = f" ({pi + 1}/{total_parts})" if total_parts > 1 else ""
+        lines = [f"📰 <b>TheBell 신규 {len(new_arts)}건</b>{part} ({stamp} KST)", ""]
+        for i, it in enumerate(chunk, pi * TELEGRAM_BATCH + 1):
+            badge = "[유료]" if it.get("is_paid") else "[무료]"
+            src = htmllib.escape(it.get("source", ""))
+            title = htmllib.escape(it.get("title", ""))
+            url = htmllib.escape(it.get("url", ""), quote=True)
+            lines.append(f'{i:02d}. [{src}]{badge} {_date_md(it.get("date"))} '
+                         f'<a href="{url}">{title}</a>')
+        text = "\n".join(lines)
+        payload = urllib.parse.urlencode({
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": text,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": "true",
+        }).encode("utf-8")
+        try:
+            with urllib.request.urlopen(api, data=payload, timeout=10) as resp:
+                ok = resp.status == 200
+            print(f"  Telegram 발송 {pi + 1}/{total_parts} ({len(chunk)}건) {'OK' if ok else '실패'}")
+        except urllib.error.HTTPError as e:
+            body = ""
+            try:
+                body = e.read().decode("utf-8", errors="replace")[:200]
+            except Exception:
+                pass
+            print(f"  Telegram HTTP 오류 {e.code}: {body}")
+        except Exception as e:
+            print(f"  Telegram 예외: {e}")
+        time.sleep(0.5)
+
+
+# ===================== main =====================
 
 def main():
     now_kst = datetime.now(timezone.utc).astimezone(KST)
-    print(f"[현재 시각] {now_kst.isoformat()}")
-    print(f"[fetch] {LIST_URL}")
+    today_str = now_kst.strftime("%Y-%m-%d")
+    cutoff = (now_kst - timedelta(days=RETENTION_DAYS)).date()
+    print(f"[현재 시각] {now_kst.isoformat()}  / 보관 cutoff {cutoff}")
 
-    try:
-        html_str = fetch_html(LIST_URL)
-    except urllib.error.HTTPError as e:
-        print(f"ERROR: HTTP {e.code} {e.reason}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"ERROR: fetch 실패: {e}")
-        sys.exit(1)
-
-    print(f"  HTML {len(html_str):,} bytes")
-    items = parse_listing(html_str)
-    print(f"  파싱 결과 {len(items)}개")
-
-    if not items:
-        print("\nERROR: 기사 0건 — HTML 구조 변경/차단 의심. 디버그용 앞 3000자:")
-        print(html_str[:3000])
+    # 1) 스크랩
+    scraped = scrape_all(cutoff)
+    print(f"  스크랩 총 {len(scraped)}건 (중복 제거 후)")
+    if not scraped:
+        print("ERROR: 수집 0건 — 구조 변경/차단 의심. 갱신 중단.")
         sys.exit(1)
 
-    print("\n상위 항목 미리보기:")
-    for i, it in enumerate(items[:5], 1):
-        flag = "[유료]" if it["is_paid"] else "[무료]"
-        print(f"  {i}. {flag} {it['title'][:60]}")
+    # 2) 직전 store 로드 (롤링 누적)
+    prev_items, prev_schema = load_previous_store()
+    baseline = (prev_schema != SCHEMA)
+    store = {it["key"]: it for it in prev_items if it.get("key")}
 
+    # 3) 병합 + 무료 전환 추적 + 신규 집계
+    new_keys = []
+    for key, a in scraped.items():
+        src_list = sorted(a["sources"])
+        if key in store:
+            it = store[key]
+            if not a["is_paid"] and not it.get("free_date"):
+                it["free_date"] = today_str          # 무료 전환 관측
+            it["is_paid"] = a["is_paid"]
+            it["title"] = a["title"]
+            it["meta"] = a["meta"]
+            it["url"] = a["url"]
+            it["summary"] = a["summary"]
+            if not it.get("date"):
+                it["date"] = a["date"]
+            merged_src = sorted(set(it.get("sources_list", [])) | set(src_list))
+            it["sources_list"] = merged_src
+            it["source"] = _src_label(merged_src)
+        else:
+            store[key] = {
+                "key": key, "url": a["url"], "title": a["title"], "summary": a["summary"],
+                "meta": a["meta"], "date": a["date"], "is_paid": a["is_paid"],
+                "sources_list": src_list, "source": _src_label(src_list),
+                "first_seen": today_str,
+                "free_date": today_str if not a["is_paid"] else None,
+            }
+            new_keys.append(key)
+
+    # 4) 보관 기간 지난 기사 제거 + 정렬(최신순)
+    items = []
+    for it in store.values():
+        d = parse_date(it.get("date"))
+        if d and d < cutoff:
+            continue
+        items.append(it)
+    items.sort(key=lambda it: it.get("date") or "", reverse=True)
+
+    free_cnt = sum(1 for it in items if not it.get("is_paid"))
+    print(f"  보관 {len(items)}건 (무료 {free_cnt}) / 이번 신규 {len(new_keys)}건")
+
+    # 5) 저장
     out = {
+        "schema": SCHEMA,
         "generated_at": now_kst.isoformat(),
-        "source": "TheBell Deal > M&A (Code=0103)",
-        "list_url": LIST_URL,
+        "source": "TheBell (deal·finance·invest 다중 카테고리)",
+        "list_url": LIST_URL_MA,
+        "retention_days": RETENTION_DAYS,
         "count": len(items),
         "items": items,
     }
-
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"  저장 완료: {OUT_PATH} ({max(1, os.path.getsize(OUT_PATH)//1024)} KB)")
 
-    size_kb = max(1, os.path.getsize(OUT_PATH) // 1024)
-    print(f"\n저장 완료: {OUT_PATH} ({size_kb} KB)")
-
-    # ============ Telegram 신규 기사 알림 ============
-    print(f"\n[Telegram 알림]")
-    previous_urls = fetch_previous_urls()
-    if previous_urls is None:
-        new_items = []
+    # 6) Telegram
+    print("[Telegram]")
+    if baseline:
+        print(f"  baseline(첫 실행/스키마 변경) — 기준선 {len(items)}건 저장, 발송 생략")
     else:
-        new_items = [it for it in items if it["url"] not in previous_urls]
-    print(f"  신규 기사: {len(new_items)}건")
-    send_telegram(new_items)
+        new_arts = [it for it in items if it["key"] in set(new_keys)]
+        # 최신순 정렬된 items 순서 유지
+        send_telegram(new_arts, now_kst)
 
 
 if __name__ == "__main__":

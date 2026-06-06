@@ -1950,58 +1950,141 @@ function renderNews(source) {
   return renderNewsNaverDummy();
 }
 
+// TheBell 뉴스: 다중 카테고리 + 무료/전체 필터 + 10개씩 페이지네이션
+const THEBELL_PAGE_SIZE = 10;
+let thebellState = null;   // { items, generatedAt, listUrl, retentionDays, filter, page }
+
 async function renderNewsThebell() {
   $main.innerHTML = `
-    <div class="page-title">TheBell <span class="crumb">/ News · Deal · M&amp;A</span></div>
+    <div class="page-title">TheBell <span class="crumb">/ News · Deal·Finance·Invest</span></div>
     <div class="amt-loading">기사 로딩 중...</div>`;
   try {
     const data = await fetch(NEWS_THEBELL_URL()).then(r => {
       if (!r.ok) throw new Error("news_thebell.json 로드 실패 — 워크플로 1회 실행 필요");
       return r.json();
     });
-    drawThebellNews(data);
+    if (currentPage !== "news-thebell") return;   // 로딩 중 이탈 시 무시
+    thebellState = {
+      items: Array.isArray(data.items) ? data.items : [],
+      generatedAt: data.generated_at || "",
+      listUrl: data.list_url || "https://www.thebell.co.kr/front/NewsList.asp?Code=0103",
+      retentionDays: data.retention_days || 15,
+      filter: "all",   // "all" | "free"
+      page: 1,
+    };
+    drawThebellNews();
   } catch (err) {
+    if (currentPage !== "news-thebell") return;
     $main.innerHTML = `
-      <div class="page-title">TheBell <span class="crumb">/ News · Deal · M&amp;A</span></div>
+      <div class="page-title">TheBell <span class="crumb">/ News · Deal·Finance·Invest</span></div>
       <div class="amt-loading" style="color:var(--red)">로드 실패: ${escapeHtml(err.message)}</div>`;
   }
 }
 
-function drawThebellNews(data) {
-  const ts = data.generated_at
-    ? new Date(data.generated_at).toLocaleString("ko-KR")
-    : "-";
-  const listUrl = data.list_url || "https://www.thebell.co.kr/front/NewsList.asp?Code=0103";
+function thebellPager(cur, total) {
+  // 표시할 페이지 번호 배열 (양끝 + 현재 주변, 생략은 "...")
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages = new Set([1, total, cur, cur - 1, cur + 1]);
+  const arr = [...pages].filter(p => p >= 1 && p <= total).sort((a, b) => a - b);
+  const out = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i > 0 && arr[i] - arr[i - 1] > 1) out.push("...");
+    out.push(arr[i]);
+  }
+  return out;
+}
 
-  let html = `
-    <div class="page-title">TheBell <span class="crumb">/ News · Deal · M&amp;A</span></div>
-    <div class="news-meta">M&amp;A 상위 ${data.count}개 · 갱신 ${escapeHtml(ts)}</div>
+function drawThebellNews() {
+  const st = thebellState;
+  const ts = st.generatedAt ? new Date(st.generatedAt).toLocaleString("ko-KR") : "-";
+  const freeCnt = st.items.filter(it => !it.is_paid).length;
+
+  const filtered = st.filter === "free" ? st.items.filter(it => !it.is_paid) : st.items;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / THEBELL_PAGE_SIZE));
+  if (st.page > totalPages) st.page = totalPages;
+  const start = (st.page - 1) * THEBELL_PAGE_SIZE;
+  const pageItems = filtered.slice(start, start + THEBELL_PAGE_SIZE);
+
+  let rows = "";
+  if (pageItems.length === 0) {
+    rows = `<div class="news-empty">표시할 기사가 없습니다.</div>`;
+  } else {
+    pageItems.forEach((it, i) => {
+      const badge = it.is_paid
+        ? `<span class="access-badge paid">유료</span>`
+        : `<span class="access-badge free">무료</span>`;
+      const srcCls = it.source === "multiple" ? "news-src multi" : "news-src";
+      rows += `<a class="news-row" href="${escapeAttr(it.url)}" target="_blank" rel="noopener">
+        <span class="num">${String(start + i + 1).padStart(2, "0")}</span>
+        <span class="news-title-col">
+          <span class="news-title-text">${escapeHtml(it.title)}</span>
+          ${it.meta ? `<span class="news-meta-line">${escapeHtml(it.meta)}</span>` : ""}
+        </span>
+        <span class="${srcCls}">${escapeHtml(it.source || "-")}</span>
+        <span class="news-freedate">${it.free_date ? escapeHtml(it.free_date) : "-"}</span>
+        <span class="news-access">${badge}</span>
+      </a>`;
+    });
+  }
+
+  // 페이지네이션 컨트롤
+  const pagerBtns = thebellPager(st.page, totalPages).map(p =>
+    p === "..."
+      ? `<span class="pg-ellipsis">…</span>`
+      : `<button class="pg-num${p === st.page ? " active" : ""}" data-page="${p}">${p}</button>`
+  ).join("");
+  const pager = `
+    <div class="news-pager">
+      <button class="pg-arrow" data-page="${st.page - 1}" ${st.page <= 1 ? "disabled" : ""}>‹</button>
+      ${pagerBtns}
+      <button class="pg-arrow" data-page="${st.page + 1}" ${st.page >= totalPages ? "disabled" : ""}>›</button>
+    </div>`;
+
+  $main.innerHTML = `
+    <div class="news-toolbar">
+      <div class="page-title">TheBell <span class="crumb">/ News · Deal·Finance·Invest</span></div>
+      <div class="news-filter">
+        <button class="news-fbtn${st.filter === "free" ? " active" : ""}" data-filter="free">무료</button>
+        <button class="news-fbtn${st.filter === "all" ? " active" : ""}" data-filter="all">전체</button>
+      </div>
+    </div>
+    <div class="news-meta">전체 ${st.items.length}건 · 무료 ${freeCnt}건 · 최근 ${st.retentionDays}일 · 갱신 ${escapeHtml(ts)}</div>
     <div class="news-list">
       <div class="news-row head">
         <span class="num">#</span>
         <span class="news-title-col">제목</span>
+        <span class="news-src">출처</span>
+        <span class="news-freedate">Free date</span>
         <span class="news-access">접근</span>
       </div>
-  `;
-  (data.items || []).forEach((it, i) => {
-    const badge = it.is_paid
-      ? `<span class="access-badge paid">유료</span>`
-      : `<span class="access-badge free">무료</span>`;
-    html += `<a class="news-row" href="${escapeAttr(it.url)}" target="_blank" rel="noopener">
-      <span class="num">${String(i + 1).padStart(2, "0")}</span>
-      <span class="news-title-col">
-        <span class="news-title-text">${escapeHtml(it.title)}</span>
-        ${it.meta ? `<span class="news-meta-line">${escapeHtml(it.meta)}</span>` : ""}
-      </span>
-      <span class="news-access">${badge}</span>
-    </a>`;
-  });
-  html += `</div>
+      ${rows}
+    </div>
+    ${pager}
     <div class="amount-footnote">
-      출처: <a href="${escapeAttr(listUrl)}" target="_blank" rel="noopener">TheBell Deal · M&amp;A</a> ·
-      기사를 클릭하면 TheBell 사이트로 이동합니다.
+      출처: <a href="${escapeAttr(st.listUrl)}" target="_blank" rel="noopener">TheBell Deal·Finance·Invest</a> ·
+      기사를 클릭하면 TheBell 사이트로 이동합니다 · Free date = 무료로 처음 관측된 날짜.
     </div>`;
-  $main.innerHTML = html;
+
+  // 필터
+  $main.querySelectorAll(".news-fbtn").forEach(b => {
+    b.addEventListener("click", () => {
+      st.filter = b.dataset.filter;
+      st.page = 1;
+      drawThebellNews();
+    });
+  });
+  // 페이지 이동
+  $main.querySelectorAll(".pg-num, .pg-arrow").forEach(b => {
+    if (b.disabled) return;
+    b.addEventListener("click", () => {
+      const p = parseInt(b.dataset.page, 10);
+      if (!isNaN(p) && p >= 1 && p <= totalPages && p !== st.page) {
+        st.page = p;
+        drawThebellNews();
+        $main.scrollTop = 0;
+      }
+    });
+  });
 }
 
 function renderNewsNaverDummy() {
