@@ -1231,7 +1231,8 @@ a.news-row:hover { background: var(--primary-light); }
   align-items: center;
   justify-content: center;
   gap: 4px;
-  margin: 4px 0 10px;
+  margin-top: 4px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 .news-pager button {
