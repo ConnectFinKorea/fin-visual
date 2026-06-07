@@ -72,6 +72,8 @@ MAX_PAGES = 15             # 카테고리당 최대 페이지 (안전 상한)
 PAGE_SLEEP = 0.3           # 페이지 요청 간격 (더벨 부담 완화)
 TIMEOUT = 25
 TELEGRAM_BATCH = 20        # Telegram 한 메시지당 최대 기사 수 (4096자 한도 회피)
+# 텔레그램 발송 대상 출처 (소속 기준: sources_list 에 하나라도 포함되면 발송)
+TELEGRAM_SOURCES = {"M&A", "PEF/벤처캐피탈"}
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
@@ -396,8 +398,13 @@ def main():
     if baseline:
         print(f"  baseline(첫 실행/스키마 변경) — 기준선 {len(items)}건 저장, 발송 생략")
     else:
-        new_arts = [it for it in items if it["key"] in set(new_keys)]
-        # 최신순 정렬된 items 순서 유지
+        new_set = set(new_keys)
+        new_arts = [it for it in items
+                    if it["key"] in new_set
+                    and (set(it.get("sources_list", [])) & TELEGRAM_SOURCES)]
+        skipped = len(new_keys) - len(new_arts)
+        print(f"  신규 {len(new_keys)}건 중 발송대상({'·'.join(sorted(TELEGRAM_SOURCES))} 소속) "
+              f"{len(new_arts)}건 (대상 외 {skipped}건 제외)")
         send_telegram(new_arts, now_kst)
 
 
