@@ -63,6 +63,9 @@ CATEGORIES = [
     ("0304", "연기금"),
 ]
 
+# 출처 표시 우선순위 (여러 카테고리 동시 노출 시 상위 1개만 표시)
+SRC_PRIORITY = ["M&A", "IB", "자산운용", "PEF/벤처캐피탈", "연기금", "주식", "증권", "채권"]
+
 SCHEMA = 2                 # 출력 스키마 버전 (변경 시 baseline 재시작)
 RETENTION_DAYS = 15        # 롤링 보관 기간
 MAX_PAGES = 15             # 카테고리당 최대 페이지 (안전 상한)
@@ -254,7 +257,11 @@ def load_previous_store():
 # ===================== Telegram =====================
 
 def _src_label(sources_list):
-    return sources_list[0] if len(sources_list) == 1 else "multiple"
+    """여러 카테고리에 노출된 기사는 우선순위 상위 1개만 표시."""
+    for s in SRC_PRIORITY:
+        if s in sources_list:
+            return s
+    return sources_list[0] if sources_list else "-"
 
 
 def _date_md(s):

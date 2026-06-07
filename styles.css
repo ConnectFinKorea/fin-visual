@@ -1102,7 +1102,7 @@ a { text-decoration: none; color: inherit; }
 }
 .news-row {
   display: grid;
-  grid-template-columns: 40px 1fr 76px 92px 60px;
+  grid-template-columns: 42px 1fr 110px 128px 84px 74px;
   gap: 8px;
   padding: 10px 12px;
   border-top: 1px solid var(--border-soft);
@@ -1110,6 +1110,27 @@ a { text-decoration: none; color: inherit; }
   color: var(--text);
   align-items: center;
   transition: background 0.12s;
+}
+/* 컬럼별 필터 행 */
+.news-row.filter {
+  background: var(--card-2);
+  padding: 6px 12px;
+  cursor: default;
+}
+.news-fsel, .news-fdate {
+  width: 100%;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 5px;
+}
+.news-fsel:focus, .news-fdate:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
 }
 .news-row:first-child { border-top: none; }
 .news-row.head {
@@ -1121,6 +1142,7 @@ a { text-decoration: none; color: inherit; }
 }
 .news-row.head .num,
 .news-row.head .news-src,
+.news-row.head .news-date,
 .news-row.head .news-freedate,
 .news-row.head .news-access { text-align: center; }
 a.news-row:hover { background: var(--primary-light); }
@@ -1135,6 +1157,7 @@ a.news-row:hover { background: var(--primary-light); }
   white-space: nowrap;
 }
 .news-row .news-src.multi { color: var(--text-3); font-weight: 500; }
+.news-row .news-date,
 .news-row .news-freedate {
   text-align: center;
   font-size: 10.5px;
@@ -1258,14 +1281,16 @@ a.news-row:hover { background: var(--primary-light); }
 
 @media (max-width: 600px) {
   .news-row {
-    grid-template-columns: 26px 1fr 56px 62px 46px;
-    gap: 5px;
-    padding: 8px 7px;
-    font-size: 11px;
+    grid-template-columns: 20px 1fr 58px 90px 58px 44px;
+    gap: 4px;
+    padding: 8px 5px;
+    font-size: 10.5px;
   }
   .news-row .num { font-size: 10px; }
-  .news-row .news-src { font-size: 9.5px; }
-  .news-row .news-freedate { font-size: 9px; }
+  .news-row .news-src { font-size: 9px; }
+  .news-row .news-date,
+  .news-row .news-freedate { font-size: 8.5px; }
+  .news-fsel, .news-fdate { font-size: 9px; padding: 3px 2px; }
   .access-badge {
     min-width: 30px;
     padding: 2px 4px;

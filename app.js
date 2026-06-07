@@ -1969,7 +1969,9 @@ async function renderNewsThebell() {
       generatedAt: data.generated_at || "",
       listUrl: data.list_url || "https://www.thebell.co.kr/front/NewsList.asp?Code=0103",
       retentionDays: data.retention_days || 15,
-      filter: "all",   // "all" | "free"
+      fSource: "all",          // 출처 필터
+      fAccess: "all",          // 접근 필터: all | free | paid
+      fDate: "",               // 날짜(기사일자) 필터 — 정확히 그 하루, "" = 전체
       page: 1,
     };
     drawThebellNews();
@@ -1994,12 +1996,29 @@ function thebellPager(cur, total) {
   return out;
 }
 
+// 여러 카테고리 노출 시 표시할 단일 출처 우선순위
+const THEBELL_SRC_PRIORITY = ["M&A", "IB", "자산운용", "PEF/벤처캐피탈", "연기금", "주식", "증권", "채권"];
+
+function thebellSrc(it) {
+  const list = (Array.isArray(it.sources_list) && it.sources_list.length)
+    ? it.sources_list
+    : (it.source ? [it.source] : []);
+  for (const s of THEBELL_SRC_PRIORITY) if (list.includes(s)) return s;
+  return list[0] || "-";
+}
+
 function drawThebellNews() {
   const st = thebellState;
   const ts = st.generatedAt ? new Date(st.generatedAt).toLocaleString("ko-KR") : "-";
   const freeCnt = st.items.filter(it => !it.is_paid).length;
 
-  const filtered = st.filter === "free" ? st.items.filter(it => !it.is_paid) : st.items;
+  // 필터 적용 (출처 + 날짜(그 하루) + 접근)
+  let filtered = st.items;
+  if (st.fSource !== "all") filtered = filtered.filter(it => thebellSrc(it) === st.fSource);
+  if (st.fAccess === "free") filtered = filtered.filter(it => !it.is_paid);
+  else if (st.fAccess === "paid") filtered = filtered.filter(it => it.is_paid);
+  if (st.fDate) filtered = filtered.filter(it => (it.date || "").slice(0, 10) === st.fDate);
+
   const totalPages = Math.max(1, Math.ceil(filtered.length / THEBELL_PAGE_SIZE));
   if (st.page > totalPages) st.page = totalPages;
   const start = (st.page - 1) * THEBELL_PAGE_SIZE;
@@ -2007,25 +2026,39 @@ function drawThebellNews() {
 
   let rows = "";
   if (pageItems.length === 0) {
-    rows = `<div class="news-empty">표시할 기사가 없습니다.</div>`;
+    rows = `<div class="news-empty">조건에 맞는 기사가 없습니다.</div>`;
   } else {
     pageItems.forEach((it, i) => {
       const badge = it.is_paid
         ? `<span class="access-badge paid">유료</span>`
         : `<span class="access-badge free">무료</span>`;
-      const srcCls = it.source === "multiple" ? "news-src multi" : "news-src";
       rows += `<a class="news-row" href="${escapeAttr(it.url)}" target="_blank" rel="noopener">
         <span class="num">${String(start + i + 1).padStart(2, "0")}</span>
         <span class="news-title-col">
           <span class="news-title-text">${escapeHtml(it.title)}</span>
           ${it.meta ? `<span class="news-meta-line">${escapeHtml(it.meta)}</span>` : ""}
         </span>
-        <span class="${srcCls}">${escapeHtml(it.source || "-")}</span>
+        <span class="news-src">${escapeHtml(thebellSrc(it))}</span>
+        <span class="news-date">${escapeHtml((it.date || "").slice(0, 10) || "-")}</span>
         <span class="news-freedate">${it.free_date ? escapeHtml(it.free_date) : "-"}</span>
         <span class="news-access">${badge}</span>
       </a>`;
     });
   }
+
+  // 출처 드롭다운 옵션 (우선순위 기준 표시 출처 중 존재하는 것만)
+  const present = new Set(st.items.map(thebellSrc));
+  const srcOpts = THEBELL_SRC_PRIORITY.filter(s => present.has(s));
+  const srcSelect = `<select class="news-fsel" data-f="source">
+      <option value="all"${st.fSource === "all" ? " selected" : ""}>전체</option>
+      ${srcOpts.map(s => `<option value="${escapeAttr(s)}"${st.fSource === s ? " selected" : ""}>${escapeHtml(s)}</option>`).join("")}
+    </select>`;
+  const accSelect = `<select class="news-fsel" data-f="access">
+      <option value="all"${st.fAccess === "all" ? " selected" : ""}>전체</option>
+      <option value="free"${st.fAccess === "free" ? " selected" : ""}>무료</option>
+      <option value="paid"${st.fAccess === "paid" ? " selected" : ""}>유료</option>
+    </select>`;
+  const dateInput = `<input type="date" class="news-fdate" value="${escapeAttr(st.fDate)}" title="해당 날짜 기사만 표시">`;
 
   // 페이지네이션 컨트롤
   const pagerBtns = thebellPager(st.page, totalPages).map(p =>
@@ -2040,38 +2073,52 @@ function drawThebellNews() {
       <button class="pg-arrow" data-page="${st.page + 1}" ${st.page >= totalPages ? "disabled" : ""}>›</button>
     </div>`;
 
+  const shown = filtered.length;
   $main.innerHTML = `
     <div class="news-toolbar">
       <div class="page-title">TheBell <span class="crumb">/ News · Deal·Finance·Invest</span></div>
-      <div class="news-filter">
-        <button class="news-fbtn${st.filter === "free" ? " active" : ""}" data-filter="free">무료</button>
-        <button class="news-fbtn${st.filter === "all" ? " active" : ""}" data-filter="all">전체</button>
-      </div>
     </div>
-    <div class="news-meta">전체 ${st.items.length}건 · 무료 ${freeCnt}건 · 최근 ${st.retentionDays}일 · 갱신 ${escapeHtml(ts)}</div>
+    <div class="news-meta">전체 ${st.items.length}건 · 무료 ${freeCnt}건 · 필터 결과 ${shown}건 · 최근 ${st.retentionDays}일 · 갱신 ${escapeHtml(ts)}</div>
     <div class="news-list">
       <div class="news-row head">
         <span class="num">#</span>
         <span class="news-title-col">제목</span>
         <span class="news-src">출처</span>
+        <span class="news-date">날짜</span>
         <span class="news-freedate">Free date</span>
         <span class="news-access">접근</span>
+      </div>
+      <div class="news-row filter">
+        <span></span>
+        <span></span>
+        <span>${srcSelect}</span>
+        <span>${dateInput}</span>
+        <span></span>
+        <span>${accSelect}</span>
       </div>
       ${rows}
     </div>
     ${pager}
     <div class="amount-footnote">
       출처: <a href="${escapeAttr(st.listUrl)}" target="_blank" rel="noopener">TheBell Deal·Finance·Invest</a> ·
-      기사를 클릭하면 TheBell 사이트로 이동합니다 · Free date = 무료로 처음 관측된 날짜.
+      기사를 클릭하면 TheBell 사이트로 이동합니다 · 날짜 = 기사 작성일 · Free date = 무료로 처음 관측된 날짜.
     </div>`;
 
-  // 필터
-  $main.querySelectorAll(".news-fbtn").forEach(b => {
-    b.addEventListener("click", () => {
-      st.filter = b.dataset.filter;
+  // 출처/접근 드롭다운
+  $main.querySelectorAll(".news-fsel").forEach(sel => {
+    sel.addEventListener("change", () => {
+      if (sel.dataset.f === "source") st.fSource = sel.value;
+      else st.fAccess = sel.value;
       st.page = 1;
       drawThebellNews();
     });
+  });
+  // 날짜 선택 (정확히 그 하루)
+  const fd = $main.querySelector(".news-fdate");
+  if (fd) fd.addEventListener("change", () => {
+    st.fDate = fd.value;
+    st.page = 1;
+    drawThebellNews();
   });
   // 페이지 이동
   $main.querySelectorAll(".pg-num, .pg-arrow").forEach(b => {
