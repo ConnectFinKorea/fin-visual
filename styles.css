@@ -1638,6 +1638,19 @@ a.news-row:hover { background: var(--primary-light); }
 .macro-tip-row b { margin-left: auto; color: var(--text); font-variant-numeric: tabular-nums; }
 
 .macro-source { margin-top: 10px; padding-left: 2px; font-size: 11px; color: var(--text-3); }
+
+/* Bond(10Y) — 국가별 패널 2x2 */
+.macro-grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.macro-panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 12px 8px; }
+.macro-panel-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+.macro-panel-head > span:first-child { font-size: 13px; font-weight: 700; color: var(--text); }
+.macro-panel-last { font-size: 13px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.macro-panel-legend { display: flex; gap: 10px; align-items: center; font-size: 11px; color: var(--text-2); }
+.macro-panel-legend .mpl { display: inline-flex; align-items: center; gap: 4px; }
+.mpl-solid { display: inline-block; width: 14px; height: 0; border-top: 3px solid var(--c, #1B65B6); border-radius: 2px; }
+.mpl-dash  { display: inline-block; width: 14px; height: 0; border-top: 2px dashed #7E8AA0; }
+.macro-tip-row i.mpl-solid, .macro-tip-row i.mpl-dash { flex: 0 0 auto; }
+@media (max-width: 720px) { .macro-grid2 { grid-template-columns: 1fr; } }
 .macro-loading, .macro-error {
   padding: 28px 16px; text-align: center; color: var(--text-2); font-size: 13px;
 }

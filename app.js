@@ -2204,6 +2204,164 @@ function macroCloseDD() {
   if (menu) menu.hidden = true;
 }
 
+// ============== Macro Eco — Bond(10Y): 국가별 패널 (2x2, 중국 제외) ==============
+const BOND_COUNTRIES = ["Korea", "US", "Japan"];
+
+async function renderMacroBond() {
+  const pid = "macro-bond", title = MACRO_TITLES.bond;
+  $main.innerHTML = `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div><div class="macro-loading">데이터 로딩 중...</div>`;
+  try { if (!macroData) macroData = await fetchMacro(); }
+  catch (err) {
+    if (currentPage !== pid) return;
+    $main.innerHTML = `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+      <div class="macro-error">데이터를 불러올 수 없습니다: ${err.message}
+        <div class="macro-error-sub">Railway 'Macro Eco/Daily' 서비스 실행 후 data-snapshot 브랜치에 macro.json 이 있어야 합니다.</div></div>`;
+    return;
+  }
+  if (currentPage !== pid) return;
+  if (!macroData.bond) {
+    $main.innerHTML = `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div><div class="macro-error">아직 준비되지 않은 지표입니다 (bond).</div>`;
+    return;
+  }
+  paintMacroBond(title);
+}
+
+function paintMacroBond(title) {
+  const block = macroData.bond;
+  const asof = macroData.generated_at || "-";
+  const periodOpts = MACRO_PERIODS.map(y => `<option value="${y}"${y === macroState.years ? " selected" : ""}>${y}년</option>`).join("");
+  const panels = BOND_COUNTRIES.map(code => {
+    const c = MACRO_COUNTRIES.find(x => x.code === code);
+    return `<div class="macro-panel">
+      <div class="macro-panel-head">
+        <span>${c.flag} ${c.name}</span>
+        <span class="macro-panel-legend">
+          <span class="mpl"><i class="mpl-solid" style="--c:${c.color}"></i>10Y</span>
+          <span class="mpl"><i class="mpl-dash"></i>기준금리</span>
+        </span>
+      </div>
+      <div class="macro-chart-wrap macro-panel-wrap" id="macro-panel-${code}"></div>
+    </div>`;
+  }).join("");
+  $main.innerHTML = `
+    <div class="macro-head">
+      <div class="macro-head-l">
+        <div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+        <div class="macro-asof">기준일 : ${asof}</div>
+      </div>
+      <div class="macro-filters">
+        <select id="macro-period" class="macro-select">${periodOpts}</select>
+      </div>
+    </div>
+    <div class="macro-grid2">${panels}</div>
+    <div class="macro-source">source: ${block.source || "-"}</div>`;
+  drawBondPanels();
+  document.getElementById("macro-period").addEventListener("change", (e) => { macroState.years = parseInt(e.target.value, 10); drawBondPanels(); });
+}
+
+function drawBondPanels() {
+  BOND_COUNTRIES.forEach(code => drawMacroPanel(code, "macro-panel-" + code));
+}
+
+// 한 국가 패널: 10년 국채(국가색 실선) + 기준금리(회색 점선) 오버레이, y축 공유
+function drawMacroPanel(country, wrapId) {
+  const meta = MACRO_COUNTRIES.find(c => c.code === country) || { color: "#1B65B6", name: country };
+  const bondBlock = macroData.bond, primeBlock = macroData.prime;
+  const unit = bondBlock.unit || "%";
+  const all = bondBlock.labels || [];
+  const n = Math.min(all.length, macroState.years * 12);
+  const off = all.length - n;
+  const labels = all.slice(off);
+
+  const bondArr = (bondBlock.series[country] || []).slice(off);
+  // 기준금리는 label 기준으로 매핑(타임라인 차이에 안전)
+  const pmap = {};
+  ((primeBlock && primeBlock.labels) || []).forEach((lb, i) => {
+    pmap[lb] = primeBlock.series[country] ? primeBlock.series[country][i] : null;
+  });
+  const primeArr = labels.map(lb => (lb in pmap ? pmap[lb] : null));
+
+  const defs = [
+    { arr: bondArr,  color: meta.color, width: 2,   dash: "" },
+    { arr: primeArr, color: "#7E8AA0",  width: 1.8, dash: "5 4" },
+  ];
+
+  let lo = Infinity, hi = -Infinity;
+  defs.forEach(s => s.arr.forEach(v => { if (v != null) { if (v < lo) lo = v; if (v > hi) hi = v; } }));
+  if (!isFinite(lo)) { lo = 0; hi = 1; }
+  if (lo === hi) { lo -= 0.3; hi += 0.3; }
+  const padY = (hi - lo) * 0.15 || 0.2; lo -= padY; hi += padY;
+
+  const VBW = 460, VBH = 230, M = { t: 10, r: 12, b: 22, l: 34 };
+  const pw = VBW - M.l - M.r, ph = VBH - M.t - M.b;
+  const X = i => M.l + (n <= 1 ? pw / 2 : (i / (n - 1)) * pw);
+  const Y = v => M.t + (1 - (v - lo) / (hi - lo)) * ph;
+
+  let grid = "", yl = ""; const TICKS = 4;
+  for (let k = 0; k <= TICKS; k++) {
+    const val = lo + (hi - lo) * (k / TICKS), yy = Y(val);
+    grid += `<line x1="${M.l}" y1="${yy.toFixed(1)}" x2="${VBW - M.r}" y2="${yy.toFixed(1)}" class="macro-grid"/>`;
+    yl += `<text x="${M.l - 5}" y="${(yy + 3).toFixed(1)}" class="macro-yl">${val.toFixed(1)}</text>`;
+  }
+  let xl = ""; const step = Math.max(1, Math.ceil(n / 5));
+  for (let i = 0; i < n; i += step) {
+    xl += `<text x="${X(i).toFixed(1)}" y="${VBH - 8}" class="macro-xl">${labels[i].replace("-", ".")}</text>`;
+  }
+
+  let paths = "";
+  defs.forEach(s => {
+    let d = "", pen = false;
+    s.arr.forEach((v, i) => { if (v == null) { pen = false; return; } d += `${pen ? "L" : "M"}${X(i).toFixed(1)} ${Y(v).toFixed(1)} `; pen = true; });
+    if (d) paths += `<path d="${d.trim()}" fill="none" stroke="${s.color}" stroke-width="${s.width}"${s.dash ? ` stroke-dasharray="${s.dash}"` : ""} stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
+
+  const svg = `<svg class="macro-svg" viewBox="0 0 ${VBW} ${VBH}">
+    ${grid}${yl}${xl}
+    <line class="macro-guide pg-guide" x1="0" y1="${M.t}" x2="0" y2="${M.t + ph}" style="display:none"/>
+    <circle class="pg-dot-bond" r="3.3" fill="#fff" stroke="${meta.color}" stroke-width="1.8" style="display:none"/>
+    <circle class="pg-dot-prime" r="3.3" fill="#fff" stroke="#7E8AA0" stroke-width="1.8" style="display:none"/>
+    ${paths}
+    <rect class="pg-capture" x="${M.l}" y="${M.t}" width="${pw}" height="${ph}" fill="transparent"/>
+  </svg>`;
+  const wrap = document.getElementById(wrapId);
+  wrap.innerHTML = svg + `<div class="macro-tip" hidden></div>`;
+
+  attachPanelHover(wrap, { n, labels, bondArr, primeArr, X, Y, M, VBW, pw, unit, color: meta.color });
+}
+
+function attachPanelHover(wrap, g) {
+  const svg = wrap.querySelector("svg"), cap = wrap.querySelector(".pg-capture");
+  const guide = wrap.querySelector(".pg-guide");
+  const dotB = wrap.querySelector(".pg-dot-bond"), dotP = wrap.querySelector(".pg-dot-prime");
+  const tip = wrap.querySelector(".macro-tip");
+  if (!svg || !cap) return;
+  function move(evt) {
+    const t = evt.touches ? evt.touches[0] : evt;
+    const rect = svg.getBoundingClientRect();
+    const vbX = ((t.clientX - rect.left) / rect.width) * g.VBW;
+    let idx = Math.round(((vbX - g.M.l) / g.pw) * (g.n - 1)); idx = Math.max(0, Math.min(g.n - 1, idx));
+    const vb = g.bondArr[idx], vp = g.primeArr[idx];
+    if (vb == null && vp == null) { guide.style.display = "none"; dotB.style.display = "none"; dotP.style.display = "none"; tip.hidden = true; return; }
+    const gx = g.X(idx);
+    guide.setAttribute("x1", gx); guide.setAttribute("x2", gx); guide.style.display = "";
+    if (vb != null) { dotB.setAttribute("cx", gx); dotB.setAttribute("cy", g.Y(vb)); dotB.style.display = ""; } else dotB.style.display = "none";
+    if (vp != null) { dotP.setAttribute("cx", gx); dotP.setAttribute("cy", g.Y(vp)); dotP.style.display = ""; } else dotP.style.display = "none";
+    let rows = "";
+    if (vb != null) rows += `<div class="macro-tip-row"><i class="mpl-solid" style="--c:${g.color}"></i>10Y 국채<b>${vb.toFixed(2)}${g.unit}</b></div>`;
+    if (vp != null) rows += `<div class="macro-tip-row"><i class="mpl-dash"></i>기준금리<b>${vp.toFixed(2)}${g.unit}</b></div>`;
+    tip.innerHTML = `<div class="macro-tip-date">${g.labels[idx].replace("-", ".")}</div>${rows}`;
+    tip.hidden = false;
+    const wr = wrap.getBoundingClientRect();
+    let left = t.clientX - wr.left + 12, top = t.clientY - wr.top + 10;
+    if (left + tip.offsetWidth > wr.width) left = t.clientX - wr.left - tip.offsetWidth - 12;
+    if (top + tip.offsetHeight > wr.height) top = wr.height - tip.offsetHeight - 4;
+    tip.style.left = Math.max(2, left) + "px"; tip.style.top = Math.max(2, top) + "px";
+  }
+  function leave() { guide.style.display = "none"; dotB.style.display = "none"; dotP.style.display = "none"; tip.hidden = true; }
+  cap.addEventListener("mousemove", move); cap.addEventListener("mouseleave", leave);
+  cap.addEventListener("touchstart", move, { passive: true }); cap.addEventListener("touchmove", move, { passive: true });
+}
+
 function renderNews(source) {
   if (source === "thebell") return renderNewsThebell();
   return renderNewsNaverDummy();
@@ -2754,7 +2912,7 @@ function navigate(pageId, opts = {}) {
     "val-bw":   () => renderMezzanine("bw"),
     "val-cb":   () => renderMezzanine("cb"),
     "macro-prime":     () => renderMacroChart("prime"),
-    "macro-bond":      () => renderMacro("bond"),
+    "macro-bond":      () => renderMacroBond(),
     "macro-inflation": () => renderMacro("inflation"),
     "macro-unemp":     () => renderMacro("unemp"),
     "news-thebell": () => renderNews("thebell"),

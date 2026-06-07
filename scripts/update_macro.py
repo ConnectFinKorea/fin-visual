@@ -1,20 +1,26 @@
 """
 Macro Eco 지표 수집 → data/macro.json
 
-현재 구현: Prime Rate(기준금리) 4개국, 2015-01~ 월별.
-추후 확장: bond(10Y) / inflation(CPI YoY) / unemployment — collect_*() 추가만 하면 됨.
+구현: Prime Rate(기준금리) + Bond(10년 국채), 4개국(중국 일부), 2015-01~ 월별.
+추후 확장: inflation / unemployment — collect_*() 추가만 하면 됨.
 (Macro Eco 섹션 전체를 이 한 스크립트 = Railway 단일 일일 서비스로 운영)
 
-소스 (전부 공식 API, 스크래핑 없음 — 2026-06-07 라이브 검증):
-  미국·일본·중국 정책금리: BIS CBPOL  (stats.bis.org SDMX v2, 월말값, 키 불필요)
-  한국 기준금리:           한국은행 ECOS 722Y001/0101000 (월, env ECOS_API_KEY)
+소스 (전부 공식 API, 스크래핑 없음 — 2026-06 라이브 검증):
+  기준금리 미/일/중: BIS CBPOL (stats.bis.org SDMX v2, 월말값, 키 불필요)
+  기준금리 한국:     한국은행 ECOS 722Y001/0101000
+  10년 국채 미국:    FRED DGS10 (월평균 집계)
+  10년 국채 일본:    FRED IRLTLT01JPM156N (월, OECD)
+  10년 국채 한국:    한국은행 ECOS 721Y001/5050000 (월)
+  (10년 국채 중국은 무료 공식 API 없음 → 제외)
 
 환경변수:
   ECOS_API_KEY  (필수) 한국은행 ECOS 인증키
+  FRED_API_KEY  (필수) FRED API 키 (10년 국채 미국·일본)
 
 출력 data/macro.json:
   { schema, generated_at, generated_at_full,
-    prime: { title, unit, source, start, labels[YYYY-MM…], series{Korea,US,Japan,China} } }
+    prime: { title, unit, source, start, labels[YYYY-MM…], series{Korea,US,Japan,China} },
+    bond:  { title, unit, source, start, labels[YYYY-MM…], series{Korea,US,Japan} } }
 """
 
 import csv
@@ -70,15 +76,18 @@ def months_range(start, end):
     return out
 
 
-def forward_fill(series_map, labels):
-    """labels 순서로 forward-fill. 정책금리는 계단함수라 직전값 유지가 정확.
-    선행 결측(데이터 시작 전)은 null 유지 → 라인이 실제 데이터 시작점부터 그려짐.
-    (예: 일본은 BIS상 2013~2016.9 '정책금리 없음' 구간이라 그 이전은 null)"""
+def align_series(series_map, labels, ffill):
+    """labels 순서로 정렬. ffill=True → 직전값 유지(계단함수형 정책금리용),
+    선행 결측은 null. ffill=False → 관측된 달만 값, 나머지 null(연속형 채권금리용)."""
     out, last = [], None
     for lb in labels:
         if lb in series_map and series_map[lb] is not None:
             last = series_map[lb]
-        out.append(None if last is None else round(last, 4))
+            out.append(round(last, 4))
+        elif ffill:
+            out.append(None if last is None else round(last, 4))
+        else:
+            out.append(None)
     return out
 
 
@@ -108,15 +117,15 @@ def bis_cbpol(country):
     return out
 
 
-def ecos_base_rate(api_key):
-    """한국은행 기준금리(월) 722Y001/0101000 → {'YYYY-MM': float}."""
+def ecos_monthly(table, item, api_key):
+    """ECOS 월별 통계 (table/item) → {'YYYY-MM': float}."""
     start = START.replace("-", "")                      # 201501
     end = datetime.now(KST).strftime("%Y%m")
     url = (f"https://ecos.bok.or.kr/api/StatisticSearch/{api_key}/json/kr/1/1000/"
-           f"722Y001/M/{start}/{end}/0101000")
+           f"{table}/M/{start}/{end}/{item}")
     data = json.loads(http_get(url))
     if "StatisticSearch" not in data:
-        raise RuntimeError(f"ECOS 응답 오류: {data.get('RESULT', data)}")
+        raise RuntimeError(f"ECOS {table}/{item} 응답 오류: {data.get('RESULT', data)}")
     out = {}
     for row in data["StatisticSearch"]["row"]:
         t, v = row.get("TIME", ""), row.get("DATA_VALUE", "")
@@ -126,7 +135,31 @@ def ecos_base_rate(api_key):
             except ValueError:
                 pass
     if not out:
-        raise RuntimeError("ECOS: 파싱 0건")
+        raise RuntimeError(f"ECOS {table}/{item}: 파싱 0건")
+    return out
+
+
+def fred_monthly(series_id, agg=None):
+    """FRED 월별 관측 → {'YYYY-MM': float}. agg='avg'/'eop'면 월별 집계, None이면 원천 주기.
+    '.'(결측)은 skip."""
+    key = os.environ.get("FRED_API_KEY", "").strip()
+    if not key:
+        raise RuntimeError("FRED_API_KEY 환경변수 미설정 (10년 국채 미국·일본)")
+    params = (f"series_id={series_id}&api_key={key}&file_type=json"
+              f"&observation_start={START}-01")
+    if agg:
+        params += f"&frequency=m&aggregation_method={agg}"
+    data = json.loads(http_get(f"https://api.stlouisfed.org/fred/series/observations?{params}"))
+    out = {}
+    for o in data.get("observations", []):
+        v = o.get("value", ".")
+        if v and v != ".":
+            try:
+                out[o["date"][:7]] = float(v)
+            except ValueError:
+                pass
+    if not out:
+        raise RuntimeError(f"FRED {series_id}: 파싱 0건")
     return out
 
 
@@ -143,12 +176,11 @@ def collect_prime():
         "US": bis_cbpol("US"),
         "Japan": bis_cbpol("JP"),
         "China": bis_cbpol("CN"),
-        "Korea": ecos_base_rate(api_key),
+        "Korea": ecos_monthly("722Y001", "0101000", api_key),
     }
-
-    latest = max(max(d) for d in src.values())          # 가장 최신 월
+    latest = max(max(d) for d in src.values())
     labels = months_range(START, latest)
-    series = {name: forward_fill(d, labels) for name, d in src.items()}
+    series = {name: align_series(d, labels, ffill=True) for name, d in src.items()}
 
     for name, d in src.items():
         mx = max(d)
@@ -165,6 +197,40 @@ def collect_prime():
     }
 
 
+# ===================== 지표: 10년 국채 =====================
+
+def collect_bond():
+    api_key = os.environ.get("ECOS_API_KEY", "").strip()
+    if not api_key:
+        print("ERROR: ECOS_API_KEY 환경변수 미설정 (한국 국고채)")
+        sys.exit(1)
+
+    print("[bond] 수집 — FRED(US DGS10 월평균 · JP IRLTLT01) + ECOS(KR 5050000). 중국 제외")
+    src = {
+        "US": fred_monthly("DGS10", agg="avg"),
+        "Japan": fred_monthly("IRLTLT01JPM156N"),
+        "Korea": ecos_monthly("721Y001", "5050000", api_key),
+    }
+    latest = max(max(d) for d in src.values())
+    labels = months_range(START, latest)
+    # 채권금리는 연속형 → forward-fill 안 함(관측 없는 달은 null)
+    series = {name: align_series(d, labels, ffill=False) for name, d in src.items()}
+
+    for name, d in src.items():
+        mx = max(d)
+        print(f"  {name:6s}: {len(d):3d}건  최신 {mx} = {d[mx]}")
+    print(f"  타임라인 {labels[0]}~{labels[-1]} ({len(labels)}개월)")
+
+    return {
+        "title": "10Y Government Bond",
+        "unit": "%",
+        "source": "FRED(US·JP), 한국은행(ECOS)",
+        "start": START,
+        "labels": labels,
+        "series": {k: series[k] for k in ("Korea", "US", "Japan")},   # 중국 제외
+    }
+
+
 # ===================== main =====================
 
 def main():
@@ -174,7 +240,8 @@ def main():
         "generated_at": now.strftime("%Y-%m-%d"),
         "generated_at_full": now.isoformat(),
         "prime": collect_prime(),
-        # 추후: "bond": collect_bond(), "inflation": collect_inflation(), "unemp": collect_unemp(),
+        "bond": collect_bond(),
+        # 추후: "inflation": collect_inflation(), "unemp": collect_unemp(),
     }
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as f:
