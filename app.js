@@ -265,6 +265,8 @@ const MAPPING_URL_FALLBACK = "/data/industry_mapping.json";
 const REVENUE_URL = () => `${RAW_BASE}/revenue.json${CACHE_BUST()}`;
 const FIN_STATUS_URL = () => `${RAW_BASE}/financial_status.json${CACHE_BUST()}`;
 const NEWS_THEBELL_URL = () => `${RAW_BASE}/news_thebell.json${CACHE_BUST()}`;
+const MACRO_URL = () => `${RAW_BASE}/macro.json${CACHE_BUST()}`;
+const MACRO_URL_FALLBACK = "/data/macro.json";   // 로컬/시드 fallback (data-snapshot 미존재 시)
 
 async function renderMarketCap() {
   $main.innerHTML = `
@@ -1945,6 +1947,263 @@ function renderMacro(kind) {
   $main.innerHTML = html;
 }
 
+// ============== Macro Eco — 인터랙티브 멀티라인 차트 (Prime Rate) ==============
+const MACRO_COUNTRIES = [
+  { code: "Korea", name: "South Korea",   flag: "🇰🇷", color: "#1B65B6" },
+  { code: "US",    name: "United States", flag: "🇺🇸", color: "#E53E3E" },
+  { code: "Japan", name: "Japan",         flag: "🇯🇵", color: "#22A06B" },
+  { code: "China", name: "China",         flag: "🇨🇳", color: "#E8912A" },
+];
+const MACRO_PERIODS = [1, 3, 5, 10, 15];                 // 년
+const MACRO_TITLES = { prime: "기준금리", bond: "10년 국채", inflation: "인플레이션", unemp: "실업률" };
+
+let macroData = null;                                    // 캐시된 macro.json
+let macroGeom = null;                                    // 현재 차트 기하 (hover 계산용)
+const macroState = {
+  kind: "prime",
+  years: 5,
+  show: { Korea: true, US: true, Japan: true, China: true },
+};
+
+async function fetchMacro() {
+  try {
+    const r = await fetch(MACRO_URL());
+    if (r.ok) return await r.json();
+  } catch (_) { /* fallback */ }
+  const r = await fetch(MACRO_URL_FALLBACK);
+  if (!r.ok) throw new Error("macro.json 로드 실패");
+  return r.json();
+}
+
+async function renderMacroChart(kind) {
+  macroState.kind = kind;
+  const pid = "macro-" + kind;
+  const title = MACRO_TITLES[kind] || "Macro";
+  $main.innerHTML =
+    `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+     <div class="macro-loading">데이터 로딩 중...</div>`;
+  try {
+    if (!macroData) macroData = await fetchMacro();
+  } catch (err) {
+    if (currentPage !== pid) return;
+    $main.innerHTML =
+      `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+       <div class="macro-error">데이터를 불러올 수 없습니다: ${err.message}
+         <div class="macro-error-sub">Railway 'Macro Eco/Daily' 서비스가 1회 이상 실행되어 data-snapshot 브랜치에 macro.json 이 있어야 합니다.</div>
+       </div>`;
+    return;
+  }
+  if (currentPage !== pid) return;
+  if (!macroData[kind]) {
+    $main.innerHTML =
+      `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+       <div class="macro-error">아직 준비되지 않은 지표입니다 (${kind}).</div>`;
+    return;
+  }
+  paintMacro(kind, title);
+}
+
+function paintMacro(kind, title) {
+  const block = macroData[kind];
+  const asof = macroData.generated_at || "-";
+  const periodOpts = MACRO_PERIODS.map(y =>
+    `<option value="${y}"${y === macroState.years ? " selected" : ""}>${y}년</option>`).join("");
+  const selCount = MACRO_COUNTRIES.filter(c => macroState.show[c.code]).length;
+  const ctryItems = MACRO_COUNTRIES.map(c =>
+    `<label class="macro-dd-item">
+       <input type="checkbox" data-ctry="${c.code}"${macroState.show[c.code] ? " checked" : ""}>
+       <span class="macro-dot" style="background:${c.color}"></span>${c.flag} ${c.name}
+     </label>`).join("");
+
+  $main.innerHTML = `
+    <div class="macro-head">
+      <div class="macro-head-l">
+        <div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+        <div class="macro-asof">기준일 : ${asof}</div>
+      </div>
+      <div class="macro-filters">
+        <select id="macro-period" class="macro-select" aria-label="기간 선택">${periodOpts}</select>
+        <div class="macro-dd" id="macro-dd">
+          <button type="button" class="macro-dd-btn" id="macro-dd-btn">국가 (${selCount}) ▾</button>
+          <div class="macro-dd-menu" id="macro-dd-menu" hidden>${ctryItems}</div>
+        </div>
+      </div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-legend" id="macro-legend"></div>
+      <div class="macro-chart-wrap" id="macro-chart-wrap"></div>
+    </div>
+    <div class="macro-source">source: ${block.source || "-"}</div>`;
+
+  drawMacro();
+  wireMacroEvents();
+}
+
+function drawMacro() {
+  const block = macroData[macroState.kind];
+  const unit = block.unit || "%";
+  const allLabels = block.labels || [];
+  const n = Math.min(allLabels.length, macroState.years * 12);
+  const off = allLabels.length - n;
+  const labels = allLabels.slice(off);
+  const series = {};
+  MACRO_COUNTRIES.forEach(c => {
+    if (macroState.show[c.code]) series[c.code] = (block.series[c.code] || []).slice(off);
+  });
+
+  // y 도메인 (보이는·선택된 비결측값)
+  let lo = Infinity, hi = -Infinity;
+  Object.values(series).forEach(arr => arr.forEach(v => {
+    if (v != null) { if (v < lo) lo = v; if (v > hi) hi = v; }
+  }));
+  if (!isFinite(lo)) { lo = 0; hi = 1; }
+  if (lo === hi) { lo -= 0.5; hi += 0.5; }
+  const padY = (hi - lo) * 0.12 || 0.3;
+  lo -= padY; hi += padY;
+
+  const VBW = 920, VBH = 380, M = { t: 14, r: 14, b: 28, l: 40 };
+  const pw = VBW - M.l - M.r, ph = VBH - M.t - M.b;
+  const X = i => M.l + (n <= 1 ? pw / 2 : (i / (n - 1)) * pw);
+  const Y = v => M.t + (1 - (v - lo) / (hi - lo)) * ph;
+
+  // 가로 격자 + y 눈금
+  let grid = "", yl = "";
+  const TICKS = 5;
+  for (let k = 0; k <= TICKS; k++) {
+    const val = lo + (hi - lo) * (k / TICKS);
+    const yy = Y(val);
+    grid += `<line x1="${M.l}" y1="${yy.toFixed(1)}" x2="${VBW - M.r}" y2="${yy.toFixed(1)}" class="macro-grid"/>`;
+    yl += `<text x="${M.l - 6}" y="${(yy + 3).toFixed(1)}" class="macro-yl">${val.toFixed(1)}</text>`;
+  }
+  // x 눈금 (연·월)
+  let xl = "";
+  const step = Math.max(1, Math.ceil(n / 7));
+  for (let i = 0; i < n; i += step) {
+    xl += `<text x="${X(i).toFixed(1)}" y="${VBH - 9}" class="macro-xl">${labels[i].replace("-", ".")}</text>`;
+  }
+
+  // 라인 (null → 세그먼트 단절)
+  let lines = "";
+  MACRO_COUNTRIES.forEach(c => {
+    if (!macroState.show[c.code]) return;
+    const arr = series[c.code] || [];
+    let d = "", pen = false;
+    arr.forEach((v, i) => {
+      if (v == null) { pen = false; return; }
+      d += `${pen ? "L" : "M"}${X(i).toFixed(1)} ${Y(v).toFixed(1)} `;
+      pen = true;
+    });
+    if (d) lines += `<path d="${d.trim()}" fill="none" stroke="${c.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
+
+  // 표식: 금리 변동 지점(전월 대비 값이 바뀐 달)에 흰 채움·굵은 테두리 마커
+  let marks = "";
+  MACRO_COUNTRIES.forEach(c => {
+    if (!macroState.show[c.code]) return;
+    const full = block.series[c.code] || [];
+    (series[c.code] || []).forEach((v, i) => {
+      if (v == null) return;
+      const prev = (off + i) > 0 ? full[off + i - 1] : null;
+      if (prev != null && v !== prev) {
+        marks += `<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.0" fill="#fff" stroke="${c.color}" stroke-width="1.8"/>`;
+      }
+    });
+  });
+
+  const svg = `<svg class="macro-svg" viewBox="0 0 ${VBW} ${VBH}" id="macro-svg">
+    ${grid}${yl}${xl}
+    <line id="macro-guide" class="macro-guide" x1="0" y1="${M.t}" x2="0" y2="${M.t + ph}" style="display:none"/>
+    <g id="macro-hdots"></g>
+    ${lines}${marks}
+    <rect id="macro-capture" x="${M.l}" y="${M.t}" width="${pw}" height="${ph}" fill="transparent"/>
+  </svg>`;
+
+  document.getElementById("macro-chart-wrap").innerHTML = svg + `<div class="macro-tip" id="macro-tip" hidden></div>`;
+  document.getElementById("macro-legend").innerHTML = MACRO_COUNTRIES
+    .filter(c => macroState.show[c.code])
+    .map(c => `<span class="macro-legend-item"><span class="macro-dot" style="background:${c.color}"></span>${c.flag} ${c.name}</span>`).join("");
+
+  macroGeom = { n, labels, series, X, Y, M, pw, ph, VBW, VBH, unit };
+  attachMacroHover();
+}
+
+function attachMacroHover() {
+  const svg = document.getElementById("macro-svg");
+  const cap = document.getElementById("macro-capture");
+  const guide = document.getElementById("macro-guide");
+  const hdots = document.getElementById("macro-hdots");
+  const tip = document.getElementById("macro-tip");
+  const wrap = document.getElementById("macro-chart-wrap");
+  if (!svg || !cap) return;
+  const g = macroGeom;
+
+  function move(evt) {
+    const t = evt.touches ? evt.touches[0] : evt;
+    const rect = svg.getBoundingClientRect();
+    const vbX = ((t.clientX - rect.left) / rect.width) * g.VBW;
+    let idx = Math.round(((vbX - g.M.l) / g.pw) * (g.n - 1));
+    idx = Math.max(0, Math.min(g.n - 1, idx));
+
+    const gx = g.X(idx);
+    guide.setAttribute("x1", gx); guide.setAttribute("x2", gx); guide.style.display = "";
+
+    let dots = "", rows = "";
+    MACRO_COUNTRIES.forEach(c => {
+      if (!macroState.show[c.code]) return;
+      const v = g.series[c.code] ? g.series[c.code][idx] : null;
+      if (v == null) return;
+      dots += `<circle cx="${gx.toFixed(1)}" cy="${g.Y(v).toFixed(1)}" r="3.5" fill="#fff" stroke="${c.color}" stroke-width="2"/>`;
+      rows += `<div class="macro-tip-row"><span class="macro-dot" style="background:${c.color}"></span>${c.name}<b>${v.toFixed(2)}${g.unit}</b></div>`;
+    });
+    hdots.innerHTML = dots;
+    if (!rows) { tip.hidden = true; return; }
+    tip.innerHTML = `<div class="macro-tip-date">${g.labels[idx].replace("-", ".")}</div>${rows}`;
+    tip.hidden = false;
+
+    const wr = wrap.getBoundingClientRect();
+    let left = t.clientX - wr.left + 14, top = t.clientY - wr.top + 10;
+    if (left + tip.offsetWidth > wr.width) left = t.clientX - wr.left - tip.offsetWidth - 14;
+    if (top + tip.offsetHeight > wr.height) top = wr.height - tip.offsetHeight - 4;
+    tip.style.left = Math.max(2, left) + "px";
+    tip.style.top = Math.max(2, top) + "px";
+  }
+  function leave() {
+    guide.style.display = "none";
+    hdots.innerHTML = "";
+    tip.hidden = true;
+  }
+  cap.addEventListener("mousemove", move);
+  cap.addEventListener("mouseleave", leave);
+  cap.addEventListener("touchstart", move, { passive: true });
+  cap.addEventListener("touchmove", move, { passive: true });
+}
+
+function wireMacroEvents() {
+  const period = document.getElementById("macro-period");
+  period.addEventListener("change", () => { macroState.years = parseInt(period.value, 10); drawMacro(); });
+
+  const btn = document.getElementById("macro-dd-btn");
+  const menu = document.getElementById("macro-dd-menu");
+  btn.addEventListener("click", (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; });
+  menu.addEventListener("click", (e) => e.stopPropagation());
+  menu.querySelectorAll("input[data-ctry]").forEach(cb => {
+    cb.addEventListener("change", () => {
+      const code = cb.getAttribute("data-ctry");
+      macroState.show[code] = cb.checked;
+      if (!MACRO_COUNTRIES.some(c => macroState.show[c.code])) {   // 최소 1개국 유지
+        macroState.show[code] = true; cb.checked = true; return;
+      }
+      btn.textContent = `국가 (${MACRO_COUNTRIES.filter(c => macroState.show[c.code]).length}) ▾`;
+      drawMacro();
+    });
+  });
+  document.addEventListener("click", macroCloseDD);   // 동일 함수 → 중복 등록 안 됨
+}
+function macroCloseDD() {
+  const menu = document.getElementById("macro-dd-menu");
+  if (menu) menu.hidden = true;
+}
+
 function renderNews(source) {
   if (source === "thebell") return renderNewsThebell();
   return renderNewsNaverDummy();
@@ -2494,7 +2753,7 @@ function navigate(pageId, opts = {}) {
     "val-rcps": () => renderMezzanine("rcps"),
     "val-bw":   () => renderMezzanine("bw"),
     "val-cb":   () => renderMezzanine("cb"),
-    "macro-prime":     () => renderMacro("prime"),
+    "macro-prime":     () => renderMacroChart("prime"),
     "macro-bond":      () => renderMacro("bond"),
     "macro-inflation": () => renderMacro("inflation"),
     "macro-unemp":     () => renderMacro("unemp"),

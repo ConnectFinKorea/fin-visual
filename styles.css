@@ -1571,6 +1571,79 @@ a.news-row:hover { background: var(--primary-light); }
   .memo-toolbar { flex-wrap: wrap; }
 }
 
+/* ============ Macro Eco — 인터랙티브 차트 ============ */
+.macro-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.macro-asof { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+.macro-filters { display: flex; gap: 8px; align-items: center; }
+
+.macro-select {
+  padding: 7px 30px 7px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background-color: var(--card); color: var(--text);
+  font-size: 12px; font-weight: 600; appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M3 4l3 3 3-3' stroke='%235A6B82' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 10px center;
+}
+.macro-select option { background: var(--card); color: var(--text); }
+
+.macro-dd { position: relative; }
+.macro-dd-btn {
+  padding: 7px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--card); color: var(--text); font-size: 12px; font-weight: 600;
+}
+.macro-dd-btn:hover { border-color: var(--primary); color: var(--primary); }
+.macro-dd-menu {
+  position: absolute; top: calc(100% + 4px); right: 0; z-index: 30;
+  min-width: 168px; padding: 6px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(26, 46, 72, 0.14);
+}
+.macro-dd-menu[hidden] { display: none; }
+.macro-dd-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 8px; border-radius: 7px; font-size: 12px; cursor: pointer; white-space: nowrap;
+}
+.macro-dd-item:hover { background: var(--primary-light); }
+.macro-dd-item input { accent-color: var(--primary); cursor: pointer; }
+.macro-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: 0 0 auto; }
+
+.macro-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 14px 10px;
+}
+.macro-legend {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; padding-left: 2px;
+}
+.macro-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-2); }
+
+.macro-chart-wrap { position: relative; width: 100%; }
+.macro-svg { width: 100%; height: auto; display: block; touch-action: none; }
+.macro-grid { stroke: var(--border-soft); stroke-width: 1; }
+.macro-yl { fill: var(--text-3); font-size: 11px; text-anchor: end; }
+.macro-xl { fill: var(--text-3); font-size: 11px; text-anchor: middle; }
+.macro-guide { stroke: var(--text-3); stroke-width: 1; stroke-dasharray: 3 3; }
+
+.macro-tip {
+  position: absolute; z-index: 20; pointer-events: none;
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(26, 46, 72, 0.16);
+  padding: 7px 9px; font-size: 11px; min-width: 116px;
+}
+.macro-tip[hidden] { display: none; }
+.macro-tip-date { font-weight: 700; color: var(--text); margin-bottom: 4px; font-size: 11px; }
+.macro-tip-row { display: flex; align-items: center; gap: 6px; color: var(--text-2); line-height: 1.7; }
+.macro-tip-row b { margin-left: auto; color: var(--text); font-variant-numeric: tabular-nums; }
+
+.macro-source { margin-top: 10px; padding-left: 2px; font-size: 11px; color: var(--text-3); }
+.macro-loading, .macro-error {
+  padding: 28px 16px; text-align: center; color: var(--text-2); font-size: 13px;
+}
+.macro-error { color: var(--red); }
+.macro-error-sub { margin-top: 6px; font-size: 11px; color: var(--text-3); }
+
 /* ============ Scrollbar ============ */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
