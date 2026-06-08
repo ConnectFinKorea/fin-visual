@@ -117,9 +117,9 @@ def bis_cbpol(country):
     return out
 
 
-def ecos_monthly(table, item, api_key):
-    """ECOS 월별 통계 (table/item) → {'YYYY-MM': float}."""
-    start = START.replace("-", "")                      # 201501
+def ecos_monthly(table, item, api_key, start=None):
+    """ECOS 월별 통계 (table/item) → {'YYYY-MM': float}. start='YYYY-MM'(기본 START)."""
+    start = (start or START).replace("-", "")           # 201501
     end = datetime.now(KST).strftime("%Y%m")
     url = (f"https://ecos.bok.or.kr/api/StatisticSearch/{api_key}/json/kr/1/1000/"
            f"{table}/M/{start}/{end}/{item}")
@@ -139,14 +139,14 @@ def ecos_monthly(table, item, api_key):
     return out
 
 
-def fred_monthly(series_id, agg=None):
+def fred_monthly(series_id, agg=None, start=None):
     """FRED 월별 관측 → {'YYYY-MM': float}. agg='avg'/'eop'면 월별 집계, None이면 원천 주기.
-    '.'(결측)은 skip."""
+    start='YYYY-MM'(기본 START). '.'(결측)은 skip."""
     key = os.environ.get("FRED_API_KEY", "").strip()
     if not key:
-        raise RuntimeError("FRED_API_KEY 환경변수 미설정 (10년 국채 미국·일본)")
+        raise RuntimeError("FRED_API_KEY 환경변수 미설정 (10년 국채·미국 CPI)")
     params = (f"series_id={series_id}&api_key={key}&file_type=json"
-              f"&observation_start={START}-01")
+              f"&observation_start={start or START}-01")
     if agg:
         params += f"&frequency=m&aggregation_method={agg}"
     data = json.loads(http_get(f"https://api.stlouisfed.org/fred/series/observations?{params}"))
@@ -231,6 +231,166 @@ def collect_bond():
     }
 
 
+# ===================== 지표: GDP 성장률 / Inflation (분기) =====================
+
+def quarters_range(start, end):
+    """'YYYY-Qn' start~end(포함) 분기 라벨."""
+    sy, sq = start.split("-Q"); ey, eq = end.split("-Q")
+    sy, sq, ey, eq = int(sy), int(sq), int(ey), int(eq)
+    out, y, q = [], sy, sq
+    while (y, q) <= (ey, eq):
+        out.append(f"{y}-Q{q}")
+        q += 1
+        if q > 4:
+            q, y = 1, y + 1
+    return out
+
+
+def _oecd_csv(url):
+    """OECD SDMX csvfilewithlabels → [dict(헤더라벨→값)]."""
+    rows = list(csv.reader(io.StringIO(http_get(url))))
+    if not rows:
+        return []
+    header = rows[0]
+    return [dict(zip(header, r)) for r in rows[1:]]
+
+
+def oecd_qna_gdp_nsa(area):
+    """OECD QNA 명목 GDP(현재가격·자국통화·원계열) 분기 레벨 → {'YYYY-Qn': float}.
+    YoY 계산 위해 2014-Q1부터 수집. area = USA/JPN/KOR/CHN."""
+    df = "OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA_EXPENDITURE_NATIO_CURR"
+    url = (f"https://sdmx.oecd.org/public/rest/data/{df}/Q..{area}...B1GQ......."
+           f"?startPeriod=2014-Q1&format=csvfilewithlabels")
+    out = {}
+    for d in _oecd_csv(url):
+        if d.get("Price base") != "Current prices":
+            continue
+        if "Neither" not in d.get("Adjustment", ""):       # 원계열(NSA)만
+            continue
+        t, v = d.get("TIME_PERIOD", ""), d.get("OBS_VALUE", "")
+        if t and v and t not in out:
+            try:
+                out[t] = float(v)
+            except ValueError:
+                pass
+    if not out:
+        raise RuntimeError(f"OECD QNA {area}: 명목GDP 파싱 0건")
+    return out
+
+
+def gdp_yoy(levels):
+    """분기 레벨 {'YYYY-Qn': v} → 전년동기대비 증가율(%) {'YYYY-Qn': yoy}."""
+    out = {}
+    for q, v in levels.items():
+        y, qq = q.split("-Q")
+        prev = f"{int(y) - 1}-Q{qq}"
+        if levels.get(prev):
+            out[q] = round((v / levels[prev] - 1) * 100, 2)
+    return out
+
+
+def oecd_cpi_gy_monthly(area, g20=False):
+    """OECD CPI 전년동월비(월) {'YYYY-MM': %}. 일본=COICOP2018, 중국=G20 prices.
+    (미국·한국은 C2018에 없음 → FRED/ECOS 지수에서 계산)"""
+    df = ("OECD.SDD.TPS,DSD_G20_PRICES@DF_G20_PRICES,1.0" if g20
+          else "OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0")
+    url = (f"https://sdmx.oecd.org/public/rest/data/{df}/{area}.M.N.CPI.PA._T.N.GY"
+           f"?startPeriod=2015-01&format=csvfilewithlabels")
+    out = {}
+    for d in _oecd_csv(url):
+        t, v = d.get("TIME_PERIOD", ""), d.get("OBS_VALUE", "")
+        if len(t) == 7 and v:
+            try:
+                out[t] = float(v)
+            except ValueError:
+                pass
+    return out
+
+
+def index_to_monthly_yoy(idx):
+    """월별 지수 {'YYYY-MM': v} → 전년동월비(%) {'YYYY-MM': yoy}."""
+    out = {}
+    for ym, v in idx.items():
+        y, m = ym.split("-")
+        prev = f"{int(y) - 1}-{m}"
+        if idx.get(prev):
+            out[ym] = (v / idx[prev] - 1) * 100
+    return out
+
+
+def monthly_yoy_to_quarterly(monthly):
+    """월별 % {'YYYY-MM': pct} → 분기평균 {'YYYY-Qn': pct}."""
+    buckets = {}
+    for ym, v in monthly.items():
+        y, m = ym.split("-")
+        buckets.setdefault(f"{y}-Q{(int(m) - 1) // 3 + 1}", []).append(v)
+    return {q: round(sum(xs) / len(xs), 2) for q, xs in buckets.items()}
+
+
+def ecos_quarterly(table, item, api_key, start="2014"):
+    """ECOS 분기 통계 → {'YYYY-Qn': float}. TIME 'YYYYQn' → 'YYYY-Qn'."""
+    end = datetime.now(KST).strftime("%Y") + "Q4"
+    url = (f"https://ecos.bok.or.kr/api/StatisticSearch/{api_key}/json/kr/1/500/"
+           f"{table}/Q/{start}Q1/{end}/{item}")
+    data = json.loads(http_get(url))
+    if "StatisticSearch" not in data:
+        raise RuntimeError(f"ECOS {table}/{item} 응답 오류: {data.get('RESULT', data)}")
+    out = {}
+    for row in data["StatisticSearch"]["row"]:
+        t, v = row.get("TIME", ""), row.get("DATA_VALUE", "")
+        if "Q" in t and v not in (None, ""):
+            try:
+                out[f"{t[:4]}-Q{t[-1]}"] = float(v)
+            except ValueError:
+                pass
+    return out
+
+
+def collect_gdp_inflation():
+    ecos_key = os.environ.get("ECOS_API_KEY", "").strip()
+    if not ecos_key:
+        print("ERROR: ECOS_API_KEY 미설정 (한국 GDP·CPI)")
+        sys.exit(1)
+    areas = {"Korea": "KOR", "US": "USA", "Japan": "JPN", "China": "CHN"}
+    print("[gdpcpi] 명목GDP YoY + CPI YoY (분기, 중국 포함)")
+    print("  소스 — GDP: 한국=ECOS(200Y102/60211), 미·일·중=OECD QNA / CPI: 미=FRED, 한=ECOS, 일=OECD C2018, 중=OECD G20")
+    gdp, cpi = {}, {}
+    for name, iso in areas.items():
+        # 명목 GDP 전년동기대비(%)
+        if name == "Korea":
+            gdp[name] = ecos_quarterly("200Y102", "60211", ecos_key)   # ECOS 직접(명목·원계열·전년동기비)
+        else:
+            gdp[name] = gdp_yoy(oecd_qna_gdp_nsa(iso))                 # OECD 레벨 → YoY 계산
+        # CPI 전년동월비(%) → 분기평균
+        if name == "US":
+            cpi_m = index_to_monthly_yoy(fred_monthly("CPIAUCSL", start="2014-01"))
+        elif name == "Korea":
+            cpi_m = index_to_monthly_yoy(ecos_monthly("901Y009", "0", ecos_key, start="2014-01"))
+        elif name == "Japan":
+            cpi_m = oecd_cpi_gy_monthly(iso, g20=False)
+        else:  # China
+            cpi_m = oecd_cpi_gy_monthly(iso, g20=True)
+        cpi[name] = monthly_yoy_to_quarterly(cpi_m)
+
+        gl = max(gdp[name]) if gdp[name] else "-"
+        cl = max(cpi[name]) if cpi[name] else "-"
+        print(f"  {name:6s}: GDP {len(gdp[name])}q(~{gl}={gdp[name].get(gl, '-')}) "
+              f"CPI {len(cpi[name])}q(~{cl}={cpi[name].get(cl, '-')})")
+
+    end = max(max(d) for d in gdp.values() if d)            # GDP 최신 분기를 끝으로
+    labels = quarters_range("2015-Q1", end)
+    return {
+        "title": "GDP / Inflation",
+        "unit": "%",
+        "source": "OECD · FRED · 한국은행(ECOS)",
+        "freq": "Q",
+        "start": "2015-Q1",
+        "labels": labels,
+        "gdp": {n: [gdp[n].get(q) for q in labels] for n in areas},
+        "cpi": {n: [cpi[n].get(q) for q in labels] for n in areas},
+    }
+
+
 # ===================== main =====================
 
 def main():
@@ -241,7 +401,8 @@ def main():
         "generated_at_full": now.isoformat(),
         "prime": collect_prime(),
         "bond": collect_bond(),
-        # 추후: "inflation": collect_inflation(), "unemp": collect_unemp(),
+        "gdpcpi": collect_gdp_inflation(),
+        # 추후: "unemp": collect_unemp(),
     }
     os.makedirs(DATA_DIR, exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as f:

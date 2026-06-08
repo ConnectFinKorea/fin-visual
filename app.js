@@ -33,7 +33,7 @@ const NAV = {
       { name: "Indicator", items: [
         { id: "macro-prime",     label: "Prime Rate" },
         { id: "macro-bond",      label: "Bond(10YR)" },
-        { id: "macro-inflation", label: "Inflation" },
+        { id: "macro-inflation", label: "GDP/Inflation" },
         { id: "macro-unemp",     label: "실업률" },
       ]},
     ],
@@ -1955,7 +1955,7 @@ const MACRO_COUNTRIES = [
   { code: "China", name: "China",         flag: "🇨🇳", color: "#E8912A" },
 ];
 const MACRO_PERIODS = [1, 3, 5, 10, 15];                 // 년
-const MACRO_TITLES = { prime: "기준금리", bond: "10년 국채", inflation: "인플레이션", unemp: "실업률" };
+const MACRO_TITLES = { prime: "기준금리", bond: "10년 국채", inflation: "GDP/Inflation", unemp: "실업률" };
 
 let macroData = null;                                    // 캐시된 macro.json
 let macroGeom = null;                                    // 현재 차트 기하 (hover 계산용)
@@ -2358,6 +2358,154 @@ function attachPanelHover(wrap, g) {
     tip.style.left = Math.max(2, left) + "px"; tip.style.top = Math.max(2, top) + "px";
   }
   function leave() { guide.style.display = "none"; dotB.style.display = "none"; dotP.style.display = "none"; tip.hidden = true; }
+  cap.addEventListener("mousemove", move); cap.addEventListener("mouseleave", leave);
+  cap.addEventListener("touchstart", move, { passive: true }); cap.addEventListener("touchmove", move, { passive: true });
+}
+
+// ============== Macro Eco — GDP/Inflation: 국가별 패널 (2x2, 분기, 중국 포함) ==============
+const GDPCPI_COUNTRIES = ["Korea", "US", "Japan", "China"];
+const GDPCPI_GDP_COLOR = "#1B65B6";   // GDP 성장률
+const GDPCPI_CPI_COLOR = "#E8912A";   // CPI
+
+async function renderMacroGdpCpi() {
+  const pid = "macro-inflation", title = MACRO_TITLES.inflation;
+  $main.innerHTML = `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div><div class="macro-loading">데이터 로딩 중...</div>`;
+  try { if (!macroData) macroData = await fetchMacro(); }
+  catch (err) {
+    if (currentPage !== pid) return;
+    $main.innerHTML = `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+      <div class="macro-error">데이터를 불러올 수 없습니다: ${err.message}
+        <div class="macro-error-sub">Railway 'Macro Eco/Daily' 서비스 실행 후 data-snapshot 브랜치에 macro.json 이 있어야 합니다.</div></div>`;
+    return;
+  }
+  if (currentPage !== pid) return;
+  if (!macroData.gdpcpi) {
+    $main.innerHTML = `<div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div><div class="macro-error">아직 준비되지 않은 지표입니다 (gdpcpi).</div>`;
+    return;
+  }
+  paintMacroGdpCpi(title);
+}
+
+function paintMacroGdpCpi(title) {
+  const block = macroData.gdpcpi;
+  const asof = macroData.generated_at || "-";
+  const periodOpts = MACRO_PERIODS.map(y => `<option value="${y}"${y === macroState.years ? " selected" : ""}>${y}년</option>`).join("");
+  const panels = GDPCPI_COUNTRIES.map(code => {
+    const c = MACRO_COUNTRIES.find(x => x.code === code);
+    return `<div class="macro-panel">
+      <div class="macro-panel-head">
+        <span>${c.flag} ${c.name}</span>
+        <span class="macro-panel-legend">
+          <span class="mpl"><i class="mpl-solid" style="--c:${GDPCPI_GDP_COLOR}"></i>GDP성장률</span>
+          <span class="mpl"><i class="mpl-solid" style="--c:${GDPCPI_CPI_COLOR}"></i>CPI</span>
+        </span>
+      </div>
+      <div class="macro-chart-wrap macro-panel-wrap" id="macro-gc-${code}"></div>
+    </div>`;
+  }).join("");
+  $main.innerHTML = `
+    <div class="macro-head">
+      <div class="macro-head-l">
+        <div class="page-title">${title} <span class="crumb">/ Macro Eco</span></div>
+        <div class="macro-asof">기준일 : ${asof}</div>
+      </div>
+      <div class="macro-filters"><select id="macro-period" class="macro-select">${periodOpts}</select></div>
+    </div>
+    <div class="macro-grid2">${panels}</div>
+    <div class="macro-source">source: ${block.source || "-"}</div>`;
+  drawGdpCpiPanels();
+  document.getElementById("macro-period").addEventListener("change", (e) => { macroState.years = parseInt(e.target.value, 10); drawGdpCpiPanels(); });
+}
+
+function drawGdpCpiPanels() {
+  GDPCPI_COUNTRIES.forEach(code => drawGdpCpiPanel(code, "macro-gc-" + code));
+}
+
+// 한 국가 패널: GDP 성장률 + CPI, 둘 다 표식 있는 선, 같은 % 축 (분기)
+function drawGdpCpiPanel(country, wrapId) {
+  const meta = MACRO_COUNTRIES.find(c => c.code === country) || { name: country };
+  const block = macroData.gdpcpi;
+  const unit = block.unit || "%";
+  const all = block.labels || [];
+  const n = Math.min(all.length, macroState.years * 4);    // 분기
+  const off = all.length - n;
+  const labels = all.slice(off);
+  const gdpArr = (block.gdp[country] || []).slice(off);
+  const cpiArr = (block.cpi[country] || []).slice(off);
+  const defs = [
+    { arr: gdpArr, color: GDPCPI_GDP_COLOR },
+    { arr: cpiArr, color: GDPCPI_CPI_COLOR },
+  ];
+
+  let lo = Infinity, hi = -Infinity;
+  defs.forEach(s => s.arr.forEach(v => { if (v != null) { if (v < lo) lo = v; if (v > hi) hi = v; } }));
+  if (!isFinite(lo)) { lo = 0; hi = 1; }
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const padY = (hi - lo) * 0.12 || 0.5; lo -= padY; hi += padY;
+
+  const VBW = 460, VBH = 230, M = { t: 10, r: 12, b: 24, l: 34 };
+  const pw = VBW - M.l - M.r, ph = VBH - M.t - M.b;
+  const X = i => M.l + (n <= 1 ? pw / 2 : (i / (n - 1)) * pw);
+  const Y = v => M.t + (1 - (v - lo) / (hi - lo)) * ph;
+
+  let grid = "", yl = ""; const TICKS = 4;
+  for (let k = 0; k <= TICKS; k++) {
+    const val = lo + (hi - lo) * (k / TICKS), yy = Y(val);
+    grid += `<line x1="${M.l}" y1="${yy.toFixed(1)}" x2="${VBW - M.r}" y2="${yy.toFixed(1)}" class="macro-grid"/>`;
+    yl += `<text x="${M.l - 5}" y="${(yy + 3).toFixed(1)}" class="macro-yl">${val.toFixed(1)}</text>`;
+  }
+  let xl = ""; const step = Math.max(1, Math.ceil(n / 5));
+  for (let i = 0; i < n; i += step) {
+    xl += `<text x="${X(i).toFixed(1)}" y="${VBH - 8}" class="macro-xl">${labels[i].slice(2).replace("-Q", "Q")}</text>`;
+  }
+
+  let paths = "", marks = "";
+  defs.forEach(s => {
+    let d = "", pen = false;
+    s.arr.forEach((v, i) => {
+      if (v == null) { pen = false; return; }
+      d += `${pen ? "L" : "M"}${X(i).toFixed(1)} ${Y(v).toFixed(1)} `; pen = true;
+      marks += `<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.0" fill="#fff" stroke="${s.color}" stroke-width="1.8"/>`;
+    });
+    if (d) paths += `<path d="${d.trim()}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
+
+  const svg = `<svg class="macro-svg" viewBox="0 0 ${VBW} ${VBH}">
+    ${grid}${yl}${xl}
+    <line class="macro-guide pg-guide" x1="0" y1="${M.t}" x2="0" y2="${M.t + ph}" style="display:none"/>
+    ${paths}${marks}
+    <rect class="pg-capture" x="${M.l}" y="${M.t}" width="${pw}" height="${ph}" fill="transparent"/>
+  </svg>`;
+  const wrap = document.getElementById(wrapId);
+  wrap.innerHTML = svg + `<div class="macro-tip" hidden></div>`;
+  attachGdpCpiHover(wrap, { n, labels, gdpArr, cpiArr, X, Y, M, VBW, pw, unit });
+}
+
+function attachGdpCpiHover(wrap, g) {
+  const svg = wrap.querySelector("svg"), cap = wrap.querySelector(".pg-capture");
+  const guide = wrap.querySelector(".pg-guide"), tip = wrap.querySelector(".macro-tip");
+  if (!svg || !cap) return;
+  function move(evt) {
+    const t = evt.touches ? evt.touches[0] : evt;
+    const rect = svg.getBoundingClientRect();
+    const vbX = ((t.clientX - rect.left) / rect.width) * g.VBW;
+    let idx = Math.round(((vbX - g.M.l) / g.pw) * (g.n - 1)); idx = Math.max(0, Math.min(g.n - 1, idx));
+    const vg = g.gdpArr[idx], vc = g.cpiArr[idx];
+    if (vg == null && vc == null) { guide.style.display = "none"; tip.hidden = true; return; }
+    const gx = g.X(idx);
+    guide.setAttribute("x1", gx); guide.setAttribute("x2", gx); guide.style.display = "";
+    let rows = "";
+    if (vg != null) rows += `<div class="macro-tip-row"><i class="mpl-solid" style="--c:${GDPCPI_GDP_COLOR}"></i>GDP성장률<b>${vg.toFixed(2)}${g.unit}</b></div>`;
+    if (vc != null) rows += `<div class="macro-tip-row"><i class="mpl-solid" style="--c:${GDPCPI_CPI_COLOR}"></i>CPI<b>${vc.toFixed(2)}${g.unit}</b></div>`;
+    tip.innerHTML = `<div class="macro-tip-date">${g.labels[idx]}</div>${rows}`;
+    tip.hidden = false;
+    const wr = wrap.getBoundingClientRect();
+    let left = t.clientX - wr.left + 12, top = t.clientY - wr.top + 10;
+    if (left + tip.offsetWidth > wr.width) left = t.clientX - wr.left - tip.offsetWidth - 12;
+    if (top + tip.offsetHeight > wr.height) top = wr.height - tip.offsetHeight - 4;
+    tip.style.left = Math.max(2, left) + "px"; tip.style.top = Math.max(2, top) + "px";
+  }
+  function leave() { guide.style.display = "none"; tip.hidden = true; }
   cap.addEventListener("mousemove", move); cap.addEventListener("mouseleave", leave);
   cap.addEventListener("touchstart", move, { passive: true }); cap.addEventListener("touchmove", move, { passive: true });
 }
@@ -2913,7 +3061,7 @@ function navigate(pageId, opts = {}) {
     "val-cb":   () => renderMezzanine("cb"),
     "macro-prime":     () => renderMacroChart("prime"),
     "macro-bond":      () => renderMacroBond(),
-    "macro-inflation": () => renderMacro("inflation"),
+    "macro-inflation": () => renderMacroGdpCpi(),
     "macro-unemp":     () => renderMacro("unemp"),
     "news-thebell": () => renderNews("thebell"),
     "news-naver":   () => renderNews("naver"),
