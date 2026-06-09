@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-08T15:01:43+0000",
+  "generated_at": "2026-06-09T14:59:09+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3968,
+  "count": 3969,
   "companies": [
     {
       "stock_code": "036720",
@@ -8421,11 +8421,6 @@
       "name": "로지시스"
     },
     {
-      "stock_code": "036000",
-      "corp_code": "00259934",
-      "name": "예림당"
-    },
-    {
       "stock_code": "002300",
       "corp_code": "00159412",
       "name": "한국제지"
@@ -9159,11 +9154,6 @@
       "stock_code": "243070",
       "corp_code": "01159853",
       "name": "휴온스"
-    },
-    {
-      "stock_code": "267980",
-      "corp_code": "01234507",
-      "name": "매일유업"
     },
     {
       "stock_code": "333620",
@@ -11016,11 +11006,6 @@
       "name": "크라운제과"
     },
     {
-      "stock_code": "271560",
-      "corp_code": "01238169",
-      "name": "오리온"
-    },
-    {
       "stock_code": "418170",
       "corp_code": "01613281",
       "name": "하나금융22호기업인수목적"
@@ -12841,6 +12826,11 @@
       "name": "아이스크림에듀"
     },
     {
+      "stock_code": "341170",
+      "corp_code": "01185867",
+      "name": "퓨쳐메디신"
+    },
+    {
       "stock_code": "069920",
       "corp_code": "00426068",
       "name": "엑시온그룹"
@@ -13501,6 +13491,11 @@
       "name": "뉴보텍"
     },
     {
+      "stock_code": "036000",
+      "corp_code": "00259934",
+      "name": "예림당"
+    },
+    {
       "stock_code": "000910",
       "corp_code": "00144252",
       "name": "유니온"
@@ -13761,6 +13756,21 @@
       "name": "어스앤에어로스페이스"
     },
     {
+      "stock_code": "267980",
+      "corp_code": "01234507",
+      "name": "매일유업"
+    },
+    {
+      "stock_code": "004870",
+      "corp_code": "00109514",
+      "name": "티웨이홀딩스"
+    },
+    {
+      "stock_code": "271560",
+      "corp_code": "01238169",
+      "name": "오리온"
+    },
+    {
       "stock_code": "178780",
       "corp_code": "00923826",
       "name": "일월지엠엘"
@@ -13804,6 +13814,11 @@
       "stock_code": "005070",
       "corp_code": "00129989",
       "name": "코스모신소재"
+    },
+    {
+      "stock_code": "0117P0",
+      "corp_code": "01755259",
+      "name": "피스피스스튜디오"
     },
     {
       "stock_code": "246710",
@@ -15474,11 +15489,6 @@
       "stock_code": "234030",
       "corp_code": "00874168",
       "name": "싸이닉솔루션"
-    },
-    {
-      "stock_code": "004870",
-      "corp_code": "00109514",
-      "name": "티웨이홀딩스"
     },
     {
       "stock_code": "476470",
@@ -18501,11 +18511,6 @@
       "name": "동일제강"
     },
     {
-      "stock_code": "008500",
-      "corp_code": "00146542",
-      "name": "일정실업"
-    },
-    {
       "stock_code": "061250",
       "corp_code": "00188973",
       "name": "화일약품"
@@ -18724,11 +18729,6 @@
       "stock_code": "078860",
       "corp_code": "00543204",
       "name": "아이오케이이엔엠"
-    },
-    {
-      "stock_code": "341170",
-      "corp_code": "01185867",
-      "name": "퓨쳐메디신"
     },
     {
       "stock_code": "033560",
@@ -19184,6 +19184,11 @@
       "stock_code": "224110",
       "corp_code": "01099861",
       "name": "에이텍모빌리티"
+    },
+    {
+      "stock_code": "008500",
+      "corp_code": "00146542",
+      "name": "일정실업"
     },
     {
       "stock_code": "452190",
