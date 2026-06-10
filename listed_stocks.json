@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-09T14:59:09+0000",
+  "generated_at": "2026-06-10T15:00:53+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3969,
@@ -4856,11 +4856,6 @@
       "name": "성원"
     },
     {
-      "stock_code": "001800",
-      "corp_code": "00117577",
-      "name": "오리온홀딩스"
-    },
-    {
       "stock_code": "367460",
       "corp_code": "01504804",
       "name": "유안타제7호기업인수목적"
@@ -5569,11 +5564,6 @@
       "stock_code": "024940",
       "corp_code": "00133557",
       "name": "PN풍년"
-    },
-    {
-      "stock_code": "033550",
-      "corp_code": "00268011",
-      "name": "일레덱스홀딩스"
     },
     {
       "stock_code": "011230",
@@ -6389,11 +6379,6 @@
       "stock_code": "188260",
       "corp_code": "01305869",
       "name": "세니젠"
-    },
-    {
-      "stock_code": "464680",
-      "corp_code": "01785551",
-      "name": "KB제27호스팩"
     },
     {
       "stock_code": "088280",
@@ -7814,11 +7799,6 @@
       "stock_code": "058820",
       "corp_code": "00380429",
       "name": "CMG제약"
-    },
-    {
-      "stock_code": "357120",
-      "corp_code": "01430475",
-      "name": "코람코라이프인프라리츠"
     },
     {
       "stock_code": "013340",
@@ -12116,6 +12096,16 @@
       "name": "비에프랩스"
     },
     {
+      "stock_code": "204630",
+      "corp_code": "01046203",
+      "name": "로아앤코홀딩스"
+    },
+    {
+      "stock_code": "033550",
+      "corp_code": "00268011",
+      "name": "일레덱스홀딩스"
+    },
+    {
       "stock_code": "336680",
       "corp_code": "00814582",
       "name": "탑런토탈솔루션"
@@ -12209,6 +12199,11 @@
       "stock_code": "342870",
       "corp_code": "01428948",
       "name": "오아"
+    },
+    {
+      "stock_code": "096770",
+      "corp_code": "00631518",
+      "name": "SK이노베이션"
     },
     {
       "stock_code": "442770",
@@ -12831,9 +12826,19 @@
       "name": "퓨쳐메디신"
     },
     {
-      "stock_code": "069920",
-      "corp_code": "00426068",
-      "name": "엑시온그룹"
+      "stock_code": "001800",
+      "corp_code": "00117577",
+      "name": "오리온홀딩스"
+    },
+    {
+      "stock_code": "060260",
+      "corp_code": "00351375",
+      "name": "뉴보텍"
+    },
+    {
+      "stock_code": "279570",
+      "corp_code": "01203312",
+      "name": "케이뱅크"
     },
     {
       "stock_code": "016790",
@@ -12934,6 +12939,16 @@
       "stock_code": "131220",
       "corp_code": "00608316",
       "name": "대한과학"
+    },
+    {
+      "stock_code": "464680",
+      "corp_code": "01785551",
+      "name": "케이비제27호기업인수목적"
+    },
+    {
+      "stock_code": "069920",
+      "corp_code": "00426068",
+      "name": "엑시온그룹"
     },
     {
       "stock_code": "019560",
@@ -13346,11 +13361,6 @@
       "name": "위메이드맥스"
     },
     {
-      "stock_code": "096770",
-      "corp_code": "00631518",
-      "name": "SK이노베이션"
-    },
-    {
       "stock_code": "357580",
       "corp_code": "01012987",
       "name": "아모센스"
@@ -13484,11 +13494,6 @@
       "stock_code": "019490",
       "corp_code": "00156150",
       "name": "엑시큐어하이트론"
-    },
-    {
-      "stock_code": "060260",
-      "corp_code": "00351375",
-      "name": "뉴보텍"
     },
     {
       "stock_code": "036000",
@@ -13639,6 +13644,11 @@
       "stock_code": "0134X0",
       "corp_code": "01976418",
       "name": "대신밸런스제20호스팩"
+    },
+    {
+      "stock_code": "357120",
+      "corp_code": "01430475",
+      "name": "코람코라이프인프라리츠"
     },
     {
       "stock_code": "183350",
@@ -15024,11 +15034,6 @@
       "stock_code": "085660",
       "corp_code": "00525679",
       "name": "차바이오텍"
-    },
-    {
-      "stock_code": "279570",
-      "corp_code": "01203312",
-      "name": "케이뱅크"
     },
     {
       "stock_code": "220100",
@@ -17264,11 +17269,6 @@
       "stock_code": "473980",
       "corp_code": "01703849",
       "name": "노머스"
-    },
-    {
-      "stock_code": "204630",
-      "corp_code": "01046203",
-      "name": "스튜디오산타클로스엔터테인먼트"
     },
     {
       "stock_code": "092600",
