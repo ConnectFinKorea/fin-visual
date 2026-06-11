@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-10T15:00:53+0000",
+  "generated_at": "2026-06-11T15:04:09+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3969,
+  "count": 3970,
   "companies": [
     {
       "stock_code": "036720",
@@ -6341,11 +6341,6 @@
       "name": "필에너지"
     },
     {
-      "stock_code": "451700",
-      "corp_code": "01712616",
-      "name": "엔에이치스팩29호"
-    },
-    {
       "stock_code": "405350",
       "corp_code": "01591606",
       "name": "아이비케이에스제17호기업인수목적"
@@ -12206,6 +12201,16 @@
       "name": "SK이노베이션"
     },
     {
+      "stock_code": "451700",
+      "corp_code": "01712616",
+      "name": "엔에이치기업인수목적29호"
+    },
+    {
+      "stock_code": "0017J0",
+      "corp_code": "01596221",
+      "name": "세미티에스"
+    },
+    {
       "stock_code": "442770",
       "corp_code": "01682740",
       "name": "아이비케이에스제21호기업인수목적"
@@ -12949,6 +12954,11 @@
       "stock_code": "069920",
       "corp_code": "00426068",
       "name": "엑시온그룹"
+    },
+    {
+      "stock_code": "140910",
+      "corp_code": "00860730",
+      "name": "에이자기관리부동산투자회사"
     },
     {
       "stock_code": "019560",
@@ -14849,11 +14859,6 @@
       "stock_code": "446750",
       "corp_code": "01696275",
       "name": "하나26호기업인수목적"
-    },
-    {
-      "stock_code": "140910",
-      "corp_code": "00860730",
-      "name": "에이리츠"
     },
     {
       "stock_code": "021650",
@@ -18716,11 +18721,6 @@
       "name": "디케이락"
     },
     {
-      "stock_code": "036180",
-      "corp_code": "00257149",
-      "name": "지더블유바이텍"
-    },
-    {
       "stock_code": "005320",
       "corp_code": "00168331",
       "name": "온타이드"
@@ -19531,11 +19531,6 @@
       "name": "와이지-원"
     },
     {
-      "stock_code": "001080",
-      "corp_code": "00120872",
-      "name": "만호제강"
-    },
-    {
       "stock_code": "458350",
       "corp_code": "01379563",
       "name": "에스팀"
@@ -19589,6 +19584,11 @@
       "stock_code": "101930",
       "corp_code": "00482426",
       "name": "인화정공"
+    },
+    {
+      "stock_code": "001080",
+      "corp_code": "00120872",
+      "name": "만호제강"
     },
     {
       "stock_code": "317400",
@@ -19664,6 +19664,11 @@
       "stock_code": "023770",
       "corp_code": "00138367",
       "name": "플레이위드"
+    },
+    {
+      "stock_code": "036180",
+      "corp_code": "00257149",
+      "name": "지더블유바이텍"
     },
     {
       "stock_code": "129890",
