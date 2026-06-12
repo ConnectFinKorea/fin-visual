@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-11T15:04:09+0000",
+  "generated_at": "2026-06-12T15:00:28+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3970,
@@ -6641,11 +6641,6 @@
       "name": "에스지신성건설"
     },
     {
-      "stock_code": "018620",
-      "corp_code": "00103547",
-      "name": "우진비앤지"
-    },
-    {
       "stock_code": "020150",
       "corp_code": "00113997",
       "name": "롯데에너지머티리얼즈"
@@ -10651,11 +10646,6 @@
       "name": "와이지엔터테인먼트"
     },
     {
-      "stock_code": "177900",
-      "corp_code": "00870065",
-      "name": "쓰리에이로직스"
-    },
-    {
       "stock_code": "064510",
       "corp_code": "00127699",
       "name": "유네코"
@@ -12369,11 +12359,6 @@
       "stock_code": "005380",
       "corp_code": "00164742",
       "name": "현대자동차"
-    },
-    {
-      "stock_code": "031860",
-      "corp_code": "00180865",
-      "name": "디에이치엑스컴퍼니"
     },
     {
       "stock_code": "294870",
@@ -18616,6 +18601,11 @@
       "name": "노보믹스"
     },
     {
+      "stock_code": "177900",
+      "corp_code": "00870065",
+      "name": "쓰리에이로직스"
+    },
+    {
       "stock_code": "046140",
       "corp_code": "00280688",
       "name": "스튜디오에스"
@@ -18624,11 +18614,6 @@
       "stock_code": "487570",
       "corp_code": "01854763",
       "name": "HS효성"
-    },
-    {
-      "stock_code": "052770",
-      "corp_code": "00346911",
-      "name": "아이톡시"
     },
     {
       "stock_code": "053350",
@@ -18724,11 +18709,6 @@
       "stock_code": "005320",
       "corp_code": "00168331",
       "name": "온타이드"
-    },
-    {
-      "stock_code": "078860",
-      "corp_code": "00543204",
-      "name": "아이오케이이엔엠"
     },
     {
       "stock_code": "033560",
@@ -19669,6 +19649,26 @@
       "stock_code": "036180",
       "corp_code": "00257149",
       "name": "지더블유바이텍"
+    },
+    {
+      "stock_code": "018620",
+      "corp_code": "00103547",
+      "name": "우진비앤지"
+    },
+    {
+      "stock_code": "031860",
+      "corp_code": "00180865",
+      "name": "디에이치엑스컴퍼니"
+    },
+    {
+      "stock_code": "052770",
+      "corp_code": "00346911",
+      "name": "아이톡시"
+    },
+    {
+      "stock_code": "078860",
+      "corp_code": "00543204",
+      "name": "아이오케이이엔엠"
     },
     {
       "stock_code": "129890",
