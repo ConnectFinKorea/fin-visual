@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-12T15:00:28+0000",
+  "generated_at": "2026-06-13T15:03:19+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3970,
@@ -11481,11 +11481,6 @@
       "name": "모비스"
     },
     {
-      "stock_code": "010170",
-      "corp_code": "00113261",
-      "name": "대한광통신"
-    },
-    {
       "stock_code": "039020",
       "corp_code": "00184889",
       "name": "이건홀딩스"
@@ -13864,11 +13859,6 @@
       "stock_code": "458650",
       "corp_code": "00319272",
       "name": "성우"
-    },
-    {
-      "stock_code": "204210",
-      "corp_code": "01035289",
-      "name": "JK리버스톤리츠"
     },
     {
       "stock_code": "462020",
@@ -18759,6 +18749,16 @@
       "stock_code": "033630",
       "corp_code": "00243988",
       "name": "에스케이브로드밴드"
+    },
+    {
+      "stock_code": "204210",
+      "corp_code": "01035289",
+      "name": "제이케이리버스톤자기관리부동산투자회사"
+    },
+    {
+      "stock_code": "010170",
+      "corp_code": "00113261",
+      "name": "대한광통신"
     },
     {
       "stock_code": "290690",
