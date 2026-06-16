@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-15T15:01:54+0000",
+  "generated_at": "2026-06-16T14:59:35+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3970,
@@ -3534,11 +3534,6 @@
       "stock_code": "045890",
       "corp_code": "00455112",
       "name": "금빛"
-    },
-    {
-      "stock_code": "001070",
-      "corp_code": "00112970",
-      "name": "대한방직"
     },
     {
       "stock_code": "011420",
@@ -10986,11 +10981,6 @@
       "name": "경동나비엔"
     },
     {
-      "stock_code": "091590",
-      "corp_code": "00108001",
-      "name": "남화토건"
-    },
-    {
       "stock_code": "001260",
       "corp_code": "00107066",
       "name": "남광토건"
@@ -13836,19 +13826,9 @@
       "name": "에스앤에스텍"
     },
     {
-      "stock_code": "011000",
-      "corp_code": "00118521",
-      "name": "진원생명과학"
-    },
-    {
       "stock_code": "030000",
       "corp_code": "00148276",
       "name": "제일기획"
-    },
-    {
-      "stock_code": "025620",
-      "corp_code": "00136776",
-      "name": "차AI헬스케어"
     },
     {
       "stock_code": "070960",
@@ -14999,11 +14979,6 @@
       "stock_code": "173130",
       "corp_code": "00867849",
       "name": "오파스넷"
-    },
-    {
-      "stock_code": "003120",
-      "corp_code": "00146214",
-      "name": "일성아이에스"
     },
     {
       "stock_code": "035250",
@@ -16396,11 +16371,6 @@
       "name": "진에어"
     },
     {
-      "stock_code": "065650",
-      "corp_code": "00391197",
-      "name": "하이퍼코퍼레이션"
-    },
-    {
       "stock_code": "120110",
       "corp_code": "00795135",
       "name": "코오롱인더"
@@ -16634,11 +16604,6 @@
       "stock_code": "217330",
       "corp_code": "01046391",
       "name": "싸이토젠"
-    },
-    {
-      "stock_code": "214270",
-      "corp_code": "01061497",
-      "name": "FSN"
     },
     {
       "stock_code": "215380",
@@ -17739,11 +17704,6 @@
       "stock_code": "036930",
       "corp_code": "00252135",
       "name": "주성엔지니어링"
-    },
-    {
-      "stock_code": "016670",
-      "corp_code": "00125725",
-      "name": "디모아"
     },
     {
       "stock_code": "003490",
@@ -19256,6 +19216,36 @@
       "name": "코나아이"
     },
     {
+      "stock_code": "011000",
+      "corp_code": "00118521",
+      "name": "진원생명과학"
+    },
+    {
+      "stock_code": "091590",
+      "corp_code": "00108001",
+      "name": "남화토건"
+    },
+    {
+      "stock_code": "025620",
+      "corp_code": "00136776",
+      "name": "차AI헬스케어"
+    },
+    {
+      "stock_code": "065650",
+      "corp_code": "00391197",
+      "name": "하이퍼코퍼레이션"
+    },
+    {
+      "stock_code": "003120",
+      "corp_code": "00146214",
+      "name": "일성아이에스"
+    },
+    {
+      "stock_code": "214270",
+      "corp_code": "01061497",
+      "name": "FSN"
+    },
+    {
       "stock_code": "462310",
       "corp_code": "01467503",
       "name": "뉴키즈온"
@@ -19344,6 +19334,11 @@
       "stock_code": "058630",
       "corp_code": "00397058",
       "name": "엠게임"
+    },
+    {
+      "stock_code": "001070",
+      "corp_code": "00112970",
+      "name": "대한방직"
     },
     {
       "stock_code": "150840",
@@ -19789,6 +19784,11 @@
       "stock_code": "0072Z0",
       "corp_code": "01934935",
       "name": "KB제33호스팩"
+    },
+    {
+      "stock_code": "016670",
+      "corp_code": "00125725",
+      "name": "디모아"
     },
     {
       "stock_code": "009290",
