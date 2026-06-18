@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-17T14:59:43+0000",
+  "generated_at": "2026-06-18T15:01:09+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3970,
@@ -12231,11 +12231,6 @@
       "name": "삼부토건"
     },
     {
-      "stock_code": "054220",
-      "corp_code": "00201432",
-      "name": "비츠로시스"
-    },
-    {
       "stock_code": "060150",
       "corp_code": "00375931",
       "name": "인선이엔티"
@@ -18321,11 +18316,6 @@
       "name": "이렘"
     },
     {
-      "stock_code": "016880",
-      "corp_code": "00143651",
-      "name": "웅진"
-    },
-    {
       "stock_code": "024890",
       "corp_code": "00112022",
       "name": "대원화성"
@@ -19694,6 +19684,16 @@
       "stock_code": "100660",
       "corp_code": "00166528",
       "name": "서암기계공업"
+    },
+    {
+      "stock_code": "016880",
+      "corp_code": "00143651",
+      "name": "웅진"
+    },
+    {
+      "stock_code": "054220",
+      "corp_code": "00201432",
+      "name": "비츠로시스"
     },
     {
       "stock_code": "050120",
