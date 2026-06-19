@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-18T15:01:09+0000",
+  "generated_at": "2026-06-19T14:59:57+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3970,
@@ -4436,11 +4436,6 @@
       "name": "SHD"
     },
     {
-      "stock_code": "002360",
-      "corp_code": "00136457",
-      "name": "SH에너지화학"
-    },
-    {
       "stock_code": "108380",
       "corp_code": "00111193",
       "name": "대양전기공업"
@@ -6161,11 +6156,6 @@
       "name": "한창산업"
     },
     {
-      "stock_code": "352940",
-      "corp_code": "00367871",
-      "name": "인바이오"
-    },
-    {
       "stock_code": "067010",
       "corp_code": "00400060",
       "name": "이씨에스"
@@ -6584,11 +6574,6 @@
       "stock_code": "049130",
       "corp_code": "00352000",
       "name": "하우리"
-    },
-    {
-      "stock_code": "464440",
-      "corp_code": "01775952",
-      "name": "한국제13호스팩"
     },
     {
       "stock_code": "138690",
@@ -9641,11 +9626,6 @@
       "name": "넥스트바이오메디컬"
     },
     {
-      "stock_code": "222080",
-      "corp_code": "01090471",
-      "name": "씨아이에스"
-    },
-    {
       "stock_code": "114630",
       "corp_code": "00663669",
       "name": "폴라리스우노"
@@ -10524,11 +10504,6 @@
       "stock_code": "282690",
       "corp_code": "01262458",
       "name": "동아타이어공업"
-    },
-    {
-      "stock_code": "032960",
-      "corp_code": "00199076",
-      "name": "동일기연"
     },
     {
       "stock_code": "382150",
@@ -18276,6 +18251,21 @@
       "name": "프로티아"
     },
     {
+      "stock_code": "352940",
+      "corp_code": "00367871",
+      "name": "인바이오"
+    },
+    {
+      "stock_code": "222080",
+      "corp_code": "01090471",
+      "name": "씨아이에스"
+    },
+    {
+      "stock_code": "464440",
+      "corp_code": "01775952",
+      "name": "한국제13호기업인수목적"
+    },
+    {
       "stock_code": "038680",
       "corp_code": "00264635",
       "name": "에스넷"
@@ -18681,6 +18671,11 @@
       "name": "아이비김영"
     },
     {
+      "stock_code": "002360",
+      "corp_code": "00136457",
+      "name": "SH에너지화학"
+    },
+    {
       "stock_code": "003230",
       "corp_code": "00126955",
       "name": "삼양식품"
@@ -19034,6 +19029,11 @@
       "stock_code": "337930",
       "corp_code": "01391103",
       "name": "젝시믹스"
+    },
+    {
+      "stock_code": "016880",
+      "corp_code": "00143651",
+      "name": "웅진"
     },
     {
       "stock_code": "007590",
@@ -19686,14 +19686,14 @@
       "name": "서암기계공업"
     },
     {
-      "stock_code": "016880",
-      "corp_code": "00143651",
-      "name": "웅진"
-    },
-    {
       "stock_code": "054220",
       "corp_code": "00201432",
       "name": "비츠로시스"
+    },
+    {
+      "stock_code": "032960",
+      "corp_code": "00199076",
+      "name": "동일기연"
     },
     {
       "stock_code": "050120",
