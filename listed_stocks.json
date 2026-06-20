@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-19T14:59:57+0000",
+  "generated_at": "2026-06-20T15:00:36+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3970,
+  "count": 3971,
   "companies": [
     {
       "stock_code": "036720",
@@ -5166,11 +5166,6 @@
       "name": "주노콜렉션"
     },
     {
-      "stock_code": "049070",
-      "corp_code": "00226866",
-      "name": "인탑스"
-    },
-    {
       "stock_code": "007210",
       "corp_code": "00122898",
       "name": "벽산"
@@ -9159,11 +9154,6 @@
       "stock_code": "191420",
       "corp_code": "00926522",
       "name": "테고사이언스"
-    },
-    {
-      "stock_code": "302440",
-      "corp_code": "01319899",
-      "name": "SK바이오사이언스"
     },
     {
       "stock_code": "012200",
@@ -14741,11 +14731,6 @@
       "name": "하이텍팜"
     },
     {
-      "stock_code": "308170",
-      "corp_code": "00450010",
-      "name": "씨티알모빌리티"
-    },
-    {
       "stock_code": "224060",
       "corp_code": "00530413",
       "name": "더코디"
@@ -17971,11 +17956,6 @@
       "name": "고스트스튜디오"
     },
     {
-      "stock_code": "488280",
-      "corp_code": "01803635",
-      "name": "에스투더블유"
-    },
-    {
       "stock_code": "290380",
       "corp_code": "00384948",
       "name": "대유"
@@ -18349,11 +18329,6 @@
       "stock_code": "032190",
       "corp_code": "00238782",
       "name": "다우데이타"
-    },
-    {
-      "stock_code": "006490",
-      "corp_code": "00122825",
-      "name": "인스코비"
     },
     {
       "stock_code": "034590",
@@ -19036,6 +19011,31 @@
       "name": "웅진"
     },
     {
+      "stock_code": "006490",
+      "corp_code": "00122825",
+      "name": "프리티"
+    },
+    {
+      "stock_code": "049070",
+      "corp_code": "00226866",
+      "name": "인탑스"
+    },
+    {
+      "stock_code": "308170",
+      "corp_code": "00450010",
+      "name": "씨티알모빌리티"
+    },
+    {
+      "stock_code": "488280",
+      "corp_code": "01803635",
+      "name": "에스투더블유"
+    },
+    {
+      "stock_code": "302440",
+      "corp_code": "01319899",
+      "name": "SK바이오사이언스"
+    },
+    {
       "stock_code": "007590",
       "corp_code": "00115384",
       "name": "동방아그로"
@@ -19694,6 +19694,11 @@
       "stock_code": "032960",
       "corp_code": "00199076",
       "name": "동일기연"
+    },
+    {
+      "stock_code": "0165X0",
+      "corp_code": "01989041",
+      "name": "메리츠제2호스팩"
     },
     {
       "stock_code": "050120",
