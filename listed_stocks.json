@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-21T14:59:39+0000",
+  "generated_at": "2026-06-23T14:03:26+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3971,
@@ -3579,11 +3579,6 @@
       "stock_code": "101060",
       "corp_code": "00650629",
       "name": "SBS미디어홀딩스"
-    },
-    {
-      "stock_code": "026150",
-      "corp_code": "00186939",
-      "name": "특수건설"
     },
     {
       "stock_code": "900300",
@@ -8014,11 +8009,6 @@
       "stock_code": "065560",
       "corp_code": "00393469",
       "name": "녹원씨엔아이"
-    },
-    {
-      "stock_code": "090370",
-      "corp_code": "00442835",
-      "name": "메타랩스"
     },
     {
       "stock_code": "048260",
@@ -12496,11 +12486,6 @@
       "name": "신대양제지"
     },
     {
-      "stock_code": "001720",
-      "corp_code": "00136721",
-      "name": "신영증권"
-    },
-    {
       "stock_code": "033230",
       "corp_code": "00229021",
       "name": "인성정보"
@@ -15761,11 +15746,6 @@
       "name": "본시스템즈"
     },
     {
-      "stock_code": "284620",
-      "corp_code": "01263527",
-      "name": "카이노스메드"
-    },
-    {
       "stock_code": "004990",
       "corp_code": "00120562",
       "name": "롯데지주"
@@ -15989,11 +15969,6 @@
       "stock_code": "479960",
       "corp_code": "01137860",
       "name": "위너스일렉"
-    },
-    {
-      "stock_code": "296640",
-      "corp_code": "01341630",
-      "name": "이노에이엑스"
     },
     {
       "stock_code": "206560",
@@ -18226,6 +18201,36 @@
       "name": "이노시뮬레이션"
     },
     {
+      "stock_code": "001720",
+      "corp_code": "00136721",
+      "name": "신영증권"
+    },
+    {
+      "stock_code": "026150",
+      "corp_code": "00186939",
+      "name": "특수건설"
+    },
+    {
+      "stock_code": "090370",
+      "corp_code": "00442835",
+      "name": "메타랩스"
+    },
+    {
+      "stock_code": "179530",
+      "corp_code": "01022902",
+      "name": "애드바이오텍"
+    },
+    {
+      "stock_code": "284620",
+      "corp_code": "01263527",
+      "name": "카이노스메드"
+    },
+    {
+      "stock_code": "296640",
+      "corp_code": "01341630",
+      "name": "이노에이엑스"
+    },
+    {
       "stock_code": "303360",
       "corp_code": "01267958",
       "name": "프로티아"
@@ -19274,11 +19279,6 @@
       "stock_code": "051630",
       "corp_code": "00347734",
       "name": "진양화학"
-    },
-    {
-      "stock_code": "179530",
-      "corp_code": "01022902",
-      "name": "애드바이오텍"
     },
     {
       "stock_code": "311840",
