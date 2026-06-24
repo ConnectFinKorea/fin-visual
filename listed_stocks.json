@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-23T15:00:14+0000",
+  "generated_at": "2026-06-24T15:01:42+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3971,
@@ -7021,11 +7021,6 @@
       "name": "이상네트웍스"
     },
     {
-      "stock_code": "091970",
-      "corp_code": "00542074",
-      "name": "나노캠텍"
-    },
-    {
       "stock_code": "355150",
       "corp_code": "01476219",
       "name": "코스텍시스"
@@ -8124,11 +8119,6 @@
       "stock_code": "196490",
       "corp_code": "00660121",
       "name": "디에이테크놀로지"
-    },
-    {
-      "stock_code": "293490",
-      "corp_code": "01137383",
-      "name": "카카오게임즈"
     },
     {
       "stock_code": "429270",
@@ -13931,11 +13921,6 @@
       "name": "이엘씨"
     },
     {
-      "stock_code": "377330",
-      "corp_code": "01140837",
-      "name": "이지트로닉스"
-    },
-    {
       "stock_code": "100220",
       "corp_code": "00520887",
       "name": "비상교육"
@@ -18786,6 +18771,11 @@
       "name": "코오롱이앤피"
     },
     {
+      "stock_code": "091970",
+      "corp_code": "00542074",
+      "name": "LSK아이로봇"
+    },
+    {
       "stock_code": "251630",
       "corp_code": "01027794",
       "name": "브이원텍"
@@ -19129,6 +19119,16 @@
       "stock_code": "452190",
       "corp_code": "00607496",
       "name": "한빛레이저"
+    },
+    {
+      "stock_code": "293490",
+      "corp_code": "01137383",
+      "name": "카카오게임즈"
+    },
+    {
+      "stock_code": "377330",
+      "corp_code": "01140837",
+      "name": "이지트로닉스"
     },
     {
       "stock_code": "403870",
