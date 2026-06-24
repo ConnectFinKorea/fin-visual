@@ -10,9 +10,15 @@ TheBell 다중 카테고리 뉴스 스크래핑 → data/news_thebell.json (롤�
   - 카테고리별 페이지를 넘기며 최근 RETENTION_DAYS(15일) 기사 수집
   - 기사 key 로 중복 제거. 여러 카테고리에 동시 노출되면 출처 = "multiple"
   - 매 실행마다 직전 결과(data-snapshot)에 누적(롤링 보관) → 1회 노출이 짧아도 15일치가 채워짐
-  - 무료 전환 추적: is_paid 가 True→False 로 바뀐(또는 처음 무료로 관측된) 날짜를 free_date 에 기록
+  - 무료 전환 추적: is_paid 가 True→False 로 바뀐 날짜를 free_date 에 기록.
+    우리가 직접 전환을 관측한 기사는 free_transition=True (아침 발송 대상)
     · 더벨은 실제 전환일을 공개하지 않으므로 free_date = "우리가 무료로 처음 관측한 날"
-  - 신규 기사 Telegram 발송 (첫 실행/스키마 변경 시엔 baseline 으로 발송 생략, 대량은 분할 발송)
+  - Telegram 발송 (KST 시각 기준 하루 2회):
+    · 16:00(저녁) — 오늘(first_seen=오늘) 신규 기사 중 M&A·PEF/벤처캐피탈 소속만 하루치 일괄 발송
+    · 07:00(아침) — 어제 유료→무료 전환된(free_transition·free_date=어제) 기사 중 M&A·PEF/벤처캐피탈 소속만 발송
+    · 그 외 시각(08·10·12·14)은 스크랩·저장만 (발송 없음)
+    · 첫 실행/스키마 변경 시엔 baseline 으로 발송 생략, 대량은 분할 발송
+    · NEWS_TG_FORCE=morning|evening|none 으로 수동 Run now 시 발송 모드 강제 가능
 
 환경변수 (선택):
   TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID  봇 토큰·수신 chat (없으면 발송 skip)
@@ -74,6 +80,9 @@ TIMEOUT = 25
 TELEGRAM_BATCH = 20        # Telegram 한 메시지당 최대 기사 수 (4096자 한도 회피)
 # 텔레그램 발송 대상 출처 (소속 기준: sources_list 에 하나라도 포함되면 발송)
 TELEGRAM_SOURCES = {"M&A", "PEF/벤처캐피탈"}
+# Telegram 발송 시각 (KST) — 저녁=오늘 하루치 신규, 아침=어제 무료전환
+TG_EVENING_HOUR = 16
+TG_MORNING_HOUR = 7
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
@@ -271,13 +280,13 @@ def _date_md(s):
     return f"{m.group(1)}/{m.group(2)}" if m else "--/--"
 
 
-def send_telegram(new_arts, now_kst):
-    """신규 기사 분할 발송. 봇/대상 미설정 시 skip."""
+def send_telegram(new_arts, now_kst, header):
+    """기사 목록 분할 발송. 봇/대상 미설정 시 skip. header = 메시지 제목."""
     if not (TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID):
         print("  Telegram 미설정 — 발송 skip")
         return
     if not new_arts:
-        print("  신규 기사 없음 — 발송 skip")
+        print("  발송 대상 없음 — 발송 skip")
         return
 
     total_parts = (len(new_arts) + TELEGRAM_BATCH - 1) // TELEGRAM_BATCH
@@ -287,7 +296,7 @@ def send_telegram(new_arts, now_kst):
     for pi in range(total_parts):
         chunk = new_arts[pi * TELEGRAM_BATCH:(pi + 1) * TELEGRAM_BATCH]
         part = f" ({pi + 1}/{total_parts})" if total_parts > 1 else ""
-        lines = [f"📰 <b>TheBell 신규 {len(new_arts)}건</b>{part} ({stamp} KST)", ""]
+        lines = [f"{header}{part} ({stamp} KST)", ""]
         for i, it in enumerate(chunk, pi * TELEGRAM_BATCH + 1):
             badge = "[유료]" if it.get("is_paid") else "[무료]"
             src = htmllib.escape(it.get("source", ""))
@@ -318,6 +327,23 @@ def send_telegram(new_arts, now_kst):
         time.sleep(0.5)
 
 
+def decide_tg_mode(now_kst):
+    """현재 KST 시각으로 Telegram 발송 모드 결정.
+    NEWS_TG_FORCE(morning/evening/none) 환경변수로 강제 가능 (수동 Run now 테스트용).
+    반환: 'morning' | 'evening' | None(발송 안 함)."""
+    force = os.environ.get("NEWS_TG_FORCE", "").strip().lower()
+    if force in ("morning", "evening"):
+        return force
+    if force == "none":
+        return None
+    h = now_kst.hour
+    if h == TG_MORNING_HOUR:
+        return "morning"
+    if h == TG_EVENING_HOUR:
+        return "evening"
+    return None
+
+
 # ===================== main =====================
 
 def main():
@@ -346,6 +372,7 @@ def main():
             it = store[key]
             if not a["is_paid"] and not it.get("free_date"):
                 it["free_date"] = today_str          # 무료 전환 관측
+                it["free_transition"] = True         # 유료→무료 전환을 직접 관측 (아침 발송 대상)
             it["is_paid"] = a["is_paid"]
             it["title"] = a["title"]
             it["meta"] = a["meta"]
@@ -393,19 +420,30 @@ def main():
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
     print(f"  저장 완료: {OUT_PATH} ({max(1, os.path.getsize(OUT_PATH)//1024)} KB)")
 
-    # 6) Telegram
+    # 6) Telegram — KST 시각 기준 하루 2회 (16시 저녁 하루치 / 7시 아침 무료전환)
     print("[Telegram]")
+    mode = decide_tg_mode(now_kst)
     if baseline:
         print(f"  baseline(첫 실행/스키마 변경) — 기준선 {len(items)}건 저장, 발송 생략")
+    elif mode == "evening":
+        targets = [it for it in items
+                   if it.get("first_seen") == today_str
+                   and (set(it.get("sources_list", [])) & TELEGRAM_SOURCES)]
+        print(f"  [저녁 {TG_EVENING_HOUR}시] 오늘 신규 중 발송대상"
+              f"({'·'.join(sorted(TELEGRAM_SOURCES))} 소속) {len(targets)}건")
+        send_telegram(targets, now_kst,
+                      header=f"📰 <b>TheBell 오늘 신규 {len(targets)}건</b>")
+    elif mode == "morning":
+        yday = (now_kst.date() - timedelta(days=1)).isoformat()
+        targets = [it for it in items
+                   if it.get("free_transition") and it.get("free_date") == yday
+                   and (set(it.get("sources_list", [])) & TELEGRAM_SOURCES)]
+        print(f"  [아침 {TG_MORNING_HOUR}시] 어제({yday}) 유료→무료 전환 중 발송대상"
+              f"({'·'.join(sorted(TELEGRAM_SOURCES))} 소속) {len(targets)}건")
+        send_telegram(targets, now_kst,
+                      header=f"🆓 <b>TheBell 어제 무료전환 {len(targets)}건</b>")
     else:
-        new_set = set(new_keys)
-        new_arts = [it for it in items
-                    if it["key"] in new_set
-                    and (set(it.get("sources_list", [])) & TELEGRAM_SOURCES)]
-        skipped = len(new_keys) - len(new_arts)
-        print(f"  신규 {len(new_keys)}건 중 발송대상({'·'.join(sorted(TELEGRAM_SOURCES))} 소속) "
-              f"{len(new_arts)}건 (대상 외 {skipped}건 제외)")
-        send_telegram(new_arts, now_kst)
+        print(f"  발송 시각 아님 (현재 {now_kst.hour}시 KST) — 스크랩·저장만 수행")
 
 
 if __name__ == "__main__":
