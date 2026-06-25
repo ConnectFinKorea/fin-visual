@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-24T15:01:42+0000",
+  "generated_at": "2026-06-25T15:01:59+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3971,
@@ -3919,11 +3919,6 @@
       "stock_code": "322970",
       "corp_code": "01293388",
       "name": "무진메디"
-    },
-    {
-      "stock_code": "317690",
-      "corp_code": "01311286",
-      "name": "퀀타매트릭스"
     },
     {
       "stock_code": "334890",
@@ -18321,6 +18316,11 @@
       "name": "다우데이타"
     },
     {
+      "stock_code": "321370",
+      "corp_code": "01593668",
+      "name": "센서뷰"
+    },
+    {
       "stock_code": "034590",
       "corp_code": "00145862",
       "name": "인천도시가스"
@@ -18454,6 +18454,11 @@
       "stock_code": "023760",
       "corp_code": "00149594",
       "name": "한국캐피탈"
+    },
+    {
+      "stock_code": "317690",
+      "corp_code": "01311286",
+      "name": "퀀타매트릭스"
     },
     {
       "stock_code": "028670",
@@ -18909,11 +18914,6 @@
       "stock_code": "0044K0",
       "corp_code": "01910759",
       "name": "삼성스팩10호"
-    },
-    {
-      "stock_code": "321370",
-      "corp_code": "01593668",
-      "name": "센서뷰"
     },
     {
       "stock_code": "452670",
