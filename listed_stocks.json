@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-25T15:01:59+0000",
+  "generated_at": "2026-06-26T15:00:15+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3971,
@@ -16731,11 +16731,6 @@
       "name": "미래에셋비전스팩9호"
     },
     {
-      "stock_code": "223220",
-      "corp_code": "01060735",
-      "name": "로지스몬"
-    },
-    {
       "stock_code": "495810",
       "corp_code": "01867749",
       "name": "유비씨"
@@ -17986,11 +17981,6 @@
       "name": "SFA반도체"
     },
     {
-      "stock_code": "056190",
-      "corp_code": "00358271",
-      "name": "에스에프에이"
-    },
-    {
       "stock_code": "054630",
       "corp_code": "00356927",
       "name": "에이디칩스"
@@ -18219,11 +18209,6 @@
       "stock_code": "352940",
       "corp_code": "00367871",
       "name": "인바이오"
-    },
-    {
-      "stock_code": "222080",
-      "corp_code": "01090471",
-      "name": "씨아이에스"
     },
     {
       "stock_code": "464440",
@@ -19241,6 +19226,16 @@
       "name": "FSN"
     },
     {
+      "stock_code": "223220",
+      "corp_code": "01060735",
+      "name": "로지스몬"
+    },
+    {
+      "stock_code": "056190",
+      "corp_code": "00358271",
+      "name": "SFA"
+    },
+    {
       "stock_code": "462310",
       "corp_code": "01467503",
       "name": "뉴키즈온"
@@ -19329,6 +19324,11 @@
       "stock_code": "001070",
       "corp_code": "00112970",
       "name": "대한방직"
+    },
+    {
+      "stock_code": "222080",
+      "corp_code": "01090471",
+      "name": "SFA넥셀"
     },
     {
       "stock_code": "150840",
