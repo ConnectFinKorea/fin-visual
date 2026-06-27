@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-26T15:00:15+0000",
+  "generated_at": "2026-06-27T15:03:31+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3971,
@@ -11876,11 +11876,6 @@
       "name": "강스템바이오텍"
     },
     {
-      "stock_code": "294140",
-      "corp_code": "01011395",
-      "name": "레몬"
-    },
-    {
       "stock_code": "048870",
       "corp_code": "00475985",
       "name": "시너지이노베이션"
@@ -12699,11 +12694,6 @@
       "stock_code": "104200",
       "corp_code": "00645089",
       "name": "NHN벅스"
-    },
-    {
-      "stock_code": "148250",
-      "corp_code": "00915508",
-      "name": "알엔투테크놀로지"
     },
     {
       "stock_code": "348030",
@@ -18306,6 +18296,11 @@
       "name": "센서뷰"
     },
     {
+      "stock_code": "294140",
+      "corp_code": "01011395",
+      "name": "레몬"
+    },
+    {
       "stock_code": "034590",
       "corp_code": "00145862",
       "name": "인천도시가스"
@@ -19116,11 +19111,6 @@
       "name": "이지트로닉스"
     },
     {
-      "stock_code": "403870",
-      "corp_code": "01288827",
-      "name": "HPSP"
-    },
-    {
       "stock_code": "037950",
       "corp_code": "00242712",
       "name": "엘컴텍"
@@ -19329,6 +19319,16 @@
       "stock_code": "222080",
       "corp_code": "01090471",
       "name": "SFA넥셀"
+    },
+    {
+      "stock_code": "148250",
+      "corp_code": "00915508",
+      "name": "알엔투테크놀로지"
+    },
+    {
+      "stock_code": "403870",
+      "corp_code": "01288827",
+      "name": "HPSP"
     },
     {
       "stock_code": "150840",
