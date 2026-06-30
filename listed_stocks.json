@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-29T15:03:33+0000",
+  "generated_at": "2026-06-30T15:00:57+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3971,
+  "count": 3972,
   "companies": [
     {
       "stock_code": "036720",
@@ -8006,11 +8006,6 @@
       "name": "오스템임플란트"
     },
     {
-      "stock_code": "052420",
-      "corp_code": "00350048",
-      "name": "오성첨단소재"
-    },
-    {
       "stock_code": "122830",
       "corp_code": "00337296",
       "name": "원포유"
@@ -9054,11 +9049,6 @@
       "stock_code": "089010",
       "corp_code": "00371485",
       "name": "켐트로닉스"
-    },
-    {
-      "stock_code": "279060",
-      "corp_code": "01353848",
-      "name": "이노벡스"
     },
     {
       "stock_code": "211050",
@@ -11391,11 +11381,6 @@
       "name": "엔에이치기업인수목적20호"
     },
     {
-      "stock_code": "452260",
-      "corp_code": "01722437",
-      "name": "한화갤러리아"
-    },
-    {
       "stock_code": "066700",
       "corp_code": "00249894",
       "name": "테라젠이텍스"
@@ -12349,11 +12334,6 @@
       "stock_code": "086820",
       "corp_code": "00560982",
       "name": "바이오솔루션"
-    },
-    {
-      "stock_code": "013720",
-      "corp_code": "00151605",
-      "name": "THE CUBE&"
     },
     {
       "stock_code": "0030R0",
@@ -13999,11 +13979,6 @@
       "stock_code": "367000",
       "corp_code": "01454341",
       "name": "플래티어"
-    },
-    {
-      "stock_code": "021880",
-      "corp_code": "00136101",
-      "name": "메이슨캐피탈"
     },
     {
       "stock_code": "309930",
@@ -18301,6 +18276,11 @@
       "name": "레몬"
     },
     {
+      "stock_code": "452260",
+      "corp_code": "01722437",
+      "name": "한화갤러리아"
+    },
+    {
       "stock_code": "034590",
       "corp_code": "00145862",
       "name": "인천도시가스"
@@ -18439,6 +18419,31 @@
       "stock_code": "317690",
       "corp_code": "01311286",
       "name": "퀀타매트릭스"
+    },
+    {
+      "stock_code": "021880",
+      "corp_code": "00136101",
+      "name": "메이슨캐피탈"
+    },
+    {
+      "stock_code": "013720",
+      "corp_code": "00151605",
+      "name": "청보"
+    },
+    {
+      "stock_code": "279060",
+      "corp_code": "01353848",
+      "name": "이노벡스"
+    },
+    {
+      "stock_code": "052420",
+      "corp_code": "00350048",
+      "name": "오성첨단소재"
+    },
+    {
+      "stock_code": "153890",
+      "corp_code": "00577593",
+      "name": "져스텍"
     },
     {
       "stock_code": "028670",
