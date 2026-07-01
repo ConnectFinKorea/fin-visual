@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-06-30T15:00:57+0000",
+  "generated_at": "2026-07-01T15:00:56+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3972,
+  "count": 3974,
   "companies": [
     {
       "stock_code": "036720",
@@ -3924,11 +3924,6 @@
       "stock_code": "334890",
       "corp_code": "01394377",
       "name": "이지스밸류플러스리츠"
-    },
-    {
-      "stock_code": "018500",
-      "corp_code": "00118008",
-      "name": "동원금속"
     },
     {
       "stock_code": "159010",
@@ -11881,11 +11876,6 @@
       "name": "아퓨어스"
     },
     {
-      "stock_code": "087260",
-      "corp_code": "00556615",
-      "name": "모바일어플라이언스"
-    },
-    {
       "stock_code": "304840",
       "corp_code": "01118281",
       "name": "피플바이오"
@@ -12419,11 +12409,6 @@
       "stock_code": "180060",
       "corp_code": "00874937",
       "name": "탑선"
-    },
-    {
-      "stock_code": "101670",
-      "corp_code": "00527491",
-      "name": "하이드로리튬"
     },
     {
       "stock_code": "054180",
@@ -13494,11 +13479,6 @@
       "stock_code": "183490",
       "corp_code": "00606886",
       "name": "엔지켐생명과학"
-    },
-    {
-      "stock_code": "366030",
-      "corp_code": "01307335",
-      "name": "공구우먼"
     },
     {
       "stock_code": "169670",
@@ -14596,11 +14576,6 @@
       "name": "KBI메탈"
     },
     {
-      "stock_code": "017040",
-      "corp_code": "00103662",
-      "name": "광명전기"
-    },
-    {
       "stock_code": "044480",
       "corp_code": "00173449",
       "name": "빌리언스"
@@ -15406,11 +15381,6 @@
       "name": "경농"
     },
     {
-      "stock_code": "230360",
-      "corp_code": "01029394",
-      "name": "에코마케팅"
-    },
-    {
       "stock_code": "240550",
       "corp_code": "01073261",
       "name": "동방메디컬"
@@ -15904,11 +15874,6 @@
       "stock_code": "477530",
       "corp_code": "01814312",
       "name": "한국제14호기업인수목적"
-    },
-    {
-      "stock_code": "106080",
-      "corp_code": "00542898",
-      "name": "케이이엠텍"
     },
     {
       "stock_code": "479960",
@@ -16896,11 +16861,6 @@
       "name": "볼빅"
     },
     {
-      "stock_code": "066790",
-      "corp_code": "00249441",
-      "name": "씨씨에스"
-    },
-    {
       "stock_code": "121440",
       "corp_code": "00674498",
       "name": "골프존홀딩스"
@@ -17344,11 +17304,6 @@
       "stock_code": "024880",
       "corp_code": "00157636",
       "name": "케이피에프"
-    },
-    {
-      "stock_code": "069460",
-      "corp_code": "00428729",
-      "name": "대호에이엘"
     },
     {
       "stock_code": "049550",
@@ -19096,11 +19051,6 @@
       "name": "에이텍모빌리티"
     },
     {
-      "stock_code": "008500",
-      "corp_code": "00146542",
-      "name": "일정실업"
-    },
-    {
       "stock_code": "452190",
       "corp_code": "00607496",
       "name": "한빛레이저"
@@ -19221,11 +19171,6 @@
       "name": "FSN"
     },
     {
-      "stock_code": "223220",
-      "corp_code": "01060735",
-      "name": "로지스몬"
-    },
-    {
       "stock_code": "056190",
       "corp_code": "00358271",
       "name": "SFA"
@@ -19324,11 +19269,6 @@
       "stock_code": "222080",
       "corp_code": "01090471",
       "name": "SFA넥셀"
-    },
-    {
-      "stock_code": "148250",
-      "corp_code": "00915508",
-      "name": "알엔투테크놀로지"
     },
     {
       "stock_code": "403870",
@@ -19864,6 +19804,76 @@
       "stock_code": "000210",
       "corp_code": "00109693",
       "name": "DL"
+    },
+    {
+      "stock_code": "101670",
+      "corp_code": "00527491",
+      "name": "하이드로리튬"
+    },
+    {
+      "stock_code": "017040",
+      "corp_code": "00103662",
+      "name": "광명전기"
+    },
+    {
+      "stock_code": "066790",
+      "corp_code": "00249441",
+      "name": "씨씨에스"
+    },
+    {
+      "stock_code": "018500",
+      "corp_code": "00118008",
+      "name": "동원금속"
+    },
+    {
+      "stock_code": "106080",
+      "corp_code": "00542898",
+      "name": "케이이엠텍"
+    },
+    {
+      "stock_code": "069460",
+      "corp_code": "00428729",
+      "name": "대호에이엘"
+    },
+    {
+      "stock_code": "087260",
+      "corp_code": "00556615",
+      "name": "모바일어플라이언스"
+    },
+    {
+      "stock_code": "008500",
+      "corp_code": "00146542",
+      "name": "일정실업"
+    },
+    {
+      "stock_code": "148250",
+      "corp_code": "00915508",
+      "name": "알엔투테크놀로지"
+    },
+    {
+      "stock_code": "366030",
+      "corp_code": "01307335",
+      "name": "나인앤컴퍼니"
+    },
+    {
+      "stock_code": "223220",
+      "corp_code": "01060735",
+      "name": "로지스몬"
+    },
+    {
+      "stock_code": "230360",
+      "corp_code": "01029394",
+      "name": "에코마케팅"
+    },
+    {
+      "stock_code": "475040",
+      "corp_code": "01370517",
+      "name": "스트라드비젼"
+    },
+    {
+      "stock_code": "0164H0",
+      "corp_code": "01987779",
+      "name": "한국제16호스팩"
     }
   ]
 }
