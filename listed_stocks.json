@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-02T14:59:50+0000",
+  "generated_at": "2026-07-03T14:59:36+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3975,
@@ -6656,11 +6656,6 @@
       "name": "금호건설"
     },
     {
-      "stock_code": "051360",
-      "corp_code": "00390365",
-      "name": "토비스"
-    },
-    {
       "stock_code": "452160",
       "corp_code": "01309421",
       "name": "제이엔비"
@@ -9244,11 +9239,6 @@
       "stock_code": "005160",
       "corp_code": "00172680",
       "name": "동국산업"
-    },
-    {
-      "stock_code": "128660",
-      "corp_code": "00829380",
-      "name": "피제이메탈"
     },
     {
       "stock_code": "007690",
@@ -13586,11 +13576,6 @@
       "name": "어스앤에어로스페이스"
     },
     {
-      "stock_code": "267980",
-      "corp_code": "01234507",
-      "name": "매일유업"
-    },
-    {
       "stock_code": "004870",
       "corp_code": "00109514",
       "name": "티웨이홀딩스"
@@ -13844,11 +13829,6 @@
       "stock_code": "071850",
       "corp_code": "00302582",
       "name": "캐스텍코리아"
-    },
-    {
-      "stock_code": "005870",
-      "corp_code": "00111421",
-      "name": "휴니드테크놀러지스"
     },
     {
       "stock_code": "466690",
@@ -15871,11 +15851,6 @@
       "name": "롯데쇼핑"
     },
     {
-      "stock_code": "024850",
-      "corp_code": "00155586",
-      "name": "HLB이노베이션"
-    },
-    {
       "stock_code": "026960",
       "corp_code": "00144395",
       "name": "동서"
@@ -16279,11 +16254,6 @@
       "stock_code": "094860",
       "corp_code": "00599106",
       "name": "네오리진"
-    },
-    {
-      "stock_code": "195990",
-      "corp_code": "00620558",
-      "name": "에이비프로바이오"
     },
     {
       "stock_code": "147760",
@@ -18156,11 +18126,6 @@
       "name": "한화갤러리아"
     },
     {
-      "stock_code": "034590",
-      "corp_code": "00145862",
-      "name": "인천도시가스"
-    },
-    {
       "stock_code": "085810",
       "corp_code": "00364254",
       "name": "알티캐스트"
@@ -19716,6 +19681,46 @@
       "name": "DL"
     },
     {
+      "stock_code": "005870",
+      "corp_code": "00111421",
+      "name": "휴니드테크놀러지스"
+    },
+    {
+      "stock_code": "024850",
+      "corp_code": "00155586",
+      "name": "HLB이노베이션"
+    },
+    {
+      "stock_code": "051360",
+      "corp_code": "00390365",
+      "name": "토비스"
+    },
+    {
+      "stock_code": "034590",
+      "corp_code": "00145862",
+      "name": "인천도시가스"
+    },
+    {
+      "stock_code": "195990",
+      "corp_code": "00620558",
+      "name": "루트K"
+    },
+    {
+      "stock_code": "128660",
+      "corp_code": "00829380",
+      "name": "피제이메탈"
+    },
+    {
+      "stock_code": "148250",
+      "corp_code": "00915508",
+      "name": "알엔투테크놀로지"
+    },
+    {
+      "stock_code": "267980",
+      "corp_code": "01234507",
+      "name": "매일유업"
+    },
+    {
       "stock_code": "004440",
       "corp_code": "00109806",
       "name": "삼일씨엔에스"
@@ -19849,11 +19854,6 @@
       "stock_code": "008500",
       "corp_code": "00146542",
       "name": "일정실업"
-    },
-    {
-      "stock_code": "148250",
-      "corp_code": "00915508",
-      "name": "알엔투테크놀로지"
     },
     {
       "stock_code": "366030",
