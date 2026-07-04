@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-03T14:59:36+0000",
+  "generated_at": "2026-07-04T14:59:40+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3975,
@@ -16421,11 +16421,6 @@
       "name": "그리드위즈"
     },
     {
-      "stock_code": "340930",
-      "corp_code": "01368637",
-      "name": "유일에너테크"
-    },
-    {
       "stock_code": "331380",
       "corp_code": "01393721",
       "name": "포커스에이아이"
@@ -16479,11 +16474,6 @@
       "stock_code": "449020",
       "corp_code": "01701753",
       "name": "유안타제13호기업인수목적"
-    },
-    {
-      "stock_code": "013570",
-      "corp_code": "00117179",
-      "name": "디와이"
     },
     {
       "stock_code": "214870",
@@ -17109,11 +17099,6 @@
       "stock_code": "007280",
       "corp_code": "00124090",
       "name": "한국특강"
-    },
-    {
-      "stock_code": "028300",
-      "corp_code": "00199252",
-      "name": "HLB"
     },
     {
       "stock_code": "006840",
@@ -19351,11 +19336,6 @@
       "name": "새빗켐"
     },
     {
-      "stock_code": "297570",
-      "corp_code": "01309795",
-      "name": "알로이스"
-    },
-    {
       "stock_code": "258610",
       "corp_code": "00961507",
       "name": "케일럼"
@@ -19611,11 +19591,6 @@
       "name": "KB제33호스팩"
     },
     {
-      "stock_code": "016670",
-      "corp_code": "00125725",
-      "name": "디모아"
-    },
-    {
       "stock_code": "009290",
       "corp_code": "00103592",
       "name": "광동제약"
@@ -19679,6 +19654,31 @@
       "stock_code": "000210",
       "corp_code": "00109693",
       "name": "DL"
+    },
+    {
+      "stock_code": "013570",
+      "corp_code": "00117179",
+      "name": "디와이"
+    },
+    {
+      "stock_code": "028300",
+      "corp_code": "00199252",
+      "name": "HLB"
+    },
+    {
+      "stock_code": "297570",
+      "corp_code": "01309795",
+      "name": "아틀라스링크"
+    },
+    {
+      "stock_code": "340930",
+      "corp_code": "01368637",
+      "name": "성원에너텍"
+    },
+    {
+      "stock_code": "475040",
+      "corp_code": "01370517",
+      "name": "스트라드비젼"
     },
     {
       "stock_code": "005870",
@@ -19871,14 +19871,14 @@
       "name": "에코마케팅"
     },
     {
-      "stock_code": "475040",
-      "corp_code": "01370517",
-      "name": "스트라드비젼"
-    },
-    {
       "stock_code": "0164H0",
       "corp_code": "01987779",
       "name": "한국제16호스팩"
+    },
+    {
+      "stock_code": "016670",
+      "corp_code": "00125725",
+      "name": "디모아"
     }
   ]
 }
