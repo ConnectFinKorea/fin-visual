@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-06T15:02:35+0000",
+  "generated_at": "2026-07-07T14:59:37+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3975,
+  "count": 3976,
   "companies": [
     {
       "stock_code": "036720",
@@ -7341,11 +7341,6 @@
       "name": "나노팀"
     },
     {
-      "stock_code": "002840",
-      "corp_code": "00121932",
-      "name": "미원상사"
-    },
-    {
       "stock_code": "053280",
       "corp_code": "00362858",
       "name": "예스24"
@@ -7879,11 +7874,6 @@
       "stock_code": "465320",
       "corp_code": "01781847",
       "name": "교보15호스팩"
-    },
-    {
-      "stock_code": "338840",
-      "corp_code": "01226234",
-      "name": "와이바이오로직스"
     },
     {
       "stock_code": "460930",
@@ -13906,11 +13896,6 @@
       "name": "플래티어"
     },
     {
-      "stock_code": "309930",
-      "corp_code": "01335453",
-      "name": "조이웍스앤코"
-    },
-    {
       "stock_code": "214610",
       "corp_code": "01049167",
       "name": "롤링스톤"
@@ -19679,6 +19664,26 @@
       "stock_code": "475040",
       "corp_code": "01370517",
       "name": "스트라드비젼"
+    },
+    {
+      "stock_code": "002840",
+      "corp_code": "00121932",
+      "name": "미원상사"
+    },
+    {
+      "stock_code": "338840",
+      "corp_code": "01226234",
+      "name": "와이바이오로직스"
+    },
+    {
+      "stock_code": "309930",
+      "corp_code": "01335453",
+      "name": "조이웍스앤코"
+    },
+    {
+      "stock_code": "365660",
+      "corp_code": "01424261",
+      "name": "레몬헬스케어"
     },
     {
       "stock_code": "005870",
