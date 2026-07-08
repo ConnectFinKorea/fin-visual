@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-07T14:59:37+0000",
+  "generated_at": "2026-07-08T15:01:01+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3976,
@@ -9181,11 +9181,6 @@
       "name": "현대바이오"
     },
     {
-      "stock_code": "064850",
-      "corp_code": "00331016",
-      "name": "에프앤가이드"
-    },
-    {
       "stock_code": "032640",
       "corp_code": "00231363",
       "name": "LG유플러스"
@@ -12154,11 +12149,6 @@
       "stock_code": "182400",
       "corp_code": "00977650",
       "name": "엔케이젠바이오텍코리아"
-    },
-    {
-      "stock_code": "005880",
-      "corp_code": "00113535",
-      "name": "대한해운"
     },
     {
       "stock_code": "073570",
@@ -15861,11 +15851,6 @@
       "name": "롯데케미칼"
     },
     {
-      "stock_code": "222160",
-      "corp_code": "01037542",
-      "name": "NPX"
-    },
-    {
       "stock_code": "476040",
       "corp_code": "01626391",
       "name": "오가노이드사이언스"
@@ -19436,11 +19421,6 @@
       "name": "디에이치엑스컴퍼니"
     },
     {
-      "stock_code": "052770",
-      "corp_code": "00346911",
-      "name": "아이톡시"
-    },
-    {
       "stock_code": "078860",
       "corp_code": "00543204",
       "name": "아이오케이이엔엠"
@@ -19814,6 +19794,26 @@
       "stock_code": "0039P0",
       "corp_code": "01379129",
       "name": "매드업"
+    },
+    {
+      "stock_code": "005880",
+      "corp_code": "00113535",
+      "name": "대한해운"
+    },
+    {
+      "stock_code": "064850",
+      "corp_code": "00331016",
+      "name": "에프앤가이드"
+    },
+    {
+      "stock_code": "052770",
+      "corp_code": "00346911",
+      "name": "아이톡시"
+    },
+    {
+      "stock_code": "222160",
+      "corp_code": "01037542",
+      "name": "엔피엑스"
     },
     {
       "stock_code": "101670",
