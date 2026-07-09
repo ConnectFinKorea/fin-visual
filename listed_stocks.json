@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-08T15:01:01+0000",
+  "generated_at": "2026-07-09T15:01:39+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3976,
@@ -13351,11 +13351,6 @@
       "name": "에스테크엠"
     },
     {
-      "stock_code": "203690",
-      "corp_code": "01036367",
-      "name": "아크솔루션스"
-    },
-    {
       "stock_code": "215790",
       "corp_code": "01065679",
       "name": "이노인스트루먼트"
@@ -17171,11 +17166,6 @@
       "name": "케이피에프"
     },
     {
-      "stock_code": "049550",
-      "corp_code": "00261656",
-      "name": "잉크테크"
-    },
-    {
       "stock_code": "402340",
       "corp_code": "01596425",
       "name": "SK스퀘어"
@@ -19819,6 +19809,16 @@
       "stock_code": "101670",
       "corp_code": "00527491",
       "name": "하이드로리튬"
+    },
+    {
+      "stock_code": "049550",
+      "corp_code": "00261656",
+      "name": "잉크테크"
+    },
+    {
+      "stock_code": "203690",
+      "corp_code": "01036367",
+      "name": "아크솔루션스"
     },
     {
       "stock_code": "042500",
