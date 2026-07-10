@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-09T15:01:39+0000",
+  "generated_at": "2026-07-10T14:59:40+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3976,
@@ -3739,11 +3739,6 @@
       "stock_code": "032040",
       "corp_code": "00173731",
       "name": "씨앤에스자산관리"
-    },
-    {
-      "stock_code": "058970",
-      "corp_code": "00396925",
-      "name": "엠로"
     },
     {
       "stock_code": "290740",
@@ -13231,11 +13226,6 @@
       "name": "씨메스로보틱스"
     },
     {
-      "stock_code": "000270",
-      "corp_code": "00106641",
-      "name": "기아"
-    },
-    {
       "stock_code": "438700",
       "corp_code": "01605529",
       "name": "버넥트"
@@ -16324,11 +16314,6 @@
       "stock_code": "217330",
       "corp_code": "01046391",
       "name": "싸이토젠"
-    },
-    {
-      "stock_code": "215380",
-      "corp_code": "01065013",
-      "name": "우정바이오"
     },
     {
       "stock_code": "357230",
@@ -19884,6 +19869,21 @@
       "stock_code": "016670",
       "corp_code": "00125725",
       "name": "디모아"
+    },
+    {
+      "stock_code": "000270",
+      "corp_code": "00106641",
+      "name": "기아"
+    },
+    {
+      "stock_code": "058970",
+      "corp_code": "00396925",
+      "name": "엠로"
+    },
+    {
+      "stock_code": "215380",
+      "corp_code": "01065013",
+      "name": "우정바이오"
     }
   ]
 }
