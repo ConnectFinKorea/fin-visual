@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-10T14:59:40+0000",
+  "generated_at": "2026-07-11T15:02:08+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3976,
@@ -5881,11 +5881,6 @@
       "name": "리노공업"
     },
     {
-      "stock_code": "053700",
-      "corp_code": "00351092",
-      "name": "삼보모터스"
-    },
-    {
       "stock_code": "126340",
       "corp_code": "00563518",
       "name": "비나텍"
@@ -9269,11 +9264,6 @@
       "stock_code": "462520",
       "corp_code": "01770203",
       "name": "조선내화"
-    },
-    {
-      "stock_code": "073240",
-      "corp_code": "00481454",
-      "name": "금호타이어"
     },
     {
       "stock_code": "199480",
@@ -18886,11 +18876,6 @@
       "name": "엘컴텍"
     },
     {
-      "stock_code": "049470",
-      "corp_code": "00351579",
-      "name": "비트플래닛"
-    },
-    {
       "stock_code": "373220",
       "corp_code": "01515323",
       "name": "LG에너지솔루션"
@@ -19784,6 +19769,21 @@
       "stock_code": "052770",
       "corp_code": "00346911",
       "name": "아이톡시"
+    },
+    {
+      "stock_code": "073240",
+      "corp_code": "00481454",
+      "name": "금호타이어"
+    },
+    {
+      "stock_code": "053700",
+      "corp_code": "00351092",
+      "name": "삼보모터스"
+    },
+    {
+      "stock_code": "049470",
+      "corp_code": "00351579",
+      "name": "비트플래닛"
     },
     {
       "stock_code": "222160",
