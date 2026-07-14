@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-13T15:00:14+0000",
+  "generated_at": "2026-07-14T15:01:38+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3976,
+  "count": 3977,
   "companies": [
     {
       "stock_code": "036720",
@@ -11926,11 +11926,6 @@
       "name": "OCI"
     },
     {
-      "stock_code": "000300",
-      "corp_code": "00126089",
-      "name": "DH오토넥스"
-    },
-    {
       "stock_code": "430690",
       "corp_code": "01602638",
       "name": "한싹"
@@ -19601,6 +19596,21 @@
       "name": "성원에너텍"
     },
     {
+      "stock_code": "000300",
+      "corp_code": "00126089",
+      "name": "DH오토넥스"
+    },
+    {
+      "stock_code": "215380",
+      "corp_code": "01065013",
+      "name": "우정바이오"
+    },
+    {
+      "stock_code": "387690",
+      "corp_code": "01501764",
+      "name": "레메디"
+    },
+    {
       "stock_code": "475040",
       "corp_code": "01370517",
       "name": "스트라드비젼"
@@ -19879,11 +19889,6 @@
       "stock_code": "058970",
       "corp_code": "00396925",
       "name": "엠로"
-    },
-    {
-      "stock_code": "215380",
-      "corp_code": "01065013",
-      "name": "우정바이오"
     }
   ]
 }
