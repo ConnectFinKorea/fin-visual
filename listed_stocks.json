@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-14T15:01:38+0000",
+  "generated_at": "2026-07-15T15:02:03+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3977,
@@ -6484,11 +6484,6 @@
       "stock_code": "006800",
       "corp_code": "00111722",
       "name": "미래에셋증권"
-    },
-    {
-      "stock_code": "242040",
-      "corp_code": "01136348",
-      "name": "나무기술"
     },
     {
       "stock_code": "033430",
@@ -14256,11 +14251,6 @@
       "name": "대선조선"
     },
     {
-      "stock_code": "391710",
-      "corp_code": "01573284",
-      "name": "코닉오토메이션"
-    },
-    {
       "stock_code": "064800",
       "corp_code": "00392691",
       "name": "포니링크"
@@ -17991,11 +17981,6 @@
       "name": "현대지에프홀딩스"
     },
     {
-      "stock_code": "052300",
-      "corp_code": "00349811",
-      "name": "오션인더블유"
-    },
-    {
       "stock_code": "041960",
       "corp_code": "00187415",
       "name": "코미팜"
@@ -19609,6 +19594,21 @@
       "stock_code": "387690",
       "corp_code": "01501764",
       "name": "레메디"
+    },
+    {
+      "stock_code": "052300",
+      "corp_code": "00349811",
+      "name": "오션인더블유"
+    },
+    {
+      "stock_code": "242040",
+      "corp_code": "01136348",
+      "name": "나무기술"
+    },
+    {
+      "stock_code": "391710",
+      "corp_code": "01573284",
+      "name": "코닉오토메이션"
     },
     {
       "stock_code": "475040",
