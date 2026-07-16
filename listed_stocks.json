@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-15T15:02:03+0000",
+  "generated_at": "2026-07-16T14:59:22+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3977,
@@ -4929,11 +4929,6 @@
       "stock_code": "036190",
       "corp_code": "00176516",
       "name": "금화피에스시"
-    },
-    {
-      "stock_code": "103140",
-      "corp_code": "00684714",
-      "name": "풍산"
     },
     {
       "stock_code": "009150",
@@ -15261,11 +15256,6 @@
       "name": "동방메디컬"
     },
     {
-      "stock_code": "321260",
-      "corp_code": "01359736",
-      "name": "프로이천"
-    },
-    {
       "stock_code": "032500",
       "corp_code": "00226352",
       "name": "케이엠더블유"
@@ -16516,11 +16506,6 @@
       "name": "원풍물산"
     },
     {
-      "stock_code": "012510",
-      "corp_code": "00172291",
-      "name": "더존비즈온"
-    },
-    {
       "stock_code": "137950",
       "corp_code": "00664853",
       "name": "제이씨케미칼"
@@ -17109,11 +17094,6 @@
       "stock_code": "010130",
       "corp_code": "00102858",
       "name": "고려아연"
-    },
-    {
-      "stock_code": "001840",
-      "corp_code": "00145668",
-      "name": "이화공영"
     },
     {
       "stock_code": "008600",
@@ -18289,11 +18269,6 @@
       "stock_code": "319660",
       "corp_code": "01365825",
       "name": "피에스케이"
-    },
-    {
-      "stock_code": "373170",
-      "corp_code": "01497142",
-      "name": "엠아이큐브솔루션"
     },
     {
       "stock_code": "407400",
@@ -19594,6 +19569,31 @@
       "stock_code": "387690",
       "corp_code": "01501764",
       "name": "레메디"
+    },
+    {
+      "stock_code": "103140",
+      "corp_code": "00684714",
+      "name": "풍산"
+    },
+    {
+      "stock_code": "001840",
+      "corp_code": "00145668",
+      "name": "이화공영"
+    },
+    {
+      "stock_code": "012510",
+      "corp_code": "00172291",
+      "name": "더존비즈온"
+    },
+    {
+      "stock_code": "321260",
+      "corp_code": "01359736",
+      "name": "프로이천"
+    },
+    {
+      "stock_code": "373170",
+      "corp_code": "01497142",
+      "name": "엠아이큐브솔루션"
     },
     {
       "stock_code": "052300",
