@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-16T14:59:22+0000",
+  "generated_at": "2026-07-17T15:00:05+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3977,
@@ -7941,11 +7941,6 @@
       "name": "휴럼"
     },
     {
-      "stock_code": "065560",
-      "corp_code": "00393469",
-      "name": "녹원씨엔아이"
-    },
-    {
       "stock_code": "048260",
       "corp_code": "00341916",
       "name": "오스템임플란트"
@@ -10504,11 +10499,6 @@
       "stock_code": "413390",
       "corp_code": "01563922",
       "name": "엠오티"
-    },
-    {
-      "stock_code": "107640",
-      "corp_code": "00474588",
-      "name": "한중엔시에스"
     },
     {
       "stock_code": "478440",
@@ -14426,11 +14416,6 @@
       "name": "비츠로넥스텍"
     },
     {
-      "stock_code": "065420",
-      "corp_code": "00120906",
-      "name": "에스아이리소스"
-    },
-    {
       "stock_code": "067160",
       "corp_code": "00399694",
       "name": "SOOP"
@@ -14649,16 +14634,6 @@
       "stock_code": "141080",
       "corp_code": "00842619",
       "name": "리가켐바이오"
-    },
-    {
-      "stock_code": "321820",
-      "corp_code": "01116502",
-      "name": "아티스트컴퍼니"
-    },
-    {
-      "stock_code": "291230",
-      "corp_code": "01276901",
-      "name": "엔피"
     },
     {
       "stock_code": "443670",
@@ -15049,11 +15024,6 @@
       "stock_code": "457630",
       "corp_code": "01738483",
       "name": "대신밸런스제16호기업인수목적"
-    },
-    {
-      "stock_code": "317530",
-      "corp_code": "01267222",
-      "name": "에피소드컴퍼니"
     },
     {
       "stock_code": "418620",
@@ -19611,6 +19581,31 @@
       "name": "코닉오토메이션"
     },
     {
+      "stock_code": "065420",
+      "corp_code": "00120906",
+      "name": "에스아이리소스"
+    },
+    {
+      "stock_code": "107640",
+      "corp_code": "00474588",
+      "name": "한중엔시에스"
+    },
+    {
+      "stock_code": "321820",
+      "corp_code": "01116502",
+      "name": "아티스트컴퍼니"
+    },
+    {
+      "stock_code": "317530",
+      "corp_code": "01267222",
+      "name": "에피소드컴퍼니"
+    },
+    {
+      "stock_code": "291230",
+      "corp_code": "01276901",
+      "name": "엔피"
+    },
+    {
       "stock_code": "475040",
       "corp_code": "01370517",
       "name": "스트라드비젼"
@@ -19634,6 +19629,11 @@
       "stock_code": "365660",
       "corp_code": "01424261",
       "name": "레몬헬스케어"
+    },
+    {
+      "stock_code": "065560",
+      "corp_code": "00393469",
+      "name": "녹원씨엔아이"
     },
     {
       "stock_code": "005870",
