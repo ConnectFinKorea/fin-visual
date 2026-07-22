@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-21T15:03:16+0000",
+  "generated_at": "2026-07-22T15:00:22+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3977,
+  "count": 3978,
   "companies": [
     {
       "stock_code": "036720",
@@ -4911,11 +4911,6 @@
       "name": "아이엠텍"
     },
     {
-      "stock_code": "008770",
-      "corp_code": "00165680",
-      "name": "호텔신라"
-    },
-    {
       "stock_code": "171090",
       "corp_code": "00327819",
       "name": "선익시스템"
@@ -7034,11 +7029,6 @@
       "stock_code": "036200",
       "corp_code": "00260569",
       "name": "유니셈"
-    },
-    {
-      "stock_code": "451800",
-      "corp_code": "01669226",
-      "name": "한화리츠"
     },
     {
       "stock_code": "009440",
@@ -13346,11 +13336,6 @@
       "name": "엔지켐생명과학"
     },
     {
-      "stock_code": "169670",
-      "corp_code": "00610861",
-      "name": "코스텍시스템"
-    },
-    {
       "stock_code": "230980",
       "corp_code": "01110076",
       "name": "비유테크놀러지"
@@ -15054,11 +15039,6 @@
       "stock_code": "028100",
       "corp_code": "00178754",
       "name": "동아지질"
-    },
-    {
-      "stock_code": "080530",
-      "corp_code": "00308559",
-      "name": "코디"
     },
     {
       "stock_code": "079370",
@@ -17726,11 +17706,6 @@
       "name": "웹케시"
     },
     {
-      "stock_code": "214150",
-      "corp_code": "01061327",
-      "name": "클래시스"
-    },
-    {
       "stock_code": "054540",
       "corp_code": "00250614",
       "name": "삼영엠텍"
@@ -17804,11 +17779,6 @@
       "stock_code": "461300",
       "corp_code": "00657224",
       "name": "아이스크림미디어"
-    },
-    {
-      "stock_code": "274400",
-      "corp_code": "00965318",
-      "name": "이노시뮬레이션"
     },
     {
       "stock_code": "001720",
@@ -19576,6 +19546,31 @@
       "name": "메티스"
     },
     {
+      "stock_code": "451800",
+      "corp_code": "01669226",
+      "name": "한화리츠"
+    },
+    {
+      "stock_code": "080530",
+      "corp_code": "00308559",
+      "name": "코디"
+    },
+    {
+      "stock_code": "214150",
+      "corp_code": "01061327",
+      "name": "클래시스"
+    },
+    {
+      "stock_code": "169670",
+      "corp_code": "00610861",
+      "name": "코스텍시스템"
+    },
+    {
+      "stock_code": "0203K0",
+      "corp_code": "01831708",
+      "name": "송우인포텍"
+    },
+    {
       "stock_code": "475040",
       "corp_code": "01370517",
       "name": "스트라드비젼"
@@ -19599,6 +19594,11 @@
       "stock_code": "365660",
       "corp_code": "01424261",
       "name": "레몬헬스케어"
+    },
+    {
+      "stock_code": "274400",
+      "corp_code": "00965318",
+      "name": "이노시뮬레이션"
     },
     {
       "stock_code": "259960",
@@ -19889,6 +19889,11 @@
       "stock_code": "039340",
       "corp_code": "00263371",
       "name": "한국경제TV"
+    },
+    {
+      "stock_code": "008770",
+      "corp_code": "00165680",
+      "name": "호텔신라"
     }
   ]
 }
