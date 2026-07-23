@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-22T15:00:22+0000",
+  "generated_at": "2026-07-23T15:02:21+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3978,
@@ -14946,11 +14946,6 @@
       "name": "비엘팜텍"
     },
     {
-      "stock_code": "080720",
-      "corp_code": "00532855",
-      "name": "한국유니온제약"
-    },
-    {
       "stock_code": "006250",
       "corp_code": "00105165",
       "name": "극동전선"
@@ -15304,11 +15299,6 @@
       "stock_code": "066910",
       "corp_code": "00306870",
       "name": "손오공"
-    },
-    {
-      "stock_code": "289170",
-      "corp_code": "01352575",
-      "name": "바이오텐"
     },
     {
       "stock_code": "289860",
@@ -19601,6 +19591,21 @@
       "name": "이노시뮬레이션"
     },
     {
+      "stock_code": "018500",
+      "corp_code": "00118008",
+      "name": "동원모빌리티"
+    },
+    {
+      "stock_code": "080720",
+      "corp_code": "00532855",
+      "name": "한국유니온제약"
+    },
+    {
+      "stock_code": "289170",
+      "corp_code": "01352575",
+      "name": "바이오텐"
+    },
+    {
       "stock_code": "259960",
       "corp_code": "00760971",
       "name": "크래프톤"
@@ -19824,11 +19829,6 @@
       "stock_code": "066790",
       "corp_code": "00249441",
       "name": "씨씨에스"
-    },
-    {
-      "stock_code": "018500",
-      "corp_code": "00118008",
-      "name": "동원금속"
     },
     {
       "stock_code": "106080",
