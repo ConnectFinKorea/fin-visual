@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-23T15:02:21+0000",
+  "generated_at": "2026-07-24T15:00:47+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3978,
@@ -12091,11 +12091,6 @@
       "name": "광림"
     },
     {
-      "stock_code": "084180",
-      "corp_code": "00243979",
-      "name": "수성웹툰"
-    },
-    {
       "stock_code": "448740",
       "corp_code": "01700921",
       "name": "삼성기업인수목적8호"
@@ -18846,11 +18841,6 @@
       "name": "심플랫폼"
     },
     {
-      "stock_code": "127120",
-      "corp_code": "00642541",
-      "name": "제이에스링크"
-    },
-    {
       "stock_code": "375500",
       "corp_code": "01524093",
       "name": "DL이앤씨"
@@ -19391,11 +19381,6 @@
       "name": "어보브반도체"
     },
     {
-      "stock_code": "070300",
-      "corp_code": "00683007",
-      "name": "엑스큐어"
-    },
-    {
       "stock_code": "015590",
       "corp_code": "00108746",
       "name": "DKME"
@@ -19891,9 +19876,24 @@
       "name": "한국경제TV"
     },
     {
+      "stock_code": "084180",
+      "corp_code": "00243979",
+      "name": "수성웹툰"
+    },
+    {
+      "stock_code": "070300",
+      "corp_code": "00683007",
+      "name": "엑스큐어"
+    },
+    {
       "stock_code": "008770",
       "corp_code": "00165680",
       "name": "호텔신라"
+    },
+    {
+      "stock_code": "127120",
+      "corp_code": "00642541",
+      "name": "제이에스링크"
     }
   ]
 }
