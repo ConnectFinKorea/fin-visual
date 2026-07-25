@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-24T15:00:47+0000",
+  "generated_at": "2026-07-25T15:00:47+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3978,
+  "count": 3979,
   "companies": [
     {
       "stock_code": "036720",
@@ -5889,11 +5889,6 @@
       "stock_code": "054940",
       "corp_code": "00360577",
       "name": "엑사이엔씨"
-    },
-    {
-      "stock_code": "030520",
-      "corp_code": "00204262",
-      "name": "한글과컴퓨터"
     },
     {
       "stock_code": "037070",
@@ -17181,11 +17176,6 @@
       "name": "YBM넷"
     },
     {
-      "stock_code": "060240",
-      "corp_code": "00373571",
-      "name": "스타코링크"
-    },
-    {
       "stock_code": "270520",
       "corp_code": "01228515",
       "name": "앱튼"
@@ -18586,11 +18576,6 @@
       "name": "퓨처코어"
     },
     {
-      "stock_code": "337930",
-      "corp_code": "01391103",
-      "name": "젝시믹스"
-    },
-    {
       "stock_code": "016880",
       "corp_code": "00143651",
       "name": "웅진"
@@ -19441,11 +19426,6 @@
       "name": "DH오토넥스"
     },
     {
-      "stock_code": "215380",
-      "corp_code": "01065013",
-      "name": "우정바이오"
-    },
-    {
       "stock_code": "387690",
       "corp_code": "01501764",
       "name": "레메디"
@@ -19544,6 +19524,36 @@
       "stock_code": "0203K0",
       "corp_code": "01831708",
       "name": "송우인포텍"
+    },
+    {
+      "stock_code": "030520",
+      "corp_code": "00204262",
+      "name": "한컴"
+    },
+    {
+      "stock_code": "352940",
+      "corp_code": "00367871",
+      "name": "인바이오"
+    },
+    {
+      "stock_code": "215380",
+      "corp_code": "01065013",
+      "name": "콜마바이오텍"
+    },
+    {
+      "stock_code": "337930",
+      "corp_code": "01391103",
+      "name": "젝시믹스"
+    },
+    {
+      "stock_code": "060240",
+      "corp_code": "00373571",
+      "name": "스타코링크"
+    },
+    {
+      "stock_code": "0156T0",
+      "corp_code": "00624244",
+      "name": "에이치엘지노믹스"
     },
     {
       "stock_code": "475040",
@@ -19659,11 +19669,6 @@
       "stock_code": "001080",
       "corp_code": "00120872",
       "name": "만호제강"
-    },
-    {
-      "stock_code": "352940",
-      "corp_code": "00367871",
-      "name": "인바이오"
     },
     {
       "stock_code": "237750",
