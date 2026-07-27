@@ -734,6 +734,72 @@ a { text-decoration: none; color: inherit; }
   text-align: center;
 }
 
+/* ============ 신규상장/폐지 페이지 (Market · Equity · Listing) ============ */
+.listing-meta { font-size: 11px; color: var(--text-3); margin: 4px 0 14px; }
+
+/* 당일 건수 KPI 카드 */
+.listing-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.kpi-card {
+  display: flex; align-items: center; gap: 14px;
+  border-radius: 10px; padding: 14px 18px; border: 1px solid var(--border);
+}
+.kpi-card.kpi-new { background: var(--primary-light); border-color: #BFD9F2; }
+.kpi-card.kpi-del { background: #F1F3F6; border-color: #DDE2E9; }
+.kpi-label { font-size: 13px; font-weight: 700; letter-spacing: -0.2px; }
+.kpi-new .kpi-label { color: var(--primary-dark); }
+.kpi-del .kpi-label { color: var(--text-2); }
+.kpi-value { font-size: 30px; font-weight: 800; line-height: 1; color: var(--text);
+  font-variant-numeric: tabular-nums; }
+.kpi-new .kpi-value { color: var(--primary-dark); }
+.kpi-unit { font-size: 13px; font-weight: 700; margin-left: 3px; color: var(--text-2); }
+.kpi-date { margin-left: auto; font-size: 11px; color: var(--text-3);
+  font-variant-numeric: tabular-nums; align-self: flex-end; }
+
+/* 카드를 flex-column으로 만들어 페이저를 하단 고정 (좌·우 페이저 위치 일치) */
+.listing-split .amount-card { display: flex; flex-direction: column; }
+.listing-rows { flex: 1; min-height: 336px; }
+
+.listing-row { display: grid; gap: 6px; padding: 6px 4px;
+  border-top: 1px solid var(--border-soft); font-size: 11.5px; align-items: start; }
+.listing-row.head { font-weight: 700; color: var(--text-3);
+  border-top: none; font-size: 10.5px; align-items: center; }
+.listing-new { grid-template-columns: 1.15fr 76px 1.5fr; }
+.listing-del { grid-template-columns: 0.95fr 76px 1.75fr; }
+.listing-row .l-name { font-weight: 600; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.listing-row .l-date { color: var(--text-2); font-variant-numeric: tabular-nums;
+  text-align: center; font-size: 10.5px; white-space: nowrap; }
+.listing-row .l-sector { color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.listing-row .l-reason { color: var(--text-2); line-height: 1.35; font-size: 10.5px; }
+.listing-row.head .l-name, .listing-row.head .l-date,
+.listing-row.head .l-sector, .listing-row.head .l-reason { color: var(--text-3); }
+.listing-row.head .l-date { text-align: center; }
+.listing-row:not(.head):hover { background: var(--primary-bg); }
+.listing-row.today { background: var(--primary-light); }
+.listing-row.today .l-name { color: var(--primary-dark); }
+.badge-today { display: inline-block; font-size: 8.5px; font-weight: 700;
+  color: #fff; background: var(--primary); border-radius: 4px;
+  padding: 1px 4px; margin-left: 5px; vertical-align: middle; letter-spacing: 0.3px; }
+
+/* 페이지네이션 */
+.listing-pager { display: flex; align-items: center; justify-content: center;
+  gap: 4px; margin-top: 10px; flex-wrap: wrap; }
+.pg-btn { min-width: 26px; height: 26px; border: 1px solid var(--border);
+  background: var(--card); color: var(--text-2); border-radius: 6px;
+  font-size: 11.5px; padding: 0 6px; }
+.pg-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+.pg-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 700; }
+.pg-btn:disabled { opacity: 0.4; cursor: default; }
+.pg-info { margin-left: 8px; font-size: 10.5px; color: var(--text-3);
+  font-variant-numeric: tabular-nums; }
+
+@media (max-width: 900px) {
+  .listing-kpis { grid-template-columns: 1fr; }
+  .listing-new { grid-template-columns: 1.1fr 72px 1.4fr; font-size: 10.5px; }
+  .listing-del { grid-template-columns: 0.9fr 72px 1.7fr; font-size: 10.5px; }
+}
+
 /* ============ 매출액 페이지 행 (6컬럼 그리드) ============ */
 .rev-row {
   display: grid;

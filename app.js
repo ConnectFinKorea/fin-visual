@@ -6,6 +6,7 @@ const NAV = {
       { name: "Equity",    items: [
         { id: "market-cap",     label: "시가총액" },
         { id: "market-amount",  label: "변동액" },
+        { id: "market-listing", label: "신규상장/폐지" },
       ]},
       { name: "Financial", items: [
         { id: "market-revenue",   label: "매출액" },
@@ -115,6 +116,7 @@ const ROUTES = {
   "/market/equity/market-cap":               "market-cap",
   "/market/equity/amount":                   "market-amount",
   "/market/equity/change":                   "market-amount",  // 구 URL 호환
+  "/market/equity/listing":                  "market-listing",
   "/market/financial":                       "market-revenue",
   "/market/financial/revenue":               "market-revenue",
   "/market/financial/financial-status":      "market-fin-status",
@@ -144,6 +146,7 @@ const PAGE_TO_URL = {
   "home":            "/",
   "market-cap":      "/market/equity/market-cap",
   "market-amount":   "/market/equity/amount",
+  "market-listing":  "/market/equity/listing",
   "market-revenue":    "/market/financial/revenue",
   "market-fin-status": "/market/financial/financial-status",
   "val-trading":     "/valuation/equity/trading",
@@ -165,6 +168,7 @@ const PAGE_TITLES = {
   "home":            "FinVisual",
   "market-cap":      "시가총액 · FinVisual",
   "market-amount":   "변동액 · FinVisual",
+  "market-listing":  "신규상장/폐지 · FinVisual",
   "market-revenue":    "매출액 · FinVisual",
   "market-fin-status": "재무현황 · FinVisual",
   "val-trading":     "Trading Multiple · FinVisual",
@@ -265,6 +269,8 @@ const MAPPING_URL_FALLBACK = "/data/industry_mapping.json";
 const REVENUE_URL = () => `${RAW_BASE}/revenue.json${CACHE_BUST()}`;
 const FIN_STATUS_URL = () => `${RAW_BASE}/financial_status.json${CACHE_BUST()}`;
 const NEWS_THEBELL_URL = () => `${RAW_BASE}/news_thebell.json${CACHE_BUST()}`;
+const LISTING_URL = () => `${RAW_BASE}/listing.json${CACHE_BUST()}`;
+const LISTING_URL_FALLBACK = "/data/listing.json";   // main 브랜치 시드 (data-snapshot 미존재 시)
 const MACRO_URL = () => `${RAW_BASE}/macro.json${CACHE_BUST()}`;
 const MACRO_URL_FALLBACK = "/data/macro.json";   // 로컬/시드 fallback (data-snapshot 미존재 시)
 
@@ -1008,6 +1014,140 @@ function drawCompanyTable(industryName, data, selectedCompany) {
     <span class="num ${deltaClass(ind.delta)}">${formatPct(ind.changePct)}</span>
   </div>`;
   $tbl.innerHTML = html;
+}
+
+// ============== 신규상장/폐지 페이지 (Market · Equity · Listing) ==============
+// 데이터 소스: data-snapshot 브랜치 listing.json (Railway 워커가 KIND에서 매일 갱신).
+//   { timestamp, reference_date, new_listings:[{name,date,sector}], delistings:[{name,date,reason}] }
+// 좌: 신규상장(회사명/상장일/업종), 우: 상장폐지(회사명/폐지일자/폐지사유). 스팩 제외.
+const LISTING_PAGE_SIZE = 10;
+
+async function renderListing() {
+  $main.innerHTML = `<div class="amt-loading" id="listing-loading">데이터 로딩 중...</div>`;
+  let data;
+  try {
+    data = await fetchListing();
+  } catch (err) {
+    $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">로드 실패: ${escapeHtml(err.message)}</div>`;
+    return;
+  }
+
+  const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
+  const news = (data.new_listings || []).slice().sort(byDateDesc);
+  const dels = (data.delistings || []).slice().sort(byDateDesc);
+  const refDate = data.reference_date || (news[0] && news[0].date) || "";
+  const todayNew = news.filter(r => r.date === refDate).length;
+  const todayDel = dels.filter(r => r.date === refDate).length;
+  const ts = data.timestamp ? new Date(data.timestamp).toLocaleString("ko-KR") : "";
+
+  $main.innerHTML = `
+    <div class="page-title">신규상장 / 폐지 <span class="crumb">/ Market · Equity</span></div>
+    <div class="listing-meta">자료: KIND · 기준일 ${escapeHtml(refDate)} · 최근 3개월 · 스팩(SPAC) 제외${ts ? " · 업데이트 " + escapeHtml(ts) : ""}</div>
+
+    <div class="listing-kpis">
+      <div class="kpi-card kpi-new">
+        <span class="kpi-label">신규상장</span>
+        <span class="kpi-value">${todayNew}</span><span class="kpi-unit">건</span>
+        <span class="kpi-date">${escapeHtml(refDate)}</span>
+      </div>
+      <div class="kpi-card kpi-del">
+        <span class="kpi-label">상장폐지</span>
+        <span class="kpi-value">${todayDel}</span><span class="kpi-unit">건</span>
+        <span class="kpi-date">${escapeHtml(refDate)}</span>
+      </div>
+    </div>
+
+    <div class="amount-split listing-split">
+      <div class="amount-left">
+        <div class="amount-card">
+          <h4>신규상장 <span class="amt-sub">(최근 3개월 · ${news.length}건)</span></h4>
+          <div class="listing-row listing-new head">
+            <span class="l-name">회사명</span>
+            <span class="l-date">상장일</span>
+            <span class="l-sector">업종</span>
+          </div>
+          <div class="listing-rows" id="listing-new-rows"></div>
+          <div class="listing-pager" id="listing-new-pager"></div>
+        </div>
+      </div>
+      <div class="amount-right">
+        <div class="amount-card">
+          <h4>상장폐지 <span class="amt-sub">(최근 3개월 · ${dels.length}건)</span></h4>
+          <div class="listing-row listing-del head">
+            <span class="l-name">회사명</span>
+            <span class="l-date">폐지일자</span>
+            <span class="l-reason">폐지사유</span>
+          </div>
+          <div class="listing-rows" id="listing-del-rows"></div>
+          <div class="listing-pager" id="listing-del-pager"></div>
+        </div>
+      </div>
+    </div>
+    <div class="amount-footnote">
+      자료: 한국거래소 KIND · 최근 3개월 · 스팩(SPAC) 제외 · 상장폐지 사유 전체 포함 ·
+      KPI = 기준일 당일 건수 · 매일 23:00(KST) 갱신
+    </div>
+  `;
+
+  const newRow = r => {
+    const today = r.date === refDate;
+    return `<div class="listing-row listing-new${today ? " today" : ""}">
+      <span class="l-name">${escapeHtml(r.name)}${today ? '<span class="badge-today">NEW</span>' : ""}</span>
+      <span class="l-date">${escapeHtml(r.date)}</span>
+      <span class="l-sector" title="${escapeAttr(r.sector || "")}">${escapeHtml(r.sector || "")}</span>
+    </div>`;
+  };
+  const delRow = r => {
+    const today = r.date === refDate;
+    return `<div class="listing-row listing-del${today ? " today" : ""}">
+      <span class="l-name">${escapeHtml(r.name)}</span>
+      <span class="l-date">${escapeHtml(r.date)}</span>
+      <span class="l-reason">${escapeHtml(r.reason || "")}</span>
+    </div>`;
+  };
+
+  paginateListing(news, "listing-new-rows", "listing-new-pager", newRow);
+  paginateListing(dels, "listing-del-rows", "listing-del-pager", delRow);
+}
+
+async function fetchListing() {
+  // 1순위: data-snapshot 브랜치 (Railway 워커가 매일 갱신)
+  try {
+    const r = await fetch(LISTING_URL());
+    if (r.ok) return r.json();
+  } catch (_) { /* fallback */ }
+  // 2순위: main 브랜치 시드 파일
+  const r = await fetch(LISTING_URL_FALLBACK);
+  if (!r.ok) throw new Error("listing.json 로드 실패");
+  return r.json();
+}
+
+// 페이지당 10건 + 페이지넘김
+function paginateListing(items, rowsId, pagerId, rowFn) {
+  const $rows = document.getElementById(rowsId);
+  const $pager = document.getElementById(pagerId);
+  if (!$rows || !$pager) return;
+  if (!items.length) {
+    $rows.innerHTML = `<div class="amt-empty">해당 기간 데이터가 없습니다.</div>`;
+    $pager.innerHTML = "";
+    return;
+  }
+  const totalPages = Math.max(1, Math.ceil(items.length / LISTING_PAGE_SIZE));
+  let page = 1;
+  function draw() {
+    const start = (page - 1) * LISTING_PAGE_SIZE;
+    $rows.innerHTML = items.slice(start, start + LISTING_PAGE_SIZE).map(rowFn).join("");
+    let h = `<button class="pg-btn" data-act="prev" ${page === 1 ? "disabled" : ""}>‹</button>`;
+    for (let p = 1; p <= totalPages; p++)
+      h += `<button class="pg-btn${p === page ? " active" : ""}" data-page="${p}">${p}</button>`;
+    h += `<button class="pg-btn" data-act="next" ${page === totalPages ? "disabled" : ""}>›</button>`;
+    h += `<span class="pg-info">${start + 1}–${Math.min(start + LISTING_PAGE_SIZE, items.length)} / ${items.length}건</span>`;
+    $pager.innerHTML = h;
+    $pager.querySelectorAll("[data-page]").forEach(b => b.onclick = () => { page = +b.dataset.page; draw(); });
+    $pager.querySelector("[data-act=prev]").onclick = () => { if (page > 1) { page--; draw(); } };
+    $pager.querySelector("[data-act=next]").onclick = () => { if (page < totalPages) { page++; draw(); } };
+  }
+  draw();
 }
 
 function deltaClass(v) {
@@ -3052,6 +3192,7 @@ function navigate(pageId, opts = {}) {
     "home": renderHome,
     "market-cap": renderMarketCap,
     "market-amount": renderMarketAmount,
+    "market-listing": renderListing,
     "market-revenue":    renderMarketRevenue,
     "market-fin-status": renderFinancialStatus,
     "val-trading": renderValTrading,
