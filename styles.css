@@ -735,7 +735,9 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ============ 신규상장/폐지 페이지 (Market · Equity · Listing) ============ */
-.listing-meta { font-size: 11px; color: var(--text-3); margin: 4px 0 14px; }
+/* margin 좌우는 auto 유지 — 데스크톱 .main > * 의 가운데 정렬(max-width 66vw)을
+   덮어쓰지 않도록. 좌우 0으로 두면 메타만 왼쪽으로 튀어나옴. */
+.listing-meta { font-size: 11px; color: var(--text-3); margin: 4px auto 14px; }
 
 /* 당일 건수 KPI 카드 */
 .listing-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
