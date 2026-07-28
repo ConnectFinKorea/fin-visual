@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-07-27T23:10:18+0900",
-  "reference_date": "2026-07-27",
+  "timestamp": "2026-07-28T23:11:32+0900",
+  "reference_date": "2026-07-28",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "나노솔루션",
+      "date": "2026-07-28",
+      "sector": "기타 화학제품 제조업"
+    },
     {
       "name": "네오뷰",
       "date": "2026-07-27",
@@ -79,11 +84,6 @@
       "name": "채비",
       "date": "2026-04-29",
       "sector": "전동기, 발전기 및 전기 변환 · 공급 · 제어 장치 제조업"
-    },
-    {
-      "name": "에스테크엠",
-      "date": "2026-04-27",
-      "sector": "특수 목적용 기계 제조업"
     }
   ],
   "delistings": [
