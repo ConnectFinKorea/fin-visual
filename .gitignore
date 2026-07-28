@@ -5,6 +5,7 @@ data/_revenue_progress.json
 data/_financial_progress.json
 data/_financials_progress.json
 data/_financials_done.json
+data/_newreg_progress.json
 __pycache__/
 *.pyc
 

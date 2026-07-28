@@ -802,6 +802,42 @@ a { text-decoration: none; color: inherit; }
   .listing-del { grid-template-columns: 0.9fr 72px 1.7fr; font-size: 10.5px; }
 }
 
+/* ============ 신규등록 페이지 (Market · Equity · Newreg) ============ */
+/* 정보 박스 — 좌우 auto 로 다른 페이지(.main > * max-width)와 동일 정렬 */
+.newreg-notice { margin: 0 auto 14px; border: 1px solid #BFD9F2; background: var(--primary-light);
+  border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 3px; }
+.newreg-notice .nr-main { font-size: 13px; font-weight: 700; color: var(--primary-dark);
+  display: flex; align-items: center; gap: 7px; }
+.newreg-notice .nr-main::before { content: "ℹ"; display: inline-flex; align-items: center;
+  justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--primary);
+  color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.newreg-notice .nr-sub { font-size: 11.5px; color: var(--text-2); padding-left: 25px; }
+.th-unit { display: block; font-weight: 400; font-size: 9px; color: var(--text-3); margin-top: 1px; }
+
+/* 표 — 페이지 폭 안에서 가로 스크롤 */
+.newreg-tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--card); }
+table.newreg { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 820px; }
+table.newreg thead th { background: var(--card-2); color: var(--text-2); font-weight: 700; font-size: 10px;
+  padding: 9px 8px; border-bottom: 1.5px solid var(--border); white-space: nowrap; text-align: right; }
+table.newreg thead th.l { text-align: left; }
+table.newreg thead th.c { text-align: center; }
+table.newreg tbody td { padding: 8px; border-bottom: 1px solid var(--border-soft);
+  text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.newreg tbody tr:hover { background: var(--primary-bg); }
+table.newreg tbody tr:last-child td { border-bottom: none; }
+.newreg .td-name { text-align: left; font-weight: 700; color: var(--text);
+  max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+.newreg .td-report { text-align: left; color: var(--text-2); }
+.newreg .td-report .rp-con { color: var(--primary); font-weight: 600; }
+.newreg .td-report .rp-period { color: var(--text-3); font-size: 9.5px; }
+.newreg .td-report .rp-fix { display: inline-block; font-size: 8px; font-weight: 700; color: #8A6A12;
+  background: #FFF3D6; border-radius: 3px; padding: 0 3px; margin-left: 3px; vertical-align: middle; }
+.newreg .td-date { text-align: center; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.newreg .td-auditor { text-align: left; color: var(--text-2); max-width: 120px;
+  overflow: hidden; text-overflow: ellipsis; }
+.newreg .nr-neg { color: var(--red); }
+.newreg .nr-null { color: var(--text-3); }
+
 /* ============ 매출액 페이지 행 (6컬럼 그리드) ============ */
 .rev-row {
   display: grid;

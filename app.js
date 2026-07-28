@@ -7,6 +7,7 @@ const NAV = {
         { id: "market-cap",     label: "시가총액" },
         { id: "market-amount",  label: "변동액" },
         { id: "market-listing", label: "신규상장/폐지" },
+        { id: "market-newreg",  label: "신규등록" },
       ]},
       { name: "Financial", items: [
         { id: "market-revenue",   label: "매출액" },
@@ -117,6 +118,7 @@ const ROUTES = {
   "/market/equity/amount":                   "market-amount",
   "/market/equity/change":                   "market-amount",  // 구 URL 호환
   "/market/equity/listing":                  "market-listing",
+  "/market/equity/newreg":                   "market-newreg",
   "/market/financial":                       "market-revenue",
   "/market/financial/revenue":               "market-revenue",
   "/market/financial/financial-status":      "market-fin-status",
@@ -147,6 +149,7 @@ const PAGE_TO_URL = {
   "market-cap":      "/market/equity/market-cap",
   "market-amount":   "/market/equity/amount",
   "market-listing":  "/market/equity/listing",
+  "market-newreg":   "/market/equity/newreg",
   "market-revenue":    "/market/financial/revenue",
   "market-fin-status": "/market/financial/financial-status",
   "val-trading":     "/valuation/equity/trading",
@@ -169,6 +172,7 @@ const PAGE_TITLES = {
   "market-cap":      "시가총액 · FinVisual",
   "market-amount":   "변동액 · FinVisual",
   "market-listing":  "신규상장/폐지 · FinVisual",
+  "market-newreg":   "신규등록 · FinVisual",
   "market-revenue":    "매출액 · FinVisual",
   "market-fin-status": "재무현황 · FinVisual",
   "val-trading":     "Trading Multiple · FinVisual",
@@ -271,6 +275,8 @@ const FIN_STATUS_URL = () => `${RAW_BASE}/financial_status.json${CACHE_BUST()}`;
 const NEWS_THEBELL_URL = () => `${RAW_BASE}/news_thebell.json${CACHE_BUST()}`;
 const LISTING_URL = () => `${RAW_BASE}/listing.json${CACHE_BUST()}`;
 const LISTING_URL_FALLBACK = "/data/listing.json";   // main 브랜치 시드 (data-snapshot 미존재 시)
+const NEWREG_URL = () => `${RAW_BASE}/newreg.json${CACHE_BUST()}`;
+const NEWREG_URL_FALLBACK = "/data/newreg.json";
 const MACRO_URL = () => `${RAW_BASE}/macro.json${CACHE_BUST()}`;
 const MACRO_URL_FALLBACK = "/data/macro.json";   // 로컬/시드 fallback (data-snapshot 미존재 시)
 
@@ -1148,6 +1154,106 @@ function paginateListing(items, rowsId, pagerId, rowFn) {
     $pager.querySelector("[data-act=next]").onclick = () => { if (page < totalPages) { page++; draw(); } };
   }
   draw();
+}
+
+// ============== 신규등록 페이지 (Market · Equity · 신규등록) ==============
+// 데이터 소스: data-snapshot 브랜치 newreg.json (Railway 워커가 매주 갱신).
+//   { reference_date, rows:[{회사명, corp_code, rcept_no, 보고서명, 접수일, 외부감사인,
+//                            자산총액, 부채총액, 자본총액, 매출액, 영업이익, 당기순이익}] }
+// 신규등록 = 조회기준일 시점 감사보고서 이력이 최신 1개 기간뿐인 회사. 재무수치 단위 백만원.
+async function renderNewreg() {
+  $main.innerHTML = `<div class="amt-loading">데이터 로딩 중...</div>`;
+  let data;
+  try {
+    data = await fetchNewreg();
+  } catch (err) {
+    $main.innerHTML = `<div class="amt-loading" style="color:var(--red)">로드 실패: ${escapeHtml(err.message)}</div>`;
+    return;
+  }
+  const rows = (data.rows || []).slice().sort(
+    (a, b) => (a.접수일 < b.접수일 ? 1 : a.접수일 > b.접수일 ? -1 : 0));
+  const refDate = data.reference_date || "";
+  const ts = data.timestamp ? new Date(data.timestamp).toLocaleString("ko-KR") : "";
+
+  $main.innerHTML = `
+    <div class="page-title">신규등록 <span class="crumb">/ Market · Equity</span></div>
+    <div class="newreg-notice">
+      <div class="nr-main">아래 회사는 DART내 감사보고서가 신규로 등록된 회사임</div>
+      <div class="nr-sub">(조회기준일 : ${escapeHtml(refDate)})</div>
+    </div>
+    <div class="newreg-tablewrap">
+      <table class="newreg">
+        <thead>
+          <tr>
+            <th class="l">회사명</th>
+            <th class="l">보고서명</th>
+            <th class="c">접수일</th>
+            <th class="l">외부감사인</th>
+            <th>자산총액<span class="th-unit">(백만원)</span></th>
+            <th>부채총액<span class="th-unit">(백만원)</span></th>
+            <th>자본총액<span class="th-unit">(백만원)</span></th>
+            <th>매출액<span class="th-unit">(백만원)</span></th>
+            <th>영업이익<span class="th-unit">(백만원)</span></th>
+            <th>당기순이익<span class="th-unit">(백만원)</span></th>
+          </tr>
+        </thead>
+        <tbody id="newreg-body"></tbody>
+      </table>
+    </div>
+    <div class="listing-pager" id="newreg-pager"></div>
+    <div class="newreg-footnote">
+      자료: 금융감독원 DART · 감사보고서/연결감사보고서 · 재무수치 우선순위 연결→별도 · 스팩(SPAC) 제외 ·
+      신규등록 = 조회기준일 시점 감사보고서 이력이 최신 1개 기간뿐인 회사 · 매주 금요일 21:00(KST) 갱신${ts ? " · 업데이트 " + escapeHtml(ts) : ""}
+    </div>
+  `;
+  paginateListing(rows, "newreg-body", "newreg-pager", newregRow);
+}
+
+function newregRow(r) {
+  return `<tr>
+    <td class="td-name" title="${escapeAttr(r.회사명 || "")}">${escapeHtml(r.회사명 || "")}</td>
+    <td class="td-report">${newregReport(r.보고서명)}</td>
+    <td class="td-date">${newregDate(r.접수일)}</td>
+    <td class="td-auditor" title="${escapeAttr(r.외부감사인 || "")}">${escapeHtml(r.외부감사인 || "")}</td>
+    <td>${newregMillion(r.자산총액)}</td>
+    <td>${newregMillion(r.부채총액)}</td>
+    <td>${newregMillion(r.자본총액)}</td>
+    <td>${newregMillion(r.매출액)}</td>
+    <td>${newregMillion(r.영업이익)}</td>
+    <td>${newregMillion(r.당기순이익)}</td>
+  </tr>`;
+}
+
+function newregMillion(won) {
+  if (won === null || won === undefined) return `<span class="nr-null">-</span>`;
+  const m = Math.round(won / 1e6);
+  const s = Math.abs(m).toLocaleString("en-US");
+  return m < 0 ? `<span class="nr-neg">(${s})</span>` : s;
+}
+function newregDate(d) {
+  return (d && d.length === 8) ? `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}` : (d || "");
+}
+function newregReport(nm) {
+  nm = nm || "";
+  const fix = /\[기재정정\]/.test(nm);
+  const base = nm.replace(/\[기재정정\]/, "").trim();
+  const m = base.match(/^(.*?)\s*(\(\d{4}\.\d{2}\))?$/);
+  const type = (m && m[1]) || base;
+  const period = (m && m[2]) || "";
+  const con = /연결/.test(type);
+  return `<span class="${con ? "rp-con" : ""}">${escapeHtml(type)}</span>` +
+         (period ? ` <span class="rp-period">${escapeHtml(period)}</span>` : "") +
+         (fix ? `<span class="rp-fix">정정</span>` : "");
+}
+
+async function fetchNewreg() {
+  try {
+    const r = await fetch(NEWREG_URL());
+    if (r.ok) return r.json();
+  } catch (_) { /* fallback */ }
+  const r = await fetch(NEWREG_URL_FALLBACK);
+  if (!r.ok) throw new Error("newreg.json 로드 실패");
+  return r.json();
 }
 
 function deltaClass(v) {
@@ -3193,6 +3299,7 @@ function navigate(pageId, opts = {}) {
     "market-cap": renderMarketCap,
     "market-amount": renderMarketAmount,
     "market-listing": renderListing,
+    "market-newreg": renderNewreg,
     "market-revenue":    renderMarketRevenue,
     "market-fin-status": renderFinancialStatus,
     "val-trading": renderValTrading,
