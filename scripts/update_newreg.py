@@ -44,9 +44,10 @@ try:
 except Exception:
     pass
 
-KEY = os.environ.get("OPENDART_API_KEY", "").strip()
+# 로컬은 OPENDART_API_KEY, Railway 공용변수는 DART_API_KEY — 둘 다 인식(같은 OpenDART 키).
+KEY = (os.environ.get("OPENDART_API_KEY") or os.environ.get("DART_API_KEY") or "").strip()
 if not KEY:
-    print("ERROR: OPENDART_API_KEY 환경변수가 없습니다.")
+    print("ERROR: OPENDART_API_KEY(또는 DART_API_KEY) 환경변수가 없습니다.")
     sys.exit(1)
 
 KST = timezone(timedelta(hours=9))
