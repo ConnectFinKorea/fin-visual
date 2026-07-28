@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-27T15:04:07+0000",
+  "generated_at": "2026-07-28T14:59:30+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3979,
+  "count": 3980,
   "companies": [
     {
       "stock_code": "036720",
@@ -14531,11 +14531,6 @@
       "name": "선바이오"
     },
     {
-      "stock_code": "340810",
-      "corp_code": "01315042",
-      "name": "시선AI"
-    },
-    {
       "stock_code": "104540",
       "corp_code": "00541437",
       "name": "코렌텍"
@@ -19421,11 +19416,6 @@
       "name": "성원에너텍"
     },
     {
-      "stock_code": "000300",
-      "corp_code": "00126089",
-      "name": "DH오토넥스"
-    },
-    {
       "stock_code": "387690",
       "corp_code": "01501764",
       "name": "레메디"
@@ -19809,6 +19799,21 @@
       "stock_code": "042500",
       "corp_code": "00352499",
       "name": "링네트"
+    },
+    {
+      "stock_code": "000300",
+      "corp_code": "00126089",
+      "name": "DH오토넥스"
+    },
+    {
+      "stock_code": "340810",
+      "corp_code": "01315042",
+      "name": "시선AI"
+    },
+    {
+      "stock_code": "0218L0",
+      "corp_code": "02038566",
+      "name": "네오뷰"
     },
     {
       "stock_code": "017040",
