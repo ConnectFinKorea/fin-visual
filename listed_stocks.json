@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-28T14:59:30+0000",
+  "generated_at": "2026-07-29T15:02:03+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3980,
+  "count": 3981,
   "companies": [
     {
       "stock_code": "036720",
@@ -8036,11 +8036,6 @@
       "name": "시지트로닉스"
     },
     {
-      "stock_code": "467930",
-      "corp_code": "01785700",
-      "name": "IBKS제23호스팩"
-    },
-    {
       "stock_code": "436610",
       "corp_code": "01672114",
       "name": "한국제11호기업인수목적"
@@ -15216,11 +15211,6 @@
       "name": "드림어스컴퍼니"
     },
     {
-      "stock_code": "158430",
-      "corp_code": "00595182",
-      "name": "아톤"
-    },
-    {
       "stock_code": "331920",
       "corp_code": "01114586",
       "name": "셀레믹스"
@@ -15919,11 +15909,6 @@
       "stock_code": "204620",
       "corp_code": "01042711",
       "name": "글로벌텍스프리"
-    },
-    {
-      "stock_code": "044380",
-      "corp_code": "00269241",
-      "name": "주연테크"
     },
     {
       "stock_code": "0082N0",
@@ -18251,11 +18236,6 @@
       "name": "대한광통신"
     },
     {
-      "stock_code": "290690",
-      "corp_code": "00605522",
-      "name": "소룩스"
-    },
-    {
       "stock_code": "012170",
       "corp_code": "00145437",
       "name": "아센디오"
@@ -19811,11 +19791,6 @@
       "name": "시선AI"
     },
     {
-      "stock_code": "0218L0",
-      "corp_code": "02038566",
-      "name": "네오뷰"
-    },
-    {
       "stock_code": "017040",
       "corp_code": "00103662",
       "name": "광명전기"
@@ -19869,6 +19844,36 @@
       "stock_code": "016670",
       "corp_code": "00125725",
       "name": "디모아"
+    },
+    {
+      "stock_code": "044380",
+      "corp_code": "00269241",
+      "name": "주연테크"
+    },
+    {
+      "stock_code": "158430",
+      "corp_code": "00595182",
+      "name": "아톤"
+    },
+    {
+      "stock_code": "290690",
+      "corp_code": "00605522",
+      "name": "아리바이오홀딩스"
+    },
+    {
+      "stock_code": "238540",
+      "corp_code": "01924673",
+      "name": "나노솔루션"
+    },
+    {
+      "stock_code": "0218L0",
+      "corp_code": "02038566",
+      "name": "네오뷰"
+    },
+    {
+      "stock_code": "467930",
+      "corp_code": "01785700",
+      "name": "아이비케이에스제23호기업인수목적"
     },
     {
       "stock_code": "000270",
