@@ -1177,6 +1177,10 @@ async function renderNewreg() {
 
   $main.innerHTML = `
     <div class="page-title">신규등록 <span class="crumb">/ Market · Equity</span></div>
+    <div class="newreg-footnote">
+      자료: 금융감독원 DART · 감사보고서/연결감사보고서 · 재무수치 우선순위 연결→별도 · 스팩(SPAC) 제외 ·
+      신규등록 = 조회기준일 시점 감사보고서 이력이 최신 1개 기간뿐인 회사 · 매주 금요일 21:00(KST) 갱신${ts ? " · 업데이트 " + escapeHtml(ts) : ""}
+    </div>
     <div class="newreg-notice">
       <div class="nr-main">아래 회사는 DART내 감사보고서가 신규로 등록된 회사임</div>
       <div class="nr-sub">(조회기준일 : ${escapeHtml(refDate)})</div>
@@ -1201,10 +1205,6 @@ async function renderNewreg() {
       </table>
     </div>
     <div class="listing-pager" id="newreg-pager"></div>
-    <div class="newreg-footnote">
-      자료: 금융감독원 DART · 감사보고서/연결감사보고서 · 재무수치 우선순위 연결→별도 · 스팩(SPAC) 제외 ·
-      신규등록 = 조회기준일 시점 감사보고서 이력이 최신 1개 기간뿐인 회사 · 매주 금요일 21:00(KST) 갱신${ts ? " · 업데이트 " + escapeHtml(ts) : ""}
-    </div>
   `;
   paginateListing(rows, "newreg-body", "newreg-pager", newregRow);
 }
