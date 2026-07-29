@@ -1143,15 +1143,32 @@ function paginateListing(items, rowsId, pagerId, rowFn) {
   function draw() {
     const start = (page - 1) * LISTING_PAGE_SIZE;
     $rows.innerHTML = items.slice(start, start + LISTING_PAGE_SIZE).map(rowFn).join("");
-    let h = `<button class="pg-btn" data-act="prev" ${page === 1 ? "disabled" : ""}>‹</button>`;
-    for (let p = 1; p <= totalPages; p++)
-      h += `<button class="pg-btn${p === page ? " active" : ""}" data-page="${p}">${p}</button>`;
-    h += `<button class="pg-btn" data-act="next" ${page === totalPages ? "disabled" : ""}>›</button>`;
+    // 10개 페이지 단위 윈도우 표시. 페이지가 많으면 « 처음 · ‹ 이전그룹 · › 다음그룹 · » 끝.
+    const WIN = 10;
+    const gStart = Math.floor((page - 1) / WIN) * WIN + 1;
+    const gEnd = Math.min(gStart + WIN - 1, totalPages);
+    const many = totalPages > WIN;
+    let h = "";
+    if (many) {
+      h += `<button class="pg-btn" data-go="1" ${page === 1 ? "disabled" : ""}>«</button>`;
+      h += `<button class="pg-btn" data-go="${gStart - 1}" ${gStart === 1 ? "disabled" : ""}>‹</button>`;
+    } else {
+      h += `<button class="pg-btn" data-go="${page - 1}" ${page === 1 ? "disabled" : ""}>‹</button>`;
+    }
+    for (let p = gStart; p <= gEnd; p++)
+      h += `<button class="pg-btn${p === page ? " active" : ""}" data-go="${p}">${p}</button>`;
+    if (many) {
+      h += `<button class="pg-btn" data-go="${gEnd + 1}" ${gEnd >= totalPages ? "disabled" : ""}>›</button>`;
+      h += `<button class="pg-btn" data-go="${totalPages}" ${page === totalPages ? "disabled" : ""}>»</button>`;
+    } else {
+      h += `<button class="pg-btn" data-go="${page + 1}" ${page === totalPages ? "disabled" : ""}>›</button>`;
+    }
     h += `<span class="pg-info">${start + 1}–${Math.min(start + LISTING_PAGE_SIZE, items.length)} / ${items.length}건</span>`;
     $pager.innerHTML = h;
-    $pager.querySelectorAll("[data-page]").forEach(b => b.onclick = () => { page = +b.dataset.page; draw(); });
-    $pager.querySelector("[data-act=prev]").onclick = () => { if (page > 1) { page--; draw(); } };
-    $pager.querySelector("[data-act=next]").onclick = () => { if (page < totalPages) { page++; draw(); } };
+    $pager.querySelectorAll("[data-go]").forEach(b => b.onclick = () => {
+      page = Math.max(1, Math.min(totalPages, +b.dataset.go));
+      draw();
+    });
   }
   draw();
 }
