@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-07-29T23:10:27+0900",
-  "reference_date": "2026-07-29",
+  "timestamp": "2026-07-30T23:12:53+0900",
+  "reference_date": "2026-07-30",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -79,11 +79,6 @@
       "name": "코스모로보틱스",
       "date": "2026-05-11",
       "sector": "의료용 기기 제조업"
-    },
-    {
-      "name": "채비",
-      "date": "2026-04-29",
-      "sector": "전동기, 발전기 및 전기 변환 · 공급 · 제어 장치 제조업"
     }
   ],
   "delistings": [
