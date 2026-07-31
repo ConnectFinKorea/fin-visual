@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-30T15:01:38+0000",
+  "generated_at": "2026-07-31T15:00:49+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -5294,11 +5294,6 @@
       "stock_code": "001310",
       "corp_code": "00155498",
       "name": "풍림산업"
-    },
-    {
-      "stock_code": "036460",
-      "corp_code": "00261285",
-      "name": "한국가스공사"
     },
     {
       "stock_code": "393890",
@@ -19794,6 +19789,11 @@
       "stock_code": "340810",
       "corp_code": "01315042",
       "name": "시선AI"
+    },
+    {
+      "stock_code": "036460",
+      "corp_code": "00261285",
+      "name": "한국가스공사"
     },
     {
       "stock_code": "017040",
