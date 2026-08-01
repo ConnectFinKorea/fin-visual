@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-07-31T15:00:49+0000",
+  "generated_at": "2026-08-01T15:00:53+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -3881,11 +3881,6 @@
       "name": "티에이치엔"
     },
     {
-      "stock_code": "014970",
-      "corp_code": "00125488",
-      "name": "삼륭물산"
-    },
-    {
       "stock_code": "042000",
       "corp_code": "00260879",
       "name": "카페24"
@@ -6269,11 +6264,6 @@
       "stock_code": "017860",
       "corp_code": "00108612",
       "name": "DS단석"
-    },
-    {
-      "stock_code": "469880",
-      "corp_code": "01791321",
-      "name": "하나30호스팩"
     },
     {
       "stock_code": "377630",
@@ -12771,11 +12761,6 @@
       "name": "코리아나"
     },
     {
-      "stock_code": "220180",
-      "corp_code": "00793155",
-      "name": "핸디소프트"
-    },
-    {
       "stock_code": "024810",
       "corp_code": "00145738",
       "name": "이화전기공업"
@@ -12979,11 +12964,6 @@
       "stock_code": "368030",
       "corp_code": "01467336",
       "name": "창대정밀"
-    },
-    {
-      "stock_code": "019570",
-      "corp_code": "00110750",
-      "name": "플루토스"
     },
     {
       "stock_code": "464490",
@@ -19429,6 +19409,26 @@
       "stock_code": "373170",
       "corp_code": "01497142",
       "name": "엠아이큐브솔루션"
+    },
+    {
+      "stock_code": "019570",
+      "corp_code": "00110750",
+      "name": "GMI벤처"
+    },
+    {
+      "stock_code": "014970",
+      "corp_code": "00125488",
+      "name": "삼륭물산"
+    },
+    {
+      "stock_code": "220180",
+      "corp_code": "00793155",
+      "name": "폴라리스AI핸디"
+    },
+    {
+      "stock_code": "469880",
+      "corp_code": "01791321",
+      "name": "하나30호기업인수목적"
     },
     {
       "stock_code": "052300",
