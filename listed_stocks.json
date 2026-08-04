@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-03T15:00:02+0000",
+  "generated_at": "2026-08-04T15:02:54+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -4224,11 +4224,6 @@
       "stock_code": "000950",
       "corp_code": "00147222",
       "name": "전방"
-    },
-    {
-      "stock_code": "053260",
-      "corp_code": "00105475",
-      "name": "금강철강"
     },
     {
       "stock_code": "025820",
@@ -8624,11 +8619,6 @@
       "stock_code": "012330",
       "corp_code": "00164788",
       "name": "현대모비스"
-    },
-    {
-      "stock_code": "016740",
-      "corp_code": "00119672",
-      "name": "두올"
     },
     {
       "stock_code": "050110",
@@ -14036,11 +14026,6 @@
       "name": "오리엔트바이오"
     },
     {
-      "stock_code": "071840",
-      "corp_code": "00158307",
-      "name": "롯데하이마트"
-    },
-    {
       "stock_code": "126720",
       "corp_code": "00193328",
       "name": "수산인더스트리"
@@ -15291,11 +15276,6 @@
       "name": "미쥬"
     },
     {
-      "stock_code": "478560",
-      "corp_code": "01718407",
-      "name": "블랙야크아이앤씨"
-    },
-    {
       "stock_code": "189350",
       "corp_code": "00965062",
       "name": "코셋"
@@ -16019,11 +15999,6 @@
       "stock_code": "147760",
       "corp_code": "00654175",
       "name": "피엠티"
-    },
-    {
-      "stock_code": "115610",
-      "corp_code": "00694942",
-      "name": "이미지스"
     },
     {
       "stock_code": "246690",
@@ -17174,11 +17149,6 @@
       "stock_code": "027970",
       "corp_code": "00133706",
       "name": "한국제지"
-    },
-    {
-      "stock_code": "053950",
-      "corp_code": "00307028",
-      "name": "경남제약"
     },
     {
       "stock_code": "001250",
@@ -18386,11 +18356,6 @@
       "name": "씨티씨바이오"
     },
     {
-      "stock_code": "123010",
-      "corp_code": "00615723",
-      "name": "알엔티엑스"
-    },
-    {
       "stock_code": "257990",
       "corp_code": "00425254",
       "name": "나우코스"
@@ -18956,11 +18921,6 @@
       "name": "길교이앤씨"
     },
     {
-      "stock_code": "276040",
-      "corp_code": "01290248",
-      "name": "스코넥"
-    },
-    {
       "stock_code": "000880",
       "corp_code": "00160588",
       "name": "한화"
@@ -19421,14 +19381,14 @@
       "name": "삼륭물산"
     },
     {
-      "stock_code": "220180",
-      "corp_code": "00793155",
-      "name": "폴라리스AI핸디"
-    },
-    {
       "stock_code": "469880",
       "corp_code": "01791321",
       "name": "하나30호기업인수목적"
+    },
+    {
+      "stock_code": "080720",
+      "corp_code": "00532855",
+      "name": "한국유니온제약"
     },
     {
       "stock_code": "052300",
@@ -19559,11 +19519,6 @@
       "stock_code": "018500",
       "corp_code": "00118008",
       "name": "동원모빌리티"
-    },
-    {
-      "stock_code": "080720",
-      "corp_code": "00532855",
-      "name": "한국유니온제약"
     },
     {
       "stock_code": "289170",
@@ -19796,6 +19751,46 @@
       "name": "한국가스공사"
     },
     {
+      "stock_code": "053260",
+      "corp_code": "00105475",
+      "name": "금강철강"
+    },
+    {
+      "stock_code": "016740",
+      "corp_code": "00119672",
+      "name": "두올"
+    },
+    {
+      "stock_code": "123010",
+      "corp_code": "00615723",
+      "name": "알엔티엑스"
+    },
+    {
+      "stock_code": "071840",
+      "corp_code": "00158307",
+      "name": "롯데하이마트"
+    },
+    {
+      "stock_code": "115610",
+      "corp_code": "00694942",
+      "name": "이미지스"
+    },
+    {
+      "stock_code": "220180",
+      "corp_code": "00793155",
+      "name": "폴라리스AI핸디"
+    },
+    {
+      "stock_code": "276040",
+      "corp_code": "01290248",
+      "name": "스코넥"
+    },
+    {
+      "stock_code": "478560",
+      "corp_code": "01718407",
+      "name": "블랙야크아이앤씨"
+    },
+    {
       "stock_code": "017040",
       "corp_code": "00103662",
       "name": "광명전기"
@@ -19844,6 +19839,11 @@
       "stock_code": "0164H0",
       "corp_code": "01987779",
       "name": "한국제16호스팩"
+    },
+    {
+      "stock_code": "053950",
+      "corp_code": "00307028",
+      "name": "경남제약"
     },
     {
       "stock_code": "016670",
