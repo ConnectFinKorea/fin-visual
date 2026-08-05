@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-04T15:02:54+0000",
+  "generated_at": "2026-08-05T15:00:16+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -14116,11 +14116,6 @@
       "name": "원풍"
     },
     {
-      "stock_code": "403850",
-      "corp_code": "01138364",
-      "name": "더핑크퐁컴퍼니"
-    },
-    {
       "stock_code": "034120",
       "corp_code": "00130772",
       "name": "SBS"
@@ -17771,11 +17766,6 @@
       "name": "피씨엘"
     },
     {
-      "stock_code": "192650",
-      "corp_code": "00415646",
-      "name": "드림텍"
-    },
-    {
       "stock_code": "032190",
       "corp_code": "00238782",
       "name": "다우데이타"
@@ -18991,11 +18981,6 @@
       "name": "모트렉스"
     },
     {
-      "stock_code": "376270",
-      "corp_code": "01480708",
-      "name": "HEM파마"
-    },
-    {
       "stock_code": "112040",
       "corp_code": "00444329",
       "name": "위메이드"
@@ -19089,11 +19074,6 @@
       "stock_code": "018620",
       "corp_code": "00103547",
       "name": "우진비앤지"
-    },
-    {
-      "stock_code": "031860",
-      "corp_code": "00180865",
-      "name": "디에이치엑스컴퍼니"
     },
     {
       "stock_code": "078860",
@@ -19391,6 +19371,11 @@
       "name": "한국유니온제약"
     },
     {
+      "stock_code": "376270",
+      "corp_code": "01480708",
+      "name": "HEM파마"
+    },
+    {
       "stock_code": "052300",
       "corp_code": "00349811",
       "name": "오션인더블유"
@@ -19524,6 +19509,26 @@
       "stock_code": "289170",
       "corp_code": "01352575",
       "name": "바이오텐"
+    },
+    {
+      "stock_code": "192650",
+      "corp_code": "00415646",
+      "name": "드림텍"
+    },
+    {
+      "stock_code": "031860",
+      "corp_code": "00180865",
+      "name": "디에이치엑스컴퍼니"
+    },
+    {
+      "stock_code": "123010",
+      "corp_code": "00615723",
+      "name": "알엔티엑스"
+    },
+    {
+      "stock_code": "403850",
+      "corp_code": "01138364",
+      "name": "더핑크퐁컴퍼니"
     },
     {
       "stock_code": "259960",
@@ -19759,11 +19764,6 @@
       "stock_code": "016740",
       "corp_code": "00119672",
       "name": "두올"
-    },
-    {
-      "stock_code": "123010",
-      "corp_code": "00615723",
-      "name": "알엔티엑스"
     },
     {
       "stock_code": "071840",
