@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-04T23:10:08+0900",
-  "reference_date": "2026-08-04",
+  "timestamp": "2026-08-05T23:14:01+0900",
+  "reference_date": "2026-08-05",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -176,11 +176,6 @@
       "name": "BF랩스",
       "date": "2026-05-08",
       "reason": "감사의견 거절(감사범위 제한)"
-    },
-    {
-      "name": "한국ANKOR유전",
-      "date": "2026-05-04",
-      "reason": "해산 사유 발생"
     }
   ]
 }
