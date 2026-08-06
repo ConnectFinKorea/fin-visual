@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-05T15:00:16+0000",
+  "generated_at": "2026-08-06T15:00:06+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -5334,11 +5334,6 @@
       "stock_code": "056080",
       "corp_code": "00234227",
       "name": "유진로봇"
-    },
-    {
-      "stock_code": "072990",
-      "corp_code": "00527464",
-      "name": "에이치시티"
     },
     {
       "stock_code": "035610",
@@ -13276,11 +13271,6 @@
       "name": "비유테크놀러지"
     },
     {
-      "stock_code": "266470",
-      "corp_code": "01130885",
-      "name": "바이오인프라생명과학"
-    },
-    {
       "stock_code": "0134X0",
       "corp_code": "01976418",
       "name": "대신밸런스제20호스팩"
@@ -13429,11 +13419,6 @@
       "stock_code": "084010",
       "corp_code": "00113225",
       "name": "대한제강"
-    },
-    {
-      "stock_code": "131100",
-      "corp_code": "00814786",
-      "name": "티엔엔터테인먼트"
     },
     {
       "stock_code": "095700",
@@ -19536,6 +19521,26 @@
       "name": "크래프톤"
     },
     {
+      "stock_code": "072990",
+      "corp_code": "00527464",
+      "name": "에이치시티"
+    },
+    {
+      "stock_code": "004440",
+      "corp_code": "00109806",
+      "name": "삼일씨엔에스"
+    },
+    {
+      "stock_code": "131100",
+      "corp_code": "00814786",
+      "name": "티엔엔터테인먼트"
+    },
+    {
+      "stock_code": "266470",
+      "corp_code": "01130885",
+      "name": "바이오인프라생명과학"
+    },
+    {
       "stock_code": "005870",
       "corp_code": "00111421",
       "name": "휴니드테크놀러지스"
@@ -19574,11 +19579,6 @@
       "stock_code": "267980",
       "corp_code": "01234507",
       "name": "매일유업"
-    },
-    {
-      "stock_code": "004440",
-      "corp_code": "00109806",
-      "name": "삼일씨엔에스"
     },
     {
       "stock_code": "016790",
