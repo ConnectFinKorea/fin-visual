@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-06T15:00:06+0000",
+  "generated_at": "2026-08-07T15:03:28+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -10751,11 +10751,6 @@
       "name": "한국알콜"
     },
     {
-      "stock_code": "006040",
-      "corp_code": "00118026",
-      "name": "동원산업"
-    },
-    {
       "stock_code": "023410",
       "corp_code": "00184667",
       "name": "유진기업"
@@ -11996,11 +11991,6 @@
       "name": "인터엠"
     },
     {
-      "stock_code": "061090",
-      "corp_code": "01010615",
-      "name": "세나테크놀로지"
-    },
-    {
       "stock_code": "058400",
       "corp_code": "00208134",
       "name": "KNN"
@@ -12394,11 +12384,6 @@
       "stock_code": "013360",
       "corp_code": "00146232",
       "name": "일성건설"
-    },
-    {
-      "stock_code": "058450",
-      "corp_code": "00146427",
-      "name": "한주에이알티"
     },
     {
       "stock_code": "040910",
@@ -14041,11 +14026,6 @@
       "name": "S&K폴리텍"
     },
     {
-      "stock_code": "180400",
-      "corp_code": "00995993",
-      "name": "DXVX"
-    },
-    {
       "stock_code": "056730",
       "corp_code": "00318662",
       "name": "CNT85"
@@ -14324,11 +14304,6 @@
       "stock_code": "005690",
       "corp_code": "00145163",
       "name": "파미셀"
-    },
-    {
-      "stock_code": "033790",
-      "corp_code": "00276083",
-      "name": "피노"
     },
     {
       "stock_code": "007460",
@@ -19256,14 +19231,19 @@
       "name": "DL"
     },
     {
+      "stock_code": "006040",
+      "corp_code": "00118026",
+      "name": "동원산업"
+    },
+    {
+      "stock_code": "033790",
+      "corp_code": "00276083",
+      "name": "피노"
+    },
+    {
       "stock_code": "013570",
       "corp_code": "00117179",
       "name": "디와이"
-    },
-    {
-      "stock_code": "028300",
-      "corp_code": "00199252",
-      "name": "HLB"
     },
     {
       "stock_code": "297570",
@@ -19299,6 +19279,11 @@
       "stock_code": "368970",
       "corp_code": "01491607",
       "name": "오에스피"
+    },
+    {
+      "stock_code": "061090",
+      "corp_code": "01010615",
+      "name": "세나테크놀로지"
     },
     {
       "stock_code": "241690",
@@ -19484,6 +19469,16 @@
       "stock_code": "274400",
       "corp_code": "00965318",
       "name": "이노시뮬레이션"
+    },
+    {
+      "stock_code": "058450",
+      "corp_code": "00146427",
+      "name": "한주에이알티"
+    },
+    {
+      "stock_code": "180400",
+      "corp_code": "00995993",
+      "name": "DXVX"
     },
     {
       "stock_code": "018500",
@@ -19789,6 +19784,11 @@
       "stock_code": "478560",
       "corp_code": "01718407",
       "name": "블랙야크아이앤씨"
+    },
+    {
+      "stock_code": "028300",
+      "corp_code": "00199252",
+      "name": "HLB"
     },
     {
       "stock_code": "017040",
