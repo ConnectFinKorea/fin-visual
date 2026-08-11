@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-10T15:03:06+0000",
+  "generated_at": "2026-08-11T15:03:56+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -4966,11 +4966,6 @@
       "name": "미스터블루"
     },
     {
-      "stock_code": "344860",
-      "corp_code": "01419135",
-      "name": "이노진"
-    },
-    {
       "stock_code": "094480",
       "corp_code": "00587457",
       "name": "갤럭시아머니트리"
@@ -5736,11 +5731,6 @@
       "name": "한세예스24홀딩스"
     },
     {
-      "stock_code": "263770",
-      "corp_code": "01196313",
-      "name": "유에스티"
-    },
-    {
       "stock_code": "086040",
       "corp_code": "00447502",
       "name": "바이오톡스텍"
@@ -5949,11 +5939,6 @@
       "stock_code": "214180",
       "corp_code": "01013311",
       "name": "헥토이노베이션"
-    },
-    {
-      "stock_code": "037270",
-      "corp_code": "00249247",
-      "name": "YG PLUS"
     },
     {
       "stock_code": "425420",
@@ -14846,11 +14831,6 @@
       "name": "LIG아큐버"
     },
     {
-      "stock_code": "458870",
-      "corp_code": "01514227",
-      "name": "씨어스"
-    },
-    {
       "stock_code": "455310",
       "corp_code": "01725160",
       "name": "한화플러스제4호기업인수목적"
@@ -15679,11 +15659,6 @@
       "stock_code": "066590",
       "corp_code": "00301422",
       "name": "스모트로닉"
-    },
-    {
-      "stock_code": "043090",
-      "corp_code": "00351454",
-      "name": "더테크놀로지"
     },
     {
       "stock_code": "020760",
@@ -17651,11 +17626,6 @@
       "name": "한국제13호기업인수목적"
     },
     {
-      "stock_code": "038680",
-      "corp_code": "00264635",
-      "name": "에스넷"
-    },
-    {
       "stock_code": "252990",
       "corp_code": "01199727",
       "name": "샘씨엔에스"
@@ -18419,11 +18389,6 @@
       "stock_code": "016880",
       "corp_code": "00143651",
       "name": "웅진"
-    },
-    {
-      "stock_code": "006490",
-      "corp_code": "00122825",
-      "name": "프리티"
     },
     {
       "stock_code": "049070",
@@ -19796,6 +19761,11 @@
       "name": "HLB"
     },
     {
+      "stock_code": "263770",
+      "corp_code": "01196313",
+      "name": "유에스티"
+    },
+    {
       "stock_code": "017040",
       "corp_code": "00103662",
       "name": "광명전기"
@@ -19889,6 +19859,36 @@
       "stock_code": "058970",
       "corp_code": "00396925",
       "name": "엠로"
+    },
+    {
+      "stock_code": "006490",
+      "corp_code": "00122825",
+      "name": "프리티"
+    },
+    {
+      "stock_code": "038680",
+      "corp_code": "00264635",
+      "name": "에스넷"
+    },
+    {
+      "stock_code": "037270",
+      "corp_code": "00249247",
+      "name": "YG PLUS"
+    },
+    {
+      "stock_code": "344860",
+      "corp_code": "01419135",
+      "name": "이노진"
+    },
+    {
+      "stock_code": "458870",
+      "corp_code": "01514227",
+      "name": "씨어스"
+    },
+    {
+      "stock_code": "043090",
+      "corp_code": "00351454",
+      "name": "더테크놀로지"
     },
     {
       "stock_code": "039340",
