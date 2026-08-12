@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-08-11T23:11:26+0900",
-  "reference_date": "2026-08-11",
+  "timestamp": "2026-08-12T23:12:36+0900",
+  "reference_date": "2026-08-12",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "딜리셔스",
+      "date": "2026-08-12",
+      "sector": "무점포 소매업"
+    },
     {
       "name": "나노솔루션",
       "date": "2026-07-28",
@@ -74,11 +79,6 @@
       "name": "폴레드",
       "date": "2026-05-14",
       "sector": "가정용 기기 제조업"
-    },
-    {
-      "name": "코스모로보틱스",
-      "date": "2026-05-11",
-      "sector": "의료용 기기 제조업"
     }
   ],
   "delistings": [
