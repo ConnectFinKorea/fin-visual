@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-11T15:03:56+0000",
+  "generated_at": "2026-08-12T15:00:10+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3981,
@@ -6669,11 +6669,6 @@
       "stock_code": "041020",
       "corp_code": "00269852",
       "name": "폴라리스오피스"
-    },
-    {
-      "stock_code": "000370",
-      "corp_code": "00135917",
-      "name": "한화손해보험"
     },
     {
       "stock_code": "075970",
@@ -16286,11 +16281,6 @@
       "name": "강동씨앤엘"
     },
     {
-      "stock_code": "031440",
-      "corp_code": "00274933",
-      "name": "신세계푸드"
-    },
-    {
       "stock_code": "405100",
       "corp_code": "01033591",
       "name": "큐알티"
@@ -16829,11 +16819,6 @@
       "stock_code": "010130",
       "corp_code": "00102858",
       "name": "고려아연"
-    },
-    {
-      "stock_code": "008600",
-      "corp_code": "00104999",
-      "name": "윌비스"
     },
     {
       "stock_code": "024880",
@@ -19326,6 +19311,16 @@
       "name": "코닉오토메이션"
     },
     {
+      "stock_code": "008600",
+      "corp_code": "00104999",
+      "name": "윌비스"
+    },
+    {
+      "stock_code": "031440",
+      "corp_code": "00274933",
+      "name": "신세계푸드"
+    },
+    {
       "stock_code": "065420",
       "corp_code": "00120906",
       "name": "에스아이리소스"
@@ -19474,6 +19469,11 @@
       "stock_code": "123010",
       "corp_code": "00615723",
       "name": "알엔티엑스"
+    },
+    {
+      "stock_code": "000370",
+      "corp_code": "00135917",
+      "name": "한화손해보험"
     },
     {
       "stock_code": "403850",
