@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-12T15:00:10+0000",
+  "generated_at": "2026-08-13T15:00:41+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3981,
+  "count": 3982,
   "companies": [
     {
       "stock_code": "036720",
@@ -7826,11 +7826,6 @@
       "name": "KB제29호스팩"
     },
     {
-      "stock_code": "189690",
-      "corp_code": "00939942",
-      "name": "포시에스"
-    },
-    {
       "stock_code": "101330",
       "corp_code": "00498001",
       "name": "모베이스"
@@ -12876,11 +12871,6 @@
       "name": "에스엘테라퓨틱스"
     },
     {
-      "stock_code": "004540",
-      "corp_code": "00113492",
-      "name": "깨끗한나라"
-    },
-    {
       "stock_code": "440110",
       "corp_code": "01292291",
       "name": "파두"
@@ -14031,11 +14021,6 @@
       "name": "아이파크영창"
     },
     {
-      "stock_code": "291650",
-      "corp_code": "01265251",
-      "name": "압타머사이언스"
-    },
-    {
       "stock_code": "122900",
       "corp_code": "00360142",
       "name": "아이마켓코리아"
@@ -14709,11 +14694,6 @@
       "stock_code": "377030",
       "corp_code": "01409095",
       "name": "비트맥스"
-    },
-    {
-      "stock_code": "221800",
-      "corp_code": "01026616",
-      "name": "지구홀딩스"
     },
     {
       "stock_code": "002820",
@@ -19476,6 +19456,11 @@
       "name": "한화손해보험"
     },
     {
+      "stock_code": "189690",
+      "corp_code": "00939942",
+      "name": "포시에스"
+    },
+    {
       "stock_code": "403850",
       "corp_code": "01138364",
       "name": "더핑크퐁컴퍼니"
@@ -19899,6 +19884,26 @@
       "stock_code": "084180",
       "corp_code": "00243979",
       "name": "수성웹툰"
+    },
+    {
+      "stock_code": "004540",
+      "corp_code": "00113492",
+      "name": "깨끗한나라"
+    },
+    {
+      "stock_code": "221800",
+      "corp_code": "01026616",
+      "name": "지구홀딩스"
+    },
+    {
+      "stock_code": "291650",
+      "corp_code": "01265251",
+      "name": "츌립앤사이언스"
+    },
+    {
+      "stock_code": "483350",
+      "corp_code": "01461730",
+      "name": "딜리셔스"
     },
     {
       "stock_code": "008770",
