@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-08-12T23:12:36+0900",
-  "reference_date": "2026-08-12",
+  "timestamp": "2026-08-13T23:10:04+0900",
+  "reference_date": "2026-08-13",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "케이앤에스아이앤씨",
+      "date": "2026-08-13",
+      "sector": "통신 및 방송 장비 제조업"
+    },
     {
       "name": "딜리셔스",
       "date": "2026-08-12",
