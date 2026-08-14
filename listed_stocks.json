@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-13T15:00:41+0000",
+  "generated_at": "2026-08-14T15:03:58+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3982,
+  "count": 3983,
   "companies": [
     {
       "stock_code": "036720",
@@ -5464,11 +5464,6 @@
       "stock_code": "010040",
       "corp_code": "00160205",
       "name": "한국내화"
-    },
-    {
-      "stock_code": "095660",
-      "corp_code": "00628860",
-      "name": "네오위즈"
     },
     {
       "stock_code": "113810",
@@ -19149,6 +19144,16 @@
       "stock_code": "000210",
       "corp_code": "00109693",
       "name": "DL"
+    },
+    {
+      "stock_code": "095660",
+      "corp_code": "00628860",
+      "name": "네오위즈"
+    },
+    {
+      "stock_code": "487400",
+      "corp_code": "00920731",
+      "name": "케이앤에스아이앤씨"
     },
     {
       "stock_code": "006040",
