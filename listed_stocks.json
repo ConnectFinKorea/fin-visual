@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-14T15:03:58+0000",
+  "generated_at": "2026-08-15T15:02:16+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3983,
@@ -6886,11 +6886,6 @@
       "name": "메카로"
     },
     {
-      "stock_code": "272110",
-      "corp_code": "00769158",
-      "name": "케이엔제이"
-    },
-    {
       "stock_code": "149940",
       "corp_code": "00757816",
       "name": "모다"
@@ -7444,11 +7439,6 @@
       "stock_code": "017900",
       "corp_code": "00152729",
       "name": "광전자"
-    },
-    {
-      "stock_code": "420770",
-      "corp_code": "00765569",
-      "name": "기가비스"
     },
     {
       "stock_code": "247660",
@@ -8459,11 +8449,6 @@
       "stock_code": "460870",
       "corp_code": "01142260",
       "name": "에스엠씨지"
-    },
-    {
-      "stock_code": "065060",
-      "corp_code": "00258102",
-      "name": "지엔코"
     },
     {
       "stock_code": "009320",
@@ -10711,11 +10696,6 @@
       "name": "경동나비엔"
     },
     {
-      "stock_code": "001260",
-      "corp_code": "00107066",
-      "name": "남광토건"
-    },
-    {
       "stock_code": "017890",
       "corp_code": "00158565",
       "name": "한국알콜"
@@ -12076,11 +12056,6 @@
       "name": "알파AI"
     },
     {
-      "stock_code": "060900",
-      "corp_code": "00367695",
-      "name": "에이전트AI"
-    },
-    {
       "stock_code": "394280",
       "corp_code": "01571107",
       "name": "오픈엣지테크놀로지"
@@ -13259,11 +13234,6 @@
       "stock_code": "213500",
       "corp_code": "01060744",
       "name": "한솔제지"
-    },
-    {
-      "stock_code": "036670",
-      "corp_code": "00265041",
-      "name": "삼양케이씨아이"
     },
     {
       "stock_code": "041910",
@@ -16551,11 +16521,6 @@
       "name": "노머스"
     },
     {
-      "stock_code": "092600",
-      "corp_code": "00537337",
-      "name": "앤씨앤"
-    },
-    {
       "stock_code": "038070",
       "corp_code": "00373447",
       "name": "서린바이오"
@@ -16804,11 +16769,6 @@
       "stock_code": "402340",
       "corp_code": "01596425",
       "name": "SK스퀘어"
-    },
-    {
-      "stock_code": "263700",
-      "corp_code": "01187148",
-      "name": "케어랩스"
     },
     {
       "stock_code": "446150",
@@ -17849,11 +17809,6 @@
       "stock_code": "044340",
       "corp_code": "00293886",
       "name": "위닉스"
-    },
-    {
-      "stock_code": "244460",
-      "corp_code": "01070149",
-      "name": "올리패스"
     },
     {
       "stock_code": "238500",
@@ -19156,6 +19111,46 @@
       "name": "케이앤에스아이앤씨"
     },
     {
+      "stock_code": "001260",
+      "corp_code": "00107066",
+      "name": "남광토건"
+    },
+    {
+      "stock_code": "065060",
+      "corp_code": "00258102",
+      "name": "지엔코"
+    },
+    {
+      "stock_code": "036670",
+      "corp_code": "00265041",
+      "name": "삼양케이씨아이"
+    },
+    {
+      "stock_code": "060900",
+      "corp_code": "00367695",
+      "name": "에이전트AI"
+    },
+    {
+      "stock_code": "420770",
+      "corp_code": "00765569",
+      "name": "기가비스"
+    },
+    {
+      "stock_code": "263700",
+      "corp_code": "01187148",
+      "name": "케어랩스"
+    },
+    {
+      "stock_code": "291230",
+      "corp_code": "01276901",
+      "name": "컴투스엔"
+    },
+    {
+      "stock_code": "092600",
+      "corp_code": "00537337",
+      "name": "앤씨앤"
+    },
+    {
       "stock_code": "006040",
       "corp_code": "00118026",
       "name": "동원산업"
@@ -19209,6 +19204,11 @@
       "stock_code": "061090",
       "corp_code": "01010615",
       "name": "세나테크놀로지"
+    },
+    {
+      "stock_code": "244460",
+      "corp_code": "01070149",
+      "name": "올리패스"
     },
     {
       "stock_code": "242040",
@@ -19324,11 +19324,6 @@
       "stock_code": "317530",
       "corp_code": "01267222",
       "name": "에피소드컴퍼니"
-    },
-    {
-      "stock_code": "291230",
-      "corp_code": "01276901",
-      "name": "엔피"
     },
     {
       "stock_code": "065560",
@@ -19474,6 +19469,11 @@
       "stock_code": "259960",
       "corp_code": "00760971",
       "name": "크래프톤"
+    },
+    {
+      "stock_code": "272110",
+      "corp_code": "00769158",
+      "name": "케이엔제이"
     },
     {
       "stock_code": "072990",
@@ -19649,6 +19649,11 @@
       "stock_code": "222160",
       "corp_code": "01037542",
       "name": "엔피엑스"
+    },
+    {
+      "stock_code": "043090",
+      "corp_code": "00351454",
+      "name": "더테크놀로지"
     },
     {
       "stock_code": "101670",
@@ -19874,11 +19879,6 @@
       "stock_code": "458870",
       "corp_code": "01514227",
       "name": "씨어스"
-    },
-    {
-      "stock_code": "043090",
-      "corp_code": "00351454",
-      "name": "더테크놀로지"
     },
     {
       "stock_code": "039340",
