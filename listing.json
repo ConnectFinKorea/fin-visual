@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-14T23:14:50+0900",
-  "reference_date": "2026-08-14",
+  "timestamp": "2026-08-15T23:13:43+0900",
+  "reference_date": "2026-08-15",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -79,11 +79,6 @@
       "name": "케이피항공산업",
       "date": "2026-05-19",
       "sector": "항공기,우주선 및 부품 제조업"
-    },
-    {
-      "name": "폴레드",
-      "date": "2026-05-14",
-      "sector": "가정용 기기 제조업"
     }
   ],
   "delistings": [
@@ -176,11 +171,6 @@
       "name": "아퓨어스",
       "date": "2026-05-20",
       "reason": "감사의견 의견거절"
-    },
-    {
-      "name": "창대정밀",
-      "date": "2026-05-14",
-      "reason": "감사의견 한정(감사범위 제한)"
     }
   ]
 }
