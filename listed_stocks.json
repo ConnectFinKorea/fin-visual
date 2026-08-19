@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-18T15:03:04+0000",
+  "generated_at": "2026-08-19T15:01:04+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3983,
+  "count": 3984,
   "companies": [
     {
       "stock_code": "036720",
@@ -8491,11 +8491,6 @@
       "name": "덕산하이메탈"
     },
     {
-      "stock_code": "215480",
-      "corp_code": "01064069",
-      "name": "토박스코리아"
-    },
-    {
       "stock_code": "372320",
       "corp_code": "01492651",
       "name": "큐로셀"
@@ -12251,11 +12246,6 @@
       "name": "CS"
     },
     {
-      "stock_code": "161000",
-      "corp_code": "00936787",
-      "name": "애경케미칼"
-    },
-    {
       "stock_code": "047920",
       "corp_code": "00336817",
       "name": "HLB제약"
@@ -13411,11 +13401,6 @@
       "name": "케이피항공산업"
     },
     {
-      "stock_code": "347700",
-      "corp_code": "01336762",
-      "name": "스피어"
-    },
-    {
       "stock_code": "435870",
       "corp_code": "01671197",
       "name": "에스케이증권제8호기업인수목적"
@@ -13814,16 +13799,6 @@
       "stock_code": "215000",
       "corp_code": "01067516",
       "name": "골프존"
-    },
-    {
-      "stock_code": "299900",
-      "corp_code": "01276327",
-      "name": "위지윅스튜디오"
-    },
-    {
-      "stock_code": "307870",
-      "corp_code": "01326792",
-      "name": "비투엔"
     },
     {
       "stock_code": "450080",
@@ -14941,11 +14916,6 @@
       "name": "GC메디아이"
     },
     {
-      "stock_code": "002880",
-      "corp_code": "00149804",
-      "name": "디와이에이"
-    },
-    {
       "stock_code": "046440",
       "corp_code": "00405278",
       "name": "KG파이낸셜"
@@ -15494,11 +15464,6 @@
       "stock_code": "011170",
       "corp_code": "00165413",
       "name": "롯데케미칼"
-    },
-    {
-      "stock_code": "476040",
-      "corp_code": "01626391",
-      "name": "오가노이드사이언스"
     },
     {
       "stock_code": "005450",
@@ -16721,11 +16686,6 @@
       "name": "코오롱글로벌"
     },
     {
-      "stock_code": "038290",
-      "corp_code": "00261373",
-      "name": "마크로젠"
-    },
-    {
       "stock_code": "009540",
       "corp_code": "00164830",
       "name": "HD한국조선해양"
@@ -16939,11 +16899,6 @@
       "stock_code": "388790",
       "corp_code": "01569102",
       "name": "라이콤"
-    },
-    {
-      "stock_code": "322780",
-      "corp_code": "01364297",
-      "name": "코퍼스코리아"
     },
     {
       "stock_code": "450520",
@@ -19761,6 +19716,46 @@
       "name": "유에스티"
     },
     {
+      "stock_code": "002880",
+      "corp_code": "00149804",
+      "name": "디와이에이"
+    },
+    {
+      "stock_code": "215480",
+      "corp_code": "01064069",
+      "name": "토박스코리아"
+    },
+    {
+      "stock_code": "161000",
+      "corp_code": "00936787",
+      "name": "애경케미칼"
+    },
+    {
+      "stock_code": "307870",
+      "corp_code": "01326792",
+      "name": "비투엔"
+    },
+    {
+      "stock_code": "347700",
+      "corp_code": "01336762",
+      "name": "스피어"
+    },
+    {
+      "stock_code": "322780",
+      "corp_code": "01364297",
+      "name": "코퍼스코리아"
+    },
+    {
+      "stock_code": "299900",
+      "corp_code": "01276327",
+      "name": "위지윅스튜디오"
+    },
+    {
+      "stock_code": "950260",
+      "corp_code": "02031369",
+      "name": "인제니아테라퓨틱스"
+    },
+    {
       "stock_code": "017040",
       "corp_code": "00103662",
       "name": "광명전기"
@@ -19809,6 +19804,11 @@
       "stock_code": "0164H0",
       "corp_code": "01987779",
       "name": "한국제16호스팩"
+    },
+    {
+      "stock_code": "476040",
+      "corp_code": "01626391",
+      "name": "오가노이드사이언스"
     },
     {
       "stock_code": "053950",
@@ -19884,6 +19884,11 @@
       "stock_code": "039340",
       "corp_code": "00263371",
       "name": "한국경제TV"
+    },
+    {
+      "stock_code": "038290",
+      "corp_code": "00261373",
+      "name": "마크로젠"
     },
     {
       "stock_code": "084180",
