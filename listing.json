@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-19T23:14:31+0900",
-  "reference_date": "2026-08-19",
+  "timestamp": "2026-08-20T23:13:52+0900",
+  "reference_date": "2026-08-20",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -79,11 +79,6 @@
       "name": "마키나락스",
       "date": "2026-05-20",
       "sector": "소프트웨어 개발 및 공급업"
-    },
-    {
-      "name": "케이피항공산업",
-      "date": "2026-05-19",
-      "sector": "항공기,우주선 및 부품 제조업"
     }
   ],
   "delistings": [
