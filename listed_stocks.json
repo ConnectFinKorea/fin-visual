@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-19T15:01:04+0000",
+  "generated_at": "2026-08-20T15:02:47+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3984,
@@ -5844,11 +5844,6 @@
       "stock_code": "021240",
       "corp_code": "00170558",
       "name": "코웨이"
-    },
-    {
-      "stock_code": "039130",
-      "corp_code": "00269940",
-      "name": "하나투어"
     },
     {
       "stock_code": "054940",
@@ -12524,11 +12519,6 @@
       "stock_code": "464680",
       "corp_code": "01785551",
       "name": "케이비제27호기업인수목적"
-    },
-    {
-      "stock_code": "069920",
-      "corp_code": "00426068",
-      "name": "엑시온그룹"
     },
     {
       "stock_code": "140910",
@@ -19236,6 +19226,21 @@
       "name": "한국유니온제약"
     },
     {
+      "stock_code": "039130",
+      "corp_code": "00269940",
+      "name": "하나투어"
+    },
+    {
+      "stock_code": "069920",
+      "corp_code": "00426068",
+      "name": "엑시온그룹"
+    },
+    {
+      "stock_code": "180400",
+      "corp_code": "00995993",
+      "name": "DXVX"
+    },
+    {
       "stock_code": "376270",
       "corp_code": "01480708",
       "name": "HEM파마"
@@ -19374,11 +19379,6 @@
       "stock_code": "058450",
       "corp_code": "00146427",
       "name": "한주에이알티"
-    },
-    {
-      "stock_code": "180400",
-      "corp_code": "00995993",
-      "name": "DXVX"
     },
     {
       "stock_code": "018500",
