@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-20T15:02:47+0000",
+  "generated_at": "2026-08-21T15:00:50+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3984,
@@ -6831,11 +6831,6 @@
       "name": "케이프"
     },
     {
-      "stock_code": "066900",
-      "corp_code": "00303192",
-      "name": "디에이피"
-    },
-    {
       "stock_code": "054780",
       "corp_code": "00353762",
       "name": "키이스트"
@@ -7694,11 +7689,6 @@
       "stock_code": "451220",
       "corp_code": "01546101",
       "name": "아이엠티"
-    },
-    {
-      "stock_code": "073190",
-      "corp_code": "00407771",
-      "name": "듀오백"
     },
     {
       "stock_code": "377190",
@@ -10094,11 +10084,6 @@
       "stock_code": "040350",
       "corp_code": "00346407",
       "name": "크레오에스지"
-    },
-    {
-      "stock_code": "462980",
-      "corp_code": "01728167",
-      "name": "아이지넷"
     },
     {
       "stock_code": "498390",
@@ -13761,11 +13746,6 @@
       "name": "SK시그넷"
     },
     {
-      "stock_code": "194700",
-      "corp_code": "00811372",
-      "name": "노바렉스"
-    },
-    {
       "stock_code": "237820",
       "corp_code": "00862853",
       "name": "플레이디"
@@ -16901,11 +16881,6 @@
       "name": "에스켐"
     },
     {
-      "stock_code": "036930",
-      "corp_code": "00252135",
-      "name": "주성엔지니어링"
-    },
-    {
       "stock_code": "003490",
       "corp_code": "00113526",
       "name": "대한항공"
@@ -18206,11 +18181,6 @@
       "name": "코아스템켐온"
     },
     {
-      "stock_code": "102280",
-      "corp_code": "00681142",
-      "name": "쌍방울"
-    },
-    {
       "stock_code": "205100",
       "corp_code": "01042085",
       "name": "엑셈"
@@ -19056,6 +19026,16 @@
       "name": "케이앤에스아이앤씨"
     },
     {
+      "stock_code": "036930",
+      "corp_code": "00252135",
+      "name": "주성엔지니어링"
+    },
+    {
+      "stock_code": "073190",
+      "corp_code": "00407771",
+      "name": "듀오백"
+    },
+    {
       "stock_code": "001260",
       "corp_code": "00107066",
       "name": "남광토건"
@@ -19381,6 +19361,11 @@
       "name": "한주에이알티"
     },
     {
+      "stock_code": "066900",
+      "corp_code": "00303192",
+      "name": "디에이피"
+    },
+    {
       "stock_code": "018500",
       "corp_code": "00118008",
       "name": "동원모빌리티"
@@ -19606,9 +19591,19 @@
       "name": "엔피엑스"
     },
     {
+      "stock_code": "102280",
+      "corp_code": "00681142",
+      "name": "쌍방울"
+    },
+    {
       "stock_code": "043090",
       "corp_code": "00351454",
       "name": "더테크놀로지"
+    },
+    {
+      "stock_code": "194700",
+      "corp_code": "00811372",
+      "name": "노바렉스"
     },
     {
       "stock_code": "101670",
@@ -19889,6 +19884,11 @@
       "stock_code": "038290",
       "corp_code": "00261373",
       "name": "마크로젠"
+    },
+    {
+      "stock_code": "462980",
+      "corp_code": "01728167",
+      "name": "아이지넷"
     },
     {
       "stock_code": "084180",
