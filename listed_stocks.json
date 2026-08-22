@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-21T15:00:50+0000",
+  "generated_at": "2026-08-22T15:02:04+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3984,
+  "count": 3985,
   "companies": [
     {
       "stock_code": "036720",
@@ -9021,11 +9021,6 @@
       "name": "오공"
     },
     {
-      "stock_code": "037440",
-      "corp_code": "00236863",
-      "name": "희림"
-    },
-    {
       "stock_code": "048410",
       "corp_code": "00313649",
       "name": "현대바이오"
@@ -11211,11 +11206,6 @@
       "name": "시그네틱스"
     },
     {
-      "stock_code": "033340",
-      "corp_code": "00205003",
-      "name": "좋은사람들"
-    },
-    {
       "stock_code": "004090",
       "corp_code": "00157991",
       "name": "한국석유공업"
@@ -11809,11 +11799,6 @@
       "stock_code": "446190",
       "corp_code": "01692321",
       "name": "미래에셋비전기업인수목적2호"
-    },
-    {
-      "stock_code": "342870",
-      "corp_code": "01428948",
-      "name": "오아"
     },
     {
       "stock_code": "096770",
@@ -17221,11 +17206,6 @@
       "name": "삼미금속"
     },
     {
-      "stock_code": "005900",
-      "corp_code": "00117072",
-      "name": "동양건설산업"
-    },
-    {
       "stock_code": "0088D0",
       "corp_code": "01958111",
       "name": "메리츠제1호스팩"
@@ -17439,11 +17419,6 @@
       "stock_code": "090370",
       "corp_code": "00442835",
       "name": "메타랩스"
-    },
-    {
-      "stock_code": "179530",
-      "corp_code": "01022902",
-      "name": "애드바이오텍"
     },
     {
       "stock_code": "284620",
@@ -19136,6 +19111,36 @@
       "name": "올리패스"
     },
     {
+      "stock_code": "031860",
+      "corp_code": "00180865",
+      "name": "디에이치엑스컴퍼니"
+    },
+    {
+      "stock_code": "033340",
+      "corp_code": "00205003",
+      "name": "좋은사람들"
+    },
+    {
+      "stock_code": "037440",
+      "corp_code": "00236863",
+      "name": "희림"
+    },
+    {
+      "stock_code": "179530",
+      "corp_code": "01022902",
+      "name": "애드바이오텍"
+    },
+    {
+      "stock_code": "342870",
+      "corp_code": "01428948",
+      "name": "오아"
+    },
+    {
+      "stock_code": "282620",
+      "corp_code": "00229085",
+      "name": "기도산업"
+    },
+    {
       "stock_code": "242040",
       "corp_code": "01136348",
       "name": "나무에이엑스"
@@ -19379,11 +19384,6 @@
       "stock_code": "192650",
       "corp_code": "00415646",
       "name": "드림텍"
-    },
-    {
-      "stock_code": "031860",
-      "corp_code": "00180865",
-      "name": "디에이치엑스컴퍼니"
     },
     {
       "stock_code": "123010",
@@ -19664,6 +19664,11 @@
       "stock_code": "036460",
       "corp_code": "00261285",
       "name": "한국가스공사"
+    },
+    {
+      "stock_code": "005900",
+      "corp_code": "00117072",
+      "name": "동양건설산업"
     },
     {
       "stock_code": "053260",
