@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-08-23T23:10:31+0900",
-  "reference_date": "2026-08-23",
+  "timestamp": "2026-08-24T23:10:07+0900",
+  "reference_date": "2026-08-24",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "니어스랩",
+      "date": "2026-08-24",
+      "sector": "소프트웨어 개발 및 공급업"
+    },
     {
       "name": "기도산업",
       "date": "2026-08-21",
