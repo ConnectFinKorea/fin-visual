@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-24T15:02:09+0000",
+  "generated_at": "2026-08-25T15:00:36+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3985,
+  "count": 3986,
   "companies": [
     {
       "stock_code": "036720",
@@ -8626,11 +8626,6 @@
       "name": "교보17호스팩"
     },
     {
-      "stock_code": "011150",
-      "corp_code": "00129013",
-      "name": "CJ씨푸드"
-    },
-    {
       "stock_code": "029530",
       "corp_code": "00135795",
       "name": "신도리코"
@@ -10236,11 +10231,6 @@
       "name": "온코크로스"
     },
     {
-      "stock_code": "355690",
-      "corp_code": "01444380",
-      "name": "에이텀"
-    },
-    {
       "stock_code": "417860",
       "corp_code": "01472930",
       "name": "오브젠"
@@ -10424,11 +10414,6 @@
       "stock_code": "086980",
       "corp_code": "00303794",
       "name": "쇼박스"
-    },
-    {
-      "stock_code": "255440",
-      "corp_code": "00875307",
-      "name": "야스"
     },
     {
       "stock_code": "004920",
@@ -12919,11 +12904,6 @@
       "stock_code": "187660",
       "corp_code": "01409022",
       "name": "페니트리움바이오"
-    },
-    {
-      "stock_code": "267290",
-      "corp_code": "01208885",
-      "name": "경동도시가스"
     },
     {
       "stock_code": "285130",
@@ -17401,11 +17381,6 @@
       "name": "형지I&C"
     },
     {
-      "stock_code": "461300",
-      "corp_code": "00657224",
-      "name": "아이스크림미디어"
-    },
-    {
       "stock_code": "001720",
       "corp_code": "00136721",
       "name": "신영증권"
@@ -19386,11 +19361,6 @@
       "name": "드림텍"
     },
     {
-      "stock_code": "123010",
-      "corp_code": "00615723",
-      "name": "알엔티엑스"
-    },
-    {
       "stock_code": "000370",
       "corp_code": "00135917",
       "name": "한화손해보험"
@@ -19669,6 +19639,41 @@
       "stock_code": "005900",
       "corp_code": "00117072",
       "name": "동양건설산업"
+    },
+    {
+      "stock_code": "011150",
+      "corp_code": "00129013",
+      "name": "CJ씨푸드"
+    },
+    {
+      "stock_code": "123010",
+      "corp_code": "00615723",
+      "name": "MSDI"
+    },
+    {
+      "stock_code": "267290",
+      "corp_code": "01208885",
+      "name": "경동도시가스"
+    },
+    {
+      "stock_code": "461300",
+      "corp_code": "00657224",
+      "name": "아이스크림미디어"
+    },
+    {
+      "stock_code": "255440",
+      "corp_code": "00875307",
+      "name": "야스"
+    },
+    {
+      "stock_code": "355690",
+      "corp_code": "01444380",
+      "name": "에이텀"
+    },
+    {
+      "stock_code": "417030",
+      "corp_code": "01588897",
+      "name": "니어스랩"
     },
     {
       "stock_code": "053260",
