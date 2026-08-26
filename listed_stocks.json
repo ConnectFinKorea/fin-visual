@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-25T15:00:36+0000",
+  "generated_at": "2026-08-26T15:01:28+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3986,
+  "count": 3988,
   "companies": [
     {
       "stock_code": "036720",
@@ -7086,11 +7086,6 @@
       "name": "NAVER"
     },
     {
-      "stock_code": "269620",
-      "corp_code": "01188378",
-      "name": "시스웍"
-    },
-    {
       "stock_code": "138290",
       "corp_code": "00890388",
       "name": "지성이씨에스"
@@ -9374,11 +9369,6 @@
       "stock_code": "064240",
       "corp_code": "00385336",
       "name": "홈캐스트"
-    },
-    {
-      "stock_code": "034300",
-      "corp_code": "00217947",
-      "name": "신세계건설"
     },
     {
       "stock_code": "199430",
@@ -17721,11 +17711,6 @@
       "name": "에스에이티"
     },
     {
-      "stock_code": "327610",
-      "corp_code": "01336735",
-      "name": "펨토바이오메드"
-    },
-    {
       "stock_code": "038060",
       "corp_code": "00406329",
       "name": "루멘스"
@@ -18611,11 +18596,6 @@
       "name": "한화"
     },
     {
-      "stock_code": "332190",
-      "corp_code": "01860010",
-      "name": "오션스바이오"
-    },
-    {
       "stock_code": "306620",
       "corp_code": "01325429",
       "name": "지아이에스"
@@ -19226,6 +19206,26 @@
       "name": "신세계푸드"
     },
     {
+      "stock_code": "0220W0",
+      "corp_code": "02042949",
+      "name": "한화머시너리앤서비스홀딩스"
+    },
+    {
+      "stock_code": "269620",
+      "corp_code": "01188378",
+      "name": "시스웍"
+    },
+    {
+      "stock_code": "0155E0",
+      "corp_code": "01947443",
+      "name": "해치텍"
+    },
+    {
+      "stock_code": "327610",
+      "corp_code": "01336735",
+      "name": "펨토바이오메드"
+    },
+    {
       "stock_code": "065420",
       "corp_code": "00120906",
       "name": "에스아이리소스"
@@ -19371,6 +19371,11 @@
       "name": "포시에스"
     },
     {
+      "stock_code": "332190",
+      "corp_code": "01860010",
+      "name": "오션스바이오"
+    },
+    {
       "stock_code": "403850",
       "corp_code": "01138364",
       "name": "더핑크퐁컴퍼니"
@@ -19444,6 +19449,11 @@
       "stock_code": "267980",
       "corp_code": "01234507",
       "name": "매일유업"
+    },
+    {
+      "stock_code": "034300",
+      "corp_code": "00217947",
+      "name": "신세계건설"
     },
     {
       "stock_code": "016790",
