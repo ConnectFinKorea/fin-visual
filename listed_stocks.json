@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-26T15:01:28+0000",
+  "generated_at": "2026-08-27T15:00:11+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3988,
@@ -11001,11 +11001,6 @@
       "name": "현대코퍼레이션홀딩스"
     },
     {
-      "stock_code": "216400",
-      "corp_code": "00537221",
-      "name": "인바이츠바이오코아"
-    },
-    {
       "stock_code": "347740",
       "corp_code": "01290381",
       "name": "피엔케이피부임상연구센타"
@@ -17846,11 +17841,6 @@
       "name": "대한광통신"
     },
     {
-      "stock_code": "012170",
-      "corp_code": "00145437",
-      "name": "아센디오"
-    },
-    {
       "stock_code": "196300",
       "corp_code": "00808086",
       "name": "HLB펩"
@@ -19001,6 +18991,21 @@
       "name": "컴투스엔"
     },
     {
+      "stock_code": "012170",
+      "corp_code": "00145437",
+      "name": "아센디오"
+    },
+    {
+      "stock_code": "069460",
+      "corp_code": "00428729",
+      "name": "대호에이엘"
+    },
+    {
+      "stock_code": "216400",
+      "corp_code": "00537221",
+      "name": "인바이츠바이오코아"
+    },
+    {
       "stock_code": "092600",
       "corp_code": "00537337",
       "name": "앤씨앤"
@@ -19784,11 +19789,6 @@
       "stock_code": "106080",
       "corp_code": "00542898",
       "name": "케이이엠텍"
-    },
-    {
-      "stock_code": "069460",
-      "corp_code": "00428729",
-      "name": "대호에이엘"
     },
     {
       "stock_code": "087260",
