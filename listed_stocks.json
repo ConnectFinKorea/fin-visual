@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-27T15:00:11+0000",
+  "generated_at": "2026-08-29T15:02:54+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3988,
@@ -5121,11 +5121,6 @@
       "name": "패션플랫폼"
     },
     {
-      "stock_code": "317120",
-      "corp_code": "01327092",
-      "name": "라닉스"
-    },
-    {
       "stock_code": "052860",
       "corp_code": "00365758",
       "name": "아이앤씨"
@@ -5854,11 +5849,6 @@
       "stock_code": "037070",
       "corp_code": "00238153",
       "name": "파세코"
-    },
-    {
-      "stock_code": "035460",
-      "corp_code": "00258421",
-      "name": "기산텔레콤"
     },
     {
       "stock_code": "396690",
@@ -15556,11 +15546,6 @@
       "name": "YW"
     },
     {
-      "stock_code": "009810",
-      "corp_code": "00103130",
-      "name": "플레이그램"
-    },
-    {
       "stock_code": "081180",
       "corp_code": "00406222",
       "name": "쎄크"
@@ -17791,11 +17776,6 @@
       "name": "엔바이오니아"
     },
     {
-      "stock_code": "208860",
-      "corp_code": "01084364",
-      "name": "다산디엠씨"
-    },
-    {
       "stock_code": "418470",
       "corp_code": "01467451",
       "name": "KT밀리의서재"
@@ -18494,11 +18474,6 @@
       "stock_code": "191410",
       "corp_code": "00843900",
       "name": "육일씨엔에쓰"
-    },
-    {
-      "stock_code": "009190",
-      "corp_code": "00111111",
-      "name": "대양금속"
     },
     {
       "stock_code": "273640",
@@ -19386,6 +19361,21 @@
       "name": "더핑크퐁컴퍼니"
     },
     {
+      "stock_code": "035460",
+      "corp_code": "00258421",
+      "name": "기산텔레콤"
+    },
+    {
+      "stock_code": "009810",
+      "corp_code": "00103130",
+      "name": "MDS스피어"
+    },
+    {
+      "stock_code": "009190",
+      "corp_code": "00111111",
+      "name": "대양금속"
+    },
+    {
       "stock_code": "259960",
       "corp_code": "00760971",
       "name": "크래프톤"
@@ -19831,6 +19821,11 @@
       "name": "경남제약"
     },
     {
+      "stock_code": "317120",
+      "corp_code": "01327092",
+      "name": "라닉스"
+    },
+    {
       "stock_code": "016670",
       "corp_code": "00125725",
       "name": "디모아"
@@ -19869,6 +19864,11 @@
       "stock_code": "058970",
       "corp_code": "00396925",
       "name": "엠로"
+    },
+    {
+      "stock_code": "208860",
+      "corp_code": "01084364",
+      "name": "다산디엠씨"
     },
     {
       "stock_code": "006490",
