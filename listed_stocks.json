@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-29T15:02:54+0000",
+  "generated_at": "2026-08-30T15:01:16+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3988,
@@ -15611,11 +15611,6 @@
       "name": "코오롱인더"
     },
     {
-      "stock_code": "083660",
-      "corp_code": "00406037",
-      "name": "CSA 코스믹"
-    },
-    {
       "stock_code": "214420",
       "corp_code": "00816544",
       "name": "토니모리"
@@ -16639,11 +16634,6 @@
       "stock_code": "446150",
       "corp_code": "01690235",
       "name": "유안타제12호기업인수목적"
-    },
-    {
-      "stock_code": "248070",
-      "corp_code": "01159233",
-      "name": "솔루엠"
     },
     {
       "stock_code": "042940",
@@ -19186,6 +19176,11 @@
       "name": "신세계푸드"
     },
     {
+      "stock_code": "203690",
+      "corp_code": "01036367",
+      "name": "아크솔루션스"
+    },
+    {
       "stock_code": "0220W0",
       "corp_code": "02042949",
       "name": "한화머시너리앤서비스홀딩스"
@@ -19591,11 +19586,6 @@
       "name": "잉크테크"
     },
     {
-      "stock_code": "203690",
-      "corp_code": "01036367",
-      "name": "아크솔루션스"
-    },
-    {
       "stock_code": "085620",
       "corp_code": "00112332",
       "name": "미래에셋생명"
@@ -19724,6 +19714,21 @@
       "stock_code": "263770",
       "corp_code": "01196313",
       "name": "유에스티"
+    },
+    {
+      "stock_code": "248070",
+      "corp_code": "01159233",
+      "name": "솔루엠"
+    },
+    {
+      "stock_code": "083660",
+      "corp_code": "00406037",
+      "name": "CSA 코스믹"
+    },
+    {
+      "stock_code": "221800",
+      "corp_code": "01026616",
+      "name": "지구홀딩스"
     },
     {
       "stock_code": "002880",
@@ -19919,11 +19924,6 @@
       "stock_code": "004540",
       "corp_code": "00113492",
       "name": "깨끗한나라"
-    },
-    {
-      "stock_code": "221800",
-      "corp_code": "01026616",
-      "name": "지구홀딩스"
     },
     {
       "stock_code": "291650",
