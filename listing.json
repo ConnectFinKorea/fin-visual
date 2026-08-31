@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-30T23:12:10+0900",
-  "reference_date": "2026-08-30",
+  "timestamp": "2026-08-31T23:13:23+0900",
+  "reference_date": "2026-08-31",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -97,6 +97,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "동양생명",
+      "date": "2026-08-31",
+      "reason": "지주회사(최대주주등)의 완전자회사화 등"
+    },
     {
       "name": "펨토바이오메드",
       "date": "2026-08-25",
