@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-08-31T15:03:52+0000",
+  "generated_at": "2026-09-01T15:01:32+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3988,
@@ -6539,11 +6539,6 @@
       "stock_code": "141020",
       "corp_code": "00812362",
       "name": "디에스앤엘"
-    },
-    {
-      "stock_code": "068790",
-      "corp_code": "00361594",
-      "name": "DMS"
     },
     {
       "stock_code": "054920",
@@ -14401,11 +14396,6 @@
       "name": "LG디스플레이"
     },
     {
-      "stock_code": "082640",
-      "corp_code": "00117267",
-      "name": "동양생명"
-    },
-    {
       "stock_code": "069540",
       "corp_code": "00367482",
       "name": "빛과전자"
@@ -14851,11 +14841,6 @@
       "name": "경농"
     },
     {
-      "stock_code": "240550",
-      "corp_code": "01073261",
-      "name": "동방메디컬"
-    },
-    {
       "stock_code": "032500",
       "corp_code": "00226352",
       "name": "케이엠더블유"
@@ -14999,11 +14984,6 @@
       "stock_code": "412350",
       "corp_code": "01573381",
       "name": "레이저쎌"
-    },
-    {
-      "stock_code": "263050",
-      "corp_code": "01110678",
-      "name": "유틸렉스"
     },
     {
       "stock_code": "081660",
@@ -15419,11 +15399,6 @@
       "stock_code": "230240",
       "corp_code": "01108442",
       "name": "에치에프알"
-    },
-    {
-      "stock_code": "226330",
-      "corp_code": "01344336",
-      "name": "신테카바이오"
     },
     {
       "stock_code": "440820",
@@ -19066,6 +19041,11 @@
       "name": "기도산업"
     },
     {
+      "stock_code": "0220W0",
+      "corp_code": "02042949",
+      "name": "한화머시너리앤서비스홀딩스"
+    },
+    {
       "stock_code": "242040",
       "corp_code": "01136348",
       "name": "나무에이엑스"
@@ -19151,9 +19131,54 @@
       "name": "DXVX"
     },
     {
+      "stock_code": "044380",
+      "corp_code": "00269241",
+      "name": "주연테크"
+    },
+    {
+      "stock_code": "068790",
+      "corp_code": "00361594",
+      "name": "DMS"
+    },
+    {
+      "stock_code": "158430",
+      "corp_code": "00595182",
+      "name": "아톤"
+    },
+    {
+      "stock_code": "240550",
+      "corp_code": "01073261",
+      "name": "동방메디컬"
+    },
+    {
+      "stock_code": "082640",
+      "corp_code": "00117267",
+      "name": "동양생명보험"
+    },
+    {
+      "stock_code": "263050",
+      "corp_code": "01110678",
+      "name": "유틸렉스"
+    },
+    {
+      "stock_code": "245620",
+      "corp_code": "01182550",
+      "name": "EDGC"
+    },
+    {
+      "stock_code": "317120",
+      "corp_code": "01327092",
+      "name": "라닉스"
+    },
+    {
       "stock_code": "376270",
       "corp_code": "01480708",
       "name": "HEM파마"
+    },
+    {
+      "stock_code": "226330",
+      "corp_code": "01344336",
+      "name": "신테카바이오"
     },
     {
       "stock_code": "052300",
@@ -19179,11 +19204,6 @@
       "stock_code": "203690",
       "corp_code": "01036367",
       "name": "아크솔루션스"
-    },
-    {
-      "stock_code": "0220W0",
-      "corp_code": "02042949",
-      "name": "한화머시너리앤서비스홀딩스"
     },
     {
       "stock_code": "269620",
@@ -19489,11 +19509,6 @@
       "stock_code": "314140",
       "corp_code": "01182259",
       "name": "알피바이오"
-    },
-    {
-      "stock_code": "245620",
-      "corp_code": "01182550",
-      "name": "EDGC"
     },
     {
       "stock_code": "439960",
@@ -19826,24 +19841,9 @@
       "name": "경남제약"
     },
     {
-      "stock_code": "317120",
-      "corp_code": "01327092",
-      "name": "라닉스"
-    },
-    {
       "stock_code": "016670",
       "corp_code": "00125725",
       "name": "디모아"
-    },
-    {
-      "stock_code": "044380",
-      "corp_code": "00269241",
-      "name": "주연테크"
-    },
-    {
-      "stock_code": "158430",
-      "corp_code": "00595182",
-      "name": "아톤"
     },
     {
       "stock_code": "290690",
