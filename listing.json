@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-01T23:11:43+0900",
-  "reference_date": "2026-09-01",
+  "timestamp": "2026-09-02T23:17:05+0900",
+  "reference_date": "2026-09-02",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -196,11 +196,6 @@
       "name": "비유테크놀러지",
       "date": "2026-06-05",
       "reason": "감사의견 거절(감사범위 제한 및 계속기업 존속능력 불확실성)"
-    },
-    {
-      "name": "나우코스",
-      "date": "2026-06-01",
-      "reason": "타법인의 완전자회사로 편입"
     }
   ]
 }
