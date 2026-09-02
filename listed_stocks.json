@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-01T15:01:32+0000",
+  "generated_at": "2026-09-02T15:08:06+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3988,
@@ -6006,11 +6006,6 @@
       "name": "금호에이치티"
     },
     {
-      "stock_code": "002420",
-      "corp_code": "00133618",
-      "name": "세기상사"
-    },
-    {
       "stock_code": "163730",
       "corp_code": "01142075",
       "name": "핑거"
@@ -6764,11 +6759,6 @@
       "stock_code": "457550",
       "corp_code": "01030503",
       "name": "우진엔텍"
-    },
-    {
-      "stock_code": "471050",
-      "corp_code": "01792825",
-      "name": "대신밸런스제17호스팩"
     },
     {
       "stock_code": "316140",
@@ -8414,11 +8404,6 @@
       "stock_code": "460870",
       "corp_code": "01142260",
       "name": "에스엠씨지"
-    },
-    {
-      "stock_code": "009320",
-      "corp_code": "00111689",
-      "name": "아진전자부품"
     },
     {
       "stock_code": "119650",
@@ -12531,11 +12516,6 @@
       "name": "에스케이렌터카"
     },
     {
-      "stock_code": "452200",
-      "corp_code": "01689035",
-      "name": "민테크"
-    },
-    {
       "stock_code": "036480",
       "corp_code": "00177320",
       "name": "대성미생물"
@@ -13356,11 +13336,6 @@
       "name": "티씨케이"
     },
     {
-      "stock_code": "090410",
-      "corp_code": "00454937",
-      "name": "덕신이피씨"
-    },
-    {
       "stock_code": "063570",
       "corp_code": "00363769",
       "name": "NICE인프라"
@@ -14119,11 +14094,6 @@
       "stock_code": "043710",
       "corp_code": "00305570",
       "name": "코스리거글로벌"
-    },
-    {
-      "stock_code": "054410",
-      "corp_code": "00357607",
-      "name": "케이피티유"
     },
     {
       "stock_code": "036570",
@@ -19121,11 +19091,6 @@
       "name": "하나투어"
     },
     {
-      "stock_code": "069920",
-      "corp_code": "00426068",
-      "name": "엑시온그룹"
-    },
-    {
       "stock_code": "180400",
       "corp_code": "00995993",
       "name": "DXVX"
@@ -19169,6 +19134,41 @@
       "stock_code": "317120",
       "corp_code": "01327092",
       "name": "라닉스"
+    },
+    {
+      "stock_code": "009320",
+      "corp_code": "00111689",
+      "name": "아진전자부품"
+    },
+    {
+      "stock_code": "054410",
+      "corp_code": "00357607",
+      "name": "케이피티유"
+    },
+    {
+      "stock_code": "002420",
+      "corp_code": "00133618",
+      "name": "우양피앤엘"
+    },
+    {
+      "stock_code": "069920",
+      "corp_code": "00426068",
+      "name": "엑시온그룹"
+    },
+    {
+      "stock_code": "090410",
+      "corp_code": "00454937",
+      "name": "덕신이피씨"
+    },
+    {
+      "stock_code": "175140",
+      "corp_code": "00861997",
+      "name": "아고스"
+    },
+    {
+      "stock_code": "471050",
+      "corp_code": "01792825",
+      "name": "대신밸런스제17호기업인수목적"
     },
     {
       "stock_code": "376270",
@@ -19616,11 +19616,6 @@
       "name": "현대홈쇼핑"
     },
     {
-      "stock_code": "175140",
-      "corp_code": "00861997",
-      "name": "아고스"
-    },
-    {
       "stock_code": "323280",
       "corp_code": "01366000",
       "name": "태성"
@@ -19859,6 +19854,11 @@
       "stock_code": "467930",
       "corp_code": "01785700",
       "name": "아이비케이에스제23호기업인수목적"
+    },
+    {
+      "stock_code": "452200",
+      "corp_code": "01689035",
+      "name": "민테크"
     },
     {
       "stock_code": "000270",
