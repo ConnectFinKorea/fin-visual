@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-02T23:17:05+0900",
-  "reference_date": "2026-09-02",
+  "timestamp": "2026-09-03T23:13:28+0900",
+  "reference_date": "2026-09-03",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -97,6 +97,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "알에프세미",
+      "date": "2026-09-03",
+      "reason": "감사의견 거절(감사범위 제한 및 계속기업가정 불확실성)"
+    },
     {
       "name": "동양생명",
       "date": "2026-08-31",
