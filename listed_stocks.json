@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-02T15:08:06+0000",
+  "generated_at": "2026-09-03T15:02:04+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3988,
@@ -4461,11 +4461,6 @@
       "name": "바이오빌"
     },
     {
-      "stock_code": "024120",
-      "corp_code": "00157539",
-      "name": "KB오토시스"
-    },
-    {
       "stock_code": "204020",
       "corp_code": "00671978",
       "name": "그리티"
@@ -5616,11 +5611,6 @@
       "name": "에스티오"
     },
     {
-      "stock_code": "175330",
-      "corp_code": "00980122",
-      "name": "JB금융지주"
-    },
-    {
       "stock_code": "365590",
       "corp_code": "01505186",
       "name": "하이딥"
@@ -6169,11 +6159,6 @@
       "stock_code": "216050",
       "corp_code": "00819073",
       "name": "인크로스"
-    },
-    {
-      "stock_code": "001460",
-      "corp_code": "00122579",
-      "name": "BYC"
     },
     {
       "stock_code": "348840",
@@ -7361,11 +7346,6 @@
       "name": "하이록코리아"
     },
     {
-      "stock_code": "089860",
-      "corp_code": "00545716",
-      "name": "롯데렌탈"
-    },
-    {
       "stock_code": "178920",
       "corp_code": "00767460",
       "name": "PI첨단소재"
@@ -7574,11 +7554,6 @@
       "stock_code": "013340",
       "corp_code": "00138695",
       "name": "뉴아세아"
-    },
-    {
-      "stock_code": "381970",
-      "corp_code": "01323032",
-      "name": "케이카"
     },
     {
       "stock_code": "009900",
@@ -8079,11 +8054,6 @@
       "stock_code": "067390",
       "corp_code": "00409681",
       "name": "아스트"
-    },
-    {
-      "stock_code": "482520",
-      "corp_code": "01845701",
-      "name": "교보16호스팩"
     },
     {
       "stock_code": "048830",
@@ -17236,11 +17206,6 @@
       "name": "제놀루션"
     },
     {
-      "stock_code": "212310",
-      "corp_code": "01085442",
-      "name": "오건에코텍"
-    },
-    {
       "stock_code": "333430",
       "corp_code": "01396676",
       "name": "일승"
@@ -19146,6 +19111,36 @@
       "name": "케이피티유"
     },
     {
+      "stock_code": "089860",
+      "corp_code": "00545716",
+      "name": "롯데렌탈"
+    },
+    {
+      "stock_code": "024120",
+      "corp_code": "00157539",
+      "name": "KB오토시스"
+    },
+    {
+      "stock_code": "175330",
+      "corp_code": "00980122",
+      "name": "JB금융지주"
+    },
+    {
+      "stock_code": "482520",
+      "corp_code": "01845701",
+      "name": "교보16호스팩"
+    },
+    {
+      "stock_code": "381970",
+      "corp_code": "01323032",
+      "name": "케이카"
+    },
+    {
+      "stock_code": "223220",
+      "corp_code": "01060735",
+      "name": "로지스몬"
+    },
+    {
       "stock_code": "002420",
       "corp_code": "00133618",
       "name": "우양피앤엘"
@@ -19349,6 +19344,16 @@
       "stock_code": "289170",
       "corp_code": "01352575",
       "name": "바이오텐"
+    },
+    {
+      "stock_code": "355690",
+      "corp_code": "01444380",
+      "name": "에이텀"
+    },
+    {
+      "stock_code": "001460",
+      "corp_code": "00122579",
+      "name": "BYC"
     },
     {
       "stock_code": "192650",
@@ -19626,6 +19631,11 @@
       "name": "링네트"
     },
     {
+      "stock_code": "212310",
+      "corp_code": "01085442",
+      "name": "오건에코텍"
+    },
+    {
       "stock_code": "000300",
       "corp_code": "00126089",
       "name": "DH오토넥스"
@@ -19669,11 +19679,6 @@
       "stock_code": "255440",
       "corp_code": "00875307",
       "name": "야스"
-    },
-    {
-      "stock_code": "355690",
-      "corp_code": "01444380",
-      "name": "에이텀"
     },
     {
       "stock_code": "417030",
@@ -19809,11 +19814,6 @@
       "stock_code": "366030",
       "corp_code": "01307335",
       "name": "나인앤컴퍼니"
-    },
-    {
-      "stock_code": "223220",
-      "corp_code": "01060735",
-      "name": "로지스몬"
     },
     {
       "stock_code": "230360",
