@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-03T15:02:04+0000",
+  "generated_at": "2026-09-04T15:00:00+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3988,
@@ -12161,11 +12161,6 @@
       "name": "중앙에너비스"
     },
     {
-      "stock_code": "096610",
-      "corp_code": "00516246",
-      "name": "알에프세미"
-    },
-    {
       "stock_code": "012760",
       "corp_code": "00116806",
       "name": "하스코"
@@ -14271,11 +14266,6 @@
       "name": "오파스넷"
     },
     {
-      "stock_code": "035250",
-      "corp_code": "00255619",
-      "name": "강원랜드"
-    },
-    {
       "stock_code": "085660",
       "corp_code": "00525679",
       "name": "차바이오텍"
@@ -14976,11 +14966,6 @@
       "name": "경창산업"
     },
     {
-      "stock_code": "084680",
-      "corp_code": "00540605",
-      "name": "이월드"
-    },
-    {
       "stock_code": "078350",
       "corp_code": "00488989",
       "name": "한양디지텍"
@@ -15074,11 +15059,6 @@
       "stock_code": "131760",
       "corp_code": "00820352",
       "name": "파인텍"
-    },
-    {
-      "stock_code": "078130",
-      "corp_code": "00104573",
-      "name": "국일제지"
     },
     {
       "stock_code": "000540",
@@ -17591,11 +17571,6 @@
       "name": "에스에이티"
     },
     {
-      "stock_code": "038060",
-      "corp_code": "00406329",
-      "name": "루멘스"
-    },
-    {
       "stock_code": "061970",
       "corp_code": "00412348",
       "name": "LB세미콘"
@@ -19166,6 +19141,36 @@
       "name": "대신밸런스제17호기업인수목적"
     },
     {
+      "stock_code": "035250",
+      "corp_code": "00255619",
+      "name": "강원랜드"
+    },
+    {
+      "stock_code": "078130",
+      "corp_code": "00104573",
+      "name": "국일제지"
+    },
+    {
+      "stock_code": "084680",
+      "corp_code": "00540605",
+      "name": "이월드"
+    },
+    {
+      "stock_code": "064850",
+      "corp_code": "00331016",
+      "name": "에프앤가이드"
+    },
+    {
+      "stock_code": "038060",
+      "corp_code": "00406329",
+      "name": "루멘스"
+    },
+    {
+      "stock_code": "096610",
+      "corp_code": "00516246",
+      "name": "알에프세미"
+    },
+    {
       "stock_code": "376270",
       "corp_code": "01480708",
       "name": "HEM파마"
@@ -19549,11 +19554,6 @@
       "stock_code": "005880",
       "corp_code": "00113535",
       "name": "대한해운"
-    },
-    {
-      "stock_code": "064850",
-      "corp_code": "00331016",
-      "name": "에프앤가이드"
     },
     {
       "stock_code": "052770",
