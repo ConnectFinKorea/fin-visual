@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-09-03T23:13:28+0900",
-  "reference_date": "2026-09-03",
+  "timestamp": "2026-09-04T23:13:58+0900",
+  "reference_date": "2026-09-04",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "스카이랩스",
+      "date": "2026-09-04",
+      "sector": "의료용 기기 제조업"
+    },
     {
       "name": "한화머시너리앤서비스홀딩스",
       "date": "2026-08-25",
