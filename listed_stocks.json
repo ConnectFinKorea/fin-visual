@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-04T15:00:00+0000",
+  "generated_at": "2026-09-05T15:03:24+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3988,
+  "count": 3989,
   "companies": [
     {
       "stock_code": "036720",
@@ -9121,11 +9121,6 @@
       "name": "이브이파킹서비스"
     },
     {
-      "stock_code": "396300",
-      "corp_code": "00534701",
-      "name": "세아메카닉스"
-    },
-    {
       "stock_code": "047040",
       "corp_code": "00124540",
       "name": "대우건설"
@@ -12089,11 +12084,6 @@
       "stock_code": "064090",
       "corp_code": "00390408",
       "name": "인크레더블버즈"
-    },
-    {
-      "stock_code": "261780",
-      "corp_code": "01141599",
-      "name": "아리바이오LAB"
     },
     {
       "stock_code": "003560",
@@ -17086,11 +17076,6 @@
       "name": "나래나노텍"
     },
     {
-      "stock_code": "358570",
-      "corp_code": "01351080",
-      "name": "지아이이노베이션"
-    },
-    {
       "stock_code": "032800",
       "corp_code": "00231691",
       "name": "판타지오"
@@ -18606,11 +18591,6 @@
       "name": "폴라리스AI"
     },
     {
-      "stock_code": "004020",
-      "corp_code": "00145880",
-      "name": "현대제철"
-    },
-    {
       "stock_code": "033310",
       "corp_code": "00143226",
       "name": "엠투엔"
@@ -19044,11 +19024,6 @@
       "stock_code": "068790",
       "corp_code": "00361594",
       "name": "DMS"
-    },
-    {
-      "stock_code": "158430",
-      "corp_code": "00595182",
-      "name": "아톤"
     },
     {
       "stock_code": "240550",
@@ -19646,6 +19621,11 @@
       "name": "시선AI"
     },
     {
+      "stock_code": "358570",
+      "corp_code": "01351080",
+      "name": "지아이이노베이션"
+    },
+    {
       "stock_code": "036460",
       "corp_code": "00261285",
       "name": "한국가스공사"
@@ -19914,6 +19894,31 @@
       "stock_code": "462980",
       "corp_code": "01728167",
       "name": "아이지넷"
+    },
+    {
+      "stock_code": "261780",
+      "corp_code": "01141599",
+      "name": "아리바이오LAB"
+    },
+    {
+      "stock_code": "004020",
+      "corp_code": "00145880",
+      "name": "현대제철"
+    },
+    {
+      "stock_code": "396300",
+      "corp_code": "00534701",
+      "name": "HT로보틱스"
+    },
+    {
+      "stock_code": "158430",
+      "corp_code": "00595182",
+      "name": "아톤"
+    },
+    {
+      "stock_code": "386380",
+      "corp_code": "01586923",
+      "name": "스카이랩스"
     },
     {
       "stock_code": "084180",
