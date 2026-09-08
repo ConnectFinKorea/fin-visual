@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-07T14:59:56+0000",
+  "generated_at": "2026-09-08T15:01:21+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3989,
@@ -7306,11 +7306,6 @@
       "name": "소마젠"
     },
     {
-      "stock_code": "003280",
-      "corp_code": "00167208",
-      "name": "흥아해운"
-    },
-    {
       "stock_code": "417200",
       "corp_code": "01528141",
       "name": "LS머트리얼즈"
@@ -8269,11 +8264,6 @@
       "stock_code": "464280",
       "corp_code": "01232192",
       "name": "티디에스팜"
-    },
-    {
-      "stock_code": "029460",
-      "corp_code": "00209780",
-      "name": "케이씨"
     },
     {
       "stock_code": "290650",
@@ -9364,11 +9354,6 @@
       "stock_code": "192410",
       "corp_code": "00623184",
       "name": "오늘이엔엠"
-    },
-    {
-      "stock_code": "469750",
-      "corp_code": "01516766",
-      "name": "아이비젼웍스"
     },
     {
       "stock_code": "376190",
@@ -13536,11 +13521,6 @@
       "name": "NE능률"
     },
     {
-      "stock_code": "071950",
-      "corp_code": "00210856",
-      "name": "코아스"
-    },
-    {
       "stock_code": "036530",
       "corp_code": "00225159",
       "name": "SNT홀딩스"
@@ -14909,11 +14889,6 @@
       "stock_code": "081660",
       "corp_code": "00195229",
       "name": "미스토홀딩스"
-    },
-    {
-      "stock_code": "036120",
-      "corp_code": "00260745",
-      "name": "서울평가정보"
     },
     {
       "stock_code": "102210",
@@ -19306,6 +19281,11 @@
       "name": "이노시뮬레이션"
     },
     {
+      "stock_code": "029460",
+      "corp_code": "00209780",
+      "name": "케이씨"
+    },
+    {
       "stock_code": "058450",
       "corp_code": "00146427",
       "name": "한주에이알티"
@@ -19314,6 +19294,26 @@
       "stock_code": "066900",
       "corp_code": "00303192",
       "name": "디에이피"
+    },
+    {
+      "stock_code": "003280",
+      "corp_code": "00167208",
+      "name": "흥아해운"
+    },
+    {
+      "stock_code": "036120",
+      "corp_code": "00260745",
+      "name": "서울평가정보"
+    },
+    {
+      "stock_code": "469750",
+      "corp_code": "01516766",
+      "name": "아이비젼웍스"
+    },
+    {
+      "stock_code": "071950",
+      "corp_code": "00210856",
+      "name": "코아스"
     },
     {
       "stock_code": "018500",
