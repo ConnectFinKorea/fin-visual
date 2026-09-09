@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-08T15:01:21+0000",
+  "generated_at": "2026-09-09T15:02:14+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3989,
@@ -15481,11 +15481,6 @@
       "name": "멀티캠퍼스"
     },
     {
-      "stock_code": "128940",
-      "corp_code": "00828497",
-      "name": "한미약품"
-    },
-    {
       "stock_code": "080220",
       "corp_code": "00447487",
       "name": "제주반도체"
@@ -18581,11 +18576,6 @@
       "name": "서암기계공업"
     },
     {
-      "stock_code": "054220",
-      "corp_code": "00201432",
-      "name": "비츠로시스"
-    },
-    {
       "stock_code": "032960",
       "corp_code": "00199076",
       "name": "동일기연"
@@ -19386,6 +19376,11 @@
       "name": "케이엔제이"
     },
     {
+      "stock_code": "006490",
+      "corp_code": "00122825",
+      "name": "프리티"
+    },
+    {
       "stock_code": "072990",
       "corp_code": "00527464",
       "name": "에이치시티"
@@ -19856,11 +19851,6 @@
       "name": "다산디엠씨"
     },
     {
-      "stock_code": "006490",
-      "corp_code": "00122825",
-      "name": "프리티"
-    },
-    {
       "stock_code": "038680",
       "corp_code": "00264635",
       "name": "에스넷"
@@ -19891,6 +19881,11 @@
       "name": "마크로젠"
     },
     {
+      "stock_code": "054220",
+      "corp_code": "00201432",
+      "name": "비츠로시스"
+    },
+    {
       "stock_code": "462980",
       "corp_code": "01728167",
       "name": "아이지넷"
@@ -19899,6 +19894,11 @@
       "stock_code": "261780",
       "corp_code": "01141599",
       "name": "아리바이오LAB"
+    },
+    {
+      "stock_code": "128940",
+      "corp_code": "00828497",
+      "name": "한미약품"
     },
     {
       "stock_code": "004020",
