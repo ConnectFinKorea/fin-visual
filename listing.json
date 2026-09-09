@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-08T23:11:48+0900",
-  "reference_date": "2026-09-08",
+  "timestamp": "2026-09-09T23:14:06+0900",
+  "reference_date": "2026-09-09",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -94,11 +94,6 @@
       "name": "세미티에스",
       "date": "2026-06-10",
       "sector": "특수 목적용 기계 제조업"
-    },
-    {
-      "name": "피스피스스튜디오",
-      "date": "2026-06-08",
-      "sector": "섬유, 의복, 신발 및 가죽제품 소매업"
     }
   ],
   "delistings": [
