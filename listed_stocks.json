@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-09T15:02:14+0000",
+  "generated_at": "2026-09-10T15:02:48+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3989,
@@ -4341,11 +4341,6 @@
       "name": "옵티시스"
     },
     {
-      "stock_code": "236200",
-      "corp_code": "01124653",
-      "name": "슈프리마"
-    },
-    {
       "stock_code": "194370",
       "corp_code": "00332927",
       "name": "제이에스코퍼레이션"
@@ -4539,11 +4534,6 @@
       "stock_code": "120240",
       "corp_code": "00250997",
       "name": "대정화금"
-    },
-    {
-      "stock_code": "094840",
-      "corp_code": "00599957",
-      "name": "슈프리마에이치큐"
     },
     {
       "stock_code": "138040",
@@ -5274,11 +5264,6 @@
       "stock_code": "393890",
       "corp_code": "01291317",
       "name": "더블유씨피"
-    },
-    {
-      "stock_code": "179900",
-      "corp_code": "00961774",
-      "name": "유티아이"
     },
     {
       "stock_code": "082920",
@@ -10686,11 +10671,6 @@
       "name": "씨이랩"
     },
     {
-      "stock_code": "009460",
-      "corp_code": "00163761",
-      "name": "한창제지"
-    },
-    {
       "stock_code": "092440",
       "corp_code": "00106614",
       "name": "기신정기"
@@ -13166,11 +13146,6 @@
       "name": "한화시스템"
     },
     {
-      "stock_code": "223310",
-      "corp_code": "01075126",
-      "name": "사토시홀딩스"
-    },
-    {
       "stock_code": "900140",
       "corp_code": "00838500",
       "name": "엘브이엠씨"
@@ -14814,11 +14789,6 @@
       "stock_code": "307930",
       "corp_code": "00598198",
       "name": "컴퍼니케이"
-    },
-    {
-      "stock_code": "176750",
-      "corp_code": "00867034",
-      "name": "듀켐바이오"
     },
     {
       "stock_code": "350520",
@@ -18836,6 +18806,11 @@
       "name": "진원생명과학"
     },
     {
+      "stock_code": "176750",
+      "corp_code": "00867034",
+      "name": "듀켐바이오"
+    },
+    {
       "stock_code": "205500",
       "corp_code": "01042429",
       "name": "넥써쓰"
@@ -18899,11 +18874,6 @@
       "stock_code": "0220W0",
       "corp_code": "02042949",
       "name": "한화머시너리앤서비스홀딩스"
-    },
-    {
-      "stock_code": "242040",
-      "corp_code": "01136348",
-      "name": "나무에이엑스"
     },
     {
       "stock_code": "276730",
@@ -19346,6 +19316,26 @@
       "name": "오션스바이오"
     },
     {
+      "stock_code": "009460",
+      "corp_code": "00163761",
+      "name": "한창제지"
+    },
+    {
+      "stock_code": "094840",
+      "corp_code": "00599957",
+      "name": "슈프리마에이치큐"
+    },
+    {
+      "stock_code": "179900",
+      "corp_code": "00961774",
+      "name": "유티아이"
+    },
+    {
+      "stock_code": "223310",
+      "corp_code": "01075126",
+      "name": "사토시홀딩스"
+    },
+    {
       "stock_code": "403850",
       "corp_code": "01138364",
       "name": "더핑크퐁컴퍼니"
@@ -19369,6 +19359,16 @@
       "stock_code": "259960",
       "corp_code": "00760971",
       "name": "크래프톤"
+    },
+    {
+      "stock_code": "236200",
+      "corp_code": "01124653",
+      "name": "슈프리마"
+    },
+    {
+      "stock_code": "242040",
+      "corp_code": "01136348",
+      "name": "나무AX"
     },
     {
       "stock_code": "272110",
