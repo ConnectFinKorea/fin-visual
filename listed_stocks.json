@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-10T15:02:48+0000",
+  "generated_at": "2026-09-11T15:01:10+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3989,
+  "count": 3990,
   "companies": [
     {
       "stock_code": "036720",
@@ -11636,11 +11636,6 @@
       "name": "동화약품"
     },
     {
-      "stock_code": "037330",
-      "corp_code": "00265421",
-      "name": "인지디스플레"
-    },
-    {
       "stock_code": "309710",
       "corp_code": "00914341",
       "name": "아이티켐"
@@ -16671,11 +16666,6 @@
       "name": "GS글로벌"
     },
     {
-      "stock_code": "045390",
-      "corp_code": "00318316",
-      "name": "대아티아이"
-    },
-    {
       "stock_code": "100590",
       "corp_code": "00364740",
       "name": "머큐리"
@@ -19361,11 +19351,6 @@
       "name": "크래프톤"
     },
     {
-      "stock_code": "236200",
-      "corp_code": "01124653",
-      "name": "슈프리마"
-    },
-    {
       "stock_code": "242040",
       "corp_code": "01136348",
       "name": "나무AX"
@@ -19831,6 +19816,21 @@
       "name": "아이비케이에스제23호기업인수목적"
     },
     {
+      "stock_code": "037330",
+      "corp_code": "00265421",
+      "name": "인지디스플레"
+    },
+    {
+      "stock_code": "045390",
+      "corp_code": "00318316",
+      "name": "대아티아이"
+    },
+    {
+      "stock_code": "127120",
+      "corp_code": "00642541",
+      "name": "제이에스링크"
+    },
+    {
       "stock_code": "452200",
       "corp_code": "01689035",
       "name": "민테크"
@@ -19849,6 +19849,16 @@
       "stock_code": "208860",
       "corp_code": "01084364",
       "name": "다산디엠씨"
+    },
+    {
+      "stock_code": "236200",
+      "corp_code": "01124653",
+      "name": "슈프리마"
+    },
+    {
+      "stock_code": "0197V0",
+      "corp_code": "02030166",
+      "name": "엔에이치스팩34호"
     },
     {
       "stock_code": "038680",
@@ -19944,11 +19954,6 @@
       "stock_code": "008770",
       "corp_code": "00165680",
       "name": "호텔신라"
-    },
-    {
-      "stock_code": "127120",
-      "corp_code": "00642541",
-      "name": "제이에스링크"
     }
   ]
 }
