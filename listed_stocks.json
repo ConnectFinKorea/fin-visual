@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-11T15:01:10+0000",
+  "generated_at": "2026-09-12T15:03:28+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3990,
@@ -10051,11 +10051,6 @@
       "name": "사조동아원"
     },
     {
-      "stock_code": "472220",
-      "corp_code": "01796858",
-      "name": "신영스팩10호"
-    },
-    {
       "stock_code": "007070",
       "corp_code": "00140177",
       "name": "GS리테일"
@@ -10791,11 +10786,6 @@
       "name": "넥센"
     },
     {
-      "stock_code": "226340",
-      "corp_code": "01098792",
-      "name": "본느"
-    },
-    {
       "stock_code": "308100",
       "corp_code": "01181807",
       "name": "형지글로벌"
@@ -10944,11 +10934,6 @@
       "stock_code": "046890",
       "corp_code": "00130763",
       "name": "서울반도체"
-    },
-    {
-      "stock_code": "044820",
-      "corp_code": "00219574",
-      "name": "코스맥스비티아이"
     },
     {
       "stock_code": "023160",
@@ -11606,11 +11591,6 @@
       "name": "우성아이비"
     },
     {
-      "stock_code": "238090",
-      "corp_code": "00942131",
-      "name": "앤디포스"
-    },
-    {
       "stock_code": "057880",
       "corp_code": "00410739",
       "name": "푸른소나무"
@@ -11979,11 +11959,6 @@
       "stock_code": "180060",
       "corp_code": "00874937",
       "name": "탑선"
-    },
-    {
-      "stock_code": "054180",
-      "corp_code": "00356839",
-      "name": "메디콕스"
     },
     {
       "stock_code": "0015S0",
@@ -14399,11 +14374,6 @@
       "stock_code": "238490",
       "corp_code": "00556712",
       "name": "힘스"
-    },
-    {
-      "stock_code": "377030",
-      "corp_code": "01409095",
-      "name": "비트맥스"
     },
     {
       "stock_code": "002820",
@@ -18866,6 +18836,31 @@
       "name": "한화머시너리앤서비스홀딩스"
     },
     {
+      "stock_code": "044820",
+      "corp_code": "00219574",
+      "name": "코스맥스비티아이"
+    },
+    {
+      "stock_code": "054180",
+      "corp_code": "00356839",
+      "name": "메디콕스"
+    },
+    {
+      "stock_code": "226340",
+      "corp_code": "01098792",
+      "name": "본느"
+    },
+    {
+      "stock_code": "377030",
+      "corp_code": "01409095",
+      "name": "비트맥스"
+    },
+    {
+      "stock_code": "472220",
+      "corp_code": "01796858",
+      "name": "신영해피투모로우제10호기업인수목적"
+    },
+    {
       "stock_code": "276730",
       "corp_code": "01230255",
       "name": "한울앤제주"
@@ -19284,6 +19279,11 @@
       "stock_code": "001460",
       "corp_code": "00122579",
       "name": "BYC"
+    },
+    {
+      "stock_code": "238090",
+      "corp_code": "00942131",
+      "name": "앤디포스"
     },
     {
       "stock_code": "192650",
