@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-13T23:12:47+0900",
-  "reference_date": "2026-09-13",
+  "timestamp": "2026-09-14T23:10:36+0900",
+  "reference_date": "2026-09-14",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -92,6 +92,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "코이즈",
+      "date": "2026-09-14",
+      "reason": "시가총액 200억원 미달"
+    },
     {
       "name": "알에프세미",
       "date": "2026-09-03",
