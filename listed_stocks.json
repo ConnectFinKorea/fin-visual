@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-14T15:02:37+0000",
+  "generated_at": "2026-09-15T15:03:02+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3990,
@@ -5616,11 +5616,6 @@
       "name": "에이치케이"
     },
     {
-      "stock_code": "121850",
-      "corp_code": "00807397",
-      "name": "코이즈"
-    },
-    {
       "stock_code": "053110",
       "corp_code": "00352718",
       "name": "소리바다"
@@ -6424,11 +6419,6 @@
       "stock_code": "432470",
       "corp_code": "01402995",
       "name": "케이엔에스"
-    },
-    {
-      "stock_code": "034310",
-      "corp_code": "00158316",
-      "name": "NICE"
     },
     {
       "stock_code": "090430",
@@ -9486,11 +9476,6 @@
       "name": "한스바이오메드"
     },
     {
-      "stock_code": "260660",
-      "corp_code": "00447007",
-      "name": "알리코제약"
-    },
-    {
       "stock_code": "340570",
       "corp_code": "00608440",
       "name": "티앤엘"
@@ -11709,11 +11694,6 @@
       "stock_code": "001470",
       "corp_code": "00125974",
       "name": "삼부토건"
-    },
-    {
-      "stock_code": "060150",
-      "corp_code": "00375931",
-      "name": "인선이엔티"
     },
     {
       "stock_code": "148930",
@@ -18661,6 +18641,31 @@
       "name": "DL"
     },
     {
+      "stock_code": "060150",
+      "corp_code": "00375931",
+      "name": "인선이엔티"
+    },
+    {
+      "stock_code": "034310",
+      "corp_code": "00158316",
+      "name": "NICE"
+    },
+    {
+      "stock_code": "038060",
+      "corp_code": "00406329",
+      "name": "루멘스바이오스"
+    },
+    {
+      "stock_code": "260660",
+      "corp_code": "00447007",
+      "name": "알리코제약"
+    },
+    {
+      "stock_code": "121850",
+      "corp_code": "00807397",
+      "name": "코이즈"
+    },
+    {
       "stock_code": "095660",
       "corp_code": "00628860",
       "name": "네오위즈"
@@ -19054,11 +19059,6 @@
       "stock_code": "064850",
       "corp_code": "00331016",
       "name": "에프앤가이드"
-    },
-    {
-      "stock_code": "038060",
-      "corp_code": "00406329",
-      "name": "루멘스"
     },
     {
       "stock_code": "096610",
