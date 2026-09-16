@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-15T15:03:02+0000",
+  "generated_at": "2026-09-16T14:59:22+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3990,
@@ -7666,11 +7666,6 @@
       "name": "와이엠"
     },
     {
-      "stock_code": "465320",
-      "corp_code": "01781847",
-      "name": "교보15호스팩"
-    },
-    {
       "stock_code": "460930",
       "corp_code": "00667373",
       "name": "현대힘스"
@@ -10774,11 +10769,6 @@
       "stock_code": "308100",
       "corp_code": "01181807",
       "name": "형지글로벌"
-    },
-    {
-      "stock_code": "282880",
-      "corp_code": "01211232",
-      "name": "코윈테크"
     },
     {
       "stock_code": "137310",
@@ -13926,11 +13916,6 @@
       "name": "KBI메탈"
     },
     {
-      "stock_code": "044480",
-      "corp_code": "00173449",
-      "name": "빌리언스"
-    },
-    {
       "stock_code": "045660",
       "corp_code": "00256502",
       "name": "에이텍"
@@ -15634,11 +15619,6 @@
       "stock_code": "304360",
       "corp_code": "01258020",
       "name": "에스바이오메딕스"
-    },
-    {
-      "stock_code": "277810",
-      "corp_code": "01261644",
-      "name": "레인보우로보틱스"
     },
     {
       "stock_code": "453450",
@@ -18066,11 +18046,6 @@
       "name": "하이퍼코퍼레이션"
     },
     {
-      "stock_code": "003120",
-      "corp_code": "00146214",
-      "name": "일성아이에스"
-    },
-    {
       "stock_code": "214270",
       "corp_code": "01061497",
       "name": "FSN"
@@ -18721,11 +18696,6 @@
       "name": "컴투스엔"
     },
     {
-      "stock_code": "012170",
-      "corp_code": "00145437",
-      "name": "아센디오"
-    },
-    {
       "stock_code": "069460",
       "corp_code": "00428729",
       "name": "대호에이엘"
@@ -18874,6 +18844,31 @@
       "stock_code": "368970",
       "corp_code": "01491607",
       "name": "오에스피"
+    },
+    {
+      "stock_code": "012170",
+      "corp_code": "00145437",
+      "name": "아센디오"
+    },
+    {
+      "stock_code": "044480",
+      "corp_code": "00173449",
+      "name": "빌리언스"
+    },
+    {
+      "stock_code": "282880",
+      "corp_code": "01211232",
+      "name": "코윈로보틱스"
+    },
+    {
+      "stock_code": "277810",
+      "corp_code": "01261644",
+      "name": "레인보우로보틱스"
+    },
+    {
+      "stock_code": "465320",
+      "corp_code": "01781847",
+      "name": "교보15호기업인수목적"
     },
     {
       "stock_code": "241690",
@@ -19949,6 +19944,11 @@
       "stock_code": "483350",
       "corp_code": "01461730",
       "name": "딜리셔스"
+    },
+    {
+      "stock_code": "003120",
+      "corp_code": "00146214",
+      "name": "일성아이에스"
     },
     {
       "stock_code": "008770",
