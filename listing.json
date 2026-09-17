@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-16T23:13:59+0900",
-  "reference_date": "2026-09-16",
+  "timestamp": "2026-09-17T23:12:12+0900",
+  "reference_date": "2026-09-17",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -92,6 +92,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "카프로",
+      "date": "2026-09-17",
+      "reason": "기업의 계속성, 경영의 투명성 및 기타 공익과 투자자 보호 등을 종합적으로 고려하여 상장폐지 기준에 해당한다고 결정"
+    },
     {
       "name": "코이즈",
       "date": "2026-09-14",
