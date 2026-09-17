@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-16T14:59:22+0000",
+  "generated_at": "2026-09-17T15:00:05+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3990,
@@ -9801,11 +9801,6 @@
       "name": "키움제11호스팩"
     },
     {
-      "stock_code": "475460",
-      "corp_code": "01374717",
-      "name": "미트박스"
-    },
-    {
       "stock_code": "493790",
       "corp_code": "01872219",
       "name": "유안타제17호스팩"
@@ -11691,11 +11686,6 @@
       "name": "에이치와이티씨"
     },
     {
-      "stock_code": "354200",
-      "corp_code": "01397903",
-      "name": "엔젠바이오"
-    },
-    {
       "stock_code": "089230",
       "corp_code": "00519252",
       "name": "THE E&M"
@@ -13564,11 +13554,6 @@
       "stock_code": "432720",
       "corp_code": "01584183",
       "name": "퀄리타스반도체"
-    },
-    {
-      "stock_code": "123410",
-      "corp_code": "00803425",
-      "name": "코리아에프티"
     },
     {
       "stock_code": "016100",
@@ -15719,11 +15704,6 @@
       "stock_code": "363250",
       "corp_code": "01437858",
       "name": "진시스템"
-    },
-    {
-      "stock_code": "351320",
-      "corp_code": "01440153",
-      "name": "넥사다이내믹스"
     },
     {
       "stock_code": "388050",
@@ -18031,11 +18011,6 @@
       "name": "코나아이"
     },
     {
-      "stock_code": "091590",
-      "corp_code": "00108001",
-      "name": "남화토건"
-    },
-    {
       "stock_code": "025620",
       "corp_code": "00136776",
       "name": "차AI헬스케어"
@@ -18696,6 +18671,11 @@
       "name": "컴투스엔"
     },
     {
+      "stock_code": "475460",
+      "corp_code": "01374717",
+      "name": "미트박스"
+    },
+    {
       "stock_code": "069460",
       "corp_code": "00428729",
       "name": "대호에이엘"
@@ -19216,6 +19196,16 @@
       "name": "레몬헬스케어"
     },
     {
+      "stock_code": "354200",
+      "corp_code": "01397903",
+      "name": "엔젠바이오"
+    },
+    {
+      "stock_code": "351320",
+      "corp_code": "01440153",
+      "name": "넥사다이내믹스"
+    },
+    {
       "stock_code": "274400",
       "corp_code": "00965318",
       "name": "이노시뮬레이션"
@@ -19606,6 +19596,11 @@
       "name": "한국가스공사"
     },
     {
+      "stock_code": "091590",
+      "corp_code": "00108001",
+      "name": "남화토건"
+    },
+    {
       "stock_code": "005900",
       "corp_code": "00117072",
       "name": "동양건설산업"
@@ -19889,6 +19884,11 @@
       "stock_code": "054220",
       "corp_code": "00201432",
       "name": "비츠로시스"
+    },
+    {
+      "stock_code": "123410",
+      "corp_code": "00803425",
+      "name": "코리아에프티"
     },
     {
       "stock_code": "462980",
