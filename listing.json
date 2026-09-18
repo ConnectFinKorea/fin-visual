@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-17T23:12:12+0900",
-  "reference_date": "2026-09-17",
+  "timestamp": "2026-09-18T23:13:10+0900",
+  "reference_date": "2026-09-18",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -92,6 +92,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "이노벡스",
+      "date": "2026-09-18",
+      "reason": "지정자문인 선임계약 해지 후 30일 이내 미체결('26.09.04限)"
+    },
     {
       "name": "카프로",
       "date": "2026-09-17",
