@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-17T15:00:05+0000",
+  "generated_at": "2026-09-18T15:02:52+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3990,
@@ -5884,11 +5884,6 @@
       "stock_code": "033130",
       "corp_code": "00231442",
       "name": "디지틀조선"
-    },
-    {
-      "stock_code": "214180",
-      "corp_code": "01013311",
-      "name": "헥토이노베이션"
     },
     {
       "stock_code": "425420",
@@ -13206,11 +13201,6 @@
       "name": "한화솔루션"
     },
     {
-      "stock_code": "234340",
-      "corp_code": "00763701",
-      "name": "헥토파이낸셜"
-    },
-    {
       "stock_code": "026970",
       "corp_code": "00110060",
       "name": "대백저축은행"
@@ -16071,11 +16061,6 @@
       "name": "산은캐피탈"
     },
     {
-      "stock_code": "034230",
-      "corp_code": "00171265",
-      "name": "파라다이스"
-    },
-    {
       "stock_code": "003410",
       "corp_code": "00138224",
       "name": "쌍용씨앤이"
@@ -17751,11 +17736,6 @@
       "name": "상상인제4호기업인수목적"
     },
     {
-      "stock_code": "006380",
-      "corp_code": "00159810",
-      "name": "카프로"
-    },
-    {
       "stock_code": "029480",
       "corp_code": "00186452",
       "name": "광무"
@@ -18134,11 +18114,6 @@
       "stock_code": "0071M0",
       "corp_code": "01935183",
       "name": "삼성스팩11호"
-    },
-    {
-      "stock_code": "084440",
-      "corp_code": "00531078",
-      "name": "유비온"
     },
     {
       "stock_code": "208340",
@@ -18671,6 +18646,16 @@
       "name": "컴투스엔"
     },
     {
+      "stock_code": "006380",
+      "corp_code": "00159810",
+      "name": "카프로"
+    },
+    {
+      "stock_code": "084440",
+      "corp_code": "00531078",
+      "name": "유비온"
+    },
+    {
       "stock_code": "475460",
       "corp_code": "01374717",
       "name": "미트박스"
@@ -19046,6 +19031,11 @@
       "name": "HEM파마"
     },
     {
+      "stock_code": "234340",
+      "corp_code": "00763701",
+      "name": "헥토파이낸셜"
+    },
+    {
       "stock_code": "226330",
       "corp_code": "01344336",
       "name": "신테카바이오"
@@ -19416,6 +19406,11 @@
       "name": "신세계건설"
     },
     {
+      "stock_code": "214180",
+      "corp_code": "01013311",
+      "name": "헥토이노베이션"
+    },
+    {
       "stock_code": "016790",
       "corp_code": "00164618",
       "name": "현대사료"
@@ -19574,6 +19569,11 @@
       "stock_code": "212310",
       "corp_code": "01085442",
       "name": "오건에코텍"
+    },
+    {
+      "stock_code": "034230",
+      "corp_code": "00171265",
+      "name": "파라다이스"
     },
     {
       "stock_code": "000300",
