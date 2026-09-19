@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-18T15:02:52+0000",
+  "generated_at": "2026-09-19T14:59:14+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3990,
@@ -4929,11 +4929,6 @@
       "stock_code": "072130",
       "corp_code": "00416654",
       "name": "유엔젤"
-    },
-    {
-      "stock_code": "009140",
-      "corp_code": "00102140",
-      "name": "경인전자"
     },
     {
       "stock_code": "042110",
@@ -17216,11 +17211,6 @@
       "name": "KR모터스"
     },
     {
-      "stock_code": "001520",
-      "corp_code": "00117337",
-      "name": "동양"
-    },
-    {
       "stock_code": "002690",
       "corp_code": "00118451",
       "name": "동일제강"
@@ -17299,11 +17289,6 @@
       "stock_code": "013720",
       "corp_code": "00151605",
       "name": "청보"
-    },
-    {
-      "stock_code": "279060",
-      "corp_code": "01353848",
-      "name": "이노벡스"
     },
     {
       "stock_code": "052420",
@@ -18896,11 +18881,6 @@
       "name": "하나투어"
     },
     {
-      "stock_code": "180400",
-      "corp_code": "00995993",
-      "name": "DXVX"
-    },
-    {
       "stock_code": "044380",
       "corp_code": "00269241",
       "name": "주연테크"
@@ -19029,6 +19009,21 @@
       "stock_code": "376270",
       "corp_code": "01480708",
       "name": "HEM파마"
+    },
+    {
+      "stock_code": "001520",
+      "corp_code": "00117337",
+      "name": "동양"
+    },
+    {
+      "stock_code": "180400",
+      "corp_code": "00995993",
+      "name": "DXVX"
+    },
+    {
+      "stock_code": "279060",
+      "corp_code": "01353848",
+      "name": "이노벡스"
     },
     {
       "stock_code": "234340",
@@ -19206,11 +19201,6 @@
       "name": "케이씨"
     },
     {
-      "stock_code": "058450",
-      "corp_code": "00146427",
-      "name": "한주에이알티"
-    },
-    {
       "stock_code": "066900",
       "corp_code": "00303192",
       "name": "디에이피"
@@ -19234,6 +19224,16 @@
       "stock_code": "071950",
       "corp_code": "00210856",
       "name": "코아스"
+    },
+    {
+      "stock_code": "009140",
+      "corp_code": "00102140",
+      "name": "케이아이이"
+    },
+    {
+      "stock_code": "058450",
+      "corp_code": "00146427",
+      "name": "한주에이알티"
     },
     {
       "stock_code": "018500",
