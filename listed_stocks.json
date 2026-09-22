@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-21T15:02:59+0000",
+  "generated_at": "2026-09-22T15:01:10+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3990,
+  "count": 3991,
   "companies": [
     {
       "stock_code": "036720",
@@ -7586,11 +7586,6 @@
       "name": "에코프로에이치엔"
     },
     {
-      "stock_code": "012700",
-      "corp_code": "00117708",
-      "name": "리드코프"
-    },
-    {
       "stock_code": "451220",
       "corp_code": "01546101",
       "name": "아이엠티"
@@ -10841,11 +10836,6 @@
       "name": "한국타이어앤테크놀로지"
     },
     {
-      "stock_code": "950160",
-      "corp_code": "01245062",
-      "name": "코오롱티슈진"
-    },
-    {
       "stock_code": "227840",
       "corp_code": "01108099",
       "name": "현대코퍼레이션홀딩스"
@@ -11484,11 +11474,6 @@
       "stock_code": "0068Y0",
       "corp_code": "01933981",
       "name": "비엔케이제3호스팩"
-    },
-    {
-      "stock_code": "380550",
-      "corp_code": "01782004",
-      "name": "뉴로핏"
     },
     {
       "stock_code": "282330",
@@ -12336,11 +12321,6 @@
       "name": "코나솔"
     },
     {
-      "stock_code": "082740",
-      "corp_code": "00361008",
-      "name": "한화엔진"
-    },
-    {
       "stock_code": "377220",
       "corp_code": "01217865",
       "name": "프롬바이오"
@@ -13061,11 +13041,6 @@
       "name": "제넥신"
     },
     {
-      "stock_code": "272210",
-      "corp_code": "00339391",
-      "name": "한화시스템"
-    },
-    {
       "stock_code": "900140",
       "corp_code": "00838500",
       "name": "엘브이엠씨"
@@ -13744,11 +13719,6 @@
       "stock_code": "059090",
       "corp_code": "00366942",
       "name": "미코"
-    },
-    {
-      "stock_code": "050090",
-      "corp_code": "00369569",
-      "name": "비케이홀딩스"
     },
     {
       "stock_code": "004080",
@@ -15621,11 +15591,6 @@
       "name": "마음AI"
     },
     {
-      "stock_code": "082660",
-      "corp_code": "00442455",
-      "name": "코스나인"
-    },
-    {
       "stock_code": "233250",
       "corp_code": "01035942",
       "name": "메디안디노스틱"
@@ -15754,11 +15719,6 @@
       "stock_code": "331740",
       "corp_code": "01649620",
       "name": "아우토크립트"
-    },
-    {
-      "stock_code": "008290",
-      "corp_code": "00144021",
-      "name": "원풍물산"
     },
     {
       "stock_code": "137950",
@@ -16014,11 +15974,6 @@
       "stock_code": "007660",
       "corp_code": "00107613",
       "name": "이수페타시스"
-    },
-    {
-      "stock_code": "012450",
-      "corp_code": "00126566",
-      "name": "한화에어로스페이스"
     },
     {
       "stock_code": "032300",
@@ -16814,11 +16769,6 @@
       "stock_code": "290380",
       "corp_code": "00384948",
       "name": "대유"
-    },
-    {
-      "stock_code": "072770",
-      "corp_code": "00583026",
-      "name": "멤레이비티"
     },
     {
       "stock_code": "196170",
@@ -17946,11 +17896,6 @@
       "name": "타이드"
     },
     {
-      "stock_code": "046070",
-      "corp_code": "00295857",
-      "name": "코다코"
-    },
-    {
       "stock_code": "019440",
       "corp_code": "00133991",
       "name": "세아특수강"
@@ -18381,11 +18326,6 @@
       "name": "폴라리스AI"
     },
     {
-      "stock_code": "033310",
-      "corp_code": "00143226",
-      "name": "엠투엔"
-    },
-    {
       "stock_code": "100790",
       "corp_code": "00340096",
       "name": "미래에셋벤처투자"
@@ -18549,11 +18489,6 @@
       "stock_code": "000210",
       "corp_code": "00109693",
       "name": "DL"
-    },
-    {
-      "stock_code": "060150",
-      "corp_code": "00375931",
-      "name": "인선이엔티"
     },
     {
       "stock_code": "034310",
@@ -19156,6 +19091,66 @@
       "name": "에이치엘지노믹스"
     },
     {
+      "stock_code": "012450",
+      "corp_code": "00126566",
+      "name": "한화에어로스페이스"
+    },
+    {
+      "stock_code": "012700",
+      "corp_code": "00117708",
+      "name": "리드코프"
+    },
+    {
+      "stock_code": "033310",
+      "corp_code": "00143226",
+      "name": "엠투엔"
+    },
+    {
+      "stock_code": "272210",
+      "corp_code": "00339391",
+      "name": "한화시스템"
+    },
+    {
+      "stock_code": "050090",
+      "corp_code": "00369569",
+      "name": "비케이홀딩스"
+    },
+    {
+      "stock_code": "072770",
+      "corp_code": "00583026",
+      "name": "멤레이비티"
+    },
+    {
+      "stock_code": "950160",
+      "corp_code": "01245062",
+      "name": "코오롱티슈진"
+    },
+    {
+      "stock_code": "380550",
+      "corp_code": "01782004",
+      "name": "뉴로핏"
+    },
+    {
+      "stock_code": "082660",
+      "corp_code": "00442455",
+      "name": "코스나인"
+    },
+    {
+      "stock_code": "008290",
+      "corp_code": "00144021",
+      "name": "원풍물산"
+    },
+    {
+      "stock_code": "046070",
+      "corp_code": "00295857",
+      "name": "코다코"
+    },
+    {
+      "stock_code": "0161M0",
+      "corp_code": "01876251",
+      "name": "네오사피엔스"
+    },
+    {
       "stock_code": "475040",
       "corp_code": "01370517",
       "name": "스트라드비젼"
@@ -19696,6 +19691,11 @@
       "name": "지구홀딩스"
     },
     {
+      "stock_code": "082740",
+      "corp_code": "00361008",
+      "name": "한화엔진"
+    },
+    {
       "stock_code": "002880",
       "corp_code": "00149804",
       "name": "디와이에이"
@@ -19954,6 +19954,11 @@
       "stock_code": "008770",
       "corp_code": "00165680",
       "name": "호텔신라"
+    },
+    {
+      "stock_code": "060150",
+      "corp_code": "00375931",
+      "name": "인선이엔티"
     }
   ]
 }
