@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-22T15:01:10+0000",
+  "generated_at": "2026-09-23T15:00:55+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3991,
+  "count": 3993,
   "companies": [
     {
       "stock_code": "036720",
@@ -7341,11 +7341,6 @@
       "name": "광전자"
     },
     {
-      "stock_code": "247660",
-      "corp_code": "00660459",
-      "name": "나노씨엠에스"
-    },
-    {
       "stock_code": "417840",
       "corp_code": "01383229",
       "name": "저스템"
@@ -8676,11 +8671,6 @@
       "name": "동국S&C"
     },
     {
-      "stock_code": "079980",
-      "corp_code": "00362238",
-      "name": "휴비스"
-    },
-    {
       "stock_code": "089150",
       "corp_code": "00441447",
       "name": "케이씨티"
@@ -9879,11 +9869,6 @@
       "stock_code": "043610",
       "corp_code": "00223762",
       "name": "KT지니뮤직"
-    },
-    {
-      "stock_code": "419050",
-      "corp_code": "01526806",
-      "name": "삼기에너지솔루션즈"
     },
     {
       "stock_code": "448730",
@@ -14726,11 +14711,6 @@
       "name": "레이저쎌"
     },
     {
-      "stock_code": "081660",
-      "corp_code": "00195229",
-      "name": "미스토홀딩스"
-    },
-    {
       "stock_code": "102210",
       "corp_code": "00299358",
       "name": "트레스"
@@ -17531,11 +17511,6 @@
       "name": "코오롱이앤피"
     },
     {
-      "stock_code": "091970",
-      "corp_code": "00542074",
-      "name": "LSK아이로봇"
-    },
-    {
       "stock_code": "251630",
       "corp_code": "01027794",
       "name": "브이원텍"
@@ -19066,11 +19041,6 @@
       "name": "한컴"
     },
     {
-      "stock_code": "352940",
-      "corp_code": "00367871",
-      "name": "인바이오"
-    },
-    {
       "stock_code": "215380",
       "corp_code": "01065013",
       "name": "콜마바이오텍"
@@ -19674,6 +19644,46 @@
       "stock_code": "263770",
       "corp_code": "01196313",
       "name": "유에스티"
+    },
+    {
+      "stock_code": "081660",
+      "corp_code": "00195229",
+      "name": "미스토홀딩스"
+    },
+    {
+      "stock_code": "352940",
+      "corp_code": "00367871",
+      "name": "인바이오"
+    },
+    {
+      "stock_code": "079980",
+      "corp_code": "00362238",
+      "name": "휴비스"
+    },
+    {
+      "stock_code": "091970",
+      "corp_code": "00542074",
+      "name": "LSK아이로봇"
+    },
+    {
+      "stock_code": "247660",
+      "corp_code": "00660459",
+      "name": "나노씨엠에스"
+    },
+    {
+      "stock_code": "419050",
+      "corp_code": "01526806",
+      "name": "삼기에너지솔루션즈"
+    },
+    {
+      "stock_code": "0209J0",
+      "corp_code": "02032155",
+      "name": "KB제34호스팩"
+    },
+    {
+      "stock_code": "0200G0",
+      "corp_code": "02029258",
+      "name": "한국제17호스팩"
     },
     {
       "stock_code": "248070",
