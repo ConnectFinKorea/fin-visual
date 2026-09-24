@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-23T15:00:55+0000",
+  "generated_at": "2026-09-24T15:03:28+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3993,
+  "count": 3994,
   "companies": [
     {
       "stock_code": "036720",
@@ -16306,11 +16306,6 @@
       "name": "나노실리칸첨단소재"
     },
     {
-      "stock_code": "227420",
-      "corp_code": "01109690",
-      "name": "도부"
-    },
-    {
       "stock_code": "083650",
       "corp_code": "00409788",
       "name": "비에이치아이"
@@ -18346,11 +18341,6 @@
       "name": "슈어소프트테크"
     },
     {
-      "stock_code": "026910",
-      "corp_code": "00104120",
-      "name": "광진실업"
-    },
-    {
       "stock_code": "291810",
       "corp_code": "01524507",
       "name": "핀텔"
@@ -18569,6 +18559,26 @@
       "stock_code": "092600",
       "corp_code": "00537337",
       "name": "앤씨앤"
+    },
+    {
+      "stock_code": "381970",
+      "corp_code": "01323032",
+      "name": "KG모빌리티플랫폼"
+    },
+    {
+      "stock_code": "026910",
+      "corp_code": "00104120",
+      "name": "광진실업"
+    },
+    {
+      "stock_code": "263050",
+      "corp_code": "01110678",
+      "name": "유틸렉스"
+    },
+    {
+      "stock_code": "0010S0",
+      "corp_code": "01867688",
+      "name": "와이즈플래닛컴퍼니"
     },
     {
       "stock_code": "006040",
@@ -18811,11 +18821,6 @@
       "name": "동양생명보험"
     },
     {
-      "stock_code": "263050",
-      "corp_code": "01110678",
-      "name": "유틸렉스"
-    },
-    {
       "stock_code": "245620",
       "corp_code": "01182550",
       "name": "EDGC"
@@ -18854,11 +18859,6 @@
       "stock_code": "482520",
       "corp_code": "01845701",
       "name": "교보16호스팩"
-    },
-    {
-      "stock_code": "381970",
-      "corp_code": "01323032",
-      "name": "케이카"
     },
     {
       "stock_code": "223220",
@@ -19704,6 +19704,11 @@
       "stock_code": "082740",
       "corp_code": "00361008",
       "name": "한화엔진"
+    },
+    {
+      "stock_code": "227420",
+      "corp_code": "01109690",
+      "name": "도부"
     },
     {
       "stock_code": "002880",
