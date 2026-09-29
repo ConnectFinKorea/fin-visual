@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-28T15:03:15+0000",
+  "generated_at": "2026-09-29T15:03:36+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3994,
@@ -4574,11 +4574,6 @@
       "stock_code": "003350",
       "corp_code": "00160621",
       "name": "한국화장품제조"
-    },
-    {
-      "stock_code": "046940",
-      "corp_code": "00363246",
-      "name": "우원개발"
     },
     {
       "stock_code": "084690",
@@ -13411,11 +13406,6 @@
       "name": "국보"
     },
     {
-      "stock_code": "495900",
-      "corp_code": "01872893",
-      "name": "에이엠시지"
-    },
-    {
       "stock_code": "308080",
       "corp_code": "01335790",
       "name": "바이젠셀"
@@ -13574,11 +13564,6 @@
       "stock_code": "159910",
       "corp_code": "00896753",
       "name": "에코글로우"
-    },
-    {
-      "stock_code": "352770",
-      "corp_code": "01201970",
-      "name": "셀레스트라"
     },
     {
       "stock_code": "298000",
@@ -17446,11 +17431,6 @@
       "name": "이원컴포텍"
     },
     {
-      "stock_code": "095500",
-      "corp_code": "00526836",
-      "name": "미래나노텍"
-    },
-    {
       "stock_code": "042670",
       "corp_code": "00344287",
       "name": "에이치디현대인프라코어"
@@ -18941,6 +18921,16 @@
       "name": "헥토파이낸셜"
     },
     {
+      "stock_code": "495900",
+      "corp_code": "01872893",
+      "name": "에이엠시지"
+    },
+    {
+      "stock_code": "095500",
+      "corp_code": "00526836",
+      "name": "미래나노텍"
+    },
+    {
       "stock_code": "226330",
       "corp_code": "01344336",
       "name": "신테카바이오"
@@ -19219,11 +19209,6 @@
       "stock_code": "001460",
       "corp_code": "00122579",
       "name": "BYC"
-    },
-    {
-      "stock_code": "238090",
-      "corp_code": "00942131",
-      "name": "앤디포스"
     },
     {
       "stock_code": "192650",
@@ -19639,6 +19624,21 @@
       "stock_code": "028300",
       "corp_code": "00199252",
       "name": "HLB"
+    },
+    {
+      "stock_code": "046940",
+      "corp_code": "00363246",
+      "name": "우원개발"
+    },
+    {
+      "stock_code": "238090",
+      "corp_code": "00942131",
+      "name": "앤디포스"
+    },
+    {
+      "stock_code": "352770",
+      "corp_code": "01201970",
+      "name": "셀레스트라"
     },
     {
       "stock_code": "263770",
