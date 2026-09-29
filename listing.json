@@ -1,10 +1,20 @@
 {
-  "timestamp": "2026-09-28T23:12:02+0900",
-  "reference_date": "2026-09-28",
+  "timestamp": "2026-09-29T23:10:58+0900",
+  "reference_date": "2026-09-29",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "글로벌테크놀로지",
+      "date": "2026-09-29",
+      "sector": "반도체 제조업"
+    },
+    {
+      "name": "빅웨이브로보틱스",
+      "date": "2026-09-29",
+      "sector": "소프트웨어 개발 및 공급업"
+    },
     {
       "name": "와이즈플래닛컴퍼니",
       "date": "2026-09-23",
