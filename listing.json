@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-09-29T23:10:58+0900",
-  "reference_date": "2026-09-29",
+  "timestamp": "2026-09-30T23:11:04+0900",
+  "reference_date": "2026-09-30",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "덕산넵코어스",
+      "date": "2026-09-30",
+      "sector": "항공기,우주선 및 부품 제조업"
+    },
     {
       "name": "글로벌테크놀로지",
       "date": "2026-09-29",
@@ -104,11 +109,6 @@
       "name": "스트라드비젼",
       "date": "2026-06-30",
       "sector": "소프트웨어 개발 및 공급업"
-    },
-    {
-      "name": "져스텍",
-      "date": "2026-06-29",
-      "sector": "전동기, 발전기 및 전기 변환 · 공급 · 제어 장치 제조업"
     }
   ],
   "delistings": [
