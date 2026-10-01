@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-09-30T15:00:20+0000",
+  "generated_at": "2026-10-01T15:03:34+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3996,
+  "count": 3997,
   "companies": [
     {
       "stock_code": "036720",
@@ -6816,11 +6816,6 @@
       "name": "코스텍시스"
     },
     {
-      "stock_code": "206400",
-      "corp_code": "01043853",
-      "name": "베노티앤알"
-    },
-    {
       "stock_code": "084870",
       "corp_code": "00409672",
       "name": "티비에이치글로벌"
@@ -10001,11 +9996,6 @@
       "name": "제너셈"
     },
     {
-      "stock_code": "122310",
-      "corp_code": "00799539",
-      "name": "제노레이"
-    },
-    {
       "stock_code": "227950",
       "corp_code": "01105621",
       "name": "엔투텍"
@@ -10489,11 +10479,6 @@
       "stock_code": "047770",
       "corp_code": "00329093",
       "name": "코데즈컴바인"
-    },
-    {
-      "stock_code": "092460",
-      "corp_code": "00528515",
-      "name": "한라IMS"
     },
     {
       "stock_code": "003460",
@@ -12956,19 +12941,9 @@
       "name": "뉴프렉스"
     },
     {
-      "stock_code": "900110",
-      "corp_code": "00799070",
-      "name": "딥커머스"
-    },
-    {
       "stock_code": "263540",
       "corp_code": "00971090",
       "name": "어스앤에어로스페이스"
-    },
-    {
-      "stock_code": "004870",
-      "corp_code": "00109514",
-      "name": "티웨이홀딩스"
     },
     {
       "stock_code": "271560",
@@ -15416,11 +15391,6 @@
       "name": "마이크로투나노"
     },
     {
-      "stock_code": "014990",
-      "corp_code": "00106881",
-      "name": "인디에프"
-    },
-    {
       "stock_code": "383930",
       "corp_code": "01437432",
       "name": "디티앤씨알오"
@@ -16774,11 +16744,6 @@
       "stock_code": "137080",
       "corp_code": "00362122",
       "name": "나래나노텍"
-    },
-    {
-      "stock_code": "032800",
-      "corp_code": "00231691",
-      "name": "판타지오"
     },
     {
       "stock_code": "000650",
@@ -18191,11 +18156,6 @@
       "name": "하나36호스팩"
     },
     {
-      "stock_code": "086790",
-      "corp_code": "00547583",
-      "name": "하나금융지주"
-    },
-    {
       "stock_code": "020120",
       "corp_code": "00140131",
       "name": "키다리스튜디오"
@@ -18914,6 +18874,46 @@
       "stock_code": "226330",
       "corp_code": "01344336",
       "name": "신테카바이오"
+    },
+    {
+      "stock_code": "014990",
+      "corp_code": "00106881",
+      "name": "인디에프"
+    },
+    {
+      "stock_code": "032800",
+      "corp_code": "00231691",
+      "name": "판타지오"
+    },
+    {
+      "stock_code": "004870",
+      "corp_code": "00109514",
+      "name": "티웨이홀딩스"
+    },
+    {
+      "stock_code": "092460",
+      "corp_code": "00528515",
+      "name": "한라IMS"
+    },
+    {
+      "stock_code": "086790",
+      "corp_code": "00547583",
+      "name": "하나금융지주"
+    },
+    {
+      "stock_code": "900110",
+      "corp_code": "00799070",
+      "name": "딥커머스"
+    },
+    {
+      "stock_code": "206400",
+      "corp_code": "01043853",
+      "name": "베노티앤알"
+    },
+    {
+      "stock_code": "266690",
+      "corp_code": "00960623",
+      "name": "덕산넵코어스"
     },
     {
       "stock_code": "052300",
@@ -19979,6 +19979,11 @@
       "stock_code": "008770",
       "corp_code": "00165680",
       "name": "호텔신라"
+    },
+    {
+      "stock_code": "122310",
+      "corp_code": "00799539",
+      "name": "제노레이"
     },
     {
       "stock_code": "060150",
