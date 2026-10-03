@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-02T15:02:51+0000",
+  "generated_at": "2026-10-03T15:02:13+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3998,
@@ -6306,11 +6306,6 @@
       "name": "인베니아"
     },
     {
-      "stock_code": "096240",
-      "corp_code": "00525882",
-      "name": "크레버스"
-    },
-    {
       "stock_code": "419120",
       "corp_code": "01516368",
       "name": "산돌"
@@ -10511,11 +10506,6 @@
       "name": "경동제약"
     },
     {
-      "stock_code": "014570",
-      "corp_code": "00103015",
-      "name": "고려제약"
-    },
-    {
       "stock_code": "023910",
       "corp_code": "00113128",
       "name": "대한약품"
@@ -11546,11 +11536,6 @@
       "name": "아이비케이에스제21호기업인수목적"
     },
     {
-      "stock_code": "459550",
-      "corp_code": "01466373",
-      "name": "알트"
-    },
-    {
       "stock_code": "217880",
       "corp_code": "00976615",
       "name": "틸론"
@@ -12154,11 +12139,6 @@
       "stock_code": "377300",
       "corp_code": "01244601",
       "name": "카카오페이"
-    },
-    {
-      "stock_code": "439090",
-      "corp_code": "01136977",
-      "name": "마녀공장"
     },
     {
       "stock_code": "336370",
@@ -17926,11 +17906,6 @@
       "name": "에이치엔에스하이텍"
     },
     {
-      "stock_code": "191410",
-      "corp_code": "00843900",
-      "name": "육일씨엔에쓰"
-    },
-    {
       "stock_code": "273640",
       "corp_code": "01215618",
       "name": "와이엠텍"
@@ -18369,11 +18344,6 @@
       "stock_code": "487400",
       "corp_code": "00920731",
       "name": "케이앤에스아이앤씨"
-    },
-    {
-      "stock_code": "007720",
-      "corp_code": "00104810",
-      "name": "소노스퀘어"
     },
     {
       "stock_code": "036930",
@@ -18846,11 +18816,6 @@
       "name": "신테카바이오"
     },
     {
-      "stock_code": "014990",
-      "corp_code": "00106881",
-      "name": "인디에프"
-    },
-    {
       "stock_code": "032800",
       "corp_code": "00231691",
       "name": "판타지오"
@@ -19156,9 +19121,49 @@
       "name": "코아스"
     },
     {
+      "stock_code": "014990",
+      "corp_code": "00106881",
+      "name": "인디에프"
+    },
+    {
+      "stock_code": "014570",
+      "corp_code": "00103015",
+      "name": "고려제약"
+    },
+    {
+      "stock_code": "007720",
+      "corp_code": "00104810",
+      "name": "소노스퀘어"
+    },
+    {
+      "stock_code": "212310",
+      "corp_code": "01085442",
+      "name": "오건에코텍"
+    },
+    {
+      "stock_code": "096240",
+      "corp_code": "00525882",
+      "name": "크레버스"
+    },
+    {
       "stock_code": "009140",
       "corp_code": "00102140",
       "name": "케이아이이"
+    },
+    {
+      "stock_code": "191410",
+      "corp_code": "00843900",
+      "name": "육일씨엔에쓰"
+    },
+    {
+      "stock_code": "439090",
+      "corp_code": "01136977",
+      "name": "마녀공장"
+    },
+    {
+      "stock_code": "459550",
+      "corp_code": "01466373",
+      "name": "알트"
     },
     {
       "stock_code": "058450",
@@ -19529,11 +19534,6 @@
       "stock_code": "042500",
       "corp_code": "00352499",
       "name": "링네트"
-    },
-    {
-      "stock_code": "212310",
-      "corp_code": "01085442",
-      "name": "오건에코텍"
     },
     {
       "stock_code": "034230",
