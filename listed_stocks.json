@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-06T15:02:01+0000",
+  "generated_at": "2026-10-07T15:02:18+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3998,
@@ -9034,11 +9034,6 @@
       "stock_code": "419700",
       "corp_code": "01695498",
       "name": "이브이파킹서비스"
-    },
-    {
-      "stock_code": "047040",
-      "corp_code": "00124540",
-      "name": "대우건설"
     },
     {
       "stock_code": "430460",
@@ -19556,6 +19551,11 @@
       "name": "지아이이노베이션"
     },
     {
+      "stock_code": "047040",
+      "corp_code": "00124540",
+      "name": "대우건설"
+    },
+    {
       "stock_code": "036460",
       "corp_code": "00261285",
       "name": "한국가스공사"
@@ -19654,6 +19654,11 @@
       "stock_code": "352770",
       "corp_code": "01201970",
       "name": "셀레스트라"
+    },
+    {
+      "stock_code": "0218L0",
+      "corp_code": "02038566",
+      "name": "네오뷰"
     },
     {
       "stock_code": "263770",
@@ -19829,11 +19834,6 @@
       "stock_code": "290690",
       "corp_code": "00605522",
       "name": "아리바이오홀딩스"
-    },
-    {
-      "stock_code": "0218L0",
-      "corp_code": "02038566",
-      "name": "네오뷰"
     },
     {
       "stock_code": "467930",
