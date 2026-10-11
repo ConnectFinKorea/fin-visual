@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-07T15:02:18+0000",
+  "generated_at": "2026-10-11T15:02:13+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3998,
@@ -7809,11 +7809,6 @@
       "stock_code": "089790",
       "corp_code": "00365457",
       "name": "제이티"
-    },
-    {
-      "stock_code": "196490",
-      "corp_code": "00660121",
-      "name": "디에이테크놀로지"
     },
     {
       "stock_code": "429270",
@@ -18769,6 +18764,11 @@
       "stock_code": "096610",
       "corp_code": "00516246",
       "name": "알에프세미"
+    },
+    {
+      "stock_code": "196490",
+      "corp_code": "00660121",
+      "name": "디에이테크놀로지"
     },
     {
       "stock_code": "376270",
