@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-10-11T23:13:04+0900",
-  "reference_date": "2026-10-11",
+  "timestamp": "2026-10-12T23:11:47+0900",
+  "reference_date": "2026-10-12",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -102,6 +102,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "부산주공",
+      "date": "2026-10-12",
+      "reason": "기업의 계속성, 경영의 투명성 및 기타 공익과 투자자 보호 등을 종합적으로 고려하여 상장폐지 기준에 해당한다고 결정"
+    },
     {
       "name": "디에이테크놀로지",
       "date": "2026-10-07",
