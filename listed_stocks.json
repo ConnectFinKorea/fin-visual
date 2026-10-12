@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-11T15:02:13+0000",
+  "generated_at": "2026-10-12T15:02:47+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3998,
@@ -10081,11 +10081,6 @@
       "name": "HS효성첨단소재"
     },
     {
-      "stock_code": "206650",
-      "corp_code": "00927558",
-      "name": "유바이오로직스"
-    },
-    {
       "stock_code": "114920",
       "corp_code": "00414540",
       "name": "대주이엔티"
@@ -13776,11 +13771,6 @@
       "name": "JTC"
     },
     {
-      "stock_code": "008350",
-      "corp_code": "00107224",
-      "name": "남선알미늄"
-    },
-    {
       "stock_code": "008970",
       "corp_code": "00117629",
       "name": "KBI동양철관"
@@ -14401,11 +14391,6 @@
       "name": "유일로보틱스"
     },
     {
-      "stock_code": "134580",
-      "corp_code": "00608699",
-      "name": "탑코미디어"
-    },
-    {
       "stock_code": "141000",
       "corp_code": "00610083",
       "name": "비아트론"
@@ -14839,11 +14824,6 @@
       "stock_code": "217950",
       "corp_code": "01066058",
       "name": "파마리서치바이오"
-    },
-    {
-      "stock_code": "008730",
-      "corp_code": "00145260",
-      "name": "율촌화학"
     },
     {
       "stock_code": "347850",
@@ -16289,11 +16269,6 @@
       "stock_code": "030210",
       "corp_code": "00156859",
       "name": "다올투자증권"
-    },
-    {
-      "stock_code": "057030",
-      "corp_code": "00307222",
-      "name": "YBM넷"
     },
     {
       "stock_code": "270520",
@@ -18281,11 +18256,6 @@
       "name": "오텍"
     },
     {
-      "stock_code": "210120",
-      "corp_code": "00550082",
-      "name": "캔버스엔"
-    },
-    {
       "stock_code": "900100",
       "corp_code": "00781202",
       "name": "파이온엑스"
@@ -18746,11 +18716,6 @@
       "name": "강원랜드"
     },
     {
-      "stock_code": "078130",
-      "corp_code": "00104573",
-      "name": "국일제지"
-    },
-    {
       "stock_code": "084680",
       "corp_code": "00540605",
       "name": "이월드"
@@ -19054,6 +19019,11 @@
       "stock_code": "351320",
       "corp_code": "01440153",
       "name": "넥사다이내믹스"
+    },
+    {
+      "stock_code": "008730",
+      "corp_code": "00145260",
+      "name": "율촌화학"
     },
     {
       "stock_code": "274400",
@@ -19659,6 +19629,36 @@
       "stock_code": "0218L0",
       "corp_code": "02038566",
       "name": "네오뷰"
+    },
+    {
+      "stock_code": "008350",
+      "corp_code": "00107224",
+      "name": "남선알미늄"
+    },
+    {
+      "stock_code": "078130",
+      "corp_code": "00104573",
+      "name": "에스엠국일"
+    },
+    {
+      "stock_code": "057030",
+      "corp_code": "00307222",
+      "name": "YBM넷"
+    },
+    {
+      "stock_code": "210120",
+      "corp_code": "00550082",
+      "name": "빅텐츠"
+    },
+    {
+      "stock_code": "134580",
+      "corp_code": "00608699",
+      "name": "엔키AX"
+    },
+    {
+      "stock_code": "206650",
+      "corp_code": "00927558",
+      "name": "유바이오로직스"
     },
     {
       "stock_code": "263770",
