@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-12T15:02:47+0000",
+  "generated_at": "2026-10-13T15:02:58+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3998,
@@ -4721,11 +4721,6 @@
       "name": "데이터스트림즈"
     },
     {
-      "stock_code": "005030",
-      "corp_code": "00124151",
-      "name": "부산주공"
-    },
-    {
       "stock_code": "025540",
       "corp_code": "00157070",
       "name": "한국단자공업"
@@ -6846,11 +6841,6 @@
       "name": "연우"
     },
     {
-      "stock_code": "472230",
-      "corp_code": "01797440",
-      "name": "SK증권제11호스팩"
-    },
-    {
       "stock_code": "074600",
       "corp_code": "00468374",
       "name": "원익QnC"
@@ -8131,11 +8121,6 @@
       "name": "나이스디앤비"
     },
     {
-      "stock_code": "473050",
-      "corp_code": "01798980",
-      "name": "유안타제15호스팩"
-    },
-    {
       "stock_code": "101140",
       "corp_code": "00652423",
       "name": "인바이오젠"
@@ -8679,11 +8664,6 @@
       "stock_code": "030350",
       "corp_code": "00230036",
       "name": "드래곤플라이"
-    },
-    {
-      "stock_code": "046310",
-      "corp_code": "00360036",
-      "name": "백금T&A"
     },
     {
       "stock_code": "389500",
@@ -18746,11 +18726,6 @@
       "name": "동양"
     },
     {
-      "stock_code": "180400",
-      "corp_code": "00995993",
-      "name": "DXVX"
-    },
-    {
       "stock_code": "279060",
       "corp_code": "01353848",
       "name": "이노벡스"
@@ -19029,6 +19004,36 @@
       "stock_code": "274400",
       "corp_code": "00965318",
       "name": "이노시뮬레이션"
+    },
+    {
+      "stock_code": "005030",
+      "corp_code": "00124151",
+      "name": "부산주공"
+    },
+    {
+      "stock_code": "054220",
+      "corp_code": "00201432",
+      "name": "비츠로시스"
+    },
+    {
+      "stock_code": "046310",
+      "corp_code": "00360036",
+      "name": "백금T&A"
+    },
+    {
+      "stock_code": "180400",
+      "corp_code": "00995993",
+      "name": "DXVX"
+    },
+    {
+      "stock_code": "472230",
+      "corp_code": "01797440",
+      "name": "에스케이증권제11호기업인수목적"
+    },
+    {
+      "stock_code": "473050",
+      "corp_code": "01798980",
+      "name": "유안타제15호기업인수목적"
     },
     {
       "stock_code": "091340",
@@ -19914,11 +19919,6 @@
       "stock_code": "038290",
       "corp_code": "00261373",
       "name": "마크로젠"
-    },
-    {
-      "stock_code": "054220",
-      "corp_code": "00201432",
-      "name": "비츠로시스"
     },
     {
       "stock_code": "123410",
