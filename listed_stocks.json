@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-13T15:02:58+0000",
+  "generated_at": "2026-10-15T15:05:19+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3998,
@@ -6871,11 +6871,6 @@
       "name": "유진스팩10호"
     },
     {
-      "stock_code": "469900",
-      "corp_code": "01791561",
-      "name": "하나31호스팩"
-    },
-    {
       "stock_code": "111380",
       "corp_code": "00367710",
       "name": "동인기연"
@@ -12016,11 +12011,6 @@
       "name": "아이스크림에듀"
     },
     {
-      "stock_code": "341170",
-      "corp_code": "01185867",
-      "name": "퓨쳐메디신"
-    },
-    {
       "stock_code": "001800",
       "corp_code": "00117577",
       "name": "오리온홀딩스"
@@ -16121,11 +16111,6 @@
       "name": "상지건설"
     },
     {
-      "stock_code": "074610",
-      "corp_code": "00469799",
-      "name": "이엔플러스"
-    },
-    {
       "stock_code": "140860",
       "corp_code": "00244747",
       "name": "파크시스템스"
@@ -16699,11 +16684,6 @@
       "stock_code": "142280",
       "corp_code": "00513948",
       "name": "녹십자엠에스"
-    },
-    {
-      "stock_code": "032790",
-      "corp_code": "00110884",
-      "name": "엠젠솔루션"
     },
     {
       "stock_code": "146060",
@@ -18381,6 +18361,11 @@
       "name": "와이즈플래닛컴퍼니"
     },
     {
+      "stock_code": "005880",
+      "corp_code": "00113535",
+      "name": "대한해운"
+    },
+    {
       "stock_code": "006040",
       "corp_code": "00118026",
       "name": "동원산업"
@@ -18824,6 +18809,16 @@
       "stock_code": "327610",
       "corp_code": "01336735",
       "name": "펨토바이오메드"
+    },
+    {
+      "stock_code": "032790",
+      "corp_code": "00110884",
+      "name": "엠젠솔루션"
+    },
+    {
+      "stock_code": "341170",
+      "corp_code": "01185867",
+      "name": "퓨쳐메디신"
     },
     {
       "stock_code": "065420",
@@ -19421,11 +19416,6 @@
       "name": "매드업"
     },
     {
-      "stock_code": "005880",
-      "corp_code": "00113535",
-      "name": "대한해운"
-    },
-    {
       "stock_code": "052770",
       "corp_code": "00346911",
       "name": "아이톡시"
@@ -19734,6 +19724,16 @@
       "stock_code": "227420",
       "corp_code": "01109690",
       "name": "도부"
+    },
+    {
+      "stock_code": "469900",
+      "corp_code": "01791561",
+      "name": "하나31호기업인수목적"
+    },
+    {
+      "stock_code": "074610",
+      "corp_code": "00469799",
+      "name": "이엔플러스"
     },
     {
       "stock_code": "002880",
