@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-15T15:05:19+0000",
+  "generated_at": "2026-10-16T15:02:57+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3998,
+  "count": 3999,
   "companies": [
     {
       "stock_code": "036720",
@@ -6821,11 +6821,6 @@
       "name": "하나금융23호기업인수목적"
     },
     {
-      "stock_code": "250030",
-      "corp_code": "01158632",
-      "name": "진코스텍"
-    },
-    {
       "stock_code": "004770",
       "corp_code": "00138057",
       "name": "써니전자"
@@ -7044,11 +7039,6 @@
       "stock_code": "042600",
       "corp_code": "00147994",
       "name": "새로닉스"
-    },
-    {
-      "stock_code": "078590",
-      "corp_code": "00230814",
-      "name": "휴림에이텍"
     },
     {
       "stock_code": "014710",
@@ -8989,11 +8979,6 @@
       "stock_code": "212710",
       "corp_code": "01208751",
       "name": "아이에스티이"
-    },
-    {
-      "stock_code": "002000",
-      "corp_code": "00159005",
-      "name": "생고뱅코리아홀딩스"
     },
     {
       "stock_code": "492220",
@@ -11526,11 +11511,6 @@
       "name": "국일신동"
     },
     {
-      "stock_code": "001470",
-      "corp_code": "00125974",
-      "name": "삼부토건"
-    },
-    {
       "stock_code": "148930",
       "corp_code": "00885906",
       "name": "에이치와이티씨"
@@ -12084,11 +12064,6 @@
       "stock_code": "039240",
       "corp_code": "00206039",
       "name": "경남스틸"
-    },
-    {
-      "stock_code": "005110",
-      "corp_code": "00163716",
-      "name": "한창"
     },
     {
       "stock_code": "377300",
@@ -15931,11 +15906,6 @@
       "name": "신성통상"
     },
     {
-      "stock_code": "303030",
-      "corp_code": "01318933",
-      "name": "지니틱스"
-    },
-    {
       "stock_code": "331520",
       "corp_code": "01398151",
       "name": "밸로프"
@@ -18321,6 +18291,11 @@
       "name": "유비온"
     },
     {
+      "stock_code": "002000",
+      "corp_code": "00159005",
+      "name": "생고뱅코리아홀딩스"
+    },
+    {
       "stock_code": "475460",
       "corp_code": "01374717",
       "name": "미트박스"
@@ -18364,6 +18339,11 @@
       "stock_code": "005880",
       "corp_code": "00113535",
       "name": "대한해운"
+    },
+    {
+      "stock_code": "078590",
+      "corp_code": "00230814",
+      "name": "휴림에이텍"
     },
     {
       "stock_code": "006040",
@@ -18811,6 +18791,11 @@
       "name": "펨토바이오메드"
     },
     {
+      "stock_code": "303030",
+      "corp_code": "01318933",
+      "name": "지니틱스"
+    },
+    {
       "stock_code": "032790",
       "corp_code": "00110884",
       "name": "엠젠솔루션"
@@ -19036,11 +19021,6 @@
       "name": "S&K폴리텍"
     },
     {
-      "stock_code": "457600",
-      "corp_code": "01453944",
-      "name": "벡트"
-    },
-    {
       "stock_code": "389680",
       "corp_code": "01498576",
       "name": "유디엠텍"
@@ -19154,6 +19134,26 @@
       "stock_code": "001460",
       "corp_code": "00122579",
       "name": "BYC"
+    },
+    {
+      "stock_code": "001470",
+      "corp_code": "00125974",
+      "name": "삼부토건"
+    },
+    {
+      "stock_code": "005110",
+      "corp_code": "00163716",
+      "name": "한창"
+    },
+    {
+      "stock_code": "179880",
+      "corp_code": "01028933",
+      "name": "멜콘"
+    },
+    {
+      "stock_code": "250030",
+      "corp_code": "01158632",
+      "name": "진코스텍"
     },
     {
       "stock_code": "192650",
@@ -19909,6 +19909,11 @@
       "stock_code": "458870",
       "corp_code": "01514227",
       "name": "씨어스"
+    },
+    {
+      "stock_code": "457600",
+      "corp_code": "01453944",
+      "name": "벡트"
     },
     {
       "stock_code": "039340",
