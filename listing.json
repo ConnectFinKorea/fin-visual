@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-10-15T23:11:02+0900",
-  "reference_date": "2026-10-15",
+  "timestamp": "2026-10-16T23:12:49+0900",
+  "reference_date": "2026-10-16",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -210,11 +210,6 @@
     {
       "name": "현대홈쇼핑",
       "date": "2026-07-20",
-      "reason": "지주회사(최대주주등)의 완전자회사화 등"
-    },
-    {
-      "name": "더존비즈온",
-      "date": "2026-07-15",
       "reason": "지주회사(최대주주등)의 완전자회사화 등"
     }
   ]
