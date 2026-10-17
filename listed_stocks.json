@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-16T15:02:57+0000",
+  "generated_at": "2026-10-17T15:01:03+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3999,
@@ -8616,11 +8616,6 @@
       "name": "동국S&C"
     },
     {
-      "stock_code": "089150",
-      "corp_code": "00441447",
-      "name": "케이씨티"
-    },
-    {
       "stock_code": "087600",
       "corp_code": "00495086",
       "name": "픽셀플러스"
@@ -9496,11 +9491,6 @@
       "name": "오스코텍"
     },
     {
-      "stock_code": "187420",
-      "corp_code": "00983916",
-      "name": "HLB제넥스"
-    },
-    {
       "stock_code": "487720",
       "corp_code": "01877126",
       "name": "키움제10호스팩"
@@ -10299,11 +10289,6 @@
       "stock_code": "089850",
       "corp_code": "00592653",
       "name": "유비벨록스"
-    },
-    {
-      "stock_code": "000640",
-      "corp_code": "00116824",
-      "name": "동아쏘시오홀딩스"
     },
     {
       "stock_code": "010050",
@@ -11719,11 +11704,6 @@
       "stock_code": "094940",
       "corp_code": "00537832",
       "name": "푸른로보틱스"
-    },
-    {
-      "stock_code": "058850",
-      "corp_code": "00372882",
-      "name": "KTcs"
     },
     {
       "stock_code": "140430",
@@ -16626,11 +16606,6 @@
       "name": "NH프라임리츠"
     },
     {
-      "stock_code": "290560",
-      "corp_code": "01130849",
-      "name": "파라택시스이더리움"
-    },
-    {
       "stock_code": "052670",
       "corp_code": "00185505",
       "name": "제일바이오"
@@ -17234,11 +17209,6 @@
       "stock_code": "442900",
       "corp_code": "01683387",
       "name": "미래에셋드림기업인수목적1호"
-    },
-    {
-      "stock_code": "046210",
-      "corp_code": "00172079",
-      "name": "HLB파나진"
     },
     {
       "stock_code": "046400",
@@ -18261,11 +18231,6 @@
       "name": "삼양케이씨아이"
     },
     {
-      "stock_code": "060900",
-      "corp_code": "00367695",
-      "name": "에이전트AI"
-    },
-    {
       "stock_code": "420770",
       "corp_code": "00765569",
       "name": "기가비스"
@@ -18794,6 +18759,11 @@
       "stock_code": "303030",
       "corp_code": "01318933",
       "name": "지니틱스"
+    },
+    {
+      "stock_code": "290560",
+      "corp_code": "01130849",
+      "name": "파라택시스이더리움"
     },
     {
       "stock_code": "032790",
@@ -19356,11 +19326,6 @@
       "name": "코리아에셋투자증권"
     },
     {
-      "stock_code": "001080",
-      "corp_code": "00120872",
-      "name": "만호제강"
-    },
-    {
       "stock_code": "237750",
       "corp_code": "00525864",
       "name": "피앤씨테크"
@@ -19439,6 +19404,31 @@
       "stock_code": "286750",
       "corp_code": "01136001",
       "name": "나노실리칸첨단소재"
+    },
+    {
+      "stock_code": "000640",
+      "corp_code": "00116824",
+      "name": "동아제약"
+    },
+    {
+      "stock_code": "060900",
+      "corp_code": "00367695",
+      "name": "에이전트AI"
+    },
+    {
+      "stock_code": "001080",
+      "corp_code": "00120872",
+      "name": "MH머트리얼즈"
+    },
+    {
+      "stock_code": "089150",
+      "corp_code": "00441447",
+      "name": "케이씨티"
+    },
+    {
+      "stock_code": "187420",
+      "corp_code": "00983916",
+      "name": "HLB제넥스"
     },
     {
       "stock_code": "222160",
@@ -19701,6 +19691,11 @@
       "name": "한국제17호스팩"
     },
     {
+      "stock_code": "058850",
+      "corp_code": "00372882",
+      "name": "KTcs"
+    },
+    {
       "stock_code": "248070",
       "corp_code": "01159233",
       "name": "솔루엠"
@@ -19734,6 +19729,11 @@
       "stock_code": "074610",
       "corp_code": "00469799",
       "name": "이엔플러스"
+    },
+    {
+      "stock_code": "046210",
+      "corp_code": "00172079",
+      "name": "HLB파나진"
     },
     {
       "stock_code": "002880",
