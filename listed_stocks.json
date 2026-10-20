@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-19T14:59:44+0000",
+  "generated_at": "2026-10-20T15:00:33+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 3999,
@@ -9516,11 +9516,6 @@
       "name": "참좋은여행"
     },
     {
-      "stock_code": "455900",
-      "corp_code": "01592049",
-      "name": "엔젤로보틱스"
-    },
-    {
       "stock_code": "086520",
       "corp_code": "00536541",
       "name": "에코프로"
@@ -14099,11 +14094,6 @@
       "stock_code": "115530",
       "corp_code": "00660033",
       "name": "씨엔플러스"
-    },
-    {
-      "stock_code": "028080",
-      "corp_code": "00219440",
-      "name": "휴맥스홀딩스"
     },
     {
       "stock_code": "439730",
@@ -18986,11 +18976,6 @@
       "name": "유안타제15호기업인수목적"
     },
     {
-      "stock_code": "091340",
-      "corp_code": "00580667",
-      "name": "S&K폴리텍"
-    },
-    {
       "stock_code": "389680",
       "corp_code": "01498576",
       "name": "유디엠텍"
@@ -19429,6 +19414,21 @@
       "stock_code": "187420",
       "corp_code": "00983916",
       "name": "HLB제넥스"
+    },
+    {
+      "stock_code": "091340",
+      "corp_code": "00580667",
+      "name": "S&K글로벌"
+    },
+    {
+      "stock_code": "455900",
+      "corp_code": "01592049",
+      "name": "엔젤로보틱스"
+    },
+    {
+      "stock_code": "028080",
+      "corp_code": "00219440",
+      "name": "휴맥스홀딩스"
     },
     {
       "stock_code": "222160",
