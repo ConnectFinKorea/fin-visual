@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-10-19T23:14:22+0900",
-  "reference_date": "2026-10-19",
+  "timestamp": "2026-10-20T23:14:45+0900",
+  "reference_date": "2026-10-20",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "엘리스",
+      "date": "2026-10-20",
+      "sector": "소프트웨어 개발 및 공급업"
+    },
     {
       "name": "멜콘",
       "date": "2026-10-15",
