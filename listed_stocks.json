@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-20T15:00:33+0000",
+  "generated_at": "2026-10-22T15:02:45+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 3999,
+  "count": 4000,
   "companies": [
     {
       "stock_code": "036720",
@@ -7796,11 +7796,6 @@
       "name": "한국제11호기업인수목적"
     },
     {
-      "stock_code": "351870",
-      "corp_code": "00909835",
-      "name": "차이커뮤니케이션"
-    },
-    {
       "stock_code": "001780",
       "corp_code": "00117027",
       "name": "알루코"
@@ -9514,11 +9509,6 @@
       "stock_code": "094850",
       "corp_code": "00606770",
       "name": "참좋은여행"
-    },
-    {
-      "stock_code": "086520",
-      "corp_code": "00536541",
-      "name": "에코프로"
     },
     {
       "stock_code": "170790",
@@ -17096,11 +17086,6 @@
       "name": "블루콤"
     },
     {
-      "stock_code": "011200",
-      "corp_code": "00164645",
-      "name": "HMM"
-    },
-    {
       "stock_code": "317870",
       "corp_code": "00964595",
       "name": "엔바이오니아"
@@ -17384,11 +17369,6 @@
       "stock_code": "017000",
       "corp_code": "00136925",
       "name": "신원종합개발"
-    },
-    {
-      "stock_code": "222420",
-      "corp_code": "01091054",
-      "name": "쎄노텍"
     },
     {
       "stock_code": "166480",
@@ -18201,11 +18181,6 @@
       "name": "주성엔지니어링"
     },
     {
-      "stock_code": "073190",
-      "corp_code": "00407771",
-      "name": "듀오백"
-    },
-    {
       "stock_code": "001260",
       "corp_code": "00107066",
       "name": "남광토건"
@@ -18796,11 +18771,6 @@
       "name": "한화리츠"
     },
     {
-      "stock_code": "080530",
-      "corp_code": "00308559",
-      "name": "코디"
-    },
-    {
       "stock_code": "214150",
       "corp_code": "01061327",
       "name": "클래시스"
@@ -19049,11 +19019,6 @@
       "stock_code": "009140",
       "corp_code": "00102140",
       "name": "케이아이이"
-    },
-    {
-      "stock_code": "191410",
-      "corp_code": "00843900",
-      "name": "육일씨엔에쓰"
     },
     {
       "stock_code": "439090",
@@ -19736,6 +19701,11 @@
       "name": "HLB파나진"
     },
     {
+      "stock_code": "0158S0",
+      "corp_code": "01754737",
+      "name": "엘리스"
+    },
+    {
       "stock_code": "002880",
       "corp_code": "00149804",
       "name": "디와이에이"
@@ -19876,11 +19846,6 @@
       "name": "엠로"
     },
     {
-      "stock_code": "208860",
-      "corp_code": "01084364",
-      "name": "다산디엠씨"
-    },
-    {
       "stock_code": "236200",
       "corp_code": "01124653",
       "name": "슈프리마"
@@ -19924,6 +19889,46 @@
       "stock_code": "038290",
       "corp_code": "00261373",
       "name": "마크로젠"
+    },
+    {
+      "stock_code": "080530",
+      "corp_code": "00308559",
+      "name": "코디"
+    },
+    {
+      "stock_code": "086520",
+      "corp_code": "00536541",
+      "name": "에코프로"
+    },
+    {
+      "stock_code": "011200",
+      "corp_code": "00164645",
+      "name": "HMM"
+    },
+    {
+      "stock_code": "073190",
+      "corp_code": "00407771",
+      "name": "듀오백"
+    },
+    {
+      "stock_code": "191410",
+      "corp_code": "00843900",
+      "name": "육일씨엔에쓰"
+    },
+    {
+      "stock_code": "351870",
+      "corp_code": "00909835",
+      "name": "차이커뮤니케이션"
+    },
+    {
+      "stock_code": "208860",
+      "corp_code": "01084364",
+      "name": "다산디엠씨"
+    },
+    {
+      "stock_code": "222420",
+      "corp_code": "01091054",
+      "name": "쎄노텍"
     },
     {
       "stock_code": "123410",
