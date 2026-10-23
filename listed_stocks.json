@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-22T15:02:45+0000",
+  "generated_at": "2026-10-23T15:03:08+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4000,
+  "count": 4001,
   "companies": [
     {
       "stock_code": "036720",
@@ -11491,11 +11491,6 @@
       "name": "THE E&M"
     },
     {
-      "stock_code": "335870",
-      "corp_code": "01405585",
-      "name": "윙스풋"
-    },
-    {
       "stock_code": "017250",
       "corp_code": "00145914",
       "name": "인터엠"
@@ -13366,11 +13361,6 @@
       "name": "수산인더스트리"
     },
     {
-      "stock_code": "001440",
-      "corp_code": "00113207",
-      "name": "대한전선"
-    },
-    {
       "stock_code": "159910",
       "corp_code": "00896753",
       "name": "에코글로우"
@@ -13609,11 +13599,6 @@
       "stock_code": "488900",
       "corp_code": "01194607",
       "name": "비츠로넥스텍"
-    },
-    {
-      "stock_code": "067160",
-      "corp_code": "00399694",
-      "name": "SOOP"
     },
     {
       "stock_code": "452980",
@@ -14339,11 +14324,6 @@
       "stock_code": "002100",
       "corp_code": "00101433",
       "name": "경농"
-    },
-    {
-      "stock_code": "032500",
-      "corp_code": "00226352",
-      "name": "케이엠더블유"
     },
     {
       "stock_code": "461030",
@@ -18856,6 +18836,16 @@
       "name": "코스나인"
     },
     {
+      "stock_code": "001440",
+      "corp_code": "00113207",
+      "name": "대한전선"
+    },
+    {
+      "stock_code": "0013Y0",
+      "corp_code": "01749559",
+      "name": "엠에스바이오"
+    },
+    {
       "stock_code": "008290",
       "corp_code": "00144021",
       "name": "원풍물산"
@@ -19036,6 +19026,11 @@
       "name": "한주에이알티"
     },
     {
+      "stock_code": "032500",
+      "corp_code": "00226352",
+      "name": "케이엠더블유"
+    },
+    {
       "stock_code": "018500",
       "corp_code": "00118008",
       "name": "동원모빌리티"
@@ -19054,6 +19049,11 @@
       "stock_code": "001460",
       "corp_code": "00122579",
       "name": "BYC"
+    },
+    {
+      "stock_code": "067160",
+      "corp_code": "00399694",
+      "name": "SOOP"
     },
     {
       "stock_code": "001470",
@@ -19134,6 +19134,11 @@
       "stock_code": "009190",
       "corp_code": "00111111",
       "name": "대양금속"
+    },
+    {
+      "stock_code": "335870",
+      "corp_code": "01405585",
+      "name": "윙스풋"
     },
     {
       "stock_code": "259960",
