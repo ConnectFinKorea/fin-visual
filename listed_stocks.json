@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-23T15:03:08+0000",
+  "generated_at": "2026-10-24T15:02:52+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4001,
+  "count": 4003,
   "companies": [
     {
       "stock_code": "036720",
@@ -12111,11 +12111,6 @@
       "name": "오상헬스케어"
     },
     {
-      "stock_code": "040610",
-      "corp_code": "00264714",
-      "name": "SG&G"
-    },
-    {
       "stock_code": "176590",
       "corp_code": "00666329",
       "name": "코나솔"
@@ -17686,11 +17681,6 @@
       "name": "SFA넥셀"
     },
     {
-      "stock_code": "403870",
-      "corp_code": "01288827",
-      "name": "HPSP"
-    },
-    {
       "stock_code": "150840",
       "corp_code": "00661157",
       "name": "인트로메딕"
@@ -18386,6 +18376,21 @@
       "name": "오에스피"
     },
     {
+      "stock_code": "032790",
+      "corp_code": "00110884",
+      "name": "엠젠솔루션"
+    },
+    {
+      "stock_code": "0077H0",
+      "corp_code": "01877728",
+      "name": "모비콘텐츠테크"
+    },
+    {
+      "stock_code": "040610",
+      "corp_code": "00264714",
+      "name": "SG&G"
+    },
+    {
       "stock_code": "091580",
       "corp_code": "00480783",
       "name": "상신이디피"
@@ -18414,6 +18419,21 @@
       "stock_code": "465320",
       "corp_code": "01781847",
       "name": "교보15호기업인수목적"
+    },
+    {
+      "stock_code": "403870",
+      "corp_code": "01288827",
+      "name": "HPSP"
+    },
+    {
+      "stock_code": "457600",
+      "corp_code": "01453944",
+      "name": "벡트로보틱스"
+    },
+    {
+      "stock_code": "0015M0",
+      "corp_code": "00534729",
+      "name": "디티에스"
     },
     {
       "stock_code": "241690",
@@ -18709,11 +18729,6 @@
       "stock_code": "290560",
       "corp_code": "01130849",
       "name": "파라택시스이더리움"
-    },
-    {
-      "stock_code": "032790",
-      "corp_code": "00110884",
-      "name": "엠젠솔루션"
     },
     {
       "stock_code": "341170",
@@ -19879,11 +19894,6 @@
       "stock_code": "458870",
       "corp_code": "01514227",
       "name": "씨어스"
-    },
-    {
-      "stock_code": "457600",
-      "corp_code": "01453944",
-      "name": "벡트"
     },
     {
       "stock_code": "039340",
