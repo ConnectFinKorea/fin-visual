@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-10-25T23:10:41+0900",
-  "reference_date": "2026-10-25",
+  "timestamp": "2026-10-26T23:14:21+0900",
+  "reference_date": "2026-10-26",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "이스트엔드",
+      "date": "2026-10-26",
+      "sector": "섬유, 의복, 신발 및 가죽제품 소매업"
+    },
     {
       "name": "디티에스",
       "date": "2026-10-23",
