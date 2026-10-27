@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-26T14:59:10+0000",
+  "generated_at": "2026-10-27T15:04:18+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4003,
+  "count": 4004,
   "companies": [
     {
       "stock_code": "036720",
@@ -5944,11 +5944,6 @@
       "stock_code": "036840",
       "corp_code": "00165361",
       "name": "휴코드홀딩스"
-    },
-    {
-      "stock_code": "214330",
-      "corp_code": "00105606",
-      "name": "금호에이치티"
     },
     {
       "stock_code": "163730",
@@ -11916,11 +11911,6 @@
       "name": "대진첨단소재"
     },
     {
-      "stock_code": "003580",
-      "corp_code": "00169048",
-      "name": "HLB글로벌"
-    },
-    {
       "stock_code": "039490",
       "corp_code": "00296290",
       "name": "키움증권"
@@ -13414,11 +13404,6 @@
       "stock_code": "008370",
       "corp_code": "00144012",
       "name": "원풍"
-    },
-    {
-      "stock_code": "034120",
-      "corp_code": "00130772",
-      "name": "SBS"
     },
     {
       "stock_code": "031990",
@@ -15346,11 +15331,6 @@
       "name": "폴라리스세원"
     },
     {
-      "stock_code": "101000",
-      "corp_code": "00618410",
-      "name": "KS인더스트리"
-    },
-    {
       "stock_code": "417970",
       "corp_code": "00657783",
       "name": "모델솔루션"
@@ -15939,11 +15919,6 @@
       "stock_code": "036090",
       "corp_code": "00258360",
       "name": "위지트"
-    },
-    {
-      "stock_code": "017550",
-      "corp_code": "00135111",
-      "name": "수산세보틱스"
     },
     {
       "stock_code": "012160",
@@ -19201,6 +19176,36 @@
       "name": "브릴스"
     },
     {
+      "stock_code": "214330",
+      "corp_code": "00105606",
+      "name": "금호에이치티"
+    },
+    {
+      "stock_code": "060900",
+      "corp_code": "00367695",
+      "name": "에이전트AI"
+    },
+    {
+      "stock_code": "034120",
+      "corp_code": "00130772",
+      "name": "SBS"
+    },
+    {
+      "stock_code": "101000",
+      "corp_code": "00618410",
+      "name": "KS인더스트리"
+    },
+    {
+      "stock_code": "017550",
+      "corp_code": "00135111",
+      "name": "수산세보틱스"
+    },
+    {
+      "stock_code": "003580",
+      "corp_code": "00169048",
+      "name": "HLB글로벌"
+    },
+    {
       "stock_code": "272110",
       "corp_code": "00769158",
       "name": "케이엔제이"
@@ -19209,6 +19214,11 @@
       "stock_code": "006490",
       "corp_code": "00122825",
       "name": "프리티"
+    },
+    {
+      "stock_code": "0230E0",
+      "corp_code": "01835944",
+      "name": "이스트엔드"
     },
     {
       "stock_code": "072990",
@@ -19379,11 +19389,6 @@
       "stock_code": "000640",
       "corp_code": "00116824",
       "name": "동아제약"
-    },
-    {
-      "stock_code": "060900",
-      "corp_code": "00367695",
-      "name": "에이전트AI"
     },
     {
       "stock_code": "001080",
