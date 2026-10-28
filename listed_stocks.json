@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-27T15:04:18+0000",
+  "generated_at": "2026-10-28T15:05:24+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4004,
+  "count": 4005,
   "companies": [
     {
       "stock_code": "036720",
@@ -4946,11 +4946,6 @@
       "name": "피에이치에이"
     },
     {
-      "stock_code": "012320",
-      "corp_code": "00143527",
-      "name": "경동인베스트"
-    },
-    {
       "stock_code": "191600",
       "corp_code": "00611286",
       "name": "블루탑"
@@ -6421,11 +6416,6 @@
       "name": "동화기업"
     },
     {
-      "stock_code": "077970",
-      "corp_code": "00480455",
-      "name": "STX엔진"
-    },
-    {
       "stock_code": "056700",
       "corp_code": "00228350",
       "name": "신화인터텍"
@@ -6494,11 +6484,6 @@
       "stock_code": "246250",
       "corp_code": "01112700",
       "name": "에스엘에스바이오"
-    },
-    {
-      "stock_code": "033250",
-      "corp_code": "00125576",
-      "name": "체시스"
     },
     {
       "stock_code": "264450",
@@ -14106,11 +14091,6 @@
       "name": "APS이노베이션"
     },
     {
-      "stock_code": "079550",
-      "corp_code": "00503668",
-      "name": "LIG디펜스앤에어로스페이스"
-    },
-    {
       "stock_code": "073490",
       "corp_code": "00462121",
       "name": "LIG아큐버"
@@ -16301,11 +16281,6 @@
       "name": "중앙첨단소재"
     },
     {
-      "stock_code": "200350",
-      "corp_code": "00990819",
-      "name": "아티스트스튜디오"
-    },
-    {
       "stock_code": "322180",
       "corp_code": "01309388",
       "name": "LS티라유텍"
@@ -16819,11 +16794,6 @@
       "stock_code": "061250",
       "corp_code": "00188973",
       "name": "화일약품"
-    },
-    {
-      "stock_code": "001940",
-      "corp_code": "00159740",
-      "name": "KISCO홀딩스"
     },
     {
       "stock_code": "000240",
@@ -18686,11 +18656,6 @@
       "name": "시스웍"
     },
     {
-      "stock_code": "0155E0",
-      "corp_code": "01947443",
-      "name": "해치텍"
-    },
-    {
       "stock_code": "327610",
       "corp_code": "01336735",
       "name": "펨토바이오메드"
@@ -19729,6 +19694,46 @@
       "stock_code": "0158S0",
       "corp_code": "01754737",
       "name": "엘리스"
+    },
+    {
+      "stock_code": "033250",
+      "corp_code": "00125576",
+      "name": "체시스"
+    },
+    {
+      "stock_code": "200350",
+      "corp_code": "00990819",
+      "name": "아티스트스튜디오"
+    },
+    {
+      "stock_code": "001940",
+      "corp_code": "00159740",
+      "name": "KISCO홀딩스"
+    },
+    {
+      "stock_code": "012320",
+      "corp_code": "00143527",
+      "name": "경동인베스트"
+    },
+    {
+      "stock_code": "0155E0",
+      "corp_code": "01947443",
+      "name": "해치텍"
+    },
+    {
+      "stock_code": "077970",
+      "corp_code": "00480455",
+      "name": "STX엔진"
+    },
+    {
+      "stock_code": "0205H0",
+      "corp_code": "02032951",
+      "name": "에스케이증권제14호기업인수목적"
+    },
+    {
+      "stock_code": "079550",
+      "corp_code": "00503668",
+      "name": "LIG디펜스앤에어로스페이스"
     },
     {
       "stock_code": "002880",
