@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-28T15:05:24+0000",
+  "generated_at": "2026-10-29T14:59:36+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 4005,
@@ -9231,11 +9231,6 @@
       "name": "웨이비스"
     },
     {
-      "stock_code": "348370",
-      "corp_code": "01011526",
-      "name": "엔켐"
-    },
-    {
       "stock_code": "010090",
       "corp_code": "00164308",
       "name": "이마트에브리데이"
@@ -13389,11 +13384,6 @@
       "stock_code": "008370",
       "corp_code": "00144012",
       "name": "원풍"
-    },
-    {
-      "stock_code": "031990",
-      "corp_code": "00110307",
-      "name": "대선조선"
     },
     {
       "stock_code": "064800",
@@ -18311,11 +18301,6 @@
       "name": "신영해피투모로우제10호기업인수목적"
     },
     {
-      "stock_code": "276730",
-      "corp_code": "01230255",
-      "name": "한울앤제주"
-    },
-    {
       "stock_code": "368970",
       "corp_code": "01491607",
       "name": "오에스피"
@@ -18339,11 +18324,6 @@
       "stock_code": "091580",
       "corp_code": "00480783",
       "name": "상신이디피"
-    },
-    {
-      "stock_code": "012170",
-      "corp_code": "00145437",
-      "name": "아센디오"
     },
     {
       "stock_code": "044480",
@@ -18889,6 +18869,21 @@
       "stock_code": "473050",
       "corp_code": "01798980",
       "name": "유안타제15호기업인수목적"
+    },
+    {
+      "stock_code": "012170",
+      "corp_code": "00145437",
+      "name": "아센디오"
+    },
+    {
+      "stock_code": "348370",
+      "corp_code": "01011526",
+      "name": "엔켐"
+    },
+    {
+      "stock_code": "276730",
+      "corp_code": "01230255",
+      "name": "한울앤제주"
     },
     {
       "stock_code": "389680",
@@ -19909,6 +19904,11 @@
       "stock_code": "039340",
       "corp_code": "00263371",
       "name": "한국경제TV"
+    },
+    {
+      "stock_code": "031990",
+      "corp_code": "00110307",
+      "name": "에스비대선"
     },
     {
       "stock_code": "038290",
