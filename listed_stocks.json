@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-29T14:59:36+0000",
+  "generated_at": "2026-10-30T15:02:17+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4005,
+  "count": 4006,
   "companies": [
     {
       "stock_code": "036720",
@@ -4376,11 +4376,6 @@
       "name": "미래에셋맵스리츠"
     },
     {
-      "stock_code": "009270",
-      "corp_code": "00136864",
-      "name": "신원"
-    },
-    {
       "stock_code": "093380",
       "corp_code": "00155373",
       "name": "풍강"
@@ -7664,11 +7659,6 @@
       "stock_code": "048260",
       "corp_code": "00341916",
       "name": "오스템임플란트"
-    },
-    {
-      "stock_code": "122830",
-      "corp_code": "00337296",
-      "name": "원포유"
     },
     {
       "stock_code": "317850",
@@ -10999,11 +10989,6 @@
       "stock_code": "016090",
       "corp_code": "00113614",
       "name": "대현"
-    },
-    {
-      "stock_code": "108320",
-      "corp_code": "00525934",
-      "name": "LX세미콘"
     },
     {
       "stock_code": "033240",
@@ -16736,11 +16721,6 @@
       "name": "아시아종묘"
     },
     {
-      "stock_code": "0015N0",
-      "corp_code": "01381805",
-      "name": "아로마티카"
-    },
-    {
       "stock_code": "000150",
       "corp_code": "00117212",
       "name": "두산"
@@ -18186,6 +18166,16 @@
       "name": "동원산업"
     },
     {
+      "stock_code": "122830",
+      "corp_code": "00337296",
+      "name": "원포유"
+    },
+    {
+      "stock_code": "108320",
+      "corp_code": "00525934",
+      "name": "LX세미콘"
+    },
+    {
       "stock_code": "033790",
       "corp_code": "00276083",
       "name": "피노"
@@ -18414,6 +18404,21 @@
       "stock_code": "080720",
       "corp_code": "00532855",
       "name": "한국유니온제약"
+    },
+    {
+      "stock_code": "009270",
+      "corp_code": "00136864",
+      "name": "신원"
+    },
+    {
+      "stock_code": "0015N0",
+      "corp_code": "01381805",
+      "name": "아로마티카"
+    },
+    {
+      "stock_code": "0053F0",
+      "corp_code": "01543043",
+      "name": "티앤이코리아"
     },
     {
       "stock_code": "039130",
