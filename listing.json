@@ -1,10 +1,20 @@
 {
-  "timestamp": "2026-10-29T23:11:57+0900",
-  "reference_date": "2026-10-29",
+  "timestamp": "2026-10-30T23:14:08+0900",
+  "reference_date": "2026-10-30",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "인텔리빅스",
+      "date": "2026-10-30",
+      "sector": "소프트웨어 개발 및 공급업"
+    },
+    {
+      "name": "크리에이츠",
+      "date": "2026-10-30",
+      "sector": "그외 기타 제품 제조업"
+    },
     {
       "name": "티앤이코리아",
       "date": "2026-10-29",
