@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-10-30T15:02:17+0000",
+  "generated_at": "2026-10-31T15:01:54+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4006,
+  "count": 4009,
   "companies": [
     {
       "stock_code": "036720",
@@ -8656,11 +8656,6 @@
       "name": "에스지헬스케어"
     },
     {
-      "stock_code": "078160",
-      "corp_code": "00453929",
-      "name": "메디포스트"
-    },
-    {
       "stock_code": "297090",
       "corp_code": "00765462",
       "name": "씨에스베어링"
@@ -11594,11 +11589,6 @@
       "stock_code": "0030R0",
       "corp_code": "01885222",
       "name": "대신밸류리츠"
-    },
-    {
-      "stock_code": "305090",
-      "corp_code": "01267967",
-      "name": "마이크로디지탈"
     },
     {
       "stock_code": "442310",
@@ -18296,6 +18286,11 @@
       "name": "오에스피"
     },
     {
+      "stock_code": "0053F0",
+      "corp_code": "01543043",
+      "name": "티앤이코리아"
+    },
+    {
       "stock_code": "032790",
       "corp_code": "00110884",
       "name": "엠젠솔루션"
@@ -18414,11 +18409,6 @@
       "stock_code": "0015N0",
       "corp_code": "01381805",
       "name": "아로마티카"
-    },
-    {
-      "stock_code": "0053F0",
-      "corp_code": "01543043",
-      "name": "티앤이코리아"
     },
     {
       "stock_code": "039130",
@@ -19734,6 +19724,31 @@
       "stock_code": "079550",
       "corp_code": "00503668",
       "name": "LIG디펜스앤에어로스페이스"
+    },
+    {
+      "stock_code": "078160",
+      "corp_code": "00453929",
+      "name": "메디포스트"
+    },
+    {
+      "stock_code": "305090",
+      "corp_code": "01267967",
+      "name": "마이크로디지탈"
+    },
+    {
+      "stock_code": "0127E0",
+      "corp_code": "01965157",
+      "name": "한화플러스제6호스팩"
+    },
+    {
+      "stock_code": "439270",
+      "corp_code": "01540903",
+      "name": "크리에이츠"
+    },
+    {
+      "stock_code": "420610",
+      "corp_code": "01649408",
+      "name": "인텔리빅스"
     },
     {
       "stock_code": "002880",
