@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-11-01T23:13:35+0900",
-  "reference_date": "2026-11-01",
+  "timestamp": "2026-11-02T23:14:27+0900",
+  "reference_date": "2026-11-02",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "영광",
+      "date": "2026-11-02",
+      "sector": "구조용 금속제품, 탱크 및 증기발생기 제조업"
+    },
     {
       "name": "인텔리빅스",
       "date": "2026-10-30",
