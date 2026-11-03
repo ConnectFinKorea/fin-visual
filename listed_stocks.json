@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-02T15:00:07+0000",
+  "generated_at": "2026-11-03T15:00:10+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4009,
+  "count": 4010,
   "companies": [
     {
       "stock_code": "036720",
@@ -5571,11 +5571,6 @@
       "name": "하이딥"
     },
     {
-      "stock_code": "103230",
-      "corp_code": "00137012",
-      "name": "에스앤더블류"
-    },
-    {
       "stock_code": "003160",
       "corp_code": "00118275",
       "name": "디아이"
@@ -8589,11 +8584,6 @@
       "stock_code": "192250",
       "corp_code": "01003040",
       "name": "케이사인"
-    },
-    {
-      "stock_code": "475240",
-      "corp_code": "01807738",
-      "name": "하나32호스팩"
     },
     {
       "stock_code": "451250",
@@ -13036,11 +13026,6 @@
       "name": "플래티어"
     },
     {
-      "stock_code": "214610",
-      "corp_code": "01049167",
-      "name": "롤링스톤"
-    },
-    {
       "stock_code": "068270",
       "corp_code": "00413046",
       "name": "셀트리온"
@@ -16741,11 +16726,6 @@
       "name": "국제약품"
     },
     {
-      "stock_code": "000040",
-      "corp_code": "00112378",
-      "name": "KR모터스"
-    },
-    {
       "stock_code": "002690",
       "corp_code": "00118451",
       "name": "동일제강"
@@ -17174,11 +17154,6 @@
       "stock_code": "234070",
       "corp_code": "00614089",
       "name": "에이원큐브텍"
-    },
-    {
-      "stock_code": "334970",
-      "corp_code": "01258428",
-      "name": "프레스티지바이오로직스"
     },
     {
       "stock_code": "011390",
@@ -18121,6 +18096,36 @@
       "name": "앤씨앤"
     },
     {
+      "stock_code": "000040",
+      "corp_code": "00112378",
+      "name": "KR모터스"
+    },
+    {
+      "stock_code": "103230",
+      "corp_code": "00137012",
+      "name": "에스앤더블류"
+    },
+    {
+      "stock_code": "900110",
+      "corp_code": "00799070",
+      "name": "딥커머스"
+    },
+    {
+      "stock_code": "223220",
+      "corp_code": "01060735",
+      "name": "로지스몬"
+    },
+    {
+      "stock_code": "214610",
+      "corp_code": "01049167",
+      "name": "롤링스톤"
+    },
+    {
+      "stock_code": "334970",
+      "corp_code": "01258428",
+      "name": "프레스티지바이오로직스"
+    },
+    {
       "stock_code": "381970",
       "corp_code": "01323032",
       "name": "KG모빌리티플랫폼"
@@ -18139,6 +18144,16 @@
       "stock_code": "0010S0",
       "corp_code": "01867688",
       "name": "와이즈플래닛컴퍼니"
+    },
+    {
+      "stock_code": "475240",
+      "corp_code": "01807738",
+      "name": "하나32호기업인수목적"
+    },
+    {
+      "stock_code": "359410",
+      "corp_code": "00579342",
+      "name": "영광"
     },
     {
       "stock_code": "005880",
@@ -18476,11 +18491,6 @@
       "name": "교보16호스팩"
     },
     {
-      "stock_code": "223220",
-      "corp_code": "01060735",
-      "name": "로지스몬"
-    },
-    {
       "stock_code": "002420",
       "corp_code": "00133618",
       "name": "우양피앤엘"
@@ -18584,11 +18594,6 @@
       "stock_code": "086790",
       "corp_code": "00547583",
       "name": "하나금융지주"
-    },
-    {
-      "stock_code": "900110",
-      "corp_code": "00799070",
-      "name": "딥커머스"
     },
     {
       "stock_code": "206400",
