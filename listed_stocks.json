@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-03T15:00:10+0000",
+  "generated_at": "2026-11-04T14:59:24+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4010,
+  "count": 4011,
   "companies": [
     {
       "stock_code": "036720",
@@ -5486,11 +5486,6 @@
       "name": "진바이오텍"
     },
     {
-      "stock_code": "225650",
-      "corp_code": "01102095",
-      "name": "쿠첸"
-    },
-    {
       "stock_code": "054800",
       "corp_code": "00359580",
       "name": "아이디스홀딩스"
@@ -5756,11 +5751,6 @@
       "name": "한일단조"
     },
     {
-      "stock_code": "043200",
-      "corp_code": "00266934",
-      "name": "파루"
-    },
-    {
       "stock_code": "058470",
       "corp_code": "00369657",
       "name": "리노공업"
@@ -5884,11 +5874,6 @@
       "stock_code": "094170",
       "corp_code": "00695969",
       "name": "동운아나텍"
-    },
-    {
-      "stock_code": "011090",
-      "corp_code": "00139764",
-      "name": "에넥스"
     },
     {
       "stock_code": "038160",
@@ -11209,11 +11194,6 @@
       "stock_code": "149300",
       "corp_code": "00578130",
       "name": "아퓨어스"
-    },
-    {
-      "stock_code": "304840",
-      "corp_code": "01118281",
-      "name": "피플바이오"
     },
     {
       "stock_code": "477850",
@@ -17996,6 +17976,21 @@
       "name": "DL"
     },
     {
+      "stock_code": "011090",
+      "corp_code": "00139764",
+      "name": "에넥스"
+    },
+    {
+      "stock_code": "043200",
+      "corp_code": "00266934",
+      "name": "파루"
+    },
+    {
+      "stock_code": "304840",
+      "corp_code": "01118281",
+      "name": "타임X AI"
+    },
+    {
       "stock_code": "034310",
       "corp_code": "00158316",
       "name": "NICE"
@@ -18024,6 +18019,11 @@
       "stock_code": "487400",
       "corp_code": "00920731",
       "name": "케이앤에스아이앤씨"
+    },
+    {
+      "stock_code": "0147B0",
+      "corp_code": "01956751",
+      "name": "래블업"
     },
     {
       "stock_code": "036930",
@@ -18074,6 +18074,11 @@
       "stock_code": "002000",
       "corp_code": "00159005",
       "name": "생고뱅코리아홀딩스"
+    },
+    {
+      "stock_code": "070300",
+      "corp_code": "00683007",
+      "name": "퀀텀레일"
     },
     {
       "stock_code": "475460",
@@ -19121,11 +19126,6 @@
       "name": "유니크"
     },
     {
-      "stock_code": "070300",
-      "corp_code": "00683007",
-      "name": "퀀텀레일"
-    },
-    {
       "stock_code": "084180",
       "corp_code": "00243979",
       "name": "수성웹툰"
@@ -19169,6 +19169,11 @@
       "stock_code": "272110",
       "corp_code": "00769158",
       "name": "케이엔제이"
+    },
+    {
+      "stock_code": "225650",
+      "corp_code": "01102095",
+      "name": "쿠첸"
     },
     {
       "stock_code": "006490",
