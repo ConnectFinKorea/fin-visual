@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-05T15:00:10+0000",
+  "generated_at": "2026-11-06T15:04:04+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 4013,
@@ -3744,11 +3744,6 @@
       "stock_code": "290740",
       "corp_code": "01141942",
       "name": "액트로"
-    },
-    {
-      "stock_code": "090120",
-      "corp_code": "00491336",
-      "name": "잘만테크"
     },
     {
       "stock_code": "049950",
@@ -18126,11 +18121,6 @@
       "name": "KG모빌리티플랫폼"
     },
     {
-      "stock_code": "026910",
-      "corp_code": "00104120",
-      "name": "광진실업"
-    },
-    {
       "stock_code": "263050",
       "corp_code": "01110678",
       "name": "유틸렉스"
@@ -18299,6 +18289,11 @@
       "stock_code": "0053F0",
       "corp_code": "01543043",
       "name": "티앤이코리아"
+    },
+    {
+      "stock_code": "223220",
+      "corp_code": "01060735",
+      "name": "로지스몬"
     },
     {
       "stock_code": "032790",
@@ -18966,6 +18961,11 @@
       "name": "크레버스"
     },
     {
+      "stock_code": "090120",
+      "corp_code": "00491336",
+      "name": "잘만테크"
+    },
+    {
       "stock_code": "009140",
       "corp_code": "00102140",
       "name": "케이아이이"
@@ -19209,6 +19209,21 @@
       "stock_code": "266470",
       "corp_code": "01130885",
       "name": "바이오인프라생명과학"
+    },
+    {
+      "stock_code": "004540",
+      "corp_code": "00113492",
+      "name": "깨끗한나라"
+    },
+    {
+      "stock_code": "026910",
+      "corp_code": "00104120",
+      "name": "광진실업"
+    },
+    {
+      "stock_code": "439270",
+      "corp_code": "01540903",
+      "name": "크리에이츠"
     },
     {
       "stock_code": "005870",
@@ -19756,11 +19771,6 @@
       "name": "한화플러스제6호스팩"
     },
     {
-      "stock_code": "439270",
-      "corp_code": "01540903",
-      "name": "크리에이츠"
-    },
-    {
       "stock_code": "420610",
       "corp_code": "01649408",
       "name": "인텔리빅스"
@@ -20031,11 +20041,6 @@
       "name": "스카이랩스"
     },
     {
-      "stock_code": "004540",
-      "corp_code": "00113492",
-      "name": "깨끗한나라"
-    },
-    {
       "stock_code": "291650",
       "corp_code": "01265251",
       "name": "츌립앤사이언스"
@@ -20064,11 +20069,6 @@
       "stock_code": "060150",
       "corp_code": "00375931",
       "name": "인선이엔티"
-    },
-    {
-      "stock_code": "223220",
-      "corp_code": "01060735",
-      "name": "로지스몬"
     }
   ]
 }
