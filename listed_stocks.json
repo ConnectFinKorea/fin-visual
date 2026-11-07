@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-06T15:04:04+0000",
+  "generated_at": "2026-11-07T14:59:20+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 4013,
@@ -12811,11 +12811,6 @@
       "name": "일지테크"
     },
     {
-      "stock_code": "015360",
-      "corp_code": "00105101",
-      "name": "INVENI"
-    },
-    {
       "stock_code": "025880",
       "corp_code": "00101752",
       "name": "케이씨피드"
@@ -13061,11 +13056,6 @@
       "name": "E1"
     },
     {
-      "stock_code": "061040",
-      "corp_code": "00309831",
-      "name": "알에프텍"
-    },
-    {
       "stock_code": "053290",
       "corp_code": "00363927",
       "name": "NE능률"
@@ -13094,11 +13084,6 @@
       "stock_code": "097230",
       "corp_code": "00633835",
       "name": "HJ중공업"
-    },
-    {
-      "stock_code": "297890",
-      "corp_code": "00523936",
-      "name": "HB솔루션"
     },
     {
       "stock_code": "107590",
@@ -18221,11 +18206,6 @@
       "name": "올리패스"
     },
     {
-      "stock_code": "031860",
-      "corp_code": "00180865",
-      "name": "디에이치엑스컴퍼니"
-    },
-    {
       "stock_code": "033340",
       "corp_code": "00205003",
       "name": "좋은사람들"
@@ -18904,6 +18884,26 @@
       "stock_code": "0222E0",
       "corp_code": "02036869",
       "name": "아이엠스팩1호"
+    },
+    {
+      "stock_code": "015360",
+      "corp_code": "00105101",
+      "name": "INVENI"
+    },
+    {
+      "stock_code": "031860",
+      "corp_code": "00180865",
+      "name": "디에이치엑스컴퍼니"
+    },
+    {
+      "stock_code": "061040",
+      "corp_code": "00309831",
+      "name": "알에프텍"
+    },
+    {
+      "stock_code": "297890",
+      "corp_code": "00523936",
+      "name": "HB솔루션"
     },
     {
       "stock_code": "029460",
