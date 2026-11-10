@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-09T15:02:43+0000",
+  "generated_at": "2026-11-10T15:00:15+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 4013,
@@ -11411,11 +11411,6 @@
       "name": "THE E&M"
     },
     {
-      "stock_code": "017250",
-      "corp_code": "00145914",
-      "name": "인터엠"
-    },
-    {
       "stock_code": "058400",
       "corp_code": "00208134",
       "name": "KNN"
@@ -16096,11 +16091,6 @@
       "name": "이건산업"
     },
     {
-      "stock_code": "109670",
-      "corp_code": "00492706",
-      "name": "씨싸이트"
-    },
-    {
       "stock_code": "000230",
       "corp_code": "00146083",
       "name": "일동홀딩스"
@@ -17996,9 +17986,34 @@
       "name": "케이앤에스아이앤씨"
     },
     {
+      "stock_code": "017250",
+      "corp_code": "00145914",
+      "name": "인터엠"
+    },
+    {
       "stock_code": "0147B0",
       "corp_code": "01956751",
       "name": "래블업"
+    },
+    {
+      "stock_code": "000040",
+      "corp_code": "00112378",
+      "name": "다이나맥"
+    },
+    {
+      "stock_code": "044480",
+      "corp_code": "00173449",
+      "name": "빌리언스"
+    },
+    {
+      "stock_code": "109670",
+      "corp_code": "00492706",
+      "name": "씨싸이트"
+    },
+    {
+      "stock_code": "148250",
+      "corp_code": "00915508",
+      "name": "스퀘어텍"
     },
     {
       "stock_code": "036930",
@@ -18074,11 +18089,6 @@
       "stock_code": "092600",
       "corp_code": "00537337",
       "name": "앤씨앤"
-    },
-    {
-      "stock_code": "000040",
-      "corp_code": "00112378",
-      "name": "KR모터스"
     },
     {
       "stock_code": "103230",
@@ -18294,11 +18304,6 @@
       "stock_code": "091580",
       "corp_code": "00480783",
       "name": "상신이디피"
-    },
-    {
-      "stock_code": "044480",
-      "corp_code": "00173449",
-      "name": "빌리언스"
     },
     {
       "stock_code": "282880",
@@ -19254,11 +19259,6 @@
       "stock_code": "128660",
       "corp_code": "00829380",
       "name": "피제이메탈"
-    },
-    {
-      "stock_code": "148250",
-      "corp_code": "00915508",
-      "name": "알엔투테크놀로지"
     },
     {
       "stock_code": "267980",
