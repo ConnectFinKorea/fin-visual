@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-10T15:00:15+0000",
+  "generated_at": "2026-11-11T15:00:53+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4013,
+  "count": 4014,
   "companies": [
     {
       "stock_code": "036720",
@@ -9771,11 +9771,6 @@
       "name": "아미노로직스"
     },
     {
-      "stock_code": "014130",
-      "corp_code": "00129509",
-      "name": "한익스프레스"
-    },
-    {
       "stock_code": "356680",
       "corp_code": "01372782",
       "name": "엑스게이트"
@@ -12094,11 +12089,6 @@
       "stock_code": "323410",
       "corp_code": "01133217",
       "name": "카카오뱅크"
-    },
-    {
-      "stock_code": "084850",
-      "corp_code": "00579980",
-      "name": "아이티엠반도체"
     },
     {
       "stock_code": "081150",
@@ -18011,11 +18001,6 @@
       "name": "씨싸이트"
     },
     {
-      "stock_code": "148250",
-      "corp_code": "00915508",
-      "name": "스퀘어텍"
-    },
-    {
       "stock_code": "036930",
       "corp_code": "00252135",
       "name": "주성엔지니어링"
@@ -18471,11 +18456,6 @@
       "name": "우양피앤엘"
     },
     {
-      "stock_code": "069920",
-      "corp_code": "00426068",
-      "name": "엑시온그룹"
-    },
-    {
       "stock_code": "090410",
       "corp_code": "00454937",
       "name": "덕신이피씨"
@@ -18754,6 +18734,21 @@
       "stock_code": "0013Y0",
       "corp_code": "01749559",
       "name": "엠에스바이오"
+    },
+    {
+      "stock_code": "084850",
+      "corp_code": "00579980",
+      "name": "아이티엠반도체"
+    },
+    {
+      "stock_code": "148250",
+      "corp_code": "00915508",
+      "name": "스퀘어텍"
+    },
+    {
+      "stock_code": "0162D0",
+      "corp_code": "00784184",
+      "name": "동원파츠"
     },
     {
       "stock_code": "008290",
@@ -19216,6 +19211,11 @@
       "name": "바이오인프라생명과학"
     },
     {
+      "stock_code": "014130",
+      "corp_code": "00129509",
+      "name": "한익스프레스"
+    },
+    {
       "stock_code": "004540",
       "corp_code": "00113492",
       "name": "깨끗한나라"
@@ -19404,6 +19404,11 @@
       "stock_code": "028080",
       "corp_code": "00219440",
       "name": "휴맥스홀딩스"
+    },
+    {
+      "stock_code": "069920",
+      "corp_code": "00426068",
+      "name": "엑시온그룹"
     },
     {
       "stock_code": "222160",
