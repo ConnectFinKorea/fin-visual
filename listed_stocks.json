@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-11T15:00:53+0000",
+  "generated_at": "2026-11-12T14:59:20+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4014,
+  "count": 4015,
   "companies": [
     {
       "stock_code": "036720",
@@ -6781,11 +6781,6 @@
       "name": "씨앤지하이테크"
     },
     {
-      "stock_code": "115960",
-      "corp_code": "00372253",
-      "name": "연우"
-    },
-    {
       "stock_code": "074600",
       "corp_code": "00468374",
       "name": "원익QnC"
@@ -12251,11 +12246,6 @@
       "name": "기가레인"
     },
     {
-      "stock_code": "091810",
-      "corp_code": "00671376",
-      "name": "트리니티항공"
-    },
-    {
       "stock_code": "487580",
       "corp_code": "01565364",
       "name": "폴레드"
@@ -12724,11 +12714,6 @@
       "stock_code": "005070",
       "corp_code": "00129989",
       "name": "코스모신소재"
-    },
-    {
-      "stock_code": "0117P0",
-      "corp_code": "01755259",
-      "name": "피스피스스튜디오"
     },
     {
       "stock_code": "246710",
@@ -18226,11 +18211,6 @@
       "name": "기도산업"
     },
     {
-      "stock_code": "0220W0",
-      "corp_code": "02042949",
-      "name": "한화머시너리앤서비스홀딩스"
-    },
-    {
       "stock_code": "044820",
       "corp_code": "00219574",
       "name": "코스맥스비티아이"
@@ -18384,6 +18364,11 @@
       "stock_code": "0015N0",
       "corp_code": "01381805",
       "name": "아로마티카"
+    },
+    {
+      "stock_code": "0117P0",
+      "corp_code": "01755259",
+      "name": "피스피스스튜디오"
     },
     {
       "stock_code": "039130",
@@ -18946,11 +18931,6 @@
       "name": "고려제약"
     },
     {
-      "stock_code": "007720",
-      "corp_code": "00104810",
-      "name": "소노스퀘어"
-    },
-    {
       "stock_code": "212310",
       "corp_code": "01085442",
       "name": "오건에코텍"
@@ -18964,6 +18944,26 @@
       "stock_code": "090120",
       "corp_code": "00491336",
       "name": "잘만테크"
+    },
+    {
+      "stock_code": "091810",
+      "corp_code": "00671376",
+      "name": "트리니티항공"
+    },
+    {
+      "stock_code": "007720",
+      "corp_code": "00104810",
+      "name": "소노스퀘어"
+    },
+    {
+      "stock_code": "0220W0",
+      "corp_code": "02042949",
+      "name": "한화머시너리앤서비스홀딩스"
+    },
+    {
+      "stock_code": "0153R0",
+      "corp_code": "01835829",
+      "name": "바로팜"
     },
     {
       "stock_code": "009140",
@@ -19171,6 +19171,11 @@
       "name": "HLB글로벌"
     },
     {
+      "stock_code": "237750",
+      "corp_code": "00525864",
+      "name": "피앤씨테크"
+    },
+    {
       "stock_code": "272110",
       "corp_code": "00769158",
       "name": "케이엔제이"
@@ -19289,11 +19294,6 @@
       "stock_code": "190650",
       "corp_code": "00304915",
       "name": "코리아에셋투자증권"
-    },
-    {
-      "stock_code": "237750",
-      "corp_code": "00525864",
-      "name": "피앤씨테크"
     },
     {
       "stock_code": "121800",
@@ -19869,6 +19869,11 @@
       "stock_code": "053950",
       "corp_code": "00307028",
       "name": "경남제약"
+    },
+    {
+      "stock_code": "115960",
+      "corp_code": "00372253",
+      "name": "연우"
     },
     {
       "stock_code": "252500",
