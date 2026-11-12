@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-11-11T23:12:53+0900",
-  "reference_date": "2026-11-11",
+  "timestamp": "2026-11-12T23:11:08+0900",
+  "reference_date": "2026-11-12",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "넥스아이",
+      "date": "2026-11-12",
+      "sector": "자연과학 및 공학 연구개발업"
+    },
     {
       "name": "바로팜",
       "date": "2026-11-11",
@@ -241,11 +246,6 @@
       "name": "위지윅스튜디오",
       "date": "2026-08-18",
       "reason": "피흡수합병"
-    },
-    {
-      "name": "신세계푸드",
-      "date": "2026-08-11",
-      "reason": "지주회사(최대주주등)의 완전자회사화 등"
     }
   ]
 }
