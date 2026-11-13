@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-12T14:59:20+0000",
+  "generated_at": "2026-11-13T15:01:35+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4015,
+  "count": 4016,
   "companies": [
     {
       "stock_code": "036720",
@@ -17966,6 +17966,26 @@
       "name": "인터엠"
     },
     {
+      "stock_code": "080720",
+      "corp_code": "00532855",
+      "name": "한국유니온제약"
+    },
+    {
+      "stock_code": "307870",
+      "corp_code": "01326792",
+      "name": "비투엔"
+    },
+    {
+      "stock_code": "0117P0",
+      "corp_code": "01755259",
+      "name": "피스피스스튜디오"
+    },
+    {
+      "stock_code": "493410",
+      "corp_code": "01863318",
+      "name": "넥스아이"
+    },
+    {
       "stock_code": "0147B0",
       "corp_code": "01956751",
       "name": "래블업"
@@ -18351,11 +18371,6 @@
       "name": "하나30호기업인수목적"
     },
     {
-      "stock_code": "080720",
-      "corp_code": "00532855",
-      "name": "한국유니온제약"
-    },
-    {
       "stock_code": "009270",
       "corp_code": "00136864",
       "name": "신원"
@@ -18364,11 +18379,6 @@
       "stock_code": "0015N0",
       "corp_code": "01381805",
       "name": "아로마티카"
-    },
-    {
-      "stock_code": "0117P0",
-      "corp_code": "01755259",
-      "name": "피스피스스튜디오"
     },
     {
       "stock_code": "039130",
@@ -19794,11 +19804,6 @@
       "stock_code": "161000",
       "corp_code": "00936787",
       "name": "애경케미칼"
-    },
-    {
-      "stock_code": "307870",
-      "corp_code": "01326792",
-      "name": "비투엔"
     },
     {
       "stock_code": "347700",
