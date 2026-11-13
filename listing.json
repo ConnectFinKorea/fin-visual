@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-12T23:11:08+0900",
-  "reference_date": "2026-11-12",
+  "timestamp": "2026-11-13T23:13:39+0900",
+  "reference_date": "2026-11-13",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -149,11 +149,6 @@
       "name": "케이앤에스아이앤씨",
       "date": "2026-08-13",
       "sector": "통신 및 방송 장비 제조업"
-    },
-    {
-      "name": "딜리셔스",
-      "date": "2026-08-12",
-      "sector": "무점포 소매업"
     }
   ],
   "delistings": [
