@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-13T15:01:35+0000",
+  "generated_at": "2026-11-14T15:04:02+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 4016,
@@ -7226,11 +7226,6 @@
       "name": "BGF에코머티리얼즈"
     },
     {
-      "stock_code": "288980",
-      "corp_code": "01423837",
-      "name": "모아데이타"
-    },
-    {
       "stock_code": "263600",
       "corp_code": "00571298",
       "name": "덕우전자"
@@ -14361,11 +14356,6 @@
       "name": "한국정보통신"
     },
     {
-      "stock_code": "411080",
-      "corp_code": "01242241",
-      "name": "샌즈랩"
-    },
-    {
       "stock_code": "103160",
       "corp_code": "00684732",
       "name": "풀무원식품"
@@ -16551,11 +16541,6 @@
       "name": "이렘"
     },
     {
-      "stock_code": "024890",
-      "corp_code": "00112022",
-      "name": "대원화성"
-    },
-    {
       "stock_code": "005440",
       "corp_code": "00105280",
       "name": "현대지에프홀딩스"
@@ -16999,11 +16984,6 @@
       "stock_code": "251630",
       "corp_code": "01027794",
       "name": "브이원텍"
-    },
-    {
-      "stock_code": "286940",
-      "corp_code": "01262032",
-      "name": "롯데이노베이트"
     },
     {
       "stock_code": "343090",
@@ -18446,6 +18426,11 @@
       "name": "교보16호스팩"
     },
     {
+      "stock_code": "286940",
+      "corp_code": "01262032",
+      "name": "롯데이노베이트"
+    },
+    {
       "stock_code": "002420",
       "corp_code": "00133618",
       "name": "우양피앤엘"
@@ -19001,6 +18986,11 @@
       "name": "케이엠더블유"
     },
     {
+      "stock_code": "288980",
+      "corp_code": "01423837",
+      "name": "모아데이타"
+    },
+    {
       "stock_code": "018500",
       "corp_code": "00118008",
       "name": "동원모빌리티"
@@ -19476,6 +19466,11 @@
       "name": "링네트"
     },
     {
+      "stock_code": "322780",
+      "corp_code": "01364297",
+      "name": "코퍼스코리아"
+    },
+    {
       "stock_code": "034230",
       "corp_code": "00171265",
       "name": "파라다이스"
@@ -19811,11 +19806,6 @@
       "name": "스피어"
     },
     {
-      "stock_code": "322780",
-      "corp_code": "01364297",
-      "name": "코퍼스코리아"
-    },
-    {
       "stock_code": "299900",
       "corp_code": "01276327",
       "name": "위지윅스튜디오"
@@ -19961,6 +19951,11 @@
       "name": "씨어스"
     },
     {
+      "stock_code": "411080",
+      "corp_code": "01242241",
+      "name": "샌즈랩"
+    },
+    {
       "stock_code": "039340",
       "corp_code": "00263371",
       "name": "한국경제TV"
@@ -20024,6 +20019,11 @@
       "stock_code": "462980",
       "corp_code": "01728167",
       "name": "아이지넷"
+    },
+    {
+      "stock_code": "024890",
+      "corp_code": "00112022",
+      "name": "대원화성"
     },
     {
       "stock_code": "261780",
