@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-13T23:13:39+0900",
-  "reference_date": "2026-11-13",
+  "timestamp": "2026-11-14T23:14:26+0900",
+  "reference_date": "2026-11-14",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -144,11 +144,6 @@
       "name": "인제니아테라퓨틱스",
       "date": "2026-08-18",
       "sector": "자연과학 및 공학 연구개발업"
-    },
-    {
-      "name": "케이앤에스아이앤씨",
-      "date": "2026-08-13",
-      "sector": "통신 및 방송 장비 제조업"
     }
   ],
   "delistings": [
