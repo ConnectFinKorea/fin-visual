@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-11-15T23:13:59+0900",
-  "reference_date": "2026-11-15",
+  "timestamp": "2026-11-16T23:13:35+0900",
+  "reference_date": "2026-11-16",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "영광와이케이엠씨",
+      "date": "2026-11-16",
+      "sector": "기타 금속 가공제품 제조업"
+    },
     {
       "name": "넥스아이",
       "date": "2026-11-12",
