@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-16T15:02:58+0000",
+  "generated_at": "2026-11-17T15:04:02+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4016,
+  "count": 4017,
   "companies": [
     {
       "stock_code": "036720",
@@ -12666,11 +12666,6 @@
       "name": "SNT에너지"
     },
     {
-      "stock_code": "085670",
-      "corp_code": "00493510",
-      "name": "뉴프렉스"
-    },
-    {
       "stock_code": "263540",
       "corp_code": "00971090",
       "name": "어스앤에어로스페이스"
@@ -13769,11 +13764,6 @@
       "stock_code": "312610",
       "corp_code": "01223219",
       "name": "에이에프더블류"
-    },
-    {
-      "stock_code": "288330",
-      "corp_code": "01227039",
-      "name": "파라택시스코리아"
     },
     {
       "stock_code": "079190",
@@ -16291,11 +16281,6 @@
       "name": "아이비케이에스제22호기업인수목적"
     },
     {
-      "stock_code": "490470",
-      "corp_code": "01627363",
-      "name": "세미파이브"
-    },
-    {
       "stock_code": "012210",
       "corp_code": "00125664",
       "name": "삼미금속"
@@ -18056,11 +18041,6 @@
       "name": "인바이츠바이오코아"
     },
     {
-      "stock_code": "092600",
-      "corp_code": "00537337",
-      "name": "앤씨앤"
-    },
-    {
       "stock_code": "103230",
       "corp_code": "00137012",
       "name": "에스앤더블류"
@@ -18301,6 +18281,26 @@
       "name": "디티에스"
     },
     {
+      "stock_code": "085670",
+      "corp_code": "00493510",
+      "name": "뉴프렉스"
+    },
+    {
+      "stock_code": "092600",
+      "corp_code": "00537337",
+      "name": "앤씨앤"
+    },
+    {
+      "stock_code": "288330",
+      "corp_code": "01227039",
+      "name": "파라택시스코리아"
+    },
+    {
+      "stock_code": "365660",
+      "corp_code": "01424261",
+      "name": "레몬헬스케어"
+    },
+    {
       "stock_code": "241690",
       "corp_code": "00531865",
       "name": "유니테크노"
@@ -18431,6 +18431,11 @@
       "name": "롯데이노베이트"
     },
     {
+      "stock_code": "490470",
+      "corp_code": "01627363",
+      "name": "세미파이브"
+    },
+    {
       "stock_code": "002420",
       "corp_code": "00133618",
       "name": "우양피앤엘"
@@ -18479,6 +18484,11 @@
       "stock_code": "376270",
       "corp_code": "01480708",
       "name": "HEM파마"
+    },
+    {
+      "stock_code": "345290",
+      "corp_code": "00960234",
+      "name": "영광와이케이엠씨"
     },
     {
       "stock_code": "001520",
@@ -18764,11 +18774,6 @@
       "stock_code": "309930",
       "corp_code": "01335453",
       "name": "조이웍스앤코"
-    },
-    {
-      "stock_code": "365660",
-      "corp_code": "01424261",
-      "name": "레몬헬스케어"
     },
     {
       "stock_code": "354200",
