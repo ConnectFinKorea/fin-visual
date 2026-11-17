@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-11-16T23:13:35+0900",
-  "reference_date": "2026-11-16",
+  "timestamp": "2026-11-17T23:10:14+0900",
+  "reference_date": "2026-11-17",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "옵토닉스",
+      "date": "2026-11-17",
+      "sector": "측정, 시험, 항해, 제어 및 기타 정밀기기 제조업; 광학기기 제외"
+    },
     {
       "name": "영광와이케이엠씨",
       "date": "2026-11-16",
@@ -152,6 +157,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "에코볼트",
+      "date": "2026-11-17",
+      "reason": "피흡수합병"
+    },
     {
       "name": "휴맥스홀딩스",
       "date": "2026-10-19",
