@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-11-17T23:10:14+0900",
-  "reference_date": "2026-11-17",
+  "timestamp": "2026-11-18T23:11:21+0900",
+  "reference_date": "2026-11-18",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "에이엘로봇",
+      "date": "2026-11-18",
+      "sector": "특수 목적용 기계 제조업"
+    },
     {
       "name": "옵토닉스",
       "date": "2026-11-17",
