@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-17T15:04:02+0000",
+  "generated_at": "2026-11-18T15:02:33+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4017,
+  "count": 4018,
   "companies": [
     {
       "stock_code": "036720",
@@ -6771,11 +6771,6 @@
       "name": "하나금융23호기업인수목적"
     },
     {
-      "stock_code": "004770",
-      "corp_code": "00138057",
-      "name": "써니전자"
-    },
-    {
       "stock_code": "264660",
       "corp_code": "00605328",
       "name": "씨앤지하이테크"
@@ -11631,11 +11626,6 @@
       "name": "일신석재"
     },
     {
-      "stock_code": "097780",
-      "corp_code": "00562360",
-      "name": "에코볼트"
-    },
-    {
       "stock_code": "311390",
       "corp_code": "01219155",
       "name": "네오크레마"
@@ -13521,11 +13511,6 @@
       "name": "하나26호기업인수목적"
     },
     {
-      "stock_code": "021650",
-      "corp_code": "00160010",
-      "name": "한국큐빅"
-    },
-    {
       "stock_code": "388610",
       "corp_code": "01221752",
       "name": "지에프씨생명과학"
@@ -14179,11 +14164,6 @@
       "stock_code": "419080",
       "corp_code": "01587056",
       "name": "엔젯"
-    },
-    {
-      "stock_code": "474170",
-      "corp_code": "01636565",
-      "name": "루미르"
     },
     {
       "stock_code": "347000",
@@ -16339,11 +16319,6 @@
       "stock_code": "098460",
       "corp_code": "00579999",
       "name": "고영"
-    },
-    {
-      "stock_code": "300720",
-      "corp_code": "01319808",
-      "name": "한일시멘트"
     },
     {
       "stock_code": "0129K0",
@@ -18541,11 +18516,6 @@
       "name": "하나금융지주"
     },
     {
-      "stock_code": "206400",
-      "corp_code": "01043853",
-      "name": "베노티앤알"
-    },
-    {
       "stock_code": "266690",
       "corp_code": "00960623",
       "name": "덕산넵코어스"
@@ -19984,6 +19954,41 @@
       "stock_code": "086520",
       "corp_code": "00536541",
       "name": "에코프로"
+    },
+    {
+      "stock_code": "021650",
+      "corp_code": "00160010",
+      "name": "한국큐빅"
+    },
+    {
+      "stock_code": "004770",
+      "corp_code": "00138057",
+      "name": "써니전자"
+    },
+    {
+      "stock_code": "300720",
+      "corp_code": "01319808",
+      "name": "한일시멘트"
+    },
+    {
+      "stock_code": "206400",
+      "corp_code": "01043853",
+      "name": "아인스팩씨엔에스"
+    },
+    {
+      "stock_code": "474170",
+      "corp_code": "01636565",
+      "name": "루미르"
+    },
+    {
+      "stock_code": "097780",
+      "corp_code": "00562360",
+      "name": "에코볼트"
+    },
+    {
+      "stock_code": "493260",
+      "corp_code": "01658035",
+      "name": "옵토닉스"
     },
     {
       "stock_code": "011200",
