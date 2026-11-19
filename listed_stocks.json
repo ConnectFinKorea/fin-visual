@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-18T15:02:33+0000",
+  "generated_at": "2026-11-19T15:02:24+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4018,
+  "count": 4019,
   "companies": [
     {
       "stock_code": "036720",
@@ -7271,11 +7271,6 @@
       "name": "스튜디오삼익"
     },
     {
-      "stock_code": "050890",
-      "corp_code": "00364403",
-      "name": "쏠리드"
-    },
-    {
       "stock_code": "031980",
       "corp_code": "00208444",
       "name": "피에스케이홀딩스"
@@ -7304,11 +7299,6 @@
       "stock_code": "004970",
       "corp_code": "00135962",
       "name": "신라교역"
-    },
-    {
-      "stock_code": "348340",
-      "corp_code": "01336461",
-      "name": "뉴로메카"
     },
     {
       "stock_code": "066410",
@@ -8099,11 +8089,6 @@
       "stock_code": "303810",
       "corp_code": "01233465",
       "name": "동국생명과학"
-    },
-    {
-      "stock_code": "035760",
-      "corp_code": "00265324",
-      "name": "CJ ENM"
     },
     {
       "stock_code": "138580",
@@ -10706,11 +10691,6 @@
       "name": "신한제13호스팩"
     },
     {
-      "stock_code": "474660",
-      "corp_code": "01809569",
-      "name": "신한제12호스팩"
-    },
-    {
       "stock_code": "036280",
       "corp_code": "00188122",
       "name": "남산물산"
@@ -11434,11 +11414,6 @@
       "stock_code": "010960",
       "corp_code": "00128980",
       "name": "삼호개발"
-    },
-    {
-      "stock_code": "044060",
-      "corp_code": "00291860",
-      "name": "조광아이엘아이"
     },
     {
       "stock_code": "034020",
@@ -16236,11 +16211,6 @@
       "name": "고스트스튜디오"
     },
     {
-      "stock_code": "290380",
-      "corp_code": "00384948",
-      "name": "대유"
-    },
-    {
       "stock_code": "196170",
       "corp_code": "00989619",
       "name": "알테오젠"
@@ -16849,11 +16819,6 @@
       "stock_code": "033630",
       "corp_code": "00243988",
       "name": "에스케이브로드밴드"
-    },
-    {
-      "stock_code": "204210",
-      "corp_code": "01035289",
-      "name": "제이케이리버스톤자기관리부동산투자회사"
     },
     {
       "stock_code": "010170",
@@ -18641,6 +18606,11 @@
       "name": "에이치엘지노믹스"
     },
     {
+      "stock_code": "290380",
+      "corp_code": "00384948",
+      "name": "대유"
+    },
+    {
       "stock_code": "012450",
       "corp_code": "00126566",
       "name": "한화에어로스페이스"
@@ -18861,9 +18831,44 @@
       "name": "HB솔루션"
     },
     {
+      "stock_code": "035760",
+      "corp_code": "00265324",
+      "name": "CJ ENM"
+    },
+    {
+      "stock_code": "212310",
+      "corp_code": "01085442",
+      "name": "오건에코텍"
+    },
+    {
+      "stock_code": "200350",
+      "corp_code": "00990819",
+      "name": "스튜디오쏠쏠"
+    },
+    {
+      "stock_code": "348340",
+      "corp_code": "01336461",
+      "name": "뉴로메카"
+    },
+    {
+      "stock_code": "474660",
+      "corp_code": "01809569",
+      "name": "신한제12호기업인수목적"
+    },
+    {
+      "stock_code": "471800",
+      "corp_code": "01797635",
+      "name": "에이엘로봇"
+    },
+    {
       "stock_code": "029460",
       "corp_code": "00209780",
       "name": "케이씨"
+    },
+    {
+      "stock_code": "050890",
+      "corp_code": "00364403",
+      "name": "쏠리드"
     },
     {
       "stock_code": "066900",
@@ -18901,11 +18906,6 @@
       "name": "고려제약"
     },
     {
-      "stock_code": "212310",
-      "corp_code": "01085442",
-      "name": "오건에코텍"
-    },
-    {
       "stock_code": "096240",
       "corp_code": "00525882",
       "name": "크레버스"
@@ -18934,6 +18934,11 @@
       "stock_code": "0153R0",
       "corp_code": "01835829",
       "name": "바로팜"
+    },
+    {
+      "stock_code": "026910",
+      "corp_code": "00104120",
+      "name": "광진실업"
     },
     {
       "stock_code": "009140",
@@ -19199,11 +19204,6 @@
       "stock_code": "004540",
       "corp_code": "00113492",
       "name": "깨끗한나라"
-    },
-    {
-      "stock_code": "026910",
-      "corp_code": "00104120",
-      "name": "광진실업"
     },
     {
       "stock_code": "439270",
@@ -19536,6 +19536,11 @@
       "name": "이미지스"
     },
     {
+      "stock_code": "044060",
+      "corp_code": "00291860",
+      "name": "조광아이엘아이"
+    },
+    {
       "stock_code": "220180",
       "corp_code": "00793155",
       "name": "폴라리스AI핸디"
@@ -19704,11 +19709,6 @@
       "stock_code": "033250",
       "corp_code": "00125576",
       "name": "체시스"
-    },
-    {
-      "stock_code": "200350",
-      "corp_code": "00990819",
-      "name": "아티스트스튜디오"
     },
     {
       "stock_code": "001940",
@@ -20034,6 +20034,11 @@
       "stock_code": "024890",
       "corp_code": "00112022",
       "name": "대원화성"
+    },
+    {
+      "stock_code": "204210",
+      "corp_code": "01035289",
+      "name": "제이케이리버스톤자기관리부동산투자회사"
     },
     {
       "stock_code": "261780",
