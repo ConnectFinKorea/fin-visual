@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-19T15:02:24+0000",
+  "generated_at": "2026-11-20T15:04:00+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 4019,
@@ -5604,11 +5604,6 @@
       "stock_code": "142210",
       "corp_code": "00879020",
       "name": "유니트론텍"
-    },
-    {
-      "stock_code": "043360",
-      "corp_code": "00295547",
-      "name": "디지아이"
     },
     {
       "stock_code": "053620",
@@ -11394,11 +11389,6 @@
       "stock_code": "182400",
       "corp_code": "00977650",
       "name": "엔케이젠바이오텍코리아"
-    },
-    {
-      "stock_code": "073570",
-      "corp_code": "00440712",
-      "name": "리튬포어스"
     },
     {
       "stock_code": "014200",
@@ -18071,11 +18061,6 @@
       "name": "성원에너텍"
     },
     {
-      "stock_code": "011000",
-      "corp_code": "00118521",
-      "name": "진원생명과학"
-    },
-    {
       "stock_code": "176750",
       "corp_code": "00867034",
       "name": "듀켐바이오"
@@ -18459,6 +18444,16 @@
       "stock_code": "226330",
       "corp_code": "01344336",
       "name": "신테카바이오"
+    },
+    {
+      "stock_code": "011000",
+      "corp_code": "00118521",
+      "name": "진원생명과학"
+    },
+    {
+      "stock_code": "043360",
+      "corp_code": "00295547",
+      "name": "디지아이"
     },
     {
       "stock_code": "032800",
@@ -18954,6 +18949,11 @@
       "stock_code": "459550",
       "corp_code": "01466373",
       "name": "알트"
+    },
+    {
+      "stock_code": "073570",
+      "corp_code": "00440712",
+      "name": "리튬포어스"
     },
     {
       "stock_code": "058450",
