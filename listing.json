@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-11-19T23:12:11+0900",
-  "reference_date": "2026-11-19",
+  "timestamp": "2026-11-20T23:11:26+0900",
+  "reference_date": "2026-11-20",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "하나에어로",
+      "date": "2026-11-20",
+      "sector": "항공기,우주선 및 부품 제조업"
+    },
     {
       "name": "에이엘로봇",
       "date": "2026-11-18",
@@ -157,6 +162,11 @@
     }
   ],
   "delistings": [
+    {
+      "name": "코람코더원리츠",
+      "date": "2026-11-20",
+      "reason": "해산 사유 발생"
+    },
     {
       "name": "에코볼트",
       "date": "2026-11-17",
