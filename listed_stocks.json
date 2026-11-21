@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-20T15:04:00+0000",
+  "generated_at": "2026-11-21T15:01:56+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4019,
+  "count": 4020,
   "companies": [
     {
       "stock_code": "036720",
@@ -4526,11 +4526,6 @@
       "name": "메리츠금융지주"
     },
     {
-      "stock_code": "011810",
-      "corp_code": "00138297",
-      "name": "STX"
-    },
-    {
       "stock_code": "243840",
       "corp_code": "00807379",
       "name": "신흥에스이씨"
@@ -4569,11 +4564,6 @@
       "stock_code": "044960",
       "corp_code": "00145473",
       "name": "이글벳"
-    },
-    {
-      "stock_code": "417310",
-      "corp_code": "01180118",
-      "name": "코람코더원리츠"
     },
     {
       "stock_code": "376290",
@@ -10346,11 +10336,6 @@
       "name": "휴메딕스"
     },
     {
-      "stock_code": "222040",
-      "corp_code": "00656289",
-      "name": "코스맥스엔비티"
-    },
-    {
       "stock_code": "189330",
       "corp_code": "00991298",
       "name": "씨이랩"
@@ -14311,11 +14296,6 @@
       "name": "본시스템즈"
     },
     {
-      "stock_code": "004990",
-      "corp_code": "00120562",
-      "name": "롯데지주"
-    },
-    {
       "stock_code": "066970",
       "corp_code": "00398701",
       "name": "엘앤에프"
@@ -15644,11 +15624,6 @@
       "stock_code": "280360",
       "corp_code": "01258507",
       "name": "롯데웰푸드"
-    },
-    {
-      "stock_code": "067570",
-      "corp_code": "00146436",
-      "name": "엔브이에이치코리아"
     },
     {
       "stock_code": "143210",
@@ -19406,6 +19381,31 @@
       "name": "노바렉스"
     },
     {
+      "stock_code": "004990",
+      "corp_code": "00120562",
+      "name": "롯데지주"
+    },
+    {
+      "stock_code": "222040",
+      "corp_code": "00656289",
+      "name": "코스맥스엔비티"
+    },
+    {
+      "stock_code": "011810",
+      "corp_code": "00138297",
+      "name": "STX"
+    },
+    {
+      "stock_code": "271160",
+      "corp_code": "01025617",
+      "name": "하나에어로"
+    },
+    {
+      "stock_code": "417310",
+      "corp_code": "01180118",
+      "name": "코람코더원위탁관리부동산투자회사"
+    },
+    {
       "stock_code": "101670",
       "corp_code": "00527491",
       "name": "하이드로리튬"
@@ -19444,6 +19444,11 @@
       "stock_code": "322780",
       "corp_code": "01364297",
       "name": "코퍼스코리아"
+    },
+    {
+      "stock_code": "067570",
+      "corp_code": "00146436",
+      "name": "엔브이에이치코리아"
     },
     {
       "stock_code": "034230",
