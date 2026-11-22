@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-21T23:12:54+0900",
-  "reference_date": "2026-11-21",
+  "timestamp": "2026-11-22T23:14:55+0900",
+  "reference_date": "2026-11-22",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -154,11 +154,6 @@
       "name": "니어스랩",
       "date": "2026-08-24",
       "sector": "소프트웨어 개발 및 공급업"
-    },
-    {
-      "name": "기도산업",
-      "date": "2026-08-21",
-      "sector": "봉제의복 제조업"
     }
   ],
   "delistings": [
