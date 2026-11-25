@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-24T23:14:10+0900",
-  "reference_date": "2026-11-24",
+  "timestamp": "2026-11-25T23:12:55+0900",
+  "reference_date": "2026-11-25",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
@@ -154,11 +154,6 @@
       "name": "해치텍",
       "date": "2026-08-25",
       "sector": "반도체 제조업"
-    },
-    {
-      "name": "니어스랩",
-      "date": "2026-08-24",
-      "sector": "소프트웨어 개발 및 공급업"
     }
   ],
   "delistings": [
