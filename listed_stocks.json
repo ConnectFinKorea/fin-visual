@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-26T15:01:31+0000",
+  "generated_at": "2026-11-27T15:03:19+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
   "count": 4021,
@@ -11781,11 +11781,6 @@
       "name": "메타케어"
     },
     {
-      "stock_code": "099520",
-      "corp_code": "00627029",
-      "name": "DGI"
-    },
-    {
       "stock_code": "353590",
       "corp_code": "01084294",
       "name": "오토앤"
@@ -17371,11 +17366,6 @@
       "name": "에스티씨라이프"
     },
     {
-      "stock_code": "062970",
-      "corp_code": "00403766",
-      "name": "한국첨단소재"
-    },
-    {
       "stock_code": "445680",
       "corp_code": "01498974",
       "name": "큐리옥스바이오시스템즈"
@@ -17846,6 +17836,16 @@
       "name": "주성엔지니어링"
     },
     {
+      "stock_code": "223310",
+      "corp_code": "01075126",
+      "name": "한국첨단솔루션"
+    },
+    {
+      "stock_code": "223220",
+      "corp_code": "01060735",
+      "name": "로지스몬"
+    },
+    {
       "stock_code": "001260",
       "corp_code": "00107066",
       "name": "남광토건"
@@ -18089,11 +18089,6 @@
       "stock_code": "0053F0",
       "corp_code": "01543043",
       "name": "티앤이코리아"
-    },
-    {
-      "stock_code": "223220",
-      "corp_code": "01060735",
-      "name": "로지스몬"
     },
     {
       "stock_code": "032790",
@@ -18354,6 +18349,11 @@
       "stock_code": "345290",
       "corp_code": "00960234",
       "name": "영광와이케이엠씨"
+    },
+    {
+      "stock_code": "062970",
+      "corp_code": "00403766",
+      "name": "한국첨단소재"
     },
     {
       "stock_code": "001520",
@@ -19011,6 +19011,11 @@
       "name": "오션스바이오"
     },
     {
+      "stock_code": "439960",
+      "corp_code": "01802928",
+      "name": "코스모로보틱스"
+    },
+    {
       "stock_code": "009460",
       "corp_code": "00163761",
       "name": "한창제지"
@@ -19024,11 +19029,6 @@
       "stock_code": "179900",
       "corp_code": "00961774",
       "name": "유티아이"
-    },
-    {
-      "stock_code": "223310",
-      "corp_code": "01075126",
-      "name": "사토시홀딩스"
     },
     {
       "stock_code": "403850",
@@ -19259,11 +19259,6 @@
       "stock_code": "314140",
       "corp_code": "01182259",
       "name": "알피바이오"
-    },
-    {
-      "stock_code": "439960",
-      "corp_code": "01802928",
-      "name": "코스모로보틱스"
     },
     {
       "stock_code": "101390",
@@ -19994,6 +19989,11 @@
       "stock_code": "493260",
       "corp_code": "01658035",
       "name": "옵토닉스"
+    },
+    {
+      "stock_code": "099520",
+      "corp_code": "00627029",
+      "name": "DGI"
     },
     {
       "stock_code": "011200",
