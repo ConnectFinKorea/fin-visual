@@ -1,10 +1,15 @@
 {
-  "timestamp": "2026-11-26T23:12:20+0900",
-  "reference_date": "2026-11-26",
+  "timestamp": "2026-11-27T23:14:43+0900",
+  "reference_date": "2026-11-27",
   "source": "KRX KIND",
   "window_months": 3,
   "spac_excluded": true,
   "new_listings": [
+    {
+      "name": "에이치스틸",
+      "date": "2026-11-27",
+      "sector": "기타 금속 가공제품 제조업"
+    },
     {
       "name": "엠비디",
       "date": "2026-11-24",
