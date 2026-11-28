@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "generated_at": "2026-11-27T15:03:19+0000",
+  "generated_at": "2026-11-28T15:00:18+0000",
   "source": "DART OpenAPI corpCode.xml",
   "note": "시장구분(KOSPI/KOSDAQ/KONEX)은 industry_mapping.json 에서 join",
-  "count": 4021,
+  "count": 4022,
   "companies": [
     {
       "stock_code": "036720",
@@ -8176,11 +8176,6 @@
       "name": "에이럭스"
     },
     {
-      "stock_code": "077360",
-      "corp_code": "00471068",
-      "name": "덕산하이메탈"
-    },
-    {
       "stock_code": "372320",
       "corp_code": "01492651",
       "name": "큐로셀"
@@ -8249,11 +8244,6 @@
       "stock_code": "010640",
       "corp_code": "00160375",
       "name": "진양폴리우레탄"
-    },
-    {
-      "stock_code": "012330",
-      "corp_code": "00164788",
-      "name": "현대모비스"
     },
     {
       "stock_code": "050110",
@@ -9966,11 +9956,6 @@
       "name": "스톰테크"
     },
     {
-      "stock_code": "005430",
-      "corp_code": "00156691",
-      "name": "한국공항"
-    },
-    {
       "stock_code": "002960",
       "corp_code": "00158149",
       "name": "한국쉘석유"
@@ -10644,11 +10629,6 @@
       "stock_code": "147830",
       "corp_code": "00899556",
       "name": "제룡산업"
-    },
-    {
-      "stock_code": "474930",
-      "corp_code": "01807747",
-      "name": "신한제13호스팩"
     },
     {
       "stock_code": "036280",
@@ -11509,11 +11489,6 @@
       "stock_code": "140430",
       "corp_code": "01116265",
       "name": "카티스"
-    },
-    {
-      "stock_code": "138080",
-      "corp_code": "00571483",
-      "name": "오이솔루션"
     },
     {
       "stock_code": "384470",
@@ -17846,6 +17821,11 @@
       "name": "로지스몬"
     },
     {
+      "stock_code": "138080",
+      "corp_code": "00571483",
+      "name": "오이솔루션"
+    },
+    {
       "stock_code": "001260",
       "corp_code": "00107066",
       "name": "남광토건"
@@ -18381,6 +18361,11 @@
       "name": "미래나노텍"
     },
     {
+      "stock_code": "005430",
+      "corp_code": "00156691",
+      "name": "한국공항"
+    },
+    {
       "stock_code": "226330",
       "corp_code": "01344336",
       "name": "신테카바이오"
@@ -18644,11 +18629,6 @@
       "stock_code": "338840",
       "corp_code": "01226234",
       "name": "와이바이오로직스"
-    },
-    {
-      "stock_code": "309930",
-      "corp_code": "01335453",
-      "name": "조이웍스앤코"
     },
     {
       "stock_code": "354200",
@@ -19561,6 +19541,11 @@
       "name": "HLB"
     },
     {
+      "stock_code": "012330",
+      "corp_code": "00164788",
+      "name": "현대모비스"
+    },
+    {
       "stock_code": "046940",
       "corp_code": "00363246",
       "name": "우원개발"
@@ -19614,6 +19599,11 @@
       "stock_code": "263770",
       "corp_code": "01196313",
       "name": "유에스티"
+    },
+    {
+      "stock_code": "077360",
+      "corp_code": "00471068",
+      "name": "덕산하이메탈"
     },
     {
       "stock_code": "081660",
@@ -19946,6 +19936,26 @@
       "name": "마크로젠"
     },
     {
+      "stock_code": "261780",
+      "corp_code": "01141599",
+      "name": "아리바이오LAB"
+    },
+    {
+      "stock_code": "0061P0",
+      "corp_code": "01743661",
+      "name": "에이치스틸"
+    },
+    {
+      "stock_code": "309930",
+      "corp_code": "01335453",
+      "name": "온길 넥스트"
+    },
+    {
+      "stock_code": "474930",
+      "corp_code": "01807747",
+      "name": "신한제13호기업인수목적"
+    },
+    {
       "stock_code": "080530",
       "corp_code": "00308559",
       "name": "코디"
@@ -20044,11 +20054,6 @@
       "stock_code": "204210",
       "corp_code": "01035289",
       "name": "제이케이리버스톤자기관리부동산투자회사"
-    },
-    {
-      "stock_code": "261780",
-      "corp_code": "01141599",
-      "name": "아리바이오LAB"
     },
     {
       "stock_code": "128940",
